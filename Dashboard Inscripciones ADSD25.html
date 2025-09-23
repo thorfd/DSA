@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Inscritos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Leaflet (para el mapa) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .chart-container {
+            position: relative;
+            height: 350px;
+            width: 100%;
+        }
+        #map {
+            height: 350px;
+            border-radius: 0.75rem;
+        }
+        .kpi-card {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        #drop-zone {
+            border: 2px dashed #cbd5e1;
+            transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+        }
+        #drop-zone.dragover {
+            background-color: #e2e8f0;
+            border-color: #4f46e5;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <div id="app-container" class="max-w-7xl mx-auto">
+        <header class="mb-8">
+            <h1 class="text-4xl font-bold text-gray-800">Dashboard de Inscritos</h1>
+            <p class="text-gray-500 mt-1">Análisis interactivo de la población estudiantil.</p>
+        </header>
+
+        <!-- Zona para subir archivo -->
+        <div id="upload-container" class="text-center bg-white p-10 rounded-xl shadow-lg mb-8">
+            <div id="drop-zone" class="p-8 rounded-lg">
+                <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                </svg>
+                <h2 class="mt-5 text-xl font-semibold text-gray-700">Arrastra y suelta tu archivo CSV aquí</h2>
+                <p class="text-gray-500 mt-1">o</p>
+                <input type="file" id="csv-file" accept=".csv" class="hidden">
+                <label for="csv-file" class="mt-4 inline-block bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg cursor-pointer hover:bg-indigo-700 transition">
+                    Selecciona un archivo
+                </label>
+            </div>
+            <p id="file-name" class="mt-4 text-gray-600"></p>
+        </div>
+
+        <!-- Contenedor del Dashboard (inicialmente oculto) -->
+        <main id="dashboard-content" class="hidden">
+            <!-- Filtros -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white p-4 rounded-xl shadow">
+                    <label for="campus-filter" class="block text-sm font-medium text-gray-700 mb-1">Filtrar por Campus</label>
+                    <select id="campus-filter" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        <option value="all">Todos los Campus</option>
+                    </select>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow">
+                    <label for="level-filter" class="block text-sm font-medium text-gray-700 mb-1">Filtrar por Nivel Académico</label>
+                    <select id="level-filter" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        <option value="all">Todos los Niveles</option>
+                    </select>
+                </div>
+                 <div class="bg-white p-4 rounded-xl shadow flex items-center justify-center">
+                    <button id="reset-filters" class="w-full bg-gray-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-gray-600 transition">
+                        Limpiar Filtros
+                    </button>
+                </div>
+            </div>
+
+            <!-- KPIs -->
+            <section class="grid grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
+                <div class="kpi-card bg-white p-6 rounded-xl shadow">
+                    <h3 class="text-gray-500 text-sm font-medium">Total de Inscritos</h3>
+                    <p id="kpi-total" class="text-4xl font-bold text-gray-800 mt-1">0</p>
+                </div>
+                <div class="kpi-card bg-white p-6 rounded-xl shadow">
+                    <h3 class="text-gray-500 text-sm font-medium">Nuevo Ingreso</h3>
+                    <p id="kpi-new" class="text-4xl font-bold text-gray-800 mt-1">0</p>
+                </div>
+                <div class="kpi-card bg-white p-6 rounded-xl shadow">
+                    <h3 class="text-gray-500 text-sm font-medium">Reingreso</h3>
+                    <p id="kpi-reentry" class="text-4xl font-bold text-gray-800 mt-1">0</p>
+                </div>
+                <div class="kpi-card bg-white p-6 rounded-xl shadow">
+                    <h3 class="text-gray-500 text-sm font-medium">% con Beca</h3>
+                    <p id="kpi-scholarship" class="text-4xl font-bold text-gray-800 mt-1">0%</p>
+                </div>
+                <div class="kpi-card bg-white p-6 rounded-xl shadow">
+                    <h3 class="text-gray-500 text-sm font-medium">Beca Promedio</h3>
+                    <p id="kpi-avg-scholarship" class="text-4xl font-bold text-gray-800 mt-1">0%</p>
+                </div>
+            </section>
+
+            <!-- Gráficas -->
+            <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow">
+                    <h3 class="font-semibold text-lg text-gray-800">Inscritos por Nivel Académico</h3>
+                    <div class="chart-container"><canvas id="level-chart"></canvas></div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow">
+                    <h3 class="font-semibold text-lg text-gray-800">Inscritos por Campus</h3>
+                    <div class="chart-container"><canvas id="campus-chart"></canvas></div>
+                </div>
+                 <div class="bg-white p-6 rounded-xl shadow lg:col-span-2">
+                    <h3 class="font-semibold text-lg text-gray-800">Top 10 Carreras con más Inscritos</h3>
+                    <div class="chart-container"><canvas id="major-chart"></canvas></div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow">
+                    <h3 class="font-semibold text-lg text-gray-800">Distribución por Género</h3>
+                    <div class="chart-container"><canvas id="gender-chart"></canvas></div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow">
+                    <h3 class="font-semibold text-lg text-gray-800">Distribución por Tipo de Estudiante</h3>
+                    <div class="chart-container"><canvas id="type-chart"></canvas></div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow">
+                    <h3 class="font-semibold text-lg text-gray-800">Distribución de Becas</h3>
+                    <div class="chart-container"><canvas id="scholarship-dist-chart"></canvas></div>
+                </div>
+                 <div class="bg-white p-6 rounded-xl shadow">
+                    <h3 class="font-semibold text-lg text-gray-800">Geolocalización de Estudiantes</h3>
+                    <div id="map"></div>
+                </div>
+                 <div class="bg-white p-6 rounded-xl shadow lg:col-span-2">
+                    <h3 class="font-semibold text-lg text-gray-800">Evolución de Inscripciones Diarias</h3>
+                    <div class="chart-container"><canvas id="timeline-chart"></canvas></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        let originalData = [];
+        const charts = {};
+        let map;
+        let cityLayer;
+
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('csv-file');
+        const fileNameDisplay = document.getElementById('file-name');
+        const uploadContainer = document.getElementById('upload-container');
+        const dashboardContent = document.getElementById('dashboard-content');
+        const campusFilter = document.getElementById('campus-filter');
+        const levelFilter = document.getElementById('level-filter');
+        const resetFiltersBtn = document.getElementById('reset-filters');
+        
+        // --- Lógica para arrastrar y soltar ---
+        dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
+        dropZone.addEventListener('dragleave', (e) => { e.preventDefault(); dropZone.classList.remove('dragover'); });
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            if (e.dataTransfer.files.length) {
+                fileInput.files = e.dataTransfer.files;
+                handleFileSelect({ target: fileInput });
+            }
+        });
+        fileInput.addEventListener('change', handleFileSelect);
+
+        // --- Lógica de filtros ---
+        campusFilter.addEventListener('change', updateDashboard);
+        levelFilter.addEventListener('change', updateDashboard);
+        resetFiltersBtn.addEventListener('click', () => {
+            campusFilter.value = 'all';
+            levelFilter.value = 'all';
+            updateDashboard();
+        });
+
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                fileNameDisplay.textContent = `Archivo cargado: ${file.name}`;
+                Papa.parse(file, {
+                    header: true,
+                    skipEmptyLines: true,
+                    complete: (results) => {
+                        originalData = results.data.map(row => ({
+                            ...row,
+                            'Género': row['Columna1'] || 'No especificado' 
+                        }));
+                        uploadContainer.classList.add('hidden');
+                        dashboardContent.classList.remove('hidden');
+                        initializeDashboard();
+                    },
+                    error: (error) => {
+                        console.error('Error parsing file:', error);
+                        fileNameDisplay.textContent = 'Error al leer el archivo. Intenta de nuevo.';
+                    }
+                });
+            }
+        }
+
+        function initializeDashboard() {
+            populateFilters();
+            createCharts();
+            initializeMap();
+            updateDashboard();
+        }
+        
+        function populateFilters() {
+            const campuses = [...new Set(originalData.map(item => item['Campus']))].sort();
+            const levels = [...new Set(originalData.map(item => item['Nivel académico']))].sort();
+            campuses.forEach(c => campusFilter.add(new Option(c, c)));
+            levels.forEach(l => levelFilter.add(new Option(l, l)));
+        }
+        
+        function getFilteredData() {
+            const selectedCampus = campusFilter.value;
+            const selectedLevel = levelFilter.value;
+            return originalData.filter(row => 
+                (selectedCampus === 'all' || row['Campus'] === selectedCampus) &&
+                (selectedLevel === 'all' || row['Nivel académico'] === selectedLevel)
+            );
+        }
+        
+        function updateDashboard() {
+            const data = getFilteredData();
+            
+            // --- KPIs ---
+            const totalStudents = data.length;
+            document.getElementById('kpi-total').textContent = totalStudents.toLocaleString();
+            document.getElementById('kpi-new').textContent = data.filter(r => r['Clave tipo estudiante'] === 'Nuevo Ingreso').length.toLocaleString();
+            document.getElementById('kpi-reentry').textContent = data.filter(r => r['Clave tipo estudiante'] === 'Reingreso').length.toLocaleString();
+            
+            const withScholarship = data.filter(r => parseFloat(r['% Beca']) > 0);
+            document.getElementById('kpi-scholarship').textContent = `${totalStudents > 0 ? ((withScholarship.length / totalStudents) * 100).toFixed(1) : 0}%`;
+
+            const totalScholarship = data.reduce((sum, r) => sum + (parseFloat(r['% Beca']) || 0), 0);
+            document.getElementById('kpi-avg-scholarship').textContent = `${totalStudents > 0 ? (totalScholarship / totalStudents).toFixed(1) : 0}%`;
+
+            // --- Gráficas ---
+            updateChart(charts.level, processDataForChart(data, 'Nivel académico'));
+            updateChart(charts.campus, processDataForChart(data, 'Campus'));
+            updateChart(charts.major, processDataForChart(data, 'Descripción Código académico', 10));
+            updateChart(charts.gender, processDataForChart(data, 'Género'));
+            updateChart(charts.type, processDataForChart(data, 'Clave tipo estudiante'));
+            updateChart(charts.timeline, processTimelineData(data));
+            updateChart(charts.scholarship, processScholarshipData(data));
+            updateMap(data);
+        }
+        
+        // --- Funciones de procesamiento de datos ---
+        function processDataForChart(data, key, limit = null) {
+            const counts = data.reduce((acc, row) => {
+                const value = row[key] || 'No especificado';
+                acc[value] = (acc[value] || 0) + 1;
+                return acc;
+            }, {});
+            let sorted = Object.entries(counts).sort(([, a], [, b]) => b - a);
+            if (limit) sorted = sorted.slice(0, limit);
+            return { labels: sorted.map(i => i[0]), data: sorted.map(i => i[1]) };
+        }
+
+        function processTimelineData(data) {
+            const counts = data.reduce((acc, row) => {
+                if (row['Fecha de inscripción']) {
+                    const date = row['Fecha de inscripción'].split(' ')[0];
+                    if (date) acc[date] = (acc[date] || 0) + 1;
+                }
+                return acc;
+            }, {});
+            const sorted = Object.entries(counts).sort((a, b) => new Date(a[0]) - new Date(b[0]));
+            return { labels: sorted.map(i => i[0]), data: sorted.map(i => i[1]) };
+        }
+
+        function processScholarshipData(data) {
+            const brackets = { '0%': 0, '1-20%': 0, '21-40%': 0, '41-60%': 0, '61-80%': 0, '81-100%': 0 };
+            data.forEach(row => {
+                const p = parseFloat(row['% Beca']) || 0;
+                if (p === 0) brackets['0%']++;
+                else if (p <= 20) brackets['1-20%']++;
+                else if (p <= 40) brackets['21-40%']++;
+                else if (p <= 60) brackets['41-60%']++;
+                else if (p <= 80) brackets['61-80%']++;
+                else brackets['81-100%']++;
+            });
+            return { labels: Object.keys(brackets), data: Object.values(brackets) };
+        }
+
+        const chartColors = ['#4f46e5', '#ec4899', '#10b981', '#f59e0b', '#3b82f6', '#8b5cf6', '#ef4444', '#6b7280'];
+        
+        function createCharts() {
+            charts.level = new Chart('level-chart', { type: 'pie', options: getChartOptions('Nivel Académico') });
+            charts.campus = new Chart('campus-chart', { type: 'doughnut', options: getChartOptions('Campus') });
+            charts.major = new Chart('major-chart', { type: 'bar', options: getChartOptions('Carreras', { indexAxis: 'y' }) });
+            charts.gender = new Chart('gender-chart', { type: 'pie', options: getChartOptions('Género') });
+            charts.type = new Chart('type-chart', { type: 'doughnut', options: getChartOptions('Tipo de Estudiante') });
+            charts.timeline = new Chart('timeline-chart', { type: 'line', options: getChartOptions('Evolución de Inscripciones', { scales: { y: { beginAtZero: true } } }) });
+            charts.scholarship = new Chart('scholarship-dist-chart', { type: 'bar', options: getChartOptions('Distribución de Becas', { scales: { y: { beginAtZero: true } } }) });
+        }
+
+        function getChartOptions(title, extraOptions = {}) {
+            return { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } }, ...extraOptions };
+        }
+
+        function updateChart(chart, { labels, data }) {
+            chart.data.labels = labels;
+            chart.data.datasets = [{ label: 'Inscritos', data, backgroundColor: chartColors, borderColor: '#ffffff', borderWidth: 1, tension: 0.1, fill: false }];
+            chart.update();
+        }
+        
+        // --- Lógica del Mapa ---
+        const cityCoords = {
+            'torreon': [25.5428, -103.4068],
+            'gomez palacio': [25.567, -103.500],
+            'lerdo': [25.551, -103.523],
+            'matamoros': [25.527, -103.228],
+            'san pedro': [25.757, -102.980],
+            'francisco i madero': [25.774, -103.273],
+        };
+
+        function initializeMap() {
+            map = L.map('map').setView([25.56, -103.45], 10); // Vista centrada en La Laguna
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+            cityLayer = L.layerGroup().addTo(map);
+        }
+
+        function updateMap(data) {
+            cityLayer.clearLayers();
+            const cityCounts = data.reduce((acc, row) => {
+                const address = (row['Domicilio estudiante (local)'] || '').toLowerCase();
+                let foundCity = 'Otros';
+                for (const city in cityCoords) {
+                    if (address.includes(city)) {
+                        foundCity = city;
+                        break;
+                    }
+                }
+                acc[foundCity] = (acc[foundCity] || 0) + 1;
+                return acc;
+            }, {});
+
+            const maxCount = Math.max(...Object.values(cityCounts));
+
+            for (const city in cityCounts) {
+                if (cityCoords[city]) {
+                    const count = cityCounts[city];
+                    // Escala el radio del círculo basado en el número de estudiantes
+                    const radius = count > 0 ? 500 + (count / maxCount) * 10000 : 0;
+                    const circle = L.circle(cityCoords[city], {
+                        color: '#4f46e5',
+                        fillColor: '#4f46e5',
+                        fillOpacity: 0.5,
+                        radius: radius
+                    }).addTo(cityLayer);
+                    circle.bindPopup(`<b>${city.charAt(0).toUpperCase() + city.slice(1)}</b><br>${count} inscritos.`);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
