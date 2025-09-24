@@ -11,10 +11,25 @@
     <!-- Leaflet (para el mapa) -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script>
+        // Configuración del modo oscuro/claro
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark')
+        } else {
+          document.documentElement.classList.remove('dark')
+        }
+        tailwind.config = {
+          darkMode: 'class',
+        }
+      </script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f3f4f6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .dark body {
+            background-color: #111827;
         }
         .chart-container {
             position: relative;
@@ -25,64 +40,88 @@
             height: 350px;
             border-radius: 0.75rem;
         }
-        .kpi-card {
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        .leaflet-tile-pane {
+            filter: brightness(100%);
+        }
+        .dark .leaflet-tile-pane {
+           filter: brightness(80%) invert(100%) grayscale(100%);
+        }
+        .kpi-card, .chart-card, .filter-card {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.3s ease, border-color 0.3s ease;
+            background-color: white;
+        }
+        .dark .kpi-card, .dark .chart-card, .dark .filter-card {
+            background-color: #1f2937;
+            border: 1px solid #374151;
         }
         .kpi-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
-        #drop-zone {
-            border: 2px dashed #cbd5e1;
-            transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
-        }
-        #drop-zone.dragover {
-            background-color: #e2e8f0;
-            border-color: #4f46e5;
-        }
         select[multiple] {
-            height: 100px; /* Adjust height for better multi-select UX */
+            height: 100px;
+        }
+        /* Estilos para texto en modo oscuro */
+        .dark .text-gray-800 { color: #f9fafb; }
+        .dark .text-gray-500 { color: #9ca3af; }
+        .dark .text-gray-700 { color: #d1d5db; }
+        .dark select, .dark input {
+            background-color: #374151;
+            color: #f9fafb;
+            border-color: #4b5563;
+        }
+        .loader {
+            border: 8px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 8px solid #4f46e5;
+            width: 60px;
+            height: 60px;
+            animation: spin 2s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body class="p-4 md:p-8">
-    <div id="app-container" class="max-w-7xl mx-auto">
-        <header class="mb-8">
-            <h1 class="text-4xl font-bold text-gray-800">Dashboard de Inscritos AD-SD 2025</h1>
-            <p class="text-gray-500 mt-1">Análisis interactivo de la población estudiantil.</p>
+    <div id="loading-container" class="fixed inset-0 bg-gray-100 dark:bg-gray-900 flex flex-col items-center justify-center z-50">
+        <div class="loader mb-4"></div>
+        <p class="text-lg text-gray-700 dark:text-gray-300">Cargando datos del dashboard...</p>
+    </div>
+
+    <div id="app-container" class="max-w-7xl mx-auto opacity-0 transition-opacity duration-500">
+        <header class="mb-8 flex justify-between items-center">
+            <div>
+                <h1 class="text-4xl font-bold text-gray-800">Dashboard de Inscritos</h1>
+                <p class="text-gray-500 mt-1">Análisis interactivo de la población estudiantil.</p>
+            </div>
+            <div class="flex items-center space-x-4">
+                 <button id="last-update-btn" class="text-sm bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 py-2 px-4 rounded-lg flex items-center space-x-2 whitespace-nowrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.414-1.415L11 9.586V6z" clip-rule="evenodd" /></svg>
+                    <span id="update-time">Consultando...</span>
+                </button>
+                <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+                    <svg id="theme-icon-light" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                    <svg id="theme-icon-dark" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                </button>
+            </div>
         </header>
 
-        <!-- Zona para subir archivo -->
-        <div id="upload-container" class="text-center bg-white p-10 rounded-xl shadow-lg mb-8">
-            <div id="drop-zone" class="p-8 rounded-lg">
-                <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 24 24" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                </svg>
-                <h2 class="mt-5 text-xl font-semibold text-gray-700">Arrastra y suelta tu archivo CSV aquí</h2>
-                <p class="text-gray-500 mt-1">o</p>
-                <input type="file" id="csv-file" accept=".csv" class="hidden">
-                <label for="csv-file" class="mt-4 inline-block bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg cursor-pointer hover:bg-indigo-700 transition">
-                    Selecciona un archivo
-                </label>
-            </div>
-            <p id="file-name" class="mt-4 text-gray-600"></p>
-        </div>
-
-        <!-- Contenedor del Dashboard (inicialmente oculto) -->
-        <main id="dashboard-content" class="hidden">
+        <main id="dashboard-content">
             <!-- Filtros -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="bg-white p-4 rounded-xl shadow">
+                <div class="filter-card p-4 rounded-xl shadow">
                     <label for="campus-filter" class="block text-sm font-medium text-gray-700 mb-1">Filtrar por Campus</label>
                     <select id="campus-filter" multiple class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></select>
                     <p class="text-xs text-gray-500 mt-1">Mantén Ctrl (o Cmd) para seleccionar varios.</p>
                 </div>
-                <div class="bg-white p-4 rounded-xl shadow">
+                <div class="filter-card p-4 rounded-xl shadow">
                     <label for="level-filter" class="block text-sm font-medium text-gray-700 mb-1">Filtrar por Nivel Académico</label>
                     <select id="level-filter" multiple class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></select>
                      <p class="text-xs text-gray-500 mt-1">Mantén Ctrl (o Cmd) para seleccionar varios.</p>
                 </div>
-                 <div class="bg-white p-4 rounded-xl shadow flex items-center justify-center">
+                 <div class="filter-card p-4 rounded-xl shadow flex items-center justify-center">
                     <button id="reset-filters" class="w-full bg-gray-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-gray-600 transition">
                         Limpiar Filtros
                     </button>
@@ -91,23 +130,23 @@
 
             <!-- KPIs -->
             <section class="grid grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
-                <div class="kpi-card bg-white p-6 rounded-xl shadow">
+                <div class="kpi-card p-6 rounded-xl shadow">
                     <h3 class="text-gray-500 text-sm font-medium">Total de Inscritos</h3>
                     <p id="kpi-total" class="text-4xl font-bold text-gray-800 mt-1">0</p>
                 </div>
-                <div class="kpi-card bg-white p-6 rounded-xl shadow">
+                <div class="kpi-card p-6 rounded-xl shadow">
                     <h3 class="text-gray-500 text-sm font-medium">Nuevo Ingreso</h3>
                     <p id="kpi-new" class="text-4xl font-bold text-gray-800 mt-1">0</p>
                 </div>
-                <div class="kpi-card bg-white p-6 rounded-xl shadow">
+                <div class="kpi-card p-6 rounded-xl shadow">
                     <h3 class="text-gray-500 text-sm font-medium">Reingreso</h3>
                     <p id="kpi-reentry" class="text-4xl font-bold text-gray-800 mt-1">0</p>
                 </div>
-                <div class="kpi-card bg-white p-6 rounded-xl shadow">
+                <div class="kpi-card p-6 rounded-xl shadow">
                     <h3 class="text-gray-500 text-sm font-medium">% con Beca</h3>
                     <p id="kpi-scholarship" class="text-4xl font-bold text-gray-800 mt-1">0%</p>
                 </div>
-                <div class="kpi-card bg-white p-6 rounded-xl shadow">
+                <div class="kpi-card p-6 rounded-xl shadow">
                     <h3 class="text-gray-500 text-sm font-medium">Beca Promedio</h3>
                     <p id="kpi-avg-scholarship" class="text-4xl font-bold text-gray-800 mt-1">0%</p>
                 </div>
@@ -115,35 +154,35 @@
 
             <!-- Gráficas -->
             <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div class="bg-white p-6 rounded-xl shadow">
+                <div class="chart-card p-6 rounded-xl shadow">
                     <h3 class="font-semibold text-lg text-gray-800">Inscritos por Nivel Académico</h3>
                     <div class="chart-container"><canvas id="level-chart"></canvas></div>
                 </div>
-                <div class="bg-white p-6 rounded-xl shadow">
+                <div class="chart-card p-6 rounded-xl shadow">
                     <h3 class="font-semibold text-lg text-gray-800">Inscritos por Campus</h3>
                     <div class="chart-container"><canvas id="campus-chart"></canvas></div>
                 </div>
-                 <div class="bg-white p-6 rounded-xl shadow lg:col-span-2">
+                 <div class="chart-card p-6 rounded-xl shadow lg:col-span-2">
                     <h3 class="font-semibold text-lg text-gray-800">Top 10 Carreras con más Inscritos</h3>
                     <div class="chart-container"><canvas id="major-chart"></canvas></div>
                 </div>
-                <div class="bg-white p-6 rounded-xl shadow">
+                <div class="chart-card p-6 rounded-xl shadow">
                     <h3 class="font-semibold text-lg text-gray-800">Distribución por Género</h3>
                     <div class="chart-container"><canvas id="gender-chart"></canvas></div>
                 </div>
-                <div class="bg-white p-6 rounded-xl shadow">
+                <div class="chart-card p-6 rounded-xl shadow">
                     <h3 class="font-semibold text-lg text-gray-800">Distribución por Tipo de Estudiante</h3>
                     <div class="chart-container"><canvas id="type-chart"></canvas></div>
                 </div>
-                <div class="bg-white p-6 rounded-xl shadow">
+                <div class="chart-card p-6 rounded-xl shadow">
                     <h3 class="font-semibold text-lg text-gray-800">Distribución de Becas</h3>
                     <div class="chart-container"><canvas id="scholarship-dist-chart"></canvas></div>
                 </div>
-                 <div class="bg-white p-6 rounded-xl shadow">
+                 <div class="chart-card p-6 rounded-xl shadow">
                     <h3 class="font-semibold text-lg text-gray-800">Geolocalización de Estudiantes</h3>
                     <div id="map"></div>
                 </div>
-                 <div class="bg-white p-6 rounded-xl shadow lg:col-span-2">
+                 <div class="chart-card p-6 rounded-xl shadow lg:col-span-2">
                     <div class="flex justify-between items-center mb-4">
                          <h3 id="timeline-chart-title" class="font-semibold text-lg text-gray-800">Evolución de Inscripciones</h3>
                          <div>
@@ -160,49 +199,66 @@
     </div>
 
     <script>
+        // --- Variables Globales ---
         let originalData = [];
         const charts = {};
         let map;
         let cityLayer;
 
-        const dropZone = document.getElementById('drop-zone');
-        const fileInput = document.getElementById('csv-file');
-        const fileNameDisplay = document.getElementById('file-name');
-        const uploadContainer = document.getElementById('upload-container');
-        const dashboardContent = document.getElementById('dashboard-content');
+        // --- Configuración de GitHub ---
+        const GITHUB_USER = 'thorfd';
+        const GITHUB_REPO = 'InscLG';
+        const FILE_PATH = 'Inscritos_LG_ADSD25.csv';
+        const DATA_URL = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${FILE_PATH}`;
+        const API_URL = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/commits?path=${FILE_PATH}&page=1&per_page=1`;
+
+        // --- Selectores del DOM ---
+        const loadingContainer = document.getElementById('loading-container');
+        const appContainer = document.getElementById('app-container');
         const campusFilter = document.getElementById('campus-filter');
         const levelFilter = document.getElementById('level-filter');
         const monthFilter = document.getElementById('month-filter');
         const resetFiltersBtn = document.getElementById('reset-filters');
-        
-        // --- Lógica de Eventos ---
-        dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
-        dropZone.addEventListener('dragleave', (e) => { e.preventDefault(); dropZone.classList.remove('dragover'); });
-        dropZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dropZone.classList.remove('dragover');
-            if (e.dataTransfer.files.length) {
-                fileInput.files = e.dataTransfer.files;
-                handleFileSelect({ target: fileInput });
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIconLight = document.getElementById('theme-icon-light');
+        const themeIconDark = document.getElementById('theme-icon-dark');
+        const updateTimeSpan = document.getElementById('update-time');
+
+        // --- Lógica de Inicialización ---
+        document.addEventListener('DOMContentLoaded', () => {
+            setupTheme();
+            fetchData();
+            fetchLastUpdate();
+            setupEventListeners();
+        });
+
+        function setupTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                themeIconLight.classList.remove('hidden');
+            } else {
+                themeIconDark.classList.remove('hidden');
             }
-        });
-        fileInput.addEventListener('change', handleFileSelect);
+        }
+        
+        function setupEventListeners() {
+            campusFilter.addEventListener('change', updateDashboard);
+            levelFilter.addEventListener('change', updateDashboard);
+            monthFilter.addEventListener('change', updateDashboard);
+            resetFiltersBtn.addEventListener('click', () => {
+                Array.from(campusFilter.options).forEach(opt => opt.selected = false);
+                Array.from(levelFilter.options).forEach(opt => opt.selected = false);
+                monthFilter.value = 'all';
+                updateDashboard();
+            });
+            themeToggle.addEventListener('click', toggleTheme);
+        }
 
-        campusFilter.addEventListener('change', updateDashboard);
-        levelFilter.addEventListener('change', updateDashboard);
-        monthFilter.addEventListener('change', updateDashboard);
-        resetFiltersBtn.addEventListener('click', () => {
-            Array.from(campusFilter.options).forEach(opt => opt.selected = false);
-            Array.from(levelFilter.options).forEach(opt => opt.selected = false);
-            monthFilter.value = 'all';
-            updateDashboard();
-        });
-
-        function handleFileSelect(event) {
-            const file = event.target.files[0];
-            if (file) {
-                fileNameDisplay.textContent = `Archivo cargado: ${file.name}`;
-                Papa.parse(file, {
+        async function fetchData() {
+            try {
+                const response = await fetch(DATA_URL);
+                if (!response.ok) throw new Error(`Network response was not ok: ${response.statusText}`);
+                const csvText = await response.text();
+                Papa.parse(csvText, {
                     header: true,
                     skipEmptyLines: true,
                     complete: (results) => {
@@ -210,15 +266,33 @@
                             ...row,
                             'Género': row['Columna1'] || 'No especificado' 
                         }));
-                        uploadContainer.classList.add('hidden');
-                        dashboardContent.classList.remove('hidden');
                         initializeDashboard();
                     },
                     error: (error) => {
-                        console.error('Error parsing file:', error);
-                        fileNameDisplay.textContent = 'Error al leer el archivo. Intenta de nuevo.';
+                        console.error('Error parsing CSV file:', error);
+                        loadingContainer.innerHTML = '<p class="text-red-500">Error al procesar los datos.</p>';
                     }
                 });
+            } catch (error) {
+                console.error('Failed to fetch data:', error);
+                loadingContainer.innerHTML = '<p class="text-red-500">No se pudo cargar el archivo de datos desde GitHub.</p>';
+            }
+        }
+
+        async function fetchLastUpdate() {
+            try {
+                const response = await fetch(API_URL);
+                if (!response.ok) throw new Error('Failed to fetch commit data');
+                const data = await response.json();
+                if (data && data.length > 0) {
+                    const lastCommitDate = new Date(data[0].commit.committer.date);
+                    updateTimeSpan.textContent = `Actualizado: ${lastCommitDate.toLocaleString()}`;
+                } else {
+                    updateTimeSpan.textContent = 'No se pudo obtener la fecha';
+                }
+            } catch (error) {
+                console.error('Error fetching last update:', error);
+                updateTimeSpan.textContent = 'Error al consultar fecha';
             }
         }
 
@@ -227,10 +301,13 @@
             createCharts();
             initializeMap();
             updateDashboard();
+            // Mostrar contenido del dashboard
+            loadingContainer.style.display = 'none';
+            appContainer.style.opacity = 1;
         }
         
+        // --- Lógica de Filtros y Actualización ---
         function populateFilters() {
-             // Clear existing options
             campusFilter.innerHTML = '';
             levelFilter.innerHTML = '';
 
@@ -239,15 +316,12 @@
             campuses.forEach(c => campusFilter.add(new Option(c, c)));
             levels.forEach(l => levelFilter.add(new Option(l, l)));
             
-            // Populate Month Filter
             const months = [...new Set(originalData.map(item => {
                 const parsedDate = parseCustomDate(item['Fecha de inscripción']);
                 return parsedDate ? parsedDate.substring(0, 7) : null;
             }))].filter(m => m).sort();
             
-            while (monthFilter.options.length > 1) {
-                monthFilter.remove(1);
-            }
+            while (monthFilter.options.length > 1) monthFilter.remove(1);
             months.forEach(m => monthFilter.add(new Option(m, m)));
         }
         
@@ -264,19 +338,15 @@
         function updateDashboard() {
             const data = getFilteredData();
             
-            // --- KPIs ---
             const totalStudents = data.length;
             document.getElementById('kpi-total').textContent = totalStudents.toLocaleString();
             document.getElementById('kpi-new').textContent = data.filter(r => r['Clave tipo estudiante'] === 'Nuevo Ingreso').length.toLocaleString();
             document.getElementById('kpi-reentry').textContent = data.filter(r => r['Clave tipo estudiante'] === 'Reingreso').length.toLocaleString();
-            
             const withScholarship = data.filter(r => parseFloat(r['% Beca']) > 0);
             document.getElementById('kpi-scholarship').textContent = `${totalStudents > 0 ? ((withScholarship.length / totalStudents) * 100).toFixed(1) : 0}%`;
-
             const totalScholarship = data.reduce((sum, r) => sum + (parseFloat(r['% Beca']) || 0), 0);
             document.getElementById('kpi-avg-scholarship').textContent = `${totalStudents > 0 ? (totalScholarship / totalStudents).toFixed(1) : 0}%`;
 
-            // --- Gráficas ---
             updateChart(charts.level, processDataForChart(data, 'Nivel académico'));
             updateChart(charts.campus, processDataForChart(data, 'Campus'));
             updateChart(charts.major, processDataForChart(data, 'Descripción Código académico', 10));
@@ -287,7 +357,20 @@
             updateTimelineChart(data);
         }
         
-        // --- Funciones de procesamiento de datos ---
+        // --- Funciones de Procesamiento de Datos ---
+        function parseCustomDate(dateStr) {
+            if (!dateStr || typeof dateStr !== 'string') return null;
+            if (/^\d{4}-\d{2}-\d{2}/.test(dateStr)) return dateStr.split(' ')[0];
+            const parts = dateStr.split(' ')[0].split('/');
+            if (parts.length === 3) {
+                const [day, month, year] = parts;
+                if (day && month && year && year.length === 4) {
+                    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+                }
+            }
+            return null;
+        }
+        
         function processDataForChart(data, key, limit = null) {
             const counts = data.reduce((acc, row) => {
                 const value = row[key] || 'No especificado';
@@ -297,26 +380,6 @@
             let sorted = Object.entries(counts).sort(([, a], [, b]) => b - a);
             if (limit) sorted = sorted.slice(0, limit);
             return { labels: sorted.map(i => i[0]), data: sorted.map(i => i[1]) };
-        }
-
-        function parseCustomDate(dateStr) {
-            if (!dateStr || typeof dateStr !== 'string') return null;
-            
-            // Handles YYYY-MM-DD format (e.g., "2025-08-13...")
-            if (/^\d{4}-\d{2}-\d{2}/.test(dateStr)) {
-                return dateStr.split(' ')[0];
-            }
-            
-            // Handles DD/MM/AAAA format (e.g., "13/08/2025...")
-            const parts = dateStr.split(' ')[0].split('/');
-            if (parts.length === 3) {
-                const [day, month, year] = parts;
-                if (day && month && year && year.length === 4) {
-                    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-                }
-            }
-            
-            return null; // Return null if format is not recognized
         }
 
         function processTimelineData(data, groupBy) {
@@ -346,9 +409,12 @@
             return { labels: Object.keys(brackets), data: Object.values(brackets) };
         }
 
+        // --- Lógica de Gráficas y Mapa ---
         const chartColors = ['#4f46e5', '#ec4899', '#10b981', '#f59e0b', '#3b82f6', '#8b5cf6', '#ef4444', '#6b7280'];
         
         function createCharts() {
+            const commonOptions = { color: document.documentElement.classList.contains('dark') ? '#d1d5db' : '#374151' };
+            Chart.defaults.color = commonOptions.color;
             charts.level = new Chart('level-chart', { type: 'pie', options: getChartOptions() });
             charts.campus = new Chart('campus-chart', { type: 'doughnut', options: getChartOptions() });
             charts.major = new Chart('major-chart', { type: 'bar', options: getChartOptions({ indexAxis: 'y' }) });
@@ -365,47 +431,32 @@
         function updateChart(chart, { labels, data }) {
             chart.data.labels = labels;
             const type = chart.config.type;
-
-            const dataset = {
-                label: 'Inscritos',
-                data,
-                borderWidth: 1,
-            };
-
+            const dataset = { label: 'Inscritos', data, borderWidth: 1 };
             if (type === 'line') {
                 dataset.backgroundColor = 'rgba(79, 70, 229, 0.1)';
                 dataset.borderColor = '#4f46e5';
                 dataset.tension = 0.1;
                 dataset.fill = true;
-            } else { // For bar, pie, doughnut
+            } else {
                 dataset.backgroundColor = chartColors;
-                dataset.borderColor = '#ffffff';
+                dataset.borderColor = document.documentElement.classList.contains('dark') ? '#1f2937' : '#ffffff';
             }
-
             chart.data.datasets = [dataset];
             chart.update();
         }
         
         function updateTimelineChart(data) {
             const selectedMonth = monthFilter.value;
-            const timelineTitle = document.getElementById('timeline-chart-title');
-            let chartData;
-
-            if (selectedMonth === 'all') {
-                timelineTitle.textContent = 'Inscripciones Mensuales';
-                chartData = processTimelineData(data, 'month');
-            } else {
-                timelineTitle.textContent = `Inscripciones Diarias para ${selectedMonth}`;
-                const monthlyData = data.filter(row => {
+            document.getElementById('timeline-chart-title').textContent = selectedMonth === 'all' ? 'Inscripciones Mensuales' : `Inscripciones Diarias para ${selectedMonth}`;
+            const chartData = selectedMonth === 'all' ?
+                processTimelineData(data, 'month') :
+                processTimelineData(data.filter(row => {
                     const parsedDate = parseCustomDate(row['Fecha de inscripción']);
                     return parsedDate && parsedDate.startsWith(selectedMonth);
-                });
-                chartData = processTimelineData(monthlyData, 'day');
-            }
+                }), 'day');
             updateChart(charts.timeline, chartData);
         }
 
-        // --- Lógica del Mapa ---
         const cityCoords = {
             'torreon': [25.5428, -103.4068], 'gomez palacio': [25.567, -103.500],
             'lerdo': [25.551, -103.523], 'matamoros': [25.527, -103.228],
@@ -425,12 +476,7 @@
             const cityCounts = data.reduce((acc, row) => {
                 const address = (row['Domicilio estudiante (local)'] || '').toLowerCase();
                 let foundCity = 'Otros';
-                for (const city in cityCoords) {
-                    if (address.includes(city)) {
-                        foundCity = city;
-                        break;
-                    }
-                }
+                for (const city in cityCoords) { if (address.includes(city)) { foundCity = city; break; } }
                 acc[foundCity] = (acc[foundCity] || 0) + 1;
                 return acc;
             }, {});
@@ -448,7 +494,30 @@
                 }
             }
         }
+
+        // --- Lógica del Tema ---
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+            if (document.documentElement.classList.contains('dark')) {
+                localStorage.theme = 'dark';
+                themeIconDark.classList.add('hidden');
+                themeIconLight.classList.remove('hidden');
+            } else {
+                localStorage.theme = 'light';
+                themeIconLight.add('hidden');
+                themeIconDark.classList.remove('hidden');
+            }
+            // Re-render charts with new theme colors
+            const newColor = document.documentElement.classList.contains('dark') ? '#d1d5db' : '#374151';
+            Chart.defaults.color = newColor;
+            Object.values(charts).forEach(chart => {
+                if (chart.config.type !== 'line') {
+                    chart.data.datasets[0].borderColor = document.documentElement.classList.contains('dark') ? '#1f2937' : '#ffffff';
+                }
+                chart.update();
+            });
+        }
     </script>
 </body>
-
 </html>
+
