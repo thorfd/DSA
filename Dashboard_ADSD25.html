@@ -209,7 +209,8 @@
         const GITHUB_USER = 'thorfd';
         const GITHUB_REPO = 'InscLG';
         const FILE_PATH = 'Inscritos_LG_ADSD25.csv';
-        const DATA_URL = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${FILE_PATH}`;
+        // CORRECTED: Use a relative path to avoid CORS issues
+        const DATA_URL = `./${FILE_PATH}`; 
         const API_URL = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/commits?path=${FILE_PATH}&page=1&per_page=1`;
 
         // --- Selectores del DOM ---
@@ -504,7 +505,8 @@
                 themeIconLight.classList.remove('hidden');
             } else {
                 localStorage.theme = 'light';
-                themeIconLight.add('hidden');
+                // CORRECTED: Use classList.add
+                themeIconLight.classList.add('hidden');
                 themeIconDark.classList.remove('hidden');
             }
             // Re-render charts with new theme colors
