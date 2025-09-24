@@ -1,0 +1,1351 @@
+﻿Escenario,Mes 1,Mes,LS,CeCo,Concepto 1,Concepto,Monto
+Plan Operativo,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7001 - Servicios,Servicios,16072.98
+Plan Operativo,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,25979.23
+Plan Operativo,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7004 - Software,Software,1789.23
+Plan Operativo,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7005 - Publicidad,Publicidad,29459.78
+Plan Operativo,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,3571.9
+Plan Operativo,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7012 - IVA,IVA,14385.57
+Plan Operativo,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7015 - Materiales,Materiales,12953.61
+Plan Operativo,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7001 - Servicios,Servicios,166343.96
+Plan Operativo,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,21897.17
+Plan Operativo,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7005 - Publicidad,Publicidad,6270
+Plan Operativo,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,11309.33
+Plan Operativo,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7012 - IVA,IVA,33733.88
+Plan Operativo,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7015 - Materiales,Materiales,14746.44
+Plan Operativo,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7001 - Servicios,Servicios,7.84
+Plan Operativo,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7002 - Gastos de Operacion,Gastos de Operacion,27687.98
+Plan Operativo,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7005 - Publicidad,Publicidad,828.49
+Plan Operativo,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,5494.45
+Plan Operativo,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7012 - IVA,IVA,5007.91
+Plan Operativo,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7015 - Materiales,Materiales,2926.77
+Plan Operativo,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690108000 - Alumnos Mixtos,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,7254.23
+Plan Operativo,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690108001 - Alumnos OnLine,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,99855.41
+Plan Operativo,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690108002 - Alumnos Connect,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,139199.45
+Plan Operativo,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7002 - Gastos de Operacion,Gastos de Operacion,9934.15
+Plan Operativo,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7003 - Gastos de Viaje,Gastos de Viaje,4798.29
+Plan Operativo,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7005 - Publicidad,Publicidad,1132.22
+Plan Operativo,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,103.92
+Plan Operativo,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7012 - IVA,IVA,2900.35
+Plan Operativo,Ago Acd AJ,Ago,LS_13 - Arrendamientos,UF_5691301000 - Arrendamientos,ER_7001 - Servicios,Servicios,25000
+Plan Operativo,Ago Acd AJ,Ago,LS_13 - Arrendamientos,UF_5691301000 - Arrendamientos,ER_7012 - IVA,IVA,3750
+Plan Operativo,Ago Acd AJ,Ago,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7002 - Gastos de Operacion,Gastos de Operacion,29343.3
+Plan Operativo,Ago Acd AJ,Ago,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,20434.54
+Plan Operativo,Ago Acd AJ,Ago,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7012 - IVA,IVA,4426.2
+Plan Operativo,Ago Acd AJ,Ago,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7015 - Materiales,Materiales,7374.02
+Plan Operativo,Ago Acd AJ,Ago,LS_20 - Apoyo academico,UF_5692003001 - Graduaciones,ER_7002 - Gastos de Operacion,Gastos de Operacion,1618.68
+Plan Operativo,Ago Acd AJ,Ago,LS_20 - Apoyo academico,UF_5692003001 - Graduaciones,ER_7012 - IVA,IVA,242.8
+Plan Operativo,Ago Acd AJ,Ago,LS_20 - Apoyo academico,UF_5692007000 - Biblioteca,ER_7012 - IVA,IVA,459.9
+Plan Operativo,Ago Acd AJ,Ago,LS_20 - Apoyo academico,UF_5692007000 - Biblioteca,ER_7016 - Bibliografia,Bibliografia,39059.46
+Plan Operativo,Ago Acd AJ,Ago,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7001 - Servicios,Servicios,5917.76
+Plan Operativo,Ago Acd AJ,Ago,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7002 - Gastos de Operacion,Gastos de Operacion,16536.67
+Plan Operativo,Ago Acd AJ,Ago,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7003 - Gastos de Viaje,Gastos de Viaje,1466.02
+Plan Operativo,Ago Acd AJ,Ago,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7005 - Publicidad,Publicidad,6270
+Plan Operativo,Ago Acd AJ,Ago,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7008 - Comunicaciones,Comunicaciones,1005.52
+Plan Operativo,Ago Acd AJ,Ago,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7012 - IVA,IVA,5260.2
+Plan Operativo,Ago Acd AJ,Ago,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,8716.81
+Plan Operativo,Ago Acd AJ,Ago,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7012 - IVA,IVA,1432.77
+Plan Operativo,Ago Acd AJ,Ago,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,6731.29
+Plan Operativo,Ago Acd AJ,Ago,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7003 - Gastos de Viaje,Gastos de Viaje,22787.45
+Plan Operativo,Ago Acd AJ,Ago,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7012 - IVA,IVA,4578.71
+Plan Operativo,Ago Acd AJ,Ago,LS_23 - Vivencia de Alumnos,UF_5692305000 - Transporte Escolar,ER_7001 - Servicios,Servicios,38874
+Plan Operativo,Ago Acd AJ,Ago,LS_23 - Vivencia de Alumnos,UF_5692305000 - Transporte Escolar,ER_7012 - IVA,IVA,5831.1
+Plan Operativo,Ago Acd AJ,Ago,LS_40 - Administracion y Finanzas,UF_5694005000 - Abasto/Compras,ER_7002 - Gastos de Operacion,Gastos de Operacion,124.53
+Plan Operativo,Ago Acd AJ,Ago,LS_40 - Administracion y Finanzas,UF_5694005000 - Abasto/Compras,ER_7012 - IVA,IVA,510.23
+Plan Operativo,Ago Acd AJ,Ago,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7001 - Servicios,Servicios,5747.5
+Plan Operativo,Ago Acd AJ,Ago,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7002 - Gastos de Operacion,Gastos de Operacion,26407.93
+Plan Operativo,Ago Acd AJ,Ago,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7008 - Comunicaciones,Comunicaciones,2572.39
+Plan Operativo,Ago Acd AJ,Ago,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7012 - IVA,IVA,8773.06
+Plan Operativo,Ago Acd AJ,Ago,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7015 - Materiales,Materiales,13265.23
+Plan Operativo,Ago Acd AJ,Ago,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7002 - Gastos de Operacion,Gastos de Operacion,45588.13
+Plan Operativo,Ago Acd AJ,Ago,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7007 - Mantenimiento,Mantenimiento,70035.9
+Plan Operativo,Ago Acd AJ,Ago,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7012 - IVA,IVA,17343.6
+Plan Operativo,Ago Acd AJ,Ago,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7007 - Mantenimiento,Mantenimiento,3120.37
+Plan Operativo,Ago Acd AJ,Ago,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7009 - Subcontrataciones,Subcontrataciones,143679.78
+Plan Operativo,Ago Acd AJ,Ago,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7012 - IVA,IVA,22020.02
+Plan Operativo,Ago Acd AJ,Ago,LS_48 - Planta Fisica,UF_5694805000 - Servicio de Vigilancia,ER_7009 - Subcontrataciones,Subcontrataciones,174636
+Plan Operativo,Ago Acd AJ,Ago,LS_48 - Planta Fisica,UF_5694805000 - Servicio de Vigilancia,ER_7012 - IVA,IVA,26195.4
+Plan Operativo,Ago Acd AJ,Ago,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7001 - Servicios,Servicios,19970.27
+Plan Operativo,Ago Acd AJ,Ago,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7002 - Gastos de Operacion,Gastos de Operacion,34753.57
+Plan Operativo,Ago Acd AJ,Ago,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7006 - Servicios Publicos,Servicios Publicos,32883.8
+Plan Operativo,Ago Acd AJ,Ago,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7007 - Mantenimiento,Mantenimiento,2975.12
+Plan Operativo,Ago Acd AJ,Ago,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7012 - IVA,IVA,9614.81
+Plan Operativo,Ago Acd AJ,Ago,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7004 - Software,Software,238756.84
+Plan Operativo,Ago Acd AJ,Ago,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7008 - Comunicaciones,Comunicaciones,16416.65
+Plan Operativo,Ago Acd AJ,Ago,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7012 - IVA,IVA,32286.19
+Plan Operativo,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7001 - Servicios,Servicios,23073.36
+Plan Operativo,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7002 - Gastos de Operacion,Gastos de Operacion,187360.28
+Plan Operativo,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7003 - Gastos de Viaje,Gastos de Viaje,13511.54
+Plan Operativo,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7005 - Publicidad,Publicidad,6830.91
+Plan Operativo,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7008 - Comunicaciones,Comunicaciones,2519.9
+Plan Operativo,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7012 - IVA,IVA,36266.33
+Plan Operativo,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7015 - Materiales,Materiales,3962.51
+Plan Operativo,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7001 - Servicios,Servicios,3511.43
+Plan Operativo,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,77804.73
+Plan Operativo,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7003 - Gastos de Viaje,Gastos de Viaje,8215.05
+Plan Operativo,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7005 - Publicidad,Publicidad,9796.88
+Plan Operativo,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7008 - Comunicaciones,Comunicaciones,1078.35
+Plan Operativo,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7012 - IVA,IVA,16879.5
+Plan Operativo,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7015 - Materiales,Materiales,6244.6
+Plan Operativo,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7001 - Servicios,Servicios,1839.2
+Plan Operativo,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7002 - Gastos de Operacion,Gastos de Operacion,17238.37
+Plan Operativo,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7005 - Publicidad,Publicidad,9796.88
+Plan Operativo,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7008 - Comunicaciones,Comunicaciones,718.9
+Plan Operativo,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7012 - IVA,IVA,4724.21
+Plan Operativo,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7015 - Materiales,Materiales,404.39
+Plan Operativo,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7002 - Gastos de Operacion,Gastos de Operacion,20393.91
+Plan Operativo,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7003 - Gastos de Viaje,Gastos de Viaje,17.34
+Plan Operativo,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7005 - Publicidad,Publicidad,9796.88
+Plan Operativo,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7008 - Comunicaciones,Comunicaciones,772.93
+Plan Operativo,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7012 - IVA,IVA,5680.57
+Plan Operativo,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7015 - Materiales,Materiales,404.39
+Plan Operativo,Ago Acd AJ,Ago,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7002 - Gastos de Operacion,Gastos de Operacion,5000
+Plan Operativo,Ago Acd AJ,Ago,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7012 - IVA,IVA,750
+Plan Operativo,Ago Acd AJ,Ago,LS_99 - Operacion Institucional,UF_5699903000 - Comisiones Bancarias,ER_7011 - Comisiones Bancarias,Comisiones Bancarias,99001.22
+Plan Operativo,Ago Acd AJ,Ago,LS_99 - Operacion Institucional,UF_5699907000 - Servicios Administrativos,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,1416017.13
+Plan Operativo,Ago Acd AJ,Ago,LS_99 - Operacion Institucional,UF_5699914000 - PRESTAMO EDUCATIVO PROFESIONAL,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,136665.08
+Plan Operativo,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7001 - Servicios,Servicios,29824.2
+Plan Operativo,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,20479.46
+Plan Operativo,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,3571.9
+Plan Operativo,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7012 - IVA,IVA,9016.6
+Plan Operativo,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7015 - Materiales,Materiales,158
+Plan Operativo,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7001 - Servicios,Servicios,121880.96
+Plan Operativo,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,54976.73
+Plan Operativo,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7003 - Gastos de Viaje,Gastos de Viaje,5409.64
+Plan Operativo,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,11309.33
+Plan Operativo,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7012 - IVA,IVA,29709.05
+Plan Operativo,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7015 - Materiales,Materiales,158
+Plan Operativo,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7001 - Servicios,Servicios,1100.62
+Plan Operativo,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7002 - Gastos de Operacion,Gastos de Operacion,3805.21
+Plan Operativo,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,5494.45
+Plan Operativo,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7012 - IVA,IVA,1026.12
+Plan Operativo,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690108000 - Alumnos Mixtos,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,133115
+Plan Operativo,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7002 - Gastos de Operacion,Gastos de Operacion,2102.3
+Plan Operativo,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,103.92
+Plan Operativo,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7012 - IVA,IVA,836
+Plan Operativo,Sep Acd AJ,Sep,LS_13 - Arrendamientos,UF_5691301000 - Arrendamientos,ER_7001 - Servicios,Servicios,25000
+Plan Operativo,Sep Acd AJ,Sep,LS_13 - Arrendamientos,UF_5691301000 - Arrendamientos,ER_7012 - IVA,IVA,3750
+Plan Operativo,Sep Acd AJ,Sep,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7002 - Gastos de Operacion,Gastos de Operacion,11342.96
+Plan Operativo,Sep Acd AJ,Sep,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,20434.54
+Plan Operativo,Sep Acd AJ,Sep,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7012 - IVA,IVA,1617.99
+Plan Operativo,Sep Acd AJ,Sep,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7015 - Materiales,Materiales,706.34
+Plan Operativo,Sep Acd AJ,Sep,LS_20 - Apoyo academico,UF_5692003001 - Graduaciones,ER_7002 - Gastos de Operacion,Gastos de Operacion,5200
+Plan Operativo,Sep Acd AJ,Sep,LS_20 - Apoyo academico,UF_5692003001 - Graduaciones,ER_7012 - IVA,IVA,780
+Plan Operativo,Sep Acd AJ,Sep,LS_20 - Apoyo academico,UF_5692007000 - Biblioteca,ER_7012 - IVA,IVA,459.9
+Plan Operativo,Sep Acd AJ,Sep,LS_20 - Apoyo academico,UF_5692007000 - Biblioteca,ER_7016 - Bibliografia,Bibliografia,5395.45
+Plan Operativo,Sep Acd AJ,Sep,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7002 - Gastos de Operacion,Gastos de Operacion,4932.04
+Plan Operativo,Sep Acd AJ,Sep,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7005 - Publicidad,Publicidad,19332.5
+Plan Operativo,Sep Acd AJ,Sep,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7008 - Comunicaciones,Comunicaciones,740.92
+Plan Operativo,Sep Acd AJ,Sep,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7012 - IVA,IVA,4331.62
+Plan Operativo,Sep Acd AJ,Sep,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7001 - Servicios,Servicios,12967.12
+Plan Operativo,Sep Acd AJ,Sep,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,25886.88
+Plan Operativo,Sep Acd AJ,Sep,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7012 - IVA,IVA,5953.35
+Plan Operativo,Sep Acd AJ,Sep,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7001 - Servicios,Servicios,7388.33
+Plan Operativo,Sep Acd AJ,Sep,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,32214.03
+Plan Operativo,Sep Acd AJ,Sep,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7012 - IVA,IVA,6091.26
+Plan Operativo,Sep Acd AJ,Sep,LS_22 - Desarrollo social,UF_5692204000 - Servicio Social,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,20875
+Plan Operativo,Sep Acd AJ,Sep,LS_23 - Vivencia de Alumnos,UF_5692305000 - Transporte Escolar,ER_7001 - Servicios,Servicios,82764
+Plan Operativo,Sep Acd AJ,Sep,LS_23 - Vivencia de Alumnos,UF_5692305000 - Transporte Escolar,ER_7012 - IVA,IVA,12414.6
+Plan Operativo,Sep Acd AJ,Sep,LS_40 - Administracion y Finanzas,UF_5694005000 - Abasto/Compras,ER_7002 - Gastos de Operacion,Gastos de Operacion,8346.08
+Plan Operativo,Sep Acd AJ,Sep,LS_40 - Administracion y Finanzas,UF_5694005000 - Abasto/Compras,ER_7012 - IVA,IVA,1743.46
+Plan Operativo,Sep Acd AJ,Sep,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7001 - Servicios,Servicios,25950.49
+Plan Operativo,Sep Acd AJ,Sep,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7002 - Gastos de Operacion,Gastos de Operacion,35819.74
+Plan Operativo,Sep Acd AJ,Sep,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7008 - Comunicaciones,Comunicaciones,5628.82
+Plan Operativo,Sep Acd AJ,Sep,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7012 - IVA,IVA,11943.23
+Plan Operativo,Sep Acd AJ,Sep,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7015 - Materiales,Materiales,1728.43
+Plan Operativo,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7002 - Gastos de Operacion,Gastos de Operacion,29304.94
+Plan Operativo,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7007 - Mantenimiento,Mantenimiento,144515.14
+Plan Operativo,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7012 - IVA,IVA,26073.01
+Plan Operativo,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7002 - Gastos de Operacion,Gastos de Operacion,3657.5
+Plan Operativo,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7007 - Mantenimiento,Mantenimiento,4572.92
+Plan Operativo,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7009 - Subcontrataciones,Subcontrataciones,143679.78
+Plan Operativo,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7012 - IVA,IVA,22786.53
+Plan Operativo,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694805000 - Servicio de Vigilancia,ER_7009 - Subcontrataciones,Subcontrataciones,174636
+Plan Operativo,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694805000 - Servicio de Vigilancia,ER_7012 - IVA,IVA,26195.4
+Plan Operativo,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7001 - Servicios,Servicios,19970.27
+Plan Operativo,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7002 - Gastos de Operacion,Gastos de Operacion,77994.62
+Plan Operativo,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7006 - Servicios Publicos,Servicios Publicos,39411.92
+Plan Operativo,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7007 - Mantenimiento,Mantenimiento,2975.12
+Plan Operativo,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7012 - IVA,IVA,17080.19
+Plan Operativo,Sep Acd AJ,Sep,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7004 - Software,Software,259836.68
+Plan Operativo,Sep Acd AJ,Sep,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7008 - Comunicaciones,Comunicaciones,17866.07
+Plan Operativo,Sep Acd AJ,Sep,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7012 - IVA,IVA,35046.08
+Plan Operativo,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7002 - Gastos de Operacion,Gastos de Operacion,22803.91
+Plan Operativo,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7008 - Comunicaciones,Comunicaciones,2184.8
+Plan Operativo,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7012 - IVA,IVA,4456.17
+Plan Operativo,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7015 - Materiales,Materiales,202.08
+Plan Operativo,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,1501.48
+Plan Operativo,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7003 - Gastos de Viaje,Gastos de Viaje,12937.63
+Plan Operativo,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7005 - Publicidad,Publicidad,16913.33
+Plan Operativo,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7008 - Comunicaciones,Comunicaciones,718.89
+Plan Operativo,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7012 - IVA,IVA,5740.32
+Plan Operativo,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7015 - Materiales,Materiales,318.46
+Plan Operativo,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7002 - Gastos de Operacion,Gastos de Operacion,846.21
+Plan Operativo,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7005 - Publicidad,Publicidad,18906.66
+Plan Operativo,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7008 - Comunicaciones,Comunicaciones,718.9
+Plan Operativo,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7012 - IVA,IVA,3366.96
+Plan Operativo,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7015 - Materiales,Materiales,477.61
+Plan Operativo,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7001 - Servicios,Servicios,1672
+Plan Operativo,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7002 - Gastos de Operacion,Gastos de Operacion,16792.89
+Plan Operativo,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7005 - Publicidad,Publicidad,18906.66
+Plan Operativo,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7008 - Comunicaciones,Comunicaciones,772.93
+Plan Operativo,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7012 - IVA,IVA,6766.06
+Plan Operativo,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7015 - Materiales,Materiales,477.61
+Plan Operativo,Sep Acd AJ,Sep,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7002 - Gastos de Operacion,Gastos de Operacion,5000
+Plan Operativo,Sep Acd AJ,Sep,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7012 - IVA,IVA,750
+Plan Operativo,Sep Acd AJ,Sep,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,19544.15
+Plan Operativo,Sep Acd AJ,Sep,LS_99 - Operacion Institucional,UF_5699903000 - Comisiones Bancarias,ER_7011 - Comisiones Bancarias,Comisiones Bancarias,99001.22
+Plan Operativo,Sep Acd AJ,Sep,LS_99 - Operacion Institucional,UF_5699907000 - Servicios Administrativos,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,1425884.79
+Plan Operativo,Sep Acd AJ,Sep,LS_99 - Operacion Institucional,UF_5699914000 - PRESTAMO EDUCATIVO PROFESIONAL,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,136665.08
+Plan Operativo,Oct Acd AJ,Oct,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7001 - Servicios,Servicios,4104.14
+Plan Operativo,Oct Acd AJ,Oct,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,22923.51
+Plan Operativo,Oct Acd AJ,Oct,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7003 - Gastos de Viaje,Gastos de Viaje,858.41
+Plan Operativo,Oct Acd AJ,Oct,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7007 - Mantenimiento,Mantenimiento,4023.25
+Plan Operativo,Oct Acd AJ,Oct,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,3571.9
+Plan Operativo,Oct Acd AJ,Oct,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7012 - IVA,IVA,6274.49
+Plan Operativo,Oct Acd AJ,Oct,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7015 - Materiales,Materiales,271.62
+Plan Operativo,Oct Acd AJ,Oct,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7001 - Servicios,Servicios,142784.04
+Plan Operativo,Oct Acd AJ,Oct,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,29903.1
+Plan Operativo,Oct Acd AJ,Oct,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,11309.33
+Plan Operativo,Oct Acd AJ,Oct,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7012 - IVA,IVA,28289.06
+Plan Operativo,Oct Acd AJ,Oct,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7015 - Materiales,Materiales,271.62
+Plan Operativo,Oct Acd AJ,Oct,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7001 - Servicios,Servicios,1084.7
+Plan Operativo,Oct Acd AJ,Oct,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,5494.45
+Plan Operativo,Oct Acd AJ,Oct,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7012 - IVA,IVA,461.06
+Plan Operativo,Oct Acd AJ,Oct,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7015 - Materiales,Materiales,54.05
+Plan Operativo,Oct Acd AJ,Oct,LS_01 - Ensenanza,UF_5690108000 - Alumnos Mixtos,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,138370.71
+Plan Operativo,Oct Acd AJ,Oct,LS_01 - Ensenanza,UF_5690108001 - Alumnos OnLine,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,105784.93
+Plan Operativo,Oct Acd AJ,Oct,LS_01 - Ensenanza,UF_5690108002 - Alumnos Connect,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,118803.7
+Plan Operativo,Oct Acd AJ,Oct,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,103.92
+Plan Operativo,Oct Acd AJ,Oct,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7012 - IVA,IVA,520.65
+Plan Operativo,Oct Acd AJ,Oct,LS_13 - Arrendamientos,UF_5691301000 - Arrendamientos,ER_7001 - Servicios,Servicios,25000
+Plan Operativo,Oct Acd AJ,Oct,LS_13 - Arrendamientos,UF_5691301000 - Arrendamientos,ER_7012 - IVA,IVA,3750
+Plan Operativo,Oct Acd AJ,Oct,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7002 - Gastos de Operacion,Gastos de Operacion,42944.2
+Plan Operativo,Oct Acd AJ,Oct,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,20434.54
+Plan Operativo,Oct Acd AJ,Oct,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7012 - IVA,IVA,4020.01
+Plan Operativo,Oct Acd AJ,Oct,LS_20 - Apoyo academico,UF_5692007000 - Biblioteca,ER_7012 - IVA,IVA,459.9
+Plan Operativo,Oct Acd AJ,Oct,LS_20 - Apoyo academico,UF_5692007000 - Biblioteca,ER_7016 - Bibliografia,Bibliografia,5395.45
+Plan Operativo,Oct Acd AJ,Oct,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7001 - Servicios,Servicios,105206.24
+Plan Operativo,Oct Acd AJ,Oct,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7002 - Gastos de Operacion,Gastos de Operacion,13837.4
+Plan Operativo,Oct Acd AJ,Oct,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7005 - Publicidad,Publicidad,8360
+Plan Operativo,Oct Acd AJ,Oct,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7008 - Comunicaciones,Comunicaciones,1181.95
+Plan Operativo,Oct Acd AJ,Oct,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7012 - IVA,IVA,19868.63
+Plan Operativo,Oct Acd AJ,Oct,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7001 - Servicios,Servicios,28753.4
+Plan Operativo,Oct Acd AJ,Oct,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,20122.2
+Plan Operativo,Oct Acd AJ,Oct,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7007 - Mantenimiento,Mantenimiento,234.08
+Plan Operativo,Oct Acd AJ,Oct,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7009 - Subcontrataciones,Subcontrataciones,1001.54
+Plan Operativo,Oct Acd AJ,Oct,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7012 - IVA,IVA,7834.75
+Plan Operativo,Oct Acd AJ,Oct,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7015 - Materiales,Materiales,1285.46
+Plan Operativo,Oct Acd AJ,Oct,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7001 - Servicios,Servicios,2952.64
+Plan Operativo,Oct Acd AJ,Oct,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,31396.67
+Plan Operativo,Oct Acd AJ,Oct,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7009 - Subcontrataciones,Subcontrataciones,500.77
+Plan Operativo,Oct Acd AJ,Oct,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7012 - IVA,IVA,5473.22
+Plan Operativo,Oct Acd AJ,Oct,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7015 - Materiales,Materiales,632.05
+Plan Operativo,Oct Acd AJ,Oct,LS_22 - Desarrollo social,UF_5692204000 - Servicio Social,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,32870.72
+Plan Operativo,Oct Acd AJ,Oct,LS_23 - Vivencia de Alumnos,UF_5692305000 - Transporte Escolar,ER_7001 - Servicios,Servicios,82764
+Plan Operativo,Oct Acd AJ,Oct,LS_23 - Vivencia de Alumnos,UF_5692305000 - Transporte Escolar,ER_7012 - IVA,IVA,12414.6
+Plan Operativo,Oct Acd AJ,Oct,LS_40 - Administracion y Finanzas,UF_5694005000 - Abasto/Compras,ER_7002 - Gastos de Operacion,Gastos de Operacion,206.76
+Plan Operativo,Oct Acd AJ,Oct,LS_40 - Administracion y Finanzas,UF_5694005000 - Abasto/Compras,ER_7012 - IVA,IVA,522.56
+Plan Operativo,Oct Acd AJ,Oct,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7001 - Servicios,Servicios,18175.69
+Plan Operativo,Oct Acd AJ,Oct,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7002 - Gastos de Operacion,Gastos de Operacion,180.96
+Plan Operativo,Oct Acd AJ,Oct,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7008 - Comunicaciones,Comunicaciones,4165.45
+Plan Operativo,Oct Acd AJ,Oct,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7012 - IVA,IVA,7350.69
+Plan Operativo,Oct Acd AJ,Oct,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7015 - Materiales,Materiales,15988.5
+Plan Operativo,Oct Acd AJ,Oct,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7002 - Gastos de Operacion,Gastos de Operacion,40004.69
+Plan Operativo,Oct Acd AJ,Oct,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7007 - Mantenimiento,Mantenimiento,96284.21
+Plan Operativo,Oct Acd AJ,Oct,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7012 - IVA,IVA,20443.33
+Plan Operativo,Oct Acd AJ,Oct,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7002 - Gastos de Operacion,Gastos de Operacion,28745.86
+Plan Operativo,Oct Acd AJ,Oct,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7007 - Mantenimiento,Mantenimiento,6241.79
+Plan Operativo,Oct Acd AJ,Oct,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7009 - Subcontrataciones,Subcontrataciones,143679.78
+Plan Operativo,Oct Acd AJ,Oct,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7012 - IVA,IVA,26800.12
+Plan Operativo,Oct Acd AJ,Oct,LS_48 - Planta Fisica,UF_5694805000 - Servicio de Vigilancia,ER_7009 - Subcontrataciones,Subcontrataciones,174636
+Plan Operativo,Oct Acd AJ,Oct,LS_48 - Planta Fisica,UF_5694805000 - Servicio de Vigilancia,ER_7012 - IVA,IVA,26195.4
+Plan Operativo,Oct Acd AJ,Oct,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7001 - Servicios,Servicios,25822.27
+Plan Operativo,Oct Acd AJ,Oct,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7002 - Gastos de Operacion,Gastos de Operacion,50486.04
+Plan Operativo,Oct Acd AJ,Oct,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7006 - Servicios Publicos,Servicios Publicos,46483.43
+Plan Operativo,Oct Acd AJ,Oct,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7007 - Mantenimiento,Mantenimiento,2975.12
+Plan Operativo,Oct Acd AJ,Oct,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7012 - IVA,IVA,14892.43
+Plan Operativo,Oct Acd AJ,Oct,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7004 - Software,Software,211445.84
+Plan Operativo,Oct Acd AJ,Oct,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7008 - Comunicaciones,Comunicaciones,14538.78
+Plan Operativo,Oct Acd AJ,Oct,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7012 - IVA,IVA,28710.5
+Plan Operativo,Oct Acd AJ,Oct,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7001 - Servicios,Servicios,25352.98
+Plan Operativo,Oct Acd AJ,Oct,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7002 - Gastos de Operacion,Gastos de Operacion,8177.2
+Plan Operativo,Oct Acd AJ,Oct,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7003 - Gastos de Viaje,Gastos de Viaje,10781.4
+Plan Operativo,Oct Acd AJ,Oct,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7005 - Publicidad,Publicidad,7291.24
+Plan Operativo,Oct Acd AJ,Oct,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7008 - Comunicaciones,Comunicaciones,2183.73
+Plan Operativo,Oct Acd AJ,Oct,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7012 - IVA,IVA,8745.53
+Plan Operativo,Oct Acd AJ,Oct,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7001 - Servicios,Servicios,7658.39
+Plan Operativo,Oct Acd AJ,Oct,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,37045.87
+Plan Operativo,Oct Acd AJ,Oct,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7003 - Gastos de Viaje,Gastos de Viaje,719.2
+Plan Operativo,Oct Acd AJ,Oct,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7005 - Publicidad,Publicidad,7291.24
+Plan Operativo,Oct Acd AJ,Oct,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7008 - Comunicaciones,Comunicaciones,718.91
+Plan Operativo,Oct Acd AJ,Oct,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7012 - IVA,IVA,8896.88
+Plan Operativo,Oct Acd AJ,Oct,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7001 - Servicios,Servicios,9042.74
+Plan Operativo,Oct Acd AJ,Oct,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7008 - Comunicaciones,Comunicaciones,718.9
+Plan Operativo,Oct Acd AJ,Oct,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7012 - IVA,IVA,1688.79
+Plan Operativo,Oct Acd AJ,Oct,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7002 - Gastos de Operacion,Gastos de Operacion,4125.49
+Plan Operativo,Oct Acd AJ,Oct,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7008 - Comunicaciones,Comunicaciones,772.93
+Plan Operativo,Oct Acd AJ,Oct,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7012 - IVA,IVA,1707.52
+Plan Operativo,Oct Acd AJ,Oct,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7001 - Servicios,Servicios,6747.5
+Plan Operativo,Oct Acd AJ,Oct,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7002 - Gastos de Operacion,Gastos de Operacion,7376.38
+Plan Operativo,Oct Acd AJ,Oct,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7012 - IVA,IVA,2118.58
+Plan Operativo,Oct Acd AJ,Oct,LS_99 - Operacion Institucional,UF_5699903000 - Comisiones Bancarias,ER_7011 - Comisiones Bancarias,Comisiones Bancarias,99001.22
+Plan Operativo,Oct Acd AJ,Oct,LS_99 - Operacion Institucional,UF_5699907000 - Servicios Administrativos,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,1420145.29
+Plan Operativo,Oct Acd AJ,Oct,LS_99 - Operacion Institucional,UF_5699914000 - PRESTAMO EDUCATIVO PROFESIONAL,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,136665.08
+Plan Operativo,Nov Acd AJ,Nov,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7001 - Servicios,Servicios,7448.14
+Plan Operativo,Nov Acd AJ,Nov,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,74771.82
+Plan Operativo,Nov Acd AJ,Nov,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7003 - Gastos de Viaje,Gastos de Viaje,2690.77
+Plan Operativo,Nov Acd AJ,Nov,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,3571.9
+Plan Operativo,Nov Acd AJ,Nov,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7012 - IVA,IVA,14183.96
+Plan Operativo,Nov Acd AJ,Nov,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7001 - Servicios,Servicios,47570.57
+Plan Operativo,Nov Acd AJ,Nov,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,37122.11
+Plan Operativo,Nov Acd AJ,Nov,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7003 - Gastos de Viaje,Gastos de Viaje,3569.19
+Plan Operativo,Nov Acd AJ,Nov,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7005 - Publicidad,Publicidad,37208.22
+Plan Operativo,Nov Acd AJ,Nov,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,11309.33
+Plan Operativo,Nov Acd AJ,Nov,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7012 - IVA,IVA,21283.32
+Plan Operativo,Nov Acd AJ,Nov,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7015 - Materiales,Materiales,783.75
+Plan Operativo,Nov Acd AJ,Nov,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7001 - Servicios,Servicios,1752.99
+Plan Operativo,Nov Acd AJ,Nov,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7002 - Gastos de Operacion,Gastos de Operacion,6030.49
+Plan Operativo,Nov Acd AJ,Nov,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,5494.45
+Plan Operativo,Nov Acd AJ,Nov,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7012 - IVA,IVA,1457.78
+Plan Operativo,Nov Acd AJ,Nov,LS_01 - Ensenanza,UF_5690108000 - Alumnos Mixtos,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,138370.71
+Plan Operativo,Nov Acd AJ,Nov,LS_01 - Ensenanza,UF_5690108001 - Alumnos OnLine,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,83075.26
+Plan Operativo,Nov Acd AJ,Nov,LS_01 - Ensenanza,UF_5690108002 - Alumnos Connect,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,122403.81
+Plan Operativo,Nov Acd AJ,Nov,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7001 - Servicios,Servicios,1304.75
+Plan Operativo,Nov Acd AJ,Nov,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7002 - Gastos de Operacion,Gastos de Operacion,2459.15
+Plan Operativo,Nov Acd AJ,Nov,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,103.92
+Plan Operativo,Nov Acd AJ,Nov,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7012 - IVA,IVA,1085.23
+Plan Operativo,Nov Acd AJ,Nov,LS_13 - Arrendamientos,UF_5691301000 - Arrendamientos,ER_7001 - Servicios,Servicios,25000
+Plan Operativo,Nov Acd AJ,Nov,LS_13 - Arrendamientos,UF_5691301000 - Arrendamientos,ER_7012 - IVA,IVA,3750
+Plan Operativo,Nov Acd AJ,Nov,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7002 - Gastos de Operacion,Gastos de Operacion,108185.31
+Plan Operativo,Nov Acd AJ,Nov,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,20434.54
+Plan Operativo,Nov Acd AJ,Nov,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7012 - IVA,IVA,10716.48
+Plan Operativo,Nov Acd AJ,Nov,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7015 - Materiales,Materiales,18680.72
+Plan Operativo,Nov Acd AJ,Nov,LS_20 - Apoyo academico,UF_5692003001 - Graduaciones,ER_7001 - Servicios,Servicios,16720
+Plan Operativo,Nov Acd AJ,Nov,LS_20 - Apoyo academico,UF_5692003001 - Graduaciones,ER_7012 - IVA,IVA,2508
+Plan Operativo,Nov Acd AJ,Nov,LS_20 - Apoyo academico,UF_5692007000 - Biblioteca,ER_7012 - IVA,IVA,459.9
+Plan Operativo,Nov Acd AJ,Nov,LS_20 - Apoyo academico,UF_5692007000 - Biblioteca,ER_7016 - Bibliografia,Bibliografia,5395.45
+Plan Operativo,Nov Acd AJ,Nov,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7001 - Servicios,Servicios,5057.8
+Plan Operativo,Nov Acd AJ,Nov,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7002 - Gastos de Operacion,Gastos de Operacion,30731.38
+Plan Operativo,Nov Acd AJ,Nov,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7003 - Gastos de Viaje,Gastos de Viaje,8428
+Plan Operativo,Nov Acd AJ,Nov,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7008 - Comunicaciones,Comunicaciones,2126.7
+Plan Operativo,Nov Acd AJ,Nov,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7012 - IVA,IVA,7532.38
+Plan Operativo,Nov Acd AJ,Nov,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7001 - Servicios,Servicios,1675.36
+Plan Operativo,Nov Acd AJ,Nov,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,36141.26
+Plan Operativo,Nov Acd AJ,Nov,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7007 - Mantenimiento,Mantenimiento,257.63
+Plan Operativo,Nov Acd AJ,Nov,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7009 - Subcontrataciones,Subcontrataciones,458.89
+Plan Operativo,Nov Acd AJ,Nov,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7012 - IVA,IVA,5980.81
+Plan Operativo,Nov Acd AJ,Nov,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7015 - Materiales,Materiales,503.94
+Plan Operativo,Nov Acd AJ,Nov,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7001 - Servicios,Servicios,1853.83
+Plan Operativo,Nov Acd AJ,Nov,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,28798
+Plan Operativo,Nov Acd AJ,Nov,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7003 - Gastos de Viaje,Gastos de Viaje,3279.79
+Plan Operativo,Nov Acd AJ,Nov,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7009 - Subcontrataciones,Subcontrataciones,112.86
+Plan Operativo,Nov Acd AJ,Nov,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7012 - IVA,IVA,5257.58
+Plan Operativo,Nov Acd AJ,Nov,LS_22 - Desarrollo social,UF_5692204000 - Servicio Social,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,32870.72
+Plan Operativo,Nov Acd AJ,Nov,LS_23 - Vivencia de Alumnos,UF_5692305000 - Transporte Escolar,ER_7001 - Servicios,Servicios,82764
+Plan Operativo,Nov Acd AJ,Nov,LS_23 - Vivencia de Alumnos,UF_5692305000 - Transporte Escolar,ER_7012 - IVA,IVA,12414.6
+Plan Operativo,Nov Acd AJ,Nov,LS_40 - Administracion y Finanzas,UF_5694005000 - Abasto/Compras,ER_7002 - Gastos de Operacion,Gastos de Operacion,1119.97
+Plan Operativo,Nov Acd AJ,Nov,LS_40 - Administracion y Finanzas,UF_5694005000 - Abasto/Compras,ER_7012 - IVA,IVA,659.55
+Plan Operativo,Nov Acd AJ,Nov,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7001 - Servicios,Servicios,28049.89
+Plan Operativo,Nov Acd AJ,Nov,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7002 - Gastos de Operacion,Gastos de Operacion,34751.16
+Plan Operativo,Nov Acd AJ,Nov,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7008 - Comunicaciones,Comunicaciones,5411.95
+Plan Operativo,Nov Acd AJ,Nov,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7012 - IVA,IVA,11806.05
+Plan Operativo,Nov Acd AJ,Nov,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7002 - Gastos de Operacion,Gastos de Operacion,18343.93
+Plan Operativo,Nov Acd AJ,Nov,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7007 - Mantenimiento,Mantenimiento,91219.1
+Plan Operativo,Nov Acd AJ,Nov,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7012 - IVA,IVA,16434.45
+Plan Operativo,Nov Acd AJ,Nov,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7002 - Gastos de Operacion,Gastos de Operacion,7364.12
+Plan Operativo,Nov Acd AJ,Nov,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7007 - Mantenimiento,Mantenimiento,9871.07
+Plan Operativo,Nov Acd AJ,Nov,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7009 - Subcontrataciones,Subcontrataciones,143679.78
+Plan Operativo,Nov Acd AJ,Nov,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7012 - IVA,IVA,24137.24
+Plan Operativo,Nov Acd AJ,Nov,LS_48 - Planta Fisica,UF_5694805000 - Servicio de Vigilancia,ER_7009 - Subcontrataciones,Subcontrataciones,174636
+Plan Operativo,Nov Acd AJ,Nov,LS_48 - Planta Fisica,UF_5694805000 - Servicio de Vigilancia,ER_7012 - IVA,IVA,26195.4
+Plan Operativo,Nov Acd AJ,Nov,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7001 - Servicios,Servicios,27692.82
+Plan Operativo,Nov Acd AJ,Nov,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7002 - Gastos de Operacion,Gastos de Operacion,80965.12
+Plan Operativo,Nov Acd AJ,Nov,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7006 - Servicios Publicos,Servicios Publicos,38634.44
+Plan Operativo,Nov Acd AJ,Nov,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7007 - Mantenimiento,Mantenimiento,2975.12
+Plan Operativo,Nov Acd AJ,Nov,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7012 - IVA,IVA,13242.79
+Plan Operativo,Nov Acd AJ,Nov,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7004 - Software,Software,207497.12
+Plan Operativo,Nov Acd AJ,Nov,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7008 - Comunicaciones,Comunicaciones,14267.27
+Plan Operativo,Nov Acd AJ,Nov,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7012 - IVA,IVA,28193.51
+Plan Operativo,Nov Acd AJ,Nov,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7002 - Gastos de Operacion,Gastos de Operacion,17758.46
+Plan Operativo,Nov Acd AJ,Nov,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7003 - Gastos de Viaje,Gastos de Viaje,3466.65
+Plan Operativo,Nov Acd AJ,Nov,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7005 - Publicidad,Publicidad,570.4
+Plan Operativo,Nov Acd AJ,Nov,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7008 - Comunicaciones,Comunicaciones,2183.73
+Plan Operativo,Nov Acd AJ,Nov,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7012 - IVA,IVA,4274.44
+Plan Operativo,Nov Acd AJ,Nov,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7001 - Servicios,Servicios,43300.69
+Plan Operativo,Nov Acd AJ,Nov,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,5326.21
+Plan Operativo,Nov Acd AJ,Nov,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7005 - Publicidad,Publicidad,12069.75
+Plan Operativo,Nov Acd AJ,Nov,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7008 - Comunicaciones,Comunicaciones,718.89
+Plan Operativo,Nov Acd AJ,Nov,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7012 - IVA,IVA,10094.18
+Plan Operativo,Nov Acd AJ,Nov,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7001 - Servicios,Servicios,5057.8
+Plan Operativo,Nov Acd AJ,Nov,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7002 - Gastos de Operacion,Gastos de Operacion,854.48
+Plan Operativo,Nov Acd AJ,Nov,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7005 - Publicidad,Publicidad,570.4
+Plan Operativo,Nov Acd AJ,Nov,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7008 - Comunicaciones,Comunicaciones,719.67
+Plan Operativo,Nov Acd AJ,Nov,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7012 - IVA,IVA,1304.91
+Plan Operativo,Nov Acd AJ,Nov,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7002 - Gastos de Operacion,Gastos de Operacion,18281.25
+Plan Operativo,Nov Acd AJ,Nov,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7005 - Publicidad,Publicidad,7837.5
+Plan Operativo,Nov Acd AJ,Nov,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7008 - Comunicaciones,Comunicaciones,772.93
+Plan Operativo,Nov Acd AJ,Nov,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7012 - IVA,IVA,5006.5
+Plan Operativo,Nov Acd AJ,Nov,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7001 - Servicios,Servicios,11720
+Plan Operativo,Nov Acd AJ,Nov,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7002 - Gastos de Operacion,Gastos de Operacion,5132
+Plan Operativo,Nov Acd AJ,Nov,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7012 - IVA,IVA,2527.8
+Plan Operativo,Nov Acd AJ,Nov,LS_99 - Operacion Institucional,UF_5699903000 - Comisiones Bancarias,ER_7011 - Comisiones Bancarias,Comisiones Bancarias,99001.22
+Plan Operativo,Nov Acd AJ,Nov,LS_99 - Operacion Institucional,UF_5699907000 - Servicios Administrativos,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,1421221.2
+Plan Operativo,Nov Acd AJ,Nov,LS_99 - Operacion Institucional,UF_5699914000 - PRESTAMO EDUCATIVO PROFESIONAL,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,136665.08
+Plan Operativo,Dic Acd AJ,Dic,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7001 - Servicios,Servicios,9543.13
+Plan Operativo,Dic Acd AJ,Dic,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,7864.45
+Plan Operativo,Dic Acd AJ,Dic,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7005 - Publicidad,Publicidad,9602.5
+Plan Operativo,Dic Acd AJ,Dic,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7008 - Comunicaciones,Comunicaciones,14499.38
+Plan Operativo,Dic Acd AJ,Dic,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,3571.9
+Plan Operativo,Dic Acd AJ,Dic,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7012 - IVA,IVA,7673.77
+Plan Operativo,Dic Acd AJ,Dic,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7001 - Servicios,Servicios,56077.97
+Plan Operativo,Dic Acd AJ,Dic,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,64043.77
+Plan Operativo,Dic Acd AJ,Dic,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7005 - Publicidad,Publicidad,186.29
+Plan Operativo,Dic Acd AJ,Dic,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7008 - Comunicaciones,Comunicaciones,11553.1
+Plan Operativo,Dic Acd AJ,Dic,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,11309.33
+Plan Operativo,Dic Acd AJ,Dic,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7012 - IVA,IVA,22512.34
+Plan Operativo,Dic Acd AJ,Dic,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7015 - Materiales,Materiales,2586.11
+Plan Operativo,Dic Acd AJ,Dic,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7001 - Servicios,Servicios,225.29
+Plan Operativo,Dic Acd AJ,Dic,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7002 - Gastos de Operacion,Gastos de Operacion,6685.93
+Plan Operativo,Dic Acd AJ,Dic,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7008 - Comunicaciones,Comunicaciones,626.37
+Plan Operativo,Dic Acd AJ,Dic,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,5494.45
+Plan Operativo,Dic Acd AJ,Dic,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7012 - IVA,IVA,1420.89
+Plan Operativo,Dic Acd AJ,Dic,LS_01 - Ensenanza,UF_5690108000 - Alumnos Mixtos,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,138529.98
+Plan Operativo,Dic Acd AJ,Dic,LS_01 - Ensenanza,UF_5690108001 - Alumnos OnLine,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,135903.47
+Plan Operativo,Dic Acd AJ,Dic,LS_01 - Ensenanza,UF_5690108002 - Alumnos Connect,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,118803.7
+Plan Operativo,Dic Acd AJ,Dic,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7001 - Servicios,Servicios,434.92
+Plan Operativo,Dic Acd AJ,Dic,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7002 - Gastos de Operacion,Gastos de Operacion,384.58
+Plan Operativo,Dic Acd AJ,Dic,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7003 - Gastos de Viaje,Gastos de Viaje,1406.02
+Plan Operativo,Dic Acd AJ,Dic,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,103.92
+Plan Operativo,Dic Acd AJ,Dic,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7012 - IVA,IVA,854.47
+Plan Operativo,Dic Acd AJ,Dic,LS_03 - Educacion continua,UF_5690301000 - Idiomas,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,151769.23
+Plan Operativo,Dic Acd AJ,Dic,LS_03 - Educacion continua,UF_5690301000 - Idiomas,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,151769.23
+Plan Operativo,Dic Acd AJ,Dic,LS_03 - Educacion continua,UF_5690301000 - Idiomas,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,151769.23
+Plan Operativo,Dic Acd AJ,Dic,LS_13 - Arrendamientos,UF_5691301000 - Arrendamientos,ER_7001 - Servicios,Servicios,25000
+Plan Operativo,Dic Acd AJ,Dic,LS_13 - Arrendamientos,UF_5691301000 - Arrendamientos,ER_7012 - IVA,IVA,3750
+Plan Operativo,Dic Acd AJ,Dic,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7001 - Servicios,Servicios,232.12
+Plan Operativo,Dic Acd AJ,Dic,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7002 - Gastos de Operacion,Gastos de Operacion,73717.64
+Plan Operativo,Dic Acd AJ,Dic,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,20434.54
+Plan Operativo,Dic Acd AJ,Dic,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7012 - IVA,IVA,3623.98
+Plan Operativo,Dic Acd AJ,Dic,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7015 - Materiales,Materiales,3385.8
+Plan Operativo,Dic Acd AJ,Dic,LS_20 - Apoyo academico,UF_5692003001 - Graduaciones,ER_7001 - Servicios,Servicios,3910.75
+Plan Operativo,Dic Acd AJ,Dic,LS_20 - Apoyo academico,UF_5692003001 - Graduaciones,ER_7002 - Gastos de Operacion,Gastos de Operacion,579.92
+Plan Operativo,Dic Acd AJ,Dic,LS_20 - Apoyo academico,UF_5692003001 - Graduaciones,ER_7012 - IVA,IVA,673.6
+Plan Operativo,Dic Acd AJ,Dic,LS_20 - Apoyo academico,UF_5692007000 - Biblioteca,ER_7012 - IVA,IVA,459.9
+Plan Operativo,Dic Acd AJ,Dic,LS_20 - Apoyo academico,UF_5692007000 - Biblioteca,ER_7016 - Bibliografia,Bibliografia,13007.7
+Plan Operativo,Dic Acd AJ,Dic,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7001 - Servicios,Servicios,18654.6
+Plan Operativo,Dic Acd AJ,Dic,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7002 - Gastos de Operacion,Gastos de Operacion,13920.05
+Plan Operativo,Dic Acd AJ,Dic,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7003 - Gastos de Viaje,Gastos de Viaje,23306.57
+Plan Operativo,Dic Acd AJ,Dic,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7005 - Publicidad,Publicidad,60835
+Plan Operativo,Dic Acd AJ,Dic,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7008 - Comunicaciones,Comunicaciones,733.52
+Plan Operativo,Dic Acd AJ,Dic,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7012 - IVA,IVA,19503.21
+Plan Operativo,Dic Acd AJ,Dic,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7015 - Materiales,Materiales,8699.63
+Plan Operativo,Dic Acd AJ,Dic,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7001 - Servicios,Servicios,34568.73
+Plan Operativo,Dic Acd AJ,Dic,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,35095.34
+Plan Operativo,Dic Acd AJ,Dic,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7012 - IVA,IVA,10620.4
+Plan Operativo,Dic Acd AJ,Dic,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7015 - Materiales,Materiales,303.62
+Plan Operativo,Dic Acd AJ,Dic,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7001 - Servicios,Servicios,22807.06
+Plan Operativo,Dic Acd AJ,Dic,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,29162.24
+Plan Operativo,Dic Acd AJ,Dic,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7012 - IVA,IVA,7991.08
+Plan Operativo,Dic Acd AJ,Dic,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7015 - Materiales,Materiales,298.58
+Plan Operativo,Dic Acd AJ,Dic,LS_22 - Desarrollo social,UF_5692204000 - Servicio Social,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,33234.23
+Plan Operativo,Dic Acd AJ,Dic,LS_23 - Vivencia de Alumnos,UF_5692305000 - Transporte Escolar,ER_7001 - Servicios,Servicios,38874
+Plan Operativo,Dic Acd AJ,Dic,LS_23 - Vivencia de Alumnos,UF_5692305000 - Transporte Escolar,ER_7012 - IVA,IVA,5831.1
+Plan Operativo,Dic Acd AJ,Dic,LS_40 - Administracion y Finanzas,UF_5694005000 - Abasto/Compras,ER_7012 - IVA,IVA,491.55
+Plan Operativo,Dic Acd AJ,Dic,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7001 - Servicios,Servicios,42321.85
+Plan Operativo,Dic Acd AJ,Dic,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7002 - Gastos de Operacion,Gastos de Operacion,16535.33
+Plan Operativo,Dic Acd AJ,Dic,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7008 - Comunicaciones,Comunicaciones,7726
+Plan Operativo,Dic Acd AJ,Dic,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7012 - IVA,IVA,11561.58
+Plan Operativo,Dic Acd AJ,Dic,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7002 - Gastos de Operacion,Gastos de Operacion,42066.48
+Plan Operativo,Dic Acd AJ,Dic,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7007 - Mantenimiento,Mantenimiento,65472.39
+Plan Operativo,Dic Acd AJ,Dic,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7012 - IVA,IVA,16130.83
+Plan Operativo,Dic Acd AJ,Dic,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7002 - Gastos de Operacion,Gastos de Operacion,58371.61
+Plan Operativo,Dic Acd AJ,Dic,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7007 - Mantenimiento,Mantenimiento,16286.33
+Plan Operativo,Dic Acd AJ,Dic,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7009 - Subcontrataciones,Subcontrataciones,95664.73
+Plan Operativo,Dic Acd AJ,Dic,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7012 - IVA,IVA,25548.4
+Plan Operativo,Dic Acd AJ,Dic,LS_48 - Planta Fisica,UF_5694805000 - Servicio de Vigilancia,ER_7009 - Subcontrataciones,Subcontrataciones,120227.1
+Plan Operativo,Dic Acd AJ,Dic,LS_48 - Planta Fisica,UF_5694805000 - Servicio de Vigilancia,ER_7012 - IVA,IVA,18034.07
+Plan Operativo,Dic Acd AJ,Dic,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7001 - Servicios,Servicios,20388.27
+Plan Operativo,Dic Acd AJ,Dic,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7002 - Gastos de Operacion,Gastos de Operacion,61270.44
+Plan Operativo,Dic Acd AJ,Dic,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7006 - Servicios Publicos,Servicios Publicos,64087.5
+Plan Operativo,Dic Acd AJ,Dic,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7007 - Mantenimiento,Mantenimiento,2975.12
+Plan Operativo,Dic Acd AJ,Dic,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7012 - IVA,IVA,18335.6
+Plan Operativo,Dic Acd AJ,Dic,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7004 - Software,Software,206422.29
+Plan Operativo,Dic Acd AJ,Dic,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7008 - Comunicaciones,Comunicaciones,14193.36
+Plan Operativo,Dic Acd AJ,Dic,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7012 - IVA,IVA,28052.79
+Plan Operativo,Dic Acd AJ,Dic,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7002 - Gastos de Operacion,Gastos de Operacion,22684.51
+Plan Operativo,Dic Acd AJ,Dic,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7003 - Gastos de Viaje,Gastos de Viaje,2557.08
+Plan Operativo,Dic Acd AJ,Dic,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7008 - Comunicaciones,Comunicaciones,2724.21
+Plan Operativo,Dic Acd AJ,Dic,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7012 - IVA,IVA,4877.7
+Plan Operativo,Dic Acd AJ,Dic,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7015 - Materiales,Materiales,35.21
+Plan Operativo,Dic Acd AJ,Dic,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7001 - Servicios,Servicios,6074.35
+Plan Operativo,Dic Acd AJ,Dic,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,57062.55
+Plan Operativo,Dic Acd AJ,Dic,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7008 - Comunicaciones,Comunicaciones,899.08
+Plan Operativo,Dic Acd AJ,Dic,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7012 - IVA,IVA,10727.48
+Plan Operativo,Dic Acd AJ,Dic,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7015 - Materiales,Materiales,1601.57
+Plan Operativo,Dic Acd AJ,Dic,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7002 - Gastos de Operacion,Gastos de Operacion,1987.15
+Plan Operativo,Dic Acd AJ,Dic,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7008 - Comunicaciones,Comunicaciones,1079.23
+Plan Operativo,Dic Acd AJ,Dic,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7012 - IVA,IVA,951.47
+Plan Operativo,Dic Acd AJ,Dic,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7015 - Materiales,Materiales,1779.74
+Plan Operativo,Dic Acd AJ,Dic,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7001 - Servicios,Servicios,3471.19
+Plan Operativo,Dic Acd AJ,Dic,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7002 - Gastos de Operacion,Gastos de Operacion,12236.74
+Plan Operativo,Dic Acd AJ,Dic,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7003 - Gastos de Viaje,Gastos de Viaje,1556.13
+Plan Operativo,Dic Acd AJ,Dic,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7005 - Publicidad,Publicidad,12081.93
+Plan Operativo,Dic Acd AJ,Dic,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7008 - Comunicaciones,Comunicaciones,1133.28
+Plan Operativo,Dic Acd AJ,Dic,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7012 - IVA,IVA,6836.75
+Plan Operativo,Dic Acd AJ,Dic,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7015 - Materiales,Materiales,8614.04
+Plan Operativo,Dic Acd AJ,Dic,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7001 - Servicios,Servicios,42029.9
+Plan Operativo,Dic Acd AJ,Dic,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7002 - Gastos de Operacion,Gastos de Operacion,9116.58
+Plan Operativo,Dic Acd AJ,Dic,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7012 - IVA,IVA,7671.98
+Plan Operativo,Dic Acd AJ,Dic,LS_99 - Operacion Institucional,UF_5699903000 - Comisiones Bancarias,ER_7011 - Comisiones Bancarias,Comisiones Bancarias,99001.22
+Plan Operativo,Dic Acd AJ,Dic,LS_99 - Operacion Institucional,UF_5699907000 - Servicios Administrativos,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,1424386.28
+Plan Operativo,Dic Acd AJ,Dic,LS_99 - Operacion Institucional,UF_5699914000 - PRESTAMO EDUCATIVO PROFESIONAL,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,136665.08
+Plan Operativo,Ene Acd AJ,Ene,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7001 - Servicios,Servicios,19791
+Plan Operativo,Ene Acd AJ,Ene,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,9741.1
+Plan Operativo,Ene Acd AJ,Ene,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,3571.9
+Plan Operativo,Ene Acd AJ,Ene,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7012 - IVA,IVA,6539.1
+Plan Operativo,Ene Acd AJ,Ene,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7015 - Materiales,Materiales,2482.88
+Plan Operativo,Ene Acd AJ,Ene,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7001 - Servicios,Servicios,40853.25
+Plan Operativo,Ene Acd AJ,Ene,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,51222.93
+Plan Operativo,Ene Acd AJ,Ene,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7003 - Gastos de Viaje,Gastos de Viaje,6058.11
+Plan Operativo,Ene Acd AJ,Ene,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,11309.33
+Plan Operativo,Ene Acd AJ,Ene,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7012 - IVA,IVA,17906.88
+Plan Operativo,Ene Acd AJ,Ene,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7015 - Materiales,Materiales,2482.89
+Plan Operativo,Ene Acd AJ,Ene,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7001 - Servicios,Servicios,811.59
+Plan Operativo,Ene Acd AJ,Ene,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7002 - Gastos de Operacion,Gastos de Operacion,250.8
+Plan Operativo,Ene Acd AJ,Ene,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,5494.45
+Plan Operativo,Ene Acd AJ,Ene,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7012 - IVA,IVA,538.65
+Plan Operativo,Ene Acd AJ,Ene,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7015 - Materiales,Materiales,206.61
+Plan Operativo,Ene Acd AJ,Ene,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7001 - Servicios,Servicios,434.92
+Plan Operativo,Ene Acd AJ,Ene,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7002 - Gastos de Operacion,Gastos de Operacion,250.8
+Plan Operativo,Ene Acd AJ,Ene,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,103.92
+Plan Operativo,Ene Acd AJ,Ene,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7012 - IVA,IVA,727.75
+Plan Operativo,Ene Acd AJ,Ene,LS_13 - Arrendamientos,UF_5691301000 - Arrendamientos,ER_7001 - Servicios,Servicios,25000
+Plan Operativo,Ene Acd AJ,Ene,LS_13 - Arrendamientos,UF_5691301000 - Arrendamientos,ER_7012 - IVA,IVA,3750
+Plan Operativo,Ene Acd AJ,Ene,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7001 - Servicios,Servicios,512.05
+Plan Operativo,Ene Acd AJ,Ene,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7002 - Gastos de Operacion,Gastos de Operacion,35979.14
+Plan Operativo,Ene Acd AJ,Ene,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,20434.54
+Plan Operativo,Ene Acd AJ,Ene,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7012 - IVA,IVA,4560.46
+Plan Operativo,Ene Acd AJ,Ene,LS_20 - Apoyo academico,UF_5692003001 - Graduaciones,ER_7001 - Servicios,Servicios,37868.71
+Plan Operativo,Ene Acd AJ,Ene,LS_20 - Apoyo academico,UF_5692003001 - Graduaciones,ER_7002 - Gastos de Operacion,Gastos de Operacion,27500
+Plan Operativo,Ene Acd AJ,Ene,LS_20 - Apoyo academico,UF_5692003001 - Graduaciones,ER_7012 - IVA,IVA,9805.3
+Plan Operativo,Ene Acd AJ,Ene,LS_20 - Apoyo academico,UF_5692007000 - Biblioteca,ER_7012 - IVA,IVA,552
+Plan Operativo,Ene Acd AJ,Ene,LS_20 - Apoyo academico,UF_5692007000 - Biblioteca,ER_7016 - Bibliografia,Bibliografia,5395.45
+Plan Operativo,Ene Acd AJ,Ene,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7002 - Gastos de Operacion,Gastos de Operacion,5444.44
+Plan Operativo,Ene Acd AJ,Ene,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7003 - Gastos de Viaje,Gastos de Viaje,26287.31
+Plan Operativo,Ene Acd AJ,Ene,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7005 - Publicidad,Publicidad,6792.5
+Plan Operativo,Ene Acd AJ,Ene,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7008 - Comunicaciones,Comunicaciones,3071.05
+Plan Operativo,Ene Acd AJ,Ene,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7012 - IVA,IVA,6936.35
+Plan Operativo,Ene Acd AJ,Ene,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7001 - Servicios,Servicios,7867.39
+Plan Operativo,Ene Acd AJ,Ene,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,3553
+Plan Operativo,Ene Acd AJ,Ene,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7003 - Gastos de Viaje,Gastos de Viaje,7807.3
+Plan Operativo,Ene Acd AJ,Ene,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7012 - IVA,IVA,4732.12
+Plan Operativo,Ene Acd AJ,Ene,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7015 - Materiales,Materiales,11317.82
+Plan Operativo,Ene Acd AJ,Ene,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7001 - Servicios,Servicios,10409.12
+Plan Operativo,Ene Acd AJ,Ene,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,6940.79
+Plan Operativo,Ene Acd AJ,Ene,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7003 - Gastos de Viaje,Gastos de Viaje,4169.93
+Plan Operativo,Ene Acd AJ,Ene,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7012 - IVA,IVA,4221.51
+Plan Operativo,Ene Acd AJ,Ene,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7015 - Materiales,Materiales,5415.53
+Plan Operativo,Ene Acd AJ,Ene,LS_23 - Vivencia de Alumnos,UF_5692305000 - Transporte Escolar,ER_7001 - Servicios,Servicios,38874
+Plan Operativo,Ene Acd AJ,Ene,LS_23 - Vivencia de Alumnos,UF_5692305000 - Transporte Escolar,ER_7012 - IVA,IVA,5831.1
+Plan Operativo,Ene Acd AJ,Ene,LS_40 - Administracion y Finanzas,UF_5694005000 - Abasto/Compras,ER_7002 - Gastos de Operacion,Gastos de Operacion,5544.36
+Plan Operativo,Ene Acd AJ,Ene,LS_40 - Administracion y Finanzas,UF_5694005000 - Abasto/Compras,ER_7012 - IVA,IVA,1421.61
+Plan Operativo,Ene Acd AJ,Ene,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7001 - Servicios,Servicios,27913
+Plan Operativo,Ene Acd AJ,Ene,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7002 - Gastos de Operacion,Gastos de Operacion,11307.87
+Plan Operativo,Ene Acd AJ,Ene,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7008 - Comunicaciones,Comunicaciones,755.26
+Plan Operativo,Ene Acd AJ,Ene,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7012 - IVA,IVA,10958.61
+Plan Operativo,Ene Acd AJ,Ene,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7015 - Materiales,Materiales,20488.27
+Plan Operativo,Ene Acd AJ,Ene,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7002 - Gastos de Operacion,Gastos de Operacion,30161.84
+Plan Operativo,Ene Acd AJ,Ene,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7007 - Mantenimiento,Mantenimiento,88739.31
+Plan Operativo,Ene Acd AJ,Ene,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7012 - IVA,IVA,17835.17
+Plan Operativo,Ene Acd AJ,Ene,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7002 - Gastos de Operacion,Gastos de Operacion,33529.87
+Plan Operativo,Ene Acd AJ,Ene,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7007 - Mantenimiento,Mantenimiento,6967.02
+Plan Operativo,Ene Acd AJ,Ene,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7009 - Subcontrataciones,Subcontrataciones,160069.78
+Plan Operativo,Ene Acd AJ,Ene,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7012 - IVA,IVA,30085
+Plan Operativo,Ene Acd AJ,Ene,LS_48 - Planta Fisica,UF_5694805000 - Servicio de Vigilancia,ER_7009 - Subcontrataciones,Subcontrataciones,174636
+Plan Operativo,Ene Acd AJ,Ene,LS_48 - Planta Fisica,UF_5694805000 - Servicio de Vigilancia,ER_7012 - IVA,IVA,26195.4
+Plan Operativo,Ene Acd AJ,Ene,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7001 - Servicios,Servicios,36720.77
+Plan Operativo,Ene Acd AJ,Ene,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7002 - Gastos de Operacion,Gastos de Operacion,156602.51
+Plan Operativo,Ene Acd AJ,Ene,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7006 - Servicios Publicos,Servicios Publicos,50108.54
+Plan Operativo,Ene Acd AJ,Ene,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7007 - Mantenimiento,Mantenimiento,2975.12
+Plan Operativo,Ene Acd AJ,Ene,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7012 - IVA,IVA,27467.47
+Plan Operativo,Ene Acd AJ,Ene,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7004 - Software,Software,248556.47
+Plan Operativo,Ene Acd AJ,Ene,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7008 - Comunicaciones,Comunicaciones,17090.46
+Plan Operativo,Ene Acd AJ,Ene,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7012 - IVA,IVA,33774.71
+Plan Operativo,Ene Acd AJ,Ene,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7001 - Servicios,Servicios,156.75
+Plan Operativo,Ene Acd AJ,Ene,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7002 - Gastos de Operacion,Gastos de Operacion,18653.82
+Plan Operativo,Ene Acd AJ,Ene,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7003 - Gastos de Viaje,Gastos de Viaje,5262.46
+Plan Operativo,Ene Acd AJ,Ene,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7008 - Comunicaciones,Comunicaciones,5393.7
+Plan Operativo,Ene Acd AJ,Ene,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7012 - IVA,IVA,5302.15
+Plan Operativo,Ene Acd AJ,Ene,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7015 - Materiales,Materiales,459.95
+Plan Operativo,Ene Acd AJ,Ene,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7001 - Servicios,Servicios,2179.06
+Plan Operativo,Ene Acd AJ,Ene,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,11230.21
+Plan Operativo,Ene Acd AJ,Ene,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7003 - Gastos de Viaje,Gastos de Viaje,8550.44
+Plan Operativo,Ene Acd AJ,Ene,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7008 - Comunicaciones,Comunicaciones,4535.93
+Plan Operativo,Ene Acd AJ,Ene,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7012 - IVA,IVA,5141.33
+Plan Operativo,Ene Acd AJ,Ene,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7015 - Materiales,Materiales,724.84
+Plan Operativo,Ene Acd AJ,Ene,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7002 - Gastos de Operacion,Gastos de Operacion,1828.04
+Plan Operativo,Ene Acd AJ,Ene,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7008 - Comunicaciones,Comunicaciones,3966.71
+Plan Operativo,Ene Acd AJ,Ene,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7012 - IVA,IVA,1247.48
+Plan Operativo,Ene Acd AJ,Ene,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7015 - Materiales,Materiales,724.84
+Plan Operativo,Ene Acd AJ,Ene,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7002 - Gastos de Operacion,Gastos de Operacion,7449.16
+Plan Operativo,Ene Acd AJ,Ene,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7008 - Comunicaciones,Comunicaciones,7192.92
+Plan Operativo,Ene Acd AJ,Ene,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7012 - IVA,IVA,3472.34
+Plan Operativo,Ene Acd AJ,Ene,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7015 - Materiales,Materiales,724.85
+Plan Operativo,Ene Acd AJ,Ene,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7002 - Gastos de Operacion,Gastos de Operacion,5000
+Plan Operativo,Ene Acd AJ,Ene,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7012 - IVA,IVA,750
+Plan Operativo,Ene Acd AJ,Ene,LS_99 - Operacion Institucional,UF_5699903000 - Comisiones Bancarias,ER_7011 - Comisiones Bancarias,Comisiones Bancarias,99001.22
+Plan Operativo,Ene Acd AJ,Ene,LS_99 - Operacion Institucional,UF_5699907000 - Servicios Administrativos,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,1567467.38
+Plan Operativo,Ene Acd AJ,Ene,LS_99 - Operacion Institucional,UF_5699914000 - PRESTAMO EDUCATIVO PROFESIONAL,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,136665.08
+Plan Operativo,Feb Acd AJ,Feb,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7001 - Servicios,Servicios,12882.14
+Plan Operativo,Feb Acd AJ,Feb,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,59003.88
+Plan Operativo,Feb Acd AJ,Feb,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7003 - Gastos de Viaje,Gastos de Viaje,517.66
+Plan Operativo,Feb Acd AJ,Feb,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,3571.9
+Plan Operativo,Feb Acd AJ,Feb,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7012 - IVA,IVA,12597.4
+Plan Operativo,Feb Acd AJ,Feb,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7001 - Servicios,Servicios,82789.23
+Plan Operativo,Feb Acd AJ,Feb,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,16534.34
+Plan Operativo,Feb Acd AJ,Feb,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7003 - Gastos de Viaje,Gastos de Viaje,1757.33
+Plan Operativo,Feb Acd AJ,Feb,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,11309.33
+Plan Operativo,Feb Acd AJ,Feb,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7012 - IVA,IVA,17976.43
+Plan Operativo,Feb Acd AJ,Feb,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7001 - Servicios,Servicios,225.29
+Plan Operativo,Feb Acd AJ,Feb,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7002 - Gastos de Operacion,Gastos de Operacion,250.82
+Plan Operativo,Feb Acd AJ,Feb,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,5494.45
+Plan Operativo,Feb Acd AJ,Feb,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7012 - IVA,IVA,419.72
+Plan Operativo,Feb Acd AJ,Feb,LS_01 - Ensenanza,UF_5690108000 - Alumnos Mixtos,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,65718.36
+Plan Operativo,Feb Acd AJ,Feb,LS_01 - Ensenanza,UF_5690108001 - Alumnos OnLine,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,67062.15
+Plan Operativo,Feb Acd AJ,Feb,LS_01 - Ensenanza,UF_5690108002 - Alumnos Connect,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,112227.7
+Plan Operativo,Feb Acd AJ,Feb,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7001 - Servicios,Servicios,434.92
+Plan Operativo,Feb Acd AJ,Feb,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7002 - Gastos de Operacion,Gastos de Operacion,250.8
+Plan Operativo,Feb Acd AJ,Feb,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7003 - Gastos de Viaje,Gastos de Viaje,1406.02
+Plan Operativo,Feb Acd AJ,Feb,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,103.92
+Plan Operativo,Feb Acd AJ,Feb,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7012 - IVA,IVA,938.66
+Plan Operativo,Feb Acd AJ,Feb,LS_13 - Arrendamientos,UF_5691301000 - Arrendamientos,ER_7001 - Servicios,Servicios,25000
+Plan Operativo,Feb Acd AJ,Feb,LS_13 - Arrendamientos,UF_5691301000 - Arrendamientos,ER_7012 - IVA,IVA,3750
+Plan Operativo,Feb Acd AJ,Feb,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7002 - Gastos de Operacion,Gastos de Operacion,51365.51
+Plan Operativo,Feb Acd AJ,Feb,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7003 - Gastos de Viaje,Gastos de Viaje,188
+Plan Operativo,Feb Acd AJ,Feb,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,20434.54
+Plan Operativo,Feb Acd AJ,Feb,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7012 - IVA,IVA,2510.06
+Plan Operativo,Feb Acd AJ,Feb,LS_20 - Apoyo academico,UF_5692003001 - Graduaciones,ER_7001 - Servicios,Servicios,36470.5
+Plan Operativo,Feb Acd AJ,Feb,LS_20 - Apoyo academico,UF_5692003001 - Graduaciones,ER_7002 - Gastos de Operacion,Gastos de Operacion,8172.75
+Plan Operativo,Feb Acd AJ,Feb,LS_20 - Apoyo academico,UF_5692003001 - Graduaciones,ER_7012 - IVA,IVA,6696.49
+Plan Operativo,Feb Acd AJ,Feb,LS_20 - Apoyo academico,UF_5692007000 - Biblioteca,ER_7012 - IVA,IVA,552
+Plan Operativo,Feb Acd AJ,Feb,LS_20 - Apoyo academico,UF_5692007000 - Biblioteca,ER_7016 - Bibliografia,Bibliografia,5395.45
+Plan Operativo,Feb Acd AJ,Feb,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7001 - Servicios,Servicios,34211.01
+Plan Operativo,Feb Acd AJ,Feb,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7002 - Gastos de Operacion,Gastos de Operacion,501.6
+Plan Operativo,Feb Acd AJ,Feb,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7003 - Gastos de Viaje,Gastos de Viaje,11362.67
+Plan Operativo,Feb Acd AJ,Feb,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7005 - Publicidad,Publicidad,8882.74
+Plan Operativo,Feb Acd AJ,Feb,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7008 - Comunicaciones,Comunicaciones,718.89
+Plan Operativo,Feb Acd AJ,Feb,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7012 - IVA,IVA,14047.97
+Plan Operativo,Feb Acd AJ,Feb,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7015 - Materiales,Materiales,33329.23
+Plan Operativo,Feb Acd AJ,Feb,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7001 - Servicios,Servicios,7317.55
+Plan Operativo,Feb Acd AJ,Feb,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,26807.04
+Plan Operativo,Feb Acd AJ,Feb,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7012 - IVA,IVA,5290.25
+Plan Operativo,Feb Acd AJ,Feb,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7015 - Materiales,Materiales,141.7
+Plan Operativo,Feb Acd AJ,Feb,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7001 - Servicios,Servicios,6469.33
+Plan Operativo,Feb Acd AJ,Feb,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,7832.26
+Plan Operativo,Feb Acd AJ,Feb,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7003 - Gastos de Viaje,Gastos de Viaje,15899.32
+Plan Operativo,Feb Acd AJ,Feb,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7012 - IVA,IVA,4711.34
+Plan Operativo,Feb Acd AJ,Feb,LS_22 - Desarrollo social,UF_5692204000 - Servicio Social,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,21745.72
+Plan Operativo,Feb Acd AJ,Feb,LS_23 - Vivencia de Alumnos,UF_5692305000 - Transporte Escolar,ER_7001 - Servicios,Servicios,85946.02
+Plan Operativo,Feb Acd AJ,Feb,LS_23 - Vivencia de Alumnos,UF_5692305000 - Transporte Escolar,ER_7012 - IVA,IVA,12891.9
+Plan Operativo,Feb Acd AJ,Feb,LS_40 - Administracion y Finanzas,UF_5694005000 - Abasto/Compras,ER_7012 - IVA,IVA,589.95
+Plan Operativo,Feb Acd AJ,Feb,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7001 - Servicios,Servicios,31083.53
+Plan Operativo,Feb Acd AJ,Feb,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7002 - Gastos de Operacion,Gastos de Operacion,3129.22
+Plan Operativo,Feb Acd AJ,Feb,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7008 - Comunicaciones,Comunicaciones,3040.41
+Plan Operativo,Feb Acd AJ,Feb,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7012 - IVA,IVA,7476.93
+Plan Operativo,Feb Acd AJ,Feb,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7002 - Gastos de Operacion,Gastos de Operacion,41235.7
+Plan Operativo,Feb Acd AJ,Feb,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7007 - Mantenimiento,Mantenimiento,337874.63
+Plan Operativo,Feb Acd AJ,Feb,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7012 - IVA,IVA,56866.55
+Plan Operativo,Feb Acd AJ,Feb,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7002 - Gastos de Operacion,Gastos de Operacion,7733
+Plan Operativo,Feb Acd AJ,Feb,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7007 - Mantenimiento,Mantenimiento,7047.48
+Plan Operativo,Feb Acd AJ,Feb,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7009 - Subcontrataciones,Subcontrataciones,143679.78
+Plan Operativo,Feb Acd AJ,Feb,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7012 - IVA,IVA,23769.04
+Plan Operativo,Feb Acd AJ,Feb,LS_48 - Planta Fisica,UF_5694805000 - Servicio de Vigilancia,ER_7009 - Subcontrataciones,Subcontrataciones,174636
+Plan Operativo,Feb Acd AJ,Feb,LS_48 - Planta Fisica,UF_5694805000 - Servicio de Vigilancia,ER_7012 - IVA,IVA,26195.4
+Plan Operativo,Feb Acd AJ,Feb,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7001 - Servicios,Servicios,19970.27
+Plan Operativo,Feb Acd AJ,Feb,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7002 - Gastos de Operacion,Gastos de Operacion,55091.65
+Plan Operativo,Feb Acd AJ,Feb,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7006 - Servicios Publicos,Servicios Publicos,31636.07
+Plan Operativo,Feb Acd AJ,Feb,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7007 - Mantenimiento,Mantenimiento,4145.52
+Plan Operativo,Feb Acd AJ,Feb,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7012 - IVA,IVA,12457.69
+Plan Operativo,Feb Acd AJ,Feb,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7004 - Software,Software,205158.84
+Plan Operativo,Feb Acd AJ,Feb,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7008 - Comunicaciones,Comunicaciones,14106.49
+Plan Operativo,Feb Acd AJ,Feb,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7012 - IVA,IVA,28092.87
+Plan Operativo,Feb Acd AJ,Feb,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7001 - Servicios,Servicios,8988.38
+Plan Operativo,Feb Acd AJ,Feb,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7002 - Gastos de Operacion,Gastos de Operacion,8591.28
+Plan Operativo,Feb Acd AJ,Feb,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7003 - Gastos de Viaje,Gastos de Viaje,3236.17
+Plan Operativo,Feb Acd AJ,Feb,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7008 - Comunicaciones,Comunicaciones,2156.7
+Plan Operativo,Feb Acd AJ,Feb,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7012 - IVA,IVA,5194.01
+Plan Operativo,Feb Acd AJ,Feb,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7015 - Materiales,Materiales,6233.19
+Plan Operativo,Feb Acd AJ,Feb,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7001 - Servicios,Servicios,3448.5
+Plan Operativo,Feb Acd AJ,Feb,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,1568.33
+Plan Operativo,Feb Acd AJ,Feb,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7008 - Comunicaciones,Comunicaciones,1080.21
+Plan Operativo,Feb Acd AJ,Feb,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7012 - IVA,IVA,1972.81
+Plan Operativo,Feb Acd AJ,Feb,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7002 - Gastos de Operacion,Gastos de Operacion,1529.99
+Plan Operativo,Feb Acd AJ,Feb,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7008 - Comunicaciones,Comunicaciones,718.9
+Plan Operativo,Feb Acd AJ,Feb,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7012 - IVA,IVA,606.88
+Plan Operativo,Feb Acd AJ,Feb,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7002 - Gastos de Operacion,Gastos de Operacion,4969.49
+Plan Operativo,Feb Acd AJ,Feb,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7008 - Comunicaciones,Comunicaciones,718.9
+Plan Operativo,Feb Acd AJ,Feb,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7012 - IVA,IVA,2020.56
+Plan Operativo,Feb Acd AJ,Feb,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7001 - Servicios,Servicios,11109
+Plan Operativo,Feb Acd AJ,Feb,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7002 - Gastos de Operacion,Gastos de Operacion,5000
+Plan Operativo,Feb Acd AJ,Feb,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7012 - IVA,IVA,2416.35
+Plan Operativo,Feb Acd AJ,Feb,LS_99 - Operacion Institucional,UF_5699903000 - Comisiones Bancarias,ER_7011 - Comisiones Bancarias,Comisiones Bancarias,99001.22
+Plan Operativo,Feb Acd AJ,Feb,LS_99 - Operacion Institucional,UF_5699907000 - Servicios Administrativos,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,1561148.33
+Plan Operativo,Feb Acd AJ,Feb,LS_99 - Operacion Institucional,UF_5699914000 - PRESTAMO EDUCATIVO PROFESIONAL,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,136665.08
+Plan Operativo,Mar Acd AJ,Mar,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7001 - Servicios,Servicios,8702.14
+Plan Operativo,Mar Acd AJ,Mar,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,18027.69
+Plan Operativo,Mar Acd AJ,Mar,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7003 - Gastos de Viaje,Gastos de Viaje,7075.19
+Plan Operativo,Mar Acd AJ,Mar,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,3571.9
+Plan Operativo,Mar Acd AJ,Mar,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7012 - IVA,IVA,8406.76
+Plan Operativo,Mar Acd AJ,Mar,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7015 - Materiales,Materiales,10661.03
+Plan Operativo,Mar Acd AJ,Mar,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7001 - Servicios,Servicios,21974.36
+Plan Operativo,Mar Acd AJ,Mar,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,44366.8
+Plan Operativo,Mar Acd AJ,Mar,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7005 - Publicidad,Publicidad,20691
+Plan Operativo,Mar Acd AJ,Mar,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,11309.33
+Plan Operativo,Mar Acd AJ,Mar,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7012 - IVA,IVA,15869.12
+Plan Operativo,Mar Acd AJ,Mar,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7001 - Servicios,Servicios,821.34
+Plan Operativo,Mar Acd AJ,Mar,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7002 - Gastos de Operacion,Gastos de Operacion,10805.74
+Plan Operativo,Mar Acd AJ,Mar,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,5494.45
+Plan Operativo,Mar Acd AJ,Mar,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7012 - IVA,IVA,2092.36
+Plan Operativo,Mar Acd AJ,Mar,LS_01 - Ensenanza,UF_5690108000 - Alumnos Mixtos,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,65718.36
+Plan Operativo,Mar Acd AJ,Mar,LS_01 - Ensenanza,UF_5690108001 - Alumnos OnLine,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,135021.19
+Plan Operativo,Mar Acd AJ,Mar,LS_01 - Ensenanza,UF_5690108002 - Alumnos Connect,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,115628.53
+Plan Operativo,Mar Acd AJ,Mar,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7001 - Servicios,Servicios,434.92
+Plan Operativo,Mar Acd AJ,Mar,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7002 - Gastos de Operacion,Gastos de Operacion,250.8
+Plan Operativo,Mar Acd AJ,Mar,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,103.92
+Plan Operativo,Mar Acd AJ,Mar,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7012 - IVA,IVA,727.75
+Plan Operativo,Mar Acd AJ,Mar,LS_13 - Arrendamientos,UF_5691301000 - Arrendamientos,ER_7001 - Servicios,Servicios,25000
+Plan Operativo,Mar Acd AJ,Mar,LS_13 - Arrendamientos,UF_5691301000 - Arrendamientos,ER_7012 - IVA,IVA,3750
+Plan Operativo,Mar Acd AJ,Mar,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7002 - Gastos de Operacion,Gastos de Operacion,19376.58
+Plan Operativo,Mar Acd AJ,Mar,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,20434.54
+Plan Operativo,Mar Acd AJ,Mar,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7012 - IVA,IVA,7009.36
+Plan Operativo,Mar Acd AJ,Mar,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7015 - Materiales,Materiales,30483.36
+Plan Operativo,Mar Acd AJ,Mar,LS_20 - Apoyo academico,UF_5692003001 - Graduaciones,ER_7001 - Servicios,Servicios,4304.36
+Plan Operativo,Mar Acd AJ,Mar,LS_20 - Apoyo academico,UF_5692003001 - Graduaciones,ER_7002 - Gastos de Operacion,Gastos de Operacion,27222.65
+Plan Operativo,Mar Acd AJ,Mar,LS_20 - Apoyo academico,UF_5692003001 - Graduaciones,ER_7012 - IVA,IVA,4729.05
+Plan Operativo,Mar Acd AJ,Mar,LS_20 - Apoyo academico,UF_5692007000 - Biblioteca,ER_7012 - IVA,IVA,552
+Plan Operativo,Mar Acd AJ,Mar,LS_20 - Apoyo academico,UF_5692007000 - Biblioteca,ER_7016 - Bibliografia,Bibliografia,5395.45
+Plan Operativo,Mar Acd AJ,Mar,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7001 - Servicios,Servicios,5057.8
+Plan Operativo,Mar Acd AJ,Mar,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7002 - Gastos de Operacion,Gastos de Operacion,21477.43
+Plan Operativo,Mar Acd AJ,Mar,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7008 - Comunicaciones,Comunicaciones,718.9
+Plan Operativo,Mar Acd AJ,Mar,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7012 - IVA,IVA,4785.17
+Plan Operativo,Mar Acd AJ,Mar,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7001 - Servicios,Servicios,35285.71
+Plan Operativo,Mar Acd AJ,Mar,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,24563.83
+Plan Operativo,Mar Acd AJ,Mar,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7012 - IVA,IVA,9757.71
+Plan Operativo,Mar Acd AJ,Mar,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7015 - Materiales,Materiales,4199.86
+Plan Operativo,Mar Acd AJ,Mar,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7001 - Servicios,Servicios,27354.37
+Plan Operativo,Mar Acd AJ,Mar,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,28202.29
+Plan Operativo,Mar Acd AJ,Mar,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7003 - Gastos de Viaje,Gastos de Viaje,11616.87
+Plan Operativo,Mar Acd AJ,Mar,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7012 - IVA,IVA,10302.54
+Plan Operativo,Mar Acd AJ,Mar,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7015 - Materiales,Materiales,302.12
+Plan Operativo,Mar Acd AJ,Mar,LS_22 - Desarrollo social,UF_5692204000 - Servicio Social,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,21745.72
+Plan Operativo,Mar Acd AJ,Mar,LS_23 - Vivencia de Alumnos,UF_5692305000 - Transporte Escolar,ER_7001 - Servicios,Servicios,85946.02
+Plan Operativo,Mar Acd AJ,Mar,LS_23 - Vivencia de Alumnos,UF_5692305000 - Transporte Escolar,ER_7012 - IVA,IVA,12891.9
+Plan Operativo,Mar Acd AJ,Mar,LS_40 - Administracion y Finanzas,UF_5694005000 - Abasto/Compras,ER_7002 - Gastos de Operacion,Gastos de Operacion,1407.24
+Plan Operativo,Mar Acd AJ,Mar,LS_40 - Administracion y Finanzas,UF_5694005000 - Abasto/Compras,ER_7012 - IVA,IVA,801.04
+Plan Operativo,Mar Acd AJ,Mar,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7001 - Servicios,Servicios,12859.77
+Plan Operativo,Mar Acd AJ,Mar,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7002 - Gastos de Operacion,Gastos de Operacion,6207.87
+Plan Operativo,Mar Acd AJ,Mar,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7008 - Comunicaciones,Comunicaciones,2646.59
+Plan Operativo,Mar Acd AJ,Mar,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7012 - IVA,IVA,6834.75
+Plan Operativo,Mar Acd AJ,Mar,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7015 - Materiales,Materiales,11257.79
+Plan Operativo,Mar Acd AJ,Mar,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7002 - Gastos de Operacion,Gastos de Operacion,7773.76
+Plan Operativo,Mar Acd AJ,Mar,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7007 - Mantenimiento,Mantenimiento,47116.96
+Plan Operativo,Mar Acd AJ,Mar,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7012 - IVA,IVA,8233.6
+Plan Operativo,Mar Acd AJ,Mar,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7002 - Gastos de Operacion,Gastos de Operacion,30109.59
+Plan Operativo,Mar Acd AJ,Mar,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7007 - Mantenimiento,Mantenimiento,9941.08
+Plan Operativo,Mar Acd AJ,Mar,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7009 - Subcontrataciones,Subcontrataciones,143679.78
+Plan Operativo,Mar Acd AJ,Mar,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7012 - IVA,IVA,27559.57
+Plan Operativo,Mar Acd AJ,Mar,LS_48 - Planta Fisica,UF_5694805000 - Servicio de Vigilancia,ER_7009 - Subcontrataciones,Subcontrataciones,174636
+Plan Operativo,Mar Acd AJ,Mar,LS_48 - Planta Fisica,UF_5694805000 - Servicio de Vigilancia,ER_7012 - IVA,IVA,26195.4
+Plan Operativo,Mar Acd AJ,Mar,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7001 - Servicios,Servicios,24378.92
+Plan Operativo,Mar Acd AJ,Mar,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7002 - Gastos de Operacion,Gastos de Operacion,60902.73
+Plan Operativo,Mar Acd AJ,Mar,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7006 - Servicios Publicos,Servicios Publicos,49111.61
+Plan Operativo,Mar Acd AJ,Mar,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7007 - Mantenimiento,Mantenimiento,2975.12
+Plan Operativo,Mar Acd AJ,Mar,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7012 - IVA,IVA,16316.21
+Plan Operativo,Mar Acd AJ,Mar,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7004 - Software,Software,212767.47
+Plan Operativo,Mar Acd AJ,Mar,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7008 - Comunicaciones,Comunicaciones,14629.65
+Plan Operativo,Mar Acd AJ,Mar,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7012 - IVA,IVA,29089.03
+Plan Operativo,Mar Acd AJ,Mar,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7001 - Servicios,Servicios,26257.04
+Plan Operativo,Mar Acd AJ,Mar,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7002 - Gastos de Operacion,Gastos de Operacion,9858.83
+Plan Operativo,Mar Acd AJ,Mar,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7003 - Gastos de Viaje,Gastos de Viaje,6367.17
+Plan Operativo,Mar Acd AJ,Mar,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7005 - Publicidad,Publicidad,5127.74
+Plan Operativo,Mar Acd AJ,Mar,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7008 - Comunicaciones,Comunicaciones,2336.84
+Plan Operativo,Mar Acd AJ,Mar,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7012 - IVA,IVA,8305.29
+Plan Operativo,Mar Acd AJ,Mar,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7001 - Servicios,Servicios,10802.4
+Plan Operativo,Mar Acd AJ,Mar,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,24337.13
+Plan Operativo,Mar Acd AJ,Mar,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7005 - Publicidad,Publicidad,2139.64
+Plan Operativo,Mar Acd AJ,Mar,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7008 - Comunicaciones,Comunicaciones,1078.35
+Plan Operativo,Mar Acd AJ,Mar,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7012 - IVA,IVA,6924.11
+Plan Operativo,Mar Acd AJ,Mar,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7015 - Materiales,Materiales,748.22
+Plan Operativo,Mar Acd AJ,Mar,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7001 - Servicios,Servicios,19677.35
+Plan Operativo,Mar Acd AJ,Mar,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7002 - Gastos de Operacion,Gastos de Operacion,2378.1
+Plan Operativo,Mar Acd AJ,Mar,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7008 - Comunicaciones,Comunicaciones,718.91
+Plan Operativo,Mar Acd AJ,Mar,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7012 - IVA,IVA,3771.52
+Plan Operativo,Mar Acd AJ,Mar,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7015 - Materiales,Materiales,572.15
+Plan Operativo,Mar Acd AJ,Mar,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7001 - Servicios,Servicios,10899.52
+Plan Operativo,Mar Acd AJ,Mar,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7002 - Gastos de Operacion,Gastos de Operacion,10344.32
+Plan Operativo,Mar Acd AJ,Mar,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7003 - Gastos de Viaje,Gastos de Viaje,6374.33
+Plan Operativo,Mar Acd AJ,Mar,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7008 - Comunicaciones,Comunicaciones,719.68
+Plan Operativo,Mar Acd AJ,Mar,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7012 - IVA,IVA,5503.8
+Plan Operativo,Mar Acd AJ,Mar,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7015 - Materiales,Materiales,572.15
+Plan Operativo,Mar Acd AJ,Mar,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7002 - Gastos de Operacion,Gastos de Operacion,5000
+Plan Operativo,Mar Acd AJ,Mar,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7012 - IVA,IVA,750
+Plan Operativo,Mar Acd AJ,Mar,LS_99 - Operacion Institucional,UF_5699903000 - Comisiones Bancarias,ER_7011 - Comisiones Bancarias,Comisiones Bancarias,99001.22
+Plan Operativo,Mar Acd AJ,Mar,LS_99 - Operacion Institucional,UF_5699907000 - Servicios Administrativos,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,1548824.17
+Plan Operativo,Mar Acd AJ,Mar,LS_99 - Operacion Institucional,UF_5699914000 - PRESTAMO EDUCATIVO PROFESIONAL,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,136665.08
+Plan Operativo,Abr Acd AJ,Abr,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7001 - Servicios,Servicios,21049.27
+Plan Operativo,Abr Acd AJ,Abr,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,38135.03
+Plan Operativo,Abr Acd AJ,Abr,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7003 - Gastos de Viaje,Gastos de Viaje,929.18
+Plan Operativo,Abr Acd AJ,Abr,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7005 - Publicidad,Publicidad,7825.23
+Plan Operativo,Abr Acd AJ,Abr,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,3571.9
+Plan Operativo,Abr Acd AJ,Abr,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7012 - IVA,IVA,12235.49
+Plan Operativo,Abr Acd AJ,Abr,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7015 - Materiales,Materiales,2052.22
+Plan Operativo,Abr Acd AJ,Abr,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7001 - Servicios,Servicios,74671.91
+Plan Operativo,Abr Acd AJ,Abr,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,43402.46
+Plan Operativo,Abr Acd AJ,Abr,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7003 - Gastos de Viaje,Gastos de Viaje,141.82
+Plan Operativo,Abr Acd AJ,Abr,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7005 - Publicidad,Publicidad,7825.23
+Plan Operativo,Abr Acd AJ,Abr,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,11309.33
+Plan Operativo,Abr Acd AJ,Abr,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7012 - IVA,IVA,21988.53
+Plan Operativo,Abr Acd AJ,Abr,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7015 - Materiales,Materiales,1786.79
+Plan Operativo,Abr Acd AJ,Abr,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7001 - Servicios,Servicios,9820.01
+Plan Operativo,Abr Acd AJ,Abr,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7002 - Gastos de Operacion,Gastos de Operacion,1951.54
+Plan Operativo,Abr Acd AJ,Abr,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7003 - Gastos de Viaje,Gastos de Viaje,4431.9
+Plan Operativo,Abr Acd AJ,Abr,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7005 - Publicidad,Publicidad,6804.35
+Plan Operativo,Abr Acd AJ,Abr,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,5494.45
+Plan Operativo,Abr Acd AJ,Abr,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7012 - IVA,IVA,3799.47
+Plan Operativo,Abr Acd AJ,Abr,LS_01 - Ensenanza,UF_5690108000 - Alumnos Mixtos,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,65794.68
+Plan Operativo,Abr Acd AJ,Abr,LS_01 - Ensenanza,UF_5690108001 - Alumnos OnLine,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,67062.15
+Plan Operativo,Abr Acd AJ,Abr,LS_01 - Ensenanza,UF_5690108002 - Alumnos Connect,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,112227.7
+Plan Operativo,Abr Acd AJ,Abr,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7001 - Servicios,Servicios,434.92
+Plan Operativo,Abr Acd AJ,Abr,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7002 - Gastos de Operacion,Gastos de Operacion,250.8
+Plan Operativo,Abr Acd AJ,Abr,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7005 - Publicidad,Publicidad,7050.15
+Plan Operativo,Abr Acd AJ,Abr,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,103.92
+Plan Operativo,Abr Acd AJ,Abr,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7012 - IVA,IVA,1785.28
+Plan Operativo,Abr Acd AJ,Abr,LS_13 - Arrendamientos,UF_5691301000 - Arrendamientos,ER_7001 - Servicios,Servicios,25000
+Plan Operativo,Abr Acd AJ,Abr,LS_13 - Arrendamientos,UF_5691301000 - Arrendamientos,ER_7012 - IVA,IVA,3750
+Plan Operativo,Abr Acd AJ,Abr,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7002 - Gastos de Operacion,Gastos de Operacion,75453.81
+Plan Operativo,Abr Acd AJ,Abr,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,20434.54
+Plan Operativo,Abr Acd AJ,Abr,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7012 - IVA,IVA,11768.07
+Plan Operativo,Abr Acd AJ,Abr,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7015 - Materiales,Materiales,65487.68
+Plan Operativo,Abr Acd AJ,Abr,LS_20 - Apoyo academico,UF_5692003001 - Graduaciones,ER_7001 - Servicios,Servicios,69271.43
+Plan Operativo,Abr Acd AJ,Abr,LS_20 - Apoyo academico,UF_5692003001 - Graduaciones,ER_7002 - Gastos de Operacion,Gastos de Operacion,14336.75
+Plan Operativo,Abr Acd AJ,Abr,LS_20 - Apoyo academico,UF_5692003001 - Graduaciones,ER_7012 - IVA,IVA,12541.23
+Plan Operativo,Abr Acd AJ,Abr,LS_20 - Apoyo academico,UF_5692007000 - Biblioteca,ER_7012 - IVA,IVA,552
+Plan Operativo,Abr Acd AJ,Abr,LS_20 - Apoyo academico,UF_5692007000 - Biblioteca,ER_7016 - Bibliografia,Bibliografia,5395.45
+Plan Operativo,Abr Acd AJ,Abr,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7001 - Servicios,Servicios,43903.06
+Plan Operativo,Abr Acd AJ,Abr,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7002 - Gastos de Operacion,Gastos de Operacion,6569.54
+Plan Operativo,Abr Acd AJ,Abr,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7003 - Gastos de Viaje,Gastos de Viaje,5209.37
+Plan Operativo,Abr Acd AJ,Abr,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7005 - Publicidad,Publicidad,7825.23
+Plan Operativo,Abr Acd AJ,Abr,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7008 - Comunicaciones,Comunicaciones,718.89
+Plan Operativo,Abr Acd AJ,Abr,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7012 - IVA,IVA,10330.96
+Plan Operativo,Abr Acd AJ,Abr,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7001 - Servicios,Servicios,8700.36
+Plan Operativo,Abr Acd AJ,Abr,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,43562.2
+Plan Operativo,Abr Acd AJ,Abr,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7009 - Subcontrataciones,Subcontrataciones,1128.6
+Plan Operativo,Abr Acd AJ,Abr,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7012 - IVA,IVA,8376.84
+Plan Operativo,Abr Acd AJ,Abr,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7015 - Materiales,Materiales,1452.47
+Plan Operativo,Abr Acd AJ,Abr,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7001 - Servicios,Servicios,17916.03
+Plan Operativo,Abr Acd AJ,Abr,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,50908.03
+Plan Operativo,Abr Acd AJ,Abr,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7009 - Subcontrataciones,Subcontrataciones,1128.6
+Plan Operativo,Abr Acd AJ,Abr,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7012 - IVA,IVA,10888.35
+Plan Operativo,Abr Acd AJ,Abr,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7015 - Materiales,Materiales,1428.32
+Plan Operativo,Abr Acd AJ,Abr,LS_22 - Desarrollo social,UF_5692204000 - Servicio Social,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,22109.23
+Plan Operativo,Abr Acd AJ,Abr,LS_23 - Vivencia de Alumnos,UF_5692305000 - Transporte Escolar,ER_7001 - Servicios,Servicios,63954
+Plan Operativo,Abr Acd AJ,Abr,LS_23 - Vivencia de Alumnos,UF_5692305000 - Transporte Escolar,ER_7012 - IVA,IVA,9593.1
+Plan Operativo,Abr Acd AJ,Abr,LS_40 - Administracion y Finanzas,UF_5694005000 - Abasto/Compras,ER_7012 - IVA,IVA,589.95
+Plan Operativo,Abr Acd AJ,Abr,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7001 - Servicios,Servicios,20095.72
+Plan Operativo,Abr Acd AJ,Abr,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7002 - Gastos de Operacion,Gastos de Operacion,11977.24
+Plan Operativo,Abr Acd AJ,Abr,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7008 - Comunicaciones,Comunicaciones,7704.11
+Plan Operativo,Abr Acd AJ,Abr,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7012 - IVA,IVA,8051.45
+Plan Operativo,Abr Acd AJ,Abr,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7015 - Materiales,Materiales,1306.25
+Plan Operativo,Abr Acd AJ,Abr,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7002 - Gastos de Operacion,Gastos de Operacion,7896.02
+Plan Operativo,Abr Acd AJ,Abr,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7007 - Mantenimiento,Mantenimiento,35268.75
+Plan Operativo,Abr Acd AJ,Abr,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7012 - IVA,IVA,6474.71
+Plan Operativo,Abr Acd AJ,Abr,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7002 - Gastos de Operacion,Gastos de Operacion,16136.89
+Plan Operativo,Abr Acd AJ,Abr,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7007 - Mantenimiento,Mantenimiento,7866.76
+Plan Operativo,Abr Acd AJ,Abr,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7009 - Subcontrataciones,Subcontrataciones,143679.78
+Plan Operativo,Abr Acd AJ,Abr,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7012 - IVA,IVA,25152.52
+Plan Operativo,Abr Acd AJ,Abr,LS_48 - Planta Fisica,UF_5694805000 - Servicio de Vigilancia,ER_7009 - Subcontrataciones,Subcontrataciones,174636
+Plan Operativo,Abr Acd AJ,Abr,LS_48 - Planta Fisica,UF_5694805000 - Servicio de Vigilancia,ER_7012 - IVA,IVA,26195.4
+Plan Operativo,Abr Acd AJ,Abr,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7001 - Servicios,Servicios,20336.02
+Plan Operativo,Abr Acd AJ,Abr,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7002 - Gastos de Operacion,Gastos de Operacion,78633.01
+Plan Operativo,Abr Acd AJ,Abr,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7006 - Servicios Publicos,Servicios Publicos,37909.21
+Plan Operativo,Abr Acd AJ,Abr,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7007 - Mantenimiento,Mantenimiento,2975.12
+Plan Operativo,Abr Acd AJ,Abr,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7012 - IVA,IVA,14300.6
+Plan Operativo,Abr Acd AJ,Abr,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7004 - Software,Software,210606.33
+Plan Operativo,Abr Acd AJ,Abr,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7008 - Comunicaciones,Comunicaciones,14481.05
+Plan Operativo,Abr Acd AJ,Abr,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7012 - IVA,IVA,28806.08
+Plan Operativo,Abr Acd AJ,Abr,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7001 - Servicios,Servicios,21559.79
+Plan Operativo,Abr Acd AJ,Abr,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7002 - Gastos de Operacion,Gastos de Operacion,24437.51
+Plan Operativo,Abr Acd AJ,Abr,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7003 - Gastos de Viaje,Gastos de Viaje,6976.19
+Plan Operativo,Abr Acd AJ,Abr,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7005 - Publicidad,Publicidad,7313.19
+Plan Operativo,Abr Acd AJ,Abr,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7008 - Comunicaciones,Comunicaciones,1785.18
+Plan Operativo,Abr Acd AJ,Abr,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7012 - IVA,IVA,10145.75
+Plan Operativo,Abr Acd AJ,Abr,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7015 - Materiales,Materiales,145.43
+Plan Operativo,Abr Acd AJ,Abr,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7001 - Servicios,Servicios,21069.81
+Plan Operativo,Abr Acd AJ,Abr,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,12970.46
+Plan Operativo,Abr Acd AJ,Abr,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7005 - Publicidad,Publicidad,73786.07
+Plan Operativo,Abr Acd AJ,Abr,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7008 - Comunicaciones,Comunicaciones,1078.34
+Plan Operativo,Abr Acd AJ,Abr,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7012 - IVA,IVA,17428.33
+Plan Operativo,Abr Acd AJ,Abr,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7015 - Materiales,Materiales,229.18
+Plan Operativo,Abr Acd AJ,Abr,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7001 - Servicios,Servicios,13598.06
+Plan Operativo,Abr Acd AJ,Abr,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7002 - Gastos de Operacion,Gastos de Operacion,4302.85
+Plan Operativo,Abr Acd AJ,Abr,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7005 - Publicidad,Publicidad,9455.43
+Plan Operativo,Abr Acd AJ,Abr,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7008 - Comunicaciones,Comunicaciones,718.91
+Plan Operativo,Abr Acd AJ,Abr,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7012 - IVA,IVA,4604.93
+Plan Operativo,Abr Acd AJ,Abr,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7015 - Materiales,Materiales,827.34
+Plan Operativo,Abr Acd AJ,Abr,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7001 - Servicios,Servicios,9000.06
+Plan Operativo,Abr Acd AJ,Abr,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7002 - Gastos de Operacion,Gastos de Operacion,35113.13
+Plan Operativo,Abr Acd AJ,Abr,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7005 - Publicidad,Publicidad,9789.88
+Plan Operativo,Abr Acd AJ,Abr,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7008 - Comunicaciones,Comunicaciones,2716.3
+Plan Operativo,Abr Acd AJ,Abr,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7012 - IVA,IVA,9784.3
+Plan Operativo,Abr Acd AJ,Abr,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7015 - Materiales,Materiales,827.34
+Plan Operativo,Abr Acd AJ,Abr,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7001 - Servicios,Servicios,5000
+Plan Operativo,Abr Acd AJ,Abr,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7002 - Gastos de Operacion,Gastos de Operacion,10000
+Plan Operativo,Abr Acd AJ,Abr,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7012 - IVA,IVA,2250
+Plan Operativo,Abr Acd AJ,Abr,LS_99 - Operacion Institucional,UF_5699903000 - Comisiones Bancarias,ER_7011 - Comisiones Bancarias,Comisiones Bancarias,99001.22
+Plan Operativo,Abr Acd AJ,Abr,LS_99 - Operacion Institucional,UF_5699907000 - Servicios Administrativos,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,1552009.44
+Plan Operativo,Abr Acd AJ,Abr,LS_99 - Operacion Institucional,UF_5699914000 - PRESTAMO EDUCATIVO PROFESIONAL,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,136665.08
+Plan Operativo,May Acd AJ,May,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7001 - Servicios,Servicios,23688.33
+Plan Operativo,May Acd AJ,May,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,67257.25
+Plan Operativo,May Acd AJ,May,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7003 - Gastos de Viaje,Gastos de Viaje,6977.8
+Plan Operativo,May Acd AJ,May,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7007 - Mantenimiento,Mantenimiento,10972.5
+Plan Operativo,May Acd AJ,May,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7008 - Comunicaciones,Comunicaciones,17816.83
+Plan Operativo,May Acd AJ,May,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,3571.9
+Plan Operativo,May Acd AJ,May,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7012 - IVA,IVA,20987.55
+Plan Operativo,May Acd AJ,May,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7015 - Materiales,Materiales,1625.32
+Plan Operativo,May Acd AJ,May,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7001 - Servicios,Servicios,97264.86
+Plan Operativo,May Acd AJ,May,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,101591.46
+Plan Operativo,May Acd AJ,May,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7003 - Gastos de Viaje,Gastos de Viaje,6887.4
+Plan Operativo,May Acd AJ,May,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7008 - Comunicaciones,Comunicaciones,13339.43
+Plan Operativo,May Acd AJ,May,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,11309.33
+Plan Operativo,May Acd AJ,May,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7012 - IVA,IVA,37311.72
+Plan Operativo,May Acd AJ,May,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7015 - Materiales,Materiales,10899.69
+Plan Operativo,May Acd AJ,May,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7001 - Servicios,Servicios,963.11
+Plan Operativo,May Acd AJ,May,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7002 - Gastos de Operacion,Gastos de Operacion,4169.55
+Plan Operativo,May Acd AJ,May,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7005 - Publicidad,Publicidad,2282.39
+Plan Operativo,May Acd AJ,May,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7008 - Comunicaciones,Comunicaciones,231.99
+Plan Operativo,May Acd AJ,May,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,5494.45
+Plan Operativo,May Acd AJ,May,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7012 - IVA,IVA,1558.49
+Plan Operativo,May Acd AJ,May,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7015 - Materiales,Materiales,420.91
+Plan Operativo,May Acd AJ,May,LS_01 - Ensenanza,UF_5690108000 - Alumnos Mixtos,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,63200
+Plan Operativo,May Acd AJ,May,LS_01 - Ensenanza,UF_5690108001 - Alumnos OnLine,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,74134.65
+Plan Operativo,May Acd AJ,May,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7001 - Servicios,Servicios,558.28
+Plan Operativo,May Acd AJ,May,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7002 - Gastos de Operacion,Gastos de Operacion,4257.36
+Plan Operativo,May Acd AJ,May,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7005 - Publicidad,Publicidad,1732.86
+Plan Operativo,May Acd AJ,May,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7008 - Comunicaciones,Comunicaciones,3.26
+Plan Operativo,May Acd AJ,May,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,103.92
+Plan Operativo,May Acd AJ,May,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7012 - IVA,IVA,1607.66
+Plan Operativo,May Acd AJ,May,LS_13 - Arrendamientos,UF_5691301000 - Arrendamientos,ER_7001 - Servicios,Servicios,25000
+Plan Operativo,May Acd AJ,May,LS_13 - Arrendamientos,UF_5691301000 - Arrendamientos,ER_7012 - IVA,IVA,3750
+Plan Operativo,May Acd AJ,May,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7002 - Gastos de Operacion,Gastos de Operacion,70030.25
+Plan Operativo,May Acd AJ,May,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7008 - Comunicaciones,Comunicaciones,54.86
+Plan Operativo,May Acd AJ,May,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,20434.54
+Plan Operativo,May Acd AJ,May,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7012 - IVA,IVA,7229.78
+Plan Operativo,May Acd AJ,May,LS_20 - Apoyo academico,UF_5692003001 - Graduaciones,ER_7001 - Servicios,Servicios,3135
+Plan Operativo,May Acd AJ,May,LS_20 - Apoyo academico,UF_5692003001 - Graduaciones,ER_7002 - Gastos de Operacion,Gastos de Operacion,17000
+Plan Operativo,May Acd AJ,May,LS_20 - Apoyo academico,UF_5692003001 - Graduaciones,ER_7012 - IVA,IVA,3020.25
+Plan Operativo,May Acd AJ,May,LS_20 - Apoyo academico,UF_5692007000 - Biblioteca,ER_7012 - IVA,IVA,552
+Plan Operativo,May Acd AJ,May,LS_20 - Apoyo academico,UF_5692007000 - Biblioteca,ER_7016 - Bibliografia,Bibliografia,5395.45
+Plan Operativo,May Acd AJ,May,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7001 - Servicios,Servicios,11931.7
+Plan Operativo,May Acd AJ,May,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7002 - Gastos de Operacion,Gastos de Operacion,7250.21
+Plan Operativo,May Acd AJ,May,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7003 - Gastos de Viaje,Gastos de Viaje,13376.81
+Plan Operativo,May Acd AJ,May,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7008 - Comunicaciones,Comunicaciones,1554.37
+Plan Operativo,May Acd AJ,May,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7012 - IVA,IVA,5814.02
+Plan Operativo,May Acd AJ,May,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7001 - Servicios,Servicios,16816.87
+Plan Operativo,May Acd AJ,May,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,30423.73
+Plan Operativo,May Acd AJ,May,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7003 - Gastos de Viaje,Gastos de Viaje,6873.28
+Plan Operativo,May Acd AJ,May,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7012 - IVA,IVA,8267.38
+Plan Operativo,May Acd AJ,May,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7001 - Servicios,Servicios,10673.2
+Plan Operativo,May Acd AJ,May,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,12322.95
+Plan Operativo,May Acd AJ,May,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7003 - Gastos de Viaje,Gastos de Viaje,8433.78
+Plan Operativo,May Acd AJ,May,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7012 - IVA,IVA,4895.69
+Plan Operativo,May Acd AJ,May,LS_22 - Desarrollo social,UF_5692204000 - Servicio Social,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,9750
+Plan Operativo,May Acd AJ,May,LS_23 - Vivencia de Alumnos,UF_5692305000 - Transporte Escolar,ER_7001 - Servicios,Servicios,85946.02
+Plan Operativo,May Acd AJ,May,LS_23 - Vivencia de Alumnos,UF_5692305000 - Transporte Escolar,ER_7012 - IVA,IVA,12891.9
+Plan Operativo,May Acd AJ,May,LS_40 - Administracion y Finanzas,UF_5694005000 - Abasto/Compras,ER_7002 - Gastos de Operacion,Gastos de Operacion,707.23
+Plan Operativo,May Acd AJ,May,LS_40 - Administracion y Finanzas,UF_5694005000 - Abasto/Compras,ER_7012 - IVA,IVA,696.04
+Plan Operativo,May Acd AJ,May,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7001 - Servicios,Servicios,27511.12
+Plan Operativo,May Acd AJ,May,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7002 - Gastos de Operacion,Gastos de Operacion,23154.3
+Plan Operativo,May Acd AJ,May,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7008 - Comunicaciones,Comunicaciones,3150.22
+Plan Operativo,May Acd AJ,May,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7012 - IVA,IVA,10564.78
+Plan Operativo,May Acd AJ,May,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7015 - Materiales,Materiales,4023.25
+Plan Operativo,May Acd AJ,May,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7002 - Gastos de Operacion,Gastos de Operacion,28564.03
+Plan Operativo,May Acd AJ,May,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7007 - Mantenimiento,Mantenimiento,43430.2
+Plan Operativo,May Acd AJ,May,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7012 - IVA,IVA,10799.14
+Plan Operativo,May Acd AJ,May,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7002 - Gastos de Operacion,Gastos de Operacion,22501.99
+Plan Operativo,May Acd AJ,May,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7007 - Mantenimiento,Mantenimiento,7866.76
+Plan Operativo,May Acd AJ,May,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7009 - Subcontrataciones,Subcontrataciones,143679.78
+Plan Operativo,May Acd AJ,May,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7012 - IVA,IVA,26107.27
+Plan Operativo,May Acd AJ,May,LS_48 - Planta Fisica,UF_5694805000 - Servicio de Vigilancia,ER_7009 - Subcontrataciones,Subcontrataciones,174636
+Plan Operativo,May Acd AJ,May,LS_48 - Planta Fisica,UF_5694805000 - Servicio de Vigilancia,ER_7012 - IVA,IVA,26195.4
+Plan Operativo,May Acd AJ,May,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7001 - Servicios,Servicios,54110.42
+Plan Operativo,May Acd AJ,May,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7002 - Gastos de Operacion,Gastos de Operacion,84602.93
+Plan Operativo,May Acd AJ,May,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7006 - Servicios Publicos,Servicios Publicos,48864.99
+Plan Operativo,May Acd AJ,May,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7007 - Mantenimiento,Mantenimiento,7089.28
+Plan Operativo,May Acd AJ,May,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7012 - IVA,IVA,22199.85
+Plan Operativo,May Acd AJ,May,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7004 - Software,Software,261065.81
+Plan Operativo,May Acd AJ,May,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7008 - Comunicaciones,Comunicaciones,17950.59
+Plan Operativo,May Acd AJ,May,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7012 - IVA,IVA,35412.5
+Plan Operativo,May Acd AJ,May,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7001 - Servicios,Servicios,32540.01
+Plan Operativo,May Acd AJ,May,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7002 - Gastos de Operacion,Gastos de Operacion,31325.14
+Plan Operativo,May Acd AJ,May,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7003 - Gastos de Viaje,Gastos de Viaje,6519.39
+Plan Operativo,May Acd AJ,May,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7005 - Publicidad,Publicidad,7286.31
+Plan Operativo,May Acd AJ,May,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7008 - Comunicaciones,Comunicaciones,4064.05
+Plan Operativo,May Acd AJ,May,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7012 - IVA,IVA,13124.91
+Plan Operativo,May Acd AJ,May,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7015 - Materiales,Materiales,343.48
+Plan Operativo,May Acd AJ,May,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7001 - Servicios,Servicios,44634.72
+Plan Operativo,May Acd AJ,May,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,2060.77
+Plan Operativo,May Acd AJ,May,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7008 - Comunicaciones,Comunicaciones,2329.21
+Plan Operativo,May Acd AJ,May,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7012 - IVA,IVA,10277.75
+Plan Operativo,May Acd AJ,May,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7015 - Materiales,Materiales,12438.61
+Plan Operativo,May Acd AJ,May,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7001 - Servicios,Servicios,3041.45
+Plan Operativo,May Acd AJ,May,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7002 - Gastos de Operacion,Gastos de Operacion,7368.95
+Plan Operativo,May Acd AJ,May,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7005 - Publicidad,Publicidad,19985.63
+Plan Operativo,May Acd AJ,May,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7008 - Comunicaciones,Comunicaciones,1552.8
+Plan Operativo,May Acd AJ,May,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7012 - IVA,IVA,5110.72
+Plan Operativo,May Acd AJ,May,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7015 - Materiales,Materiales,325.6
+Plan Operativo,May Acd AJ,May,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7001 - Servicios,Servicios,40191.09
+Plan Operativo,May Acd AJ,May,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7002 - Gastos de Operacion,Gastos de Operacion,9645.4
+Plan Operativo,May Acd AJ,May,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7005 - Publicidad,Publicidad,21396.38
+Plan Operativo,May Acd AJ,May,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7008 - Comunicaciones,Comunicaciones,1552.81
+Plan Operativo,May Acd AJ,May,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7012 - IVA,IVA,13918.59
+Plan Operativo,May Acd AJ,May,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7015 - Materiales,Materiales,12222.92
+Plan Operativo,May Acd AJ,May,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7001 - Servicios,Servicios,5000
+Plan Operativo,May Acd AJ,May,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7002 - Gastos de Operacion,Gastos de Operacion,14054.59
+Plan Operativo,May Acd AJ,May,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7003 - Gastos de Viaje,Gastos de Viaje,402.33
+Plan Operativo,May Acd AJ,May,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7005 - Publicidad,Publicidad,4963.75
+Plan Operativo,May Acd AJ,May,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7012 - IVA,IVA,4313.62
+Plan Operativo,May Acd AJ,May,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7015 - Materiales,Materiales,4336.75
+Plan Operativo,May Acd AJ,May,LS_99 - Operacion Institucional,UF_5699903000 - Comisiones Bancarias,ER_7011 - Comisiones Bancarias,Comisiones Bancarias,99001.22
+Plan Operativo,May Acd AJ,May,LS_99 - Operacion Institucional,UF_5699907000 - Servicios Administrativos,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,1566299.97
+Plan Operativo,May Acd AJ,May,LS_99 - Operacion Institucional,UF_5699914000 - PRESTAMO EDUCATIVO PROFESIONAL,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,136665.08
+Plan Operativo,Jun Acd AJ,Jun,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7001 - Servicios,Servicios,4104.14
+Plan Operativo,Jun Acd AJ,Jun,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,4876.88
+Plan Operativo,Jun Acd AJ,Jun,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7008 - Comunicaciones,Comunicaciones,104.25
+Plan Operativo,Jun Acd AJ,Jun,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,3571.9
+Plan Operativo,Jun Acd AJ,Jun,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7012 - IVA,IVA,3099.64
+Plan Operativo,Jun Acd AJ,Jun,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7001 - Servicios,Servicios,9539.93
+Plan Operativo,Jun Acd AJ,Jun,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,2360.31
+Plan Operativo,Jun Acd AJ,Jun,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7003 - Gastos de Viaje,Gastos de Viaje,2534.36
+Plan Operativo,Jun Acd AJ,Jun,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7008 - Comunicaciones,Comunicaciones,199.73
+Plan Operativo,Jun Acd AJ,Jun,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,11309.33
+Plan Operativo,Jun Acd AJ,Jun,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7012 - IVA,IVA,5009.45
+Plan Operativo,Jun Acd AJ,Jun,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7001 - Servicios,Servicios,2896.45
+Plan Operativo,Jun Acd AJ,Jun,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7002 - Gastos de Operacion,Gastos de Operacion,8213.31
+Plan Operativo,Jun Acd AJ,Jun,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7003 - Gastos de Viaje,Gastos de Viaje,266.46
+Plan Operativo,Jun Acd AJ,Jun,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7008 - Comunicaciones,Comunicaciones,21.09
+Plan Operativo,Jun Acd AJ,Jun,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,5494.45
+Plan Operativo,Jun Acd AJ,Jun,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7012 - IVA,IVA,2121.04
+Plan Operativo,Jun Acd AJ,Jun,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7015 - Materiales,Materiales,420.91
+Plan Operativo,Jun Acd AJ,Jun,LS_01 - Ensenanza,UF_5690108000 - Alumnos Mixtos,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,1303.5
+Plan Operativo,Jun Acd AJ,Jun,LS_01 - Ensenanza,UF_5690108001 - Alumnos OnLine,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,56758.71
+Plan Operativo,Jun Acd AJ,Jun,LS_01 - Ensenanza,UF_5690108002 - Alumnos Connect,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,89033.12
+Plan Operativo,Jun Acd AJ,Jun,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7001 - Servicios,Servicios,123.36
+Plan Operativo,Jun Acd AJ,Jun,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7002 - Gastos de Operacion,Gastos de Operacion,1802.95
+Plan Operativo,Jun Acd AJ,Jun,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7003 - Gastos de Viaje,Gastos de Viaje,6378.68
+Plan Operativo,Jun Acd AJ,Jun,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7008 - Comunicaciones,Comunicaciones,3.26
+Plan Operativo,Jun Acd AJ,Jun,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,103.92
+Plan Operativo,Jun Acd AJ,Jun,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7012 - IVA,IVA,1871.14
+Plan Operativo,Jun Acd AJ,Jun,LS_13 - Arrendamientos,UF_5691301000 - Arrendamientos,ER_7001 - Servicios,Servicios,25000
+Plan Operativo,Jun Acd AJ,Jun,LS_13 - Arrendamientos,UF_5691301000 - Arrendamientos,ER_7012 - IVA,IVA,3750
+Plan Operativo,Jun Acd AJ,Jun,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7002 - Gastos de Operacion,Gastos de Operacion,86693.66
+Plan Operativo,Jun Acd AJ,Jun,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7008 - Comunicaciones,Comunicaciones,54.86
+Plan Operativo,Jun Acd AJ,Jun,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,20434.54
+Plan Operativo,Jun Acd AJ,Jun,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7012 - IVA,IVA,11262.18
+Plan Operativo,Jun Acd AJ,Jun,LS_20 - Apoyo academico,UF_5692003001 - Graduaciones,ER_7001 - Servicios,Servicios,205163.81
+Plan Operativo,Jun Acd AJ,Jun,LS_20 - Apoyo academico,UF_5692003001 - Graduaciones,ER_7012 - IVA,IVA,30774.57
+Plan Operativo,Jun Acd AJ,Jun,LS_20 - Apoyo academico,UF_5692007000 - Biblioteca,ER_7012 - IVA,IVA,552
+Plan Operativo,Jun Acd AJ,Jun,LS_20 - Apoyo academico,UF_5692007000 - Biblioteca,ER_7016 - Bibliografia,Bibliografia,5395.45
+Plan Operativo,Jun Acd AJ,Jun,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7012 - IVA,IVA,697.05
+Plan Operativo,Jun Acd AJ,Jun,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7001 - Servicios,Servicios,5370.11
+Plan Operativo,Jun Acd AJ,Jun,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,17628.86
+Plan Operativo,Jun Acd AJ,Jun,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7003 - Gastos de Viaje,Gastos de Viaje,3364.51
+Plan Operativo,Jun Acd AJ,Jun,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7012 - IVA,IVA,4235.15
+Plan Operativo,Jun Acd AJ,Jun,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7015 - Materiales,Materiales,868.84
+Plan Operativo,Jun Acd AJ,Jun,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7001 - Servicios,Servicios,1751.62
+Plan Operativo,Jun Acd AJ,Jun,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,3379.41
+Plan Operativo,Jun Acd AJ,Jun,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7012 - IVA,IVA,950.86
+Plan Operativo,Jun Acd AJ,Jun,LS_22 - Desarrollo social,UF_5692204000 - Servicio Social,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,11995.72
+Plan Operativo,Jun Acd AJ,Jun,LS_40 - Administracion y Finanzas,UF_5694005000 - Abasto/Compras,ER_7012 - IVA,IVA,589.95
+Plan Operativo,Jun Acd AJ,Jun,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7001 - Servicios,Servicios,17804.71
+Plan Operativo,Jun Acd AJ,Jun,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7002 - Gastos de Operacion,Gastos de Operacion,6334.74
+Plan Operativo,Jun Acd AJ,Jun,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7008 - Comunicaciones,Comunicaciones,5369.89
+Plan Operativo,Jun Acd AJ,Jun,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7012 - IVA,IVA,6315.35
+Plan Operativo,Jun Acd AJ,Jun,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7002 - Gastos de Operacion,Gastos de Operacion,7773.76
+Plan Operativo,Jun Acd AJ,Jun,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7007 - Mantenimiento,Mantenimiento,38008.74
+Plan Operativo,Jun Acd AJ,Jun,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7012 - IVA,IVA,6867.38
+Plan Operativo,Jun Acd AJ,Jun,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7007 - Mantenimiento,Mantenimiento,13091.76
+Plan Operativo,Jun Acd AJ,Jun,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7009 - Subcontrataciones,Subcontrataciones,143679.78
+Plan Operativo,Jun Acd AJ,Jun,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7012 - IVA,IVA,23515.73
+Plan Operativo,Jun Acd AJ,Jun,LS_48 - Planta Fisica,UF_5694805000 - Servicio de Vigilancia,ER_7009 - Subcontrataciones,Subcontrataciones,120227.1
+Plan Operativo,Jun Acd AJ,Jun,LS_48 - Planta Fisica,UF_5694805000 - Servicio de Vigilancia,ER_7012 - IVA,IVA,18034.07
+Plan Operativo,Jun Acd AJ,Jun,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7001 - Servicios,Servicios,19970.27
+Plan Operativo,Jun Acd AJ,Jun,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7002 - Gastos de Operacion,Gastos de Operacion,54699.21
+Plan Operativo,Jun Acd AJ,Jun,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7006 - Servicios Publicos,Servicios Publicos,41945
+Plan Operativo,Jun Acd AJ,Jun,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7007 - Mantenimiento,Mantenimiento,2975.12
+Plan Operativo,Jun Acd AJ,Jun,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7012 - IVA,IVA,10938.15
+Plan Operativo,Jun Acd AJ,Jun,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7004 - Software,Software,232385.68
+Plan Operativo,Jun Acd AJ,Jun,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7008 - Comunicaciones,Comunicaciones,15978.58
+Plan Operativo,Jun Acd AJ,Jun,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7012 - IVA,IVA,31657.55
+Plan Operativo,Jun Acd AJ,Jun,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7002 - Gastos de Operacion,Gastos de Operacion,3425.59
+Plan Operativo,Jun Acd AJ,Jun,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7003 - Gastos de Viaje,Gastos de Viaje,3176.57
+Plan Operativo,Jun Acd AJ,Jun,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7008 - Comunicaciones,Comunicaciones,2964.32
+Plan Operativo,Jun Acd AJ,Jun,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7012 - IVA,IVA,2745.45
+Plan Operativo,Jun Acd AJ,Jun,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7015 - Materiales,Materiales,3315.53
+Plan Operativo,Jun Acd AJ,Jun,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,140
+Plan Operativo,Jun Acd AJ,Jun,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7003 - Gastos de Viaje,Gastos de Viaje,3307.73
+Plan Operativo,Jun Acd AJ,Jun,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7008 - Comunicaciones,Comunicaciones,2814.4
+Plan Operativo,Jun Acd AJ,Jun,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7012 - IVA,IVA,2185.41
+Plan Operativo,Jun Acd AJ,Jun,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7015 - Materiales,Materiales,1252.21
+Plan Operativo,Jun Acd AJ,Jun,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7001 - Servicios,Servicios,265.66
+Plan Operativo,Jun Acd AJ,Jun,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7002 - Gastos de Operacion,Gastos de Operacion,2146.05
+Plan Operativo,Jun Acd AJ,Jun,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7008 - Comunicaciones,Comunicaciones,847.7
+Plan Operativo,Jun Acd AJ,Jun,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7012 - IVA,IVA,836.84
+Plan Operativo,Jun Acd AJ,Jun,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7015 - Materiales,Materiales,522.5
+Plan Operativo,Jun Acd AJ,Jun,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7001 - Servicios,Servicios,525.92
+Plan Operativo,Jun Acd AJ,Jun,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7008 - Comunicaciones,Comunicaciones,1414.5
+Plan Operativo,Jun Acd AJ,Jun,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7012 - IVA,IVA,1532.57
+Plan Operativo,Jun Acd AJ,Jun,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7015 - Materiales,Materiales,494.73
+Plan Operativo,Jun Acd AJ,Jun,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7002 - Gastos de Operacion,Gastos de Operacion,5000
+Plan Operativo,Jun Acd AJ,Jun,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7012 - IVA,IVA,750
+Plan Operativo,Jun Acd AJ,Jun,LS_99 - Operacion Institucional,UF_5699903000 - Comisiones Bancarias,ER_7011 - Comisiones Bancarias,Comisiones Bancarias,99001.22
+Plan Operativo,Jun Acd AJ,Jun,LS_99 - Operacion Institucional,UF_5699907000 - Servicios Administrativos,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,189955.89
+Plan Operativo,Jun Acd AJ,Jun,LS_99 - Operacion Institucional,UF_5699914000 - PRESTAMO EDUCATIVO PROFESIONAL,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,136665.08
+Plan Operativo,Jul Acd AJ,Jul,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7001 - Servicios,Servicios,4104.14
+Plan Operativo,Jul Acd AJ,Jul,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,1093.09
+Plan Operativo,Jul Acd AJ,Jul,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7008 - Comunicaciones,Comunicaciones,104.25
+Plan Operativo,Jul Acd AJ,Jul,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,3571.9
+Plan Operativo,Jul Acd AJ,Jul,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7012 - IVA,IVA,2613.02
+Plan Operativo,Jul Acd AJ,Jul,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7015 - Materiales,Materiales,539.66
+Plan Operativo,Jul Acd AJ,Jul,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7001 - Servicios,Servicios,9539.93
+Plan Operativo,Jul Acd AJ,Jul,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,22360.75
+Plan Operativo,Jul Acd AJ,Jul,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,11309.33
+Plan Operativo,Jul Acd AJ,Jul,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7012 - IVA,IVA,7599.4
+Plan Operativo,Jul Acd AJ,Jul,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7001 - Servicios,Servicios,4931.63
+Plan Operativo,Jul Acd AJ,Jul,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7002 - Gastos de Operacion,Gastos de Operacion,670.47
+Plan Operativo,Jul Acd AJ,Jul,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7008 - Comunicaciones,Comunicaciones,21.09
+Plan Operativo,Jul Acd AJ,Jul,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,5494.45
+Plan Operativo,Jul Acd AJ,Jul,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7012 - IVA,IVA,1191.78
+Plan Operativo,Jul Acd AJ,Jul,LS_01 - Ensenanza,UF_5690108000 - Alumnos Mixtos,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,115893
+Plan Operativo,Jul Acd AJ,Jul,LS_01 - Ensenanza,UF_5690108001 - Alumnos OnLine,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,146125.18
+Plan Operativo,Jul Acd AJ,Jul,LS_01 - Ensenanza,UF_5690108002 - Alumnos Connect,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,91731.09
+Plan Operativo,Jul Acd AJ,Jul,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7001 - Servicios,Servicios,123.36
+Plan Operativo,Jul Acd AJ,Jul,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7008 - Comunicaciones,Comunicaciones,3.26
+Plan Operativo,Jul Acd AJ,Jul,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,103.92
+Plan Operativo,Jul Acd AJ,Jul,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7012 - IVA,IVA,643.89
+Plan Operativo,Jul Acd AJ,Jul,LS_03 - Educacion continua,UF_5690301000 - Idiomas,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,151769.23
+Plan Operativo,Jul Acd AJ,Jul,LS_03 - Educacion continua,UF_5690301000 - Idiomas,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,151769.23
+Plan Operativo,Jul Acd AJ,Jul,LS_03 - Educacion continua,UF_5690301000 - Idiomas,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,151769.23
+Plan Operativo,Jul Acd AJ,Jul,LS_13 - Arrendamientos,UF_5691301000 - Arrendamientos,ER_7001 - Servicios,Servicios,25000
+Plan Operativo,Jul Acd AJ,Jul,LS_13 - Arrendamientos,UF_5691301000 - Arrendamientos,ER_7012 - IVA,IVA,3750
+Plan Operativo,Jul Acd AJ,Jul,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7002 - Gastos de Operacion,Gastos de Operacion,25023.58
+Plan Operativo,Jul Acd AJ,Jul,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7008 - Comunicaciones,Comunicaciones,54.86
+Plan Operativo,Jul Acd AJ,Jul,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,20434.54
+Plan Operativo,Jul Acd AJ,Jul,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7012 - IVA,IVA,5698.52
+Plan Operativo,Jul Acd AJ,Jul,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7015 - Materiales,Materiales,24579.03
+Plan Operativo,Jul Acd AJ,Jul,LS_20 - Apoyo academico,UF_5692007000 - Biblioteca,ER_7012 - IVA,IVA,552
+Plan Operativo,Jul Acd AJ,Jul,LS_20 - Apoyo academico,UF_5692007000 - Biblioteca,ER_7016 - Bibliografia,Bibliografia,5856.68
+Plan Operativo,Jul Acd AJ,Jul,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7001 - Servicios,Servicios,9235.9
+Plan Operativo,Jul Acd AJ,Jul,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7002 - Gastos de Operacion,Gastos de Operacion,3907.64
+Plan Operativo,Jul Acd AJ,Jul,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7003 - Gastos de Viaje,Gastos de Viaje,294.17
+Plan Operativo,Jul Acd AJ,Jul,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7008 - Comunicaciones,Comunicaciones,403.83
+Plan Operativo,Jul Acd AJ,Jul,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7012 - IVA,IVA,2773.27
+Plan Operativo,Jul Acd AJ,Jul,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7001 - Servicios,Servicios,1902.8
+Plan Operativo,Jul Acd AJ,Jul,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,7270.31
+Plan Operativo,Jul Acd AJ,Jul,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7012 - IVA,IVA,1656.59
+Plan Operativo,Jul Acd AJ,Jul,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7015 - Materiales,Materiales,868.84
+Plan Operativo,Jul Acd AJ,Jul,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7001 - Servicios,Servicios,1751.62
+Plan Operativo,Jul Acd AJ,Jul,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,3379.41
+Plan Operativo,Jul Acd AJ,Jul,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7012 - IVA,IVA,950.86
+Plan Operativo,Jul Acd AJ,Jul,LS_22 - Desarrollo social,UF_5692204000 - Servicio Social,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,12359.23
+Plan Operativo,Jul Acd AJ,Jul,LS_40 - Administracion y Finanzas,UF_5694005000 - Abasto/Compras,ER_7012 - IVA,IVA,589.95
+Plan Operativo,Jul Acd AJ,Jul,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7001 - Servicios,Servicios,19042.86
+Plan Operativo,Jul Acd AJ,Jul,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7002 - Gastos de Operacion,Gastos de Operacion,833.4
+Plan Operativo,Jul Acd AJ,Jul,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7008 - Comunicaciones,Comunicaciones,5369.89
+Plan Operativo,Jul Acd AJ,Jul,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7012 - IVA,IVA,5675.87
+Plan Operativo,Jul Acd AJ,Jul,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7002 - Gastos de Operacion,Gastos de Operacion,3465.22
+Plan Operativo,Jul Acd AJ,Jul,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7007 - Mantenimiento,Mantenimiento,12849.32
+Plan Operativo,Jul Acd AJ,Jul,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7012 - IVA,IVA,2447.18
+Plan Operativo,Jul Acd AJ,Jul,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7002 - Gastos de Operacion,Gastos de Operacion,7733
+Plan Operativo,Jul Acd AJ,Jul,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7007 - Mantenimiento,Mantenimiento,7866.76
+Plan Operativo,Jul Acd AJ,Jul,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7009 - Subcontrataciones,Subcontrataciones,95664.73
+Plan Operativo,Jul Acd AJ,Jul,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7012 - IVA,IVA,16689.68
+Plan Operativo,Jul Acd AJ,Jul,LS_48 - Planta Fisica,UF_5694805000 - Servicio de Vigilancia,ER_7009 - Subcontrataciones,Subcontrataciones,174636
+Plan Operativo,Jul Acd AJ,Jul,LS_48 - Planta Fisica,UF_5694805000 - Servicio de Vigilancia,ER_7012 - IVA,IVA,26195.4
+Plan Operativo,Jul Acd AJ,Jul,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7001 - Servicios,Servicios,23787.73
+Plan Operativo,Jul Acd AJ,Jul,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7002 - Gastos de Operacion,Gastos de Operacion,53183.96
+Plan Operativo,Jul Acd AJ,Jul,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7006 - Servicios Publicos,Servicios Publicos,31636.07
+Plan Operativo,Jul Acd AJ,Jul,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7007 - Mantenimiento,Mantenimiento,5937.1
+Plan Operativo,Jul Acd AJ,Jul,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7012 - IVA,IVA,10181.44
+Plan Operativo,Jul Acd AJ,Jul,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7004 - Software,Software,290979.87
+Plan Operativo,Jul Acd AJ,Jul,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7008 - Comunicaciones,Comunicaciones,20007.45
+Plan Operativo,Jul Acd AJ,Jul,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7012 - IVA,IVA,39329.01
+Plan Operativo,Jul Acd AJ,Jul,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7002 - Gastos de Operacion,Gastos de Operacion,5671.89
+Plan Operativo,Jul Acd AJ,Jul,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7005 - Publicidad,Publicidad,3643.15
+Plan Operativo,Jul Acd AJ,Jul,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7008 - Comunicaciones,Comunicaciones,2964.32
+Plan Operativo,Jul Acd AJ,Jul,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7012 - IVA,IVA,2814.01
+Plan Operativo,Jul Acd AJ,Jul,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7015 - Materiales,Materiales,1059.7
+Plan Operativo,Jul Acd AJ,Jul,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,1484.05
+Plan Operativo,Jul Acd AJ,Jul,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7005 - Publicidad,Publicidad,9785.97
+Plan Operativo,Jul Acd AJ,Jul,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7008 - Comunicaciones,Comunicaciones,2814.4
+Plan Operativo,Jul Acd AJ,Jul,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7012 - IVA,IVA,3358.74
+Plan Operativo,Jul Acd AJ,Jul,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7015 - Materiales,Materiales,1252.21
+Plan Operativo,Jul Acd AJ,Jul,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7001 - Servicios,Servicios,937.45
+Plan Operativo,Jul Acd AJ,Jul,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7002 - Gastos de Operacion,Gastos de Operacion,3433.68
+Plan Operativo,Jul Acd AJ,Jul,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7008 - Comunicaciones,Comunicaciones,847.7
+Plan Operativo,Jul Acd AJ,Jul,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7012 - IVA,IVA,1130.75
+Plan Operativo,Jul Acd AJ,Jul,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7015 - Materiales,Materiales,522.5
+Plan Operativo,Jul Acd AJ,Jul,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7008 - Comunicaciones,Comunicaciones,1414.5
+Plan Operativo,Jul Acd AJ,Jul,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7012 - IVA,IVA,1453.69
+Plan Operativo,Jul Acd AJ,Jul,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7015 - Materiales,Materiales,494.73
+Plan Operativo,Jul Acd AJ,Jul,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7002 - Gastos de Operacion,Gastos de Operacion,5000
+Plan Operativo,Jul Acd AJ,Jul,LS_52 - Talento y Cultura,UF_5695299000 - Gestion De Talento Y Cultura,ER_7012 - IVA,IVA,750
+Plan Operativo,Jul Acd AJ,Jul,LS_99 - Operacion Institucional,UF_5699903000 - Comisiones Bancarias,ER_7011 - Comisiones Bancarias,Comisiones Bancarias,99001.22
+Plan Operativo,Jul Acd AJ,Jul,LS_99 - Operacion Institucional,UF_5699907000 - Servicios Administrativos,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,48239.78
+Plan Operativo,Jul Acd AJ,Jul,LS_99 - Operacion Institucional,UF_5699914000 - PRESTAMO EDUCATIVO PROFESIONAL,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,136665.08
+Real,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7001 - Servicios,Servicios,10760.51
+Real,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,600
+Real,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7005 - Publicidad,Publicidad,52900.13
+Real,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,3571.9
+Real,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7012 - IVA,IVA,6611.54
+Real,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7015 - Materiales,Materiales,10606
+Real,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7001 - Servicios,Servicios,14818.79
+Real,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,32532.18
+Real,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,11309.32
+Real,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7012 - IVA,IVA,6120.16
+Real,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7015 - Materiales,Materiales,13081.25
+Real,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7001 - Servicios,Servicios,947.93
+Real,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7002 - Gastos de Operacion,Gastos de Operacion,240
+Real,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,5494.45
+Real,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7012 - IVA,IVA,352.39
+Real,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690108000 - Alumnos Mixtos,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,3000
+Real,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690108001 - Alumnos OnLine,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,94500
+Real,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690108002 - Alumnos Connect,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,143250
+Real,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7002 - Gastos de Operacion,Gastos de Operacion,240
+Real,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,103.91
+Real,Ago Acd AJ,Ago,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7012 - IVA,IVA,478.09
+Real,Ago Acd AJ,Ago,LS_13 - Arrendamientos,UF_5691301000 - Arrendamientos,ER_7001 - Servicios,Servicios,24000
+Real,Ago Acd AJ,Ago,LS_13 - Arrendamientos,UF_5691301000 - Arrendamientos,ER_7012 - IVA,IVA,3840
+Real,Ago Acd AJ,Ago,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7002 - Gastos de Operacion,Gastos de Operacion,9426.3
+Real,Ago Acd AJ,Ago,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,20434.54
+Real,Ago Acd AJ,Ago,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7012 - IVA,IVA,4682.64
+Real,Ago Acd AJ,Ago,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7015 - Materiales,Materiales,9616.9
+Real,Ago Acd AJ,Ago,LS_20 - Apoyo academico,UF_5692007000 - Biblioteca,ER_7012 - IVA,IVA,439.69
+Real,Ago Acd AJ,Ago,LS_20 - Apoyo academico,UF_5692007000 - Biblioteca,ER_7016 - Bibliografia,Bibliografia,18134.8
+Real,Ago Acd AJ,Ago,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7002 - Gastos de Operacion,Gastos de Operacion,2195.99
+Real,Ago Acd AJ,Ago,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7008 - Comunicaciones,Comunicaciones,1065.94
+Real,Ago Acd AJ,Ago,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7012 - IVA,IVA,913.47
+Real,Ago Acd AJ,Ago,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,20846.93
+Real,Ago Acd AJ,Ago,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7012 - IVA,IVA,1735.02
+Real,Ago Acd AJ,Ago,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,10463
+Real,Ago Acd AJ,Ago,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7003 - Gastos de Viaje,Gastos de Viaje,1938.15
+Real,Ago Acd AJ,Ago,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7012 - IVA,IVA,2804.6
+Real,Ago Acd AJ,Ago,LS_23 - Vivencia de Alumnos,UF_5692305000 - Transporte Escolar,ER_7001 - Servicios,Servicios,98700
+Real,Ago Acd AJ,Ago,LS_40 - Administracion y Finanzas,UF_5694005000 - Abasto/Compras,ER_7002 - Gastos de Operacion,Gastos de Operacion,18704.65
+Real,Ago Acd AJ,Ago,LS_40 - Administracion y Finanzas,UF_5694005000 - Abasto/Compras,ER_7012 - IVA,IVA,468.45
+Real,Ago Acd AJ,Ago,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7001 - Servicios,Servicios,13035.79
+Real,Ago Acd AJ,Ago,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7002 - Gastos de Operacion,Gastos de Operacion,22844.41
+Real,Ago Acd AJ,Ago,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7008 - Comunicaciones,Comunicaciones,3422.35
+Real,Ago Acd AJ,Ago,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7012 - IVA,IVA,3876.15
+Real,Ago Acd AJ,Ago,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7015 - Materiales,Materiales,6283.71
+Real,Ago Acd AJ,Ago,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7002 - Gastos de Operacion,Gastos de Operacion,72848.79
+Real,Ago Acd AJ,Ago,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7007 - Mantenimiento,Mantenimiento,78141.67
+Real,Ago Acd AJ,Ago,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7012 - IVA,IVA,9237.08
+Real,Ago Acd AJ,Ago,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7007 - Mantenimiento,Mantenimiento,18382.17
+Real,Ago Acd AJ,Ago,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7009 - Subcontrataciones,Subcontrataciones,132041.8
+Real,Ago Acd AJ,Ago,LS_48 - Planta Fisica,UF_5694805000 - Servicio de Vigilancia,ER_7009 - Subcontrataciones,Subcontrataciones,168928.46
+Real,Ago Acd AJ,Ago,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7001 - Servicios,Servicios,41373.68
+Real,Ago Acd AJ,Ago,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7002 - Gastos de Operacion,Gastos de Operacion,71724.66
+Real,Ago Acd AJ,Ago,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7006 - Servicios Publicos,Servicios Publicos,16213.86
+Real,Ago Acd AJ,Ago,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7007 - Mantenimiento,Mantenimiento,5797
+Real,Ago Acd AJ,Ago,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7012 - IVA,IVA,9995.24
+Real,Ago Acd AJ,Ago,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7004 - Software,Software,224790.92
+Real,Ago Acd AJ,Ago,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7008 - Comunicaciones,Comunicaciones,39955.59
+Real,Ago Acd AJ,Ago,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7012 - IVA,IVA,16714.79
+Real,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7001 - Servicios,Servicios,1885
+Real,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7002 - Gastos de Operacion,Gastos de Operacion,218223.03
+Real,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7003 - Gastos de Viaje,Gastos de Viaje,32782.44
+Real,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7008 - Comunicaciones,Comunicaciones,2094.49
+Real,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7012 - IVA,IVA,5793.27
+Real,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7001 - Servicios,Servicios,4085
+Real,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,120210.27
+Real,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7003 - Gastos de Viaje,Gastos de Viaje,5078.52
+Real,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7008 - Comunicaciones,Comunicaciones,831.9
+Real,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7012 - IVA,IVA,2452.69
+Real,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7002 - Gastos de Operacion,Gastos de Operacion,4934.5
+Real,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7008 - Comunicaciones,Comunicaciones,687.08
+Real,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7012 - IVA,IVA,2003.61
+Real,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7002 - Gastos de Operacion,Gastos de Operacion,3888.1
+Real,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7003 - Gastos de Viaje,Gastos de Viaje,4500
+Real,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7008 - Comunicaciones,Comunicaciones,686.22
+Real,Ago Acd AJ,Ago,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7012 - IVA,IVA,2786.43
+Real,Ago Acd AJ,Ago,LS_99 - Operacion Institucional,UF_5699903000 - Comisiones Bancarias,ER_7011 - Comisiones Bancarias,Comisiones Bancarias,116086.86
+Real,Ago Acd AJ,Ago,LS_99 - Operacion Institucional,UF_5699907000 - Servicios Administrativos,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,1475611.71
+Real,Ago Acd AJ,Ago,LS_99 - Operacion Institucional,UF_5699914000 - PRESTAMO EDUCATIVO PROFESIONAL,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,136665.08
+Real,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7001 - Servicios,Servicios,10760.51
+Real,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,5159.52
+Real,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7012 - IVA,IVA,5530.22
+Real,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7015 - Materiales,Materiales,2228.32
+Real,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7001 - Servicios,Servicios,12271.77
+Real,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,42528.76
+Real,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7012 - IVA,IVA,3469
+Real,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7015 - Materiales,Materiales,7508.32
+Real,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7001 - Servicios,Servicios,3948.2
+Real,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7002 - Gastos de Operacion,Gastos de Operacion,240
+Real,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7012 - IVA,IVA,38.4
+Real,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7002 - Gastos de Operacion,Gastos de Operacion,240
+Real,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7012 - IVA,IVA,598.4
+Real,Sep Acd AJ,Sep,LS_13 - Arrendamientos,UF_5691301000 - Arrendamientos,ER_7001 - Servicios,Servicios,24000
+Real,Sep Acd AJ,Sep,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7002 - Gastos de Operacion,Gastos de Operacion,82978.3
+Real,Sep Acd AJ,Sep,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7015 - Materiales,Materiales,5095.28
+Real,Sep Acd AJ,Sep,LS_20 - Apoyo academico,UF_5692007000 - Biblioteca,ER_7016 - Bibliografia,Bibliografia,-2969.8
+Real,Sep Acd AJ,Sep,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7002 - Gastos de Operacion,Gastos de Operacion,499.05
+Real,Sep Acd AJ,Sep,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7008 - Comunicaciones,Comunicaciones,-313.1
+Real,Sep Acd AJ,Sep,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7012 - IVA,IVA,79.85
+Real,Sep Acd AJ,Sep,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7001 - Servicios,Servicios,4082.99
+Real,Sep Acd AJ,Sep,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,8081.61
+Real,Sep Acd AJ,Sep,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7012 - IVA,IVA,864.46
+Real,Sep Acd AJ,Sep,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7001 - Servicios,Servicios,3400
+Real,Sep Acd AJ,Sep,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,213.97
+Real,Sep Acd AJ,Sep,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7012 - IVA,IVA,1123.32
+Real,Sep Acd AJ,Sep,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7001 - Servicios,Servicios,5147.56
+Real,Sep Acd AJ,Sep,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7002 - Gastos de Operacion,Gastos de Operacion,6853.64
+Real,Sep Acd AJ,Sep,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7008 - Comunicaciones,Comunicaciones,2805.06
+Real,Sep Acd AJ,Sep,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7012 - IVA,IVA,115.2
+Real,Sep Acd AJ,Sep,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7015 - Materiales,Materiales,1069.32
+Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7002 - Gastos de Operacion,Gastos de Operacion,7244.45
+Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7007 - Mantenimiento,Mantenimiento,154189.74
+Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7012 - IVA,IVA,3312
+Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7002 - Gastos de Operacion,Gastos de Operacion,33695.29
+Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7007 - Mantenimiento,Mantenimiento,19166.38
+Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7009 - Subcontrataciones,Subcontrataciones,132041.8
+Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7012 - IVA,IVA,24067.84
+Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694805000 - Servicio de Vigilancia,ER_7009 - Subcontrataciones,Subcontrataciones,168928.49
+Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7001 - Servicios,Servicios,34513.68
+Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7002 - Gastos de Operacion,Gastos de Operacion,30682.48
+Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7006 - Servicios Publicos,Servicios Publicos,948
+Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7007 - Mantenimiento,Mantenimiento,14170
+Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7012 - IVA,IVA,5719.52
+Real,Sep Acd AJ,Sep,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7004 - Software,Software,161138.84
+Real,Sep Acd AJ,Sep,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7008 - Comunicaciones,Comunicaciones,-157.37
+Real,Sep Acd AJ,Sep,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7012 - IVA,IVA,111.16
+Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7002 - Gastos de Operacion,Gastos de Operacion,2279.57
+Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7008 - Comunicaciones,Comunicaciones,-476.4
+Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7012 - IVA,IVA,1466.33
+Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7015 - Materiales,Materiales,767.26
+Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,2279.57
+Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7003 - Gastos de Viaje,Gastos de Viaje,208.75
+Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7008 - Comunicaciones,Comunicaciones,-165.13
+Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7012 - IVA,IVA,1466.33
+Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7015 - Materiales,Materiales,767.26
+Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7002 - Gastos de Operacion,Gastos de Operacion,5830
+Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7005 - Publicidad,Publicidad,3825
+Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7008 - Comunicaciones,Comunicaciones,-110.08
+Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7012 - IVA,IVA,1544.8
+Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7015 - Materiales,Materiales,767.26
+Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7001 - Servicios,Servicios,700
+Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7002 - Gastos de Operacion,Gastos de Operacion,5830
+Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7005 - Publicidad,Publicidad,3825
+Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7008 - Comunicaciones,Comunicaciones,-110.07
+Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7012 - IVA,IVA,1544.8
+Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7015 - Materiales,Materiales,767.26
+Real,Sep Acd AJ,Sep,LS_99 - Operacion Institucional,UF_5699903000 - Comisiones Bancarias,ER_7011 - Comisiones Bancarias,Comisiones Bancarias,596.4
