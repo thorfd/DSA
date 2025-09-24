@@ -40,6 +40,9 @@
             background-color: #e2e8f0;
             border-color: #4f46e5;
         }
+        select[multiple] {
+            height: 100px; /* Adjust height for better multi-select UX */
+        }
     </style>
 </head>
 <body class="p-4 md:p-8">
@@ -71,15 +74,13 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <div class="bg-white p-4 rounded-xl shadow">
                     <label for="campus-filter" class="block text-sm font-medium text-gray-700 mb-1">Filtrar por Campus</label>
-                    <select id="campus-filter" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                        <option value="all">Todos los Campus</option>
-                    </select>
+                    <select id="campus-filter" multiple class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></select>
+                    <p class="text-xs text-gray-500 mt-1">Mantén Ctrl (o Cmd) para seleccionar varios.</p>
                 </div>
                 <div class="bg-white p-4 rounded-xl shadow">
                     <label for="level-filter" class="block text-sm font-medium text-gray-700 mb-1">Filtrar por Nivel Académico</label>
-                    <select id="level-filter" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                        <option value="all">Todos los Niveles</option>
-                    </select>
+                    <select id="level-filter" multiple class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></select>
+                     <p class="text-xs text-gray-500 mt-1">Mantén Ctrl (o Cmd) para seleccionar varios.</p>
                 </div>
                  <div class="bg-white p-4 rounded-xl shadow flex items-center justify-center">
                     <button id="reset-filters" class="w-full bg-gray-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-gray-600 transition">
@@ -143,7 +144,15 @@
                     <div id="map"></div>
                 </div>
                  <div class="bg-white p-6 rounded-xl shadow lg:col-span-2">
-                    <h3 class="font-semibold text-lg text-gray-800">Evolución de Inscripciones Diarias</h3>
+                    <div class="flex justify-between items-center mb-4">
+                         <h3 id="timeline-chart-title" class="font-semibold text-lg text-gray-800">Evolución de Inscripciones</h3>
+                         <div>
+                            <label for="month-filter" class="text-sm font-medium text-gray-700 mr-2">Filtrar por Mes:</label>
+                            <select id="month-filter" class="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                <option value="all">Todos los Meses</option>
+                            </select>
+                         </div>
+                    </div>
                     <div class="chart-container"><canvas id="timeline-chart"></canvas></div>
                 </div>
             </section>
@@ -163,9 +172,10 @@
         const dashboardContent = document.getElementById('dashboard-content');
         const campusFilter = document.getElementById('campus-filter');
         const levelFilter = document.getElementById('level-filter');
+        const monthFilter = document.getElementById('month-filter');
         const resetFiltersBtn = document.getElementById('reset-filters');
         
-        // --- Lógica para arrastrar y soltar ---
+        // --- Lógica de Eventos ---
         dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
         dropZone.addEventListener('dragleave', (e) => { e.preventDefault(); dropZone.classList.remove('dragover'); });
         dropZone.addEventListener('drop', (e) => {
@@ -178,12 +188,13 @@
         });
         fileInput.addEventListener('change', handleFileSelect);
 
-        // --- Lógica de filtros ---
         campusFilter.addEventListener('change', updateDashboard);
         levelFilter.addEventListener('change', updateDashboard);
+        monthFilter.addEventListener('change', updateDashboard);
         resetFiltersBtn.addEventListener('click', () => {
-            campusFilter.value = 'all';
-            levelFilter.value = 'all';
+            Array.from(campusFilter.options).forEach(opt => opt.selected = false);
+            Array.from(levelFilter.options).forEach(opt => opt.selected = false);
+            monthFilter.value = 'all';
             updateDashboard();
         });
 
@@ -219,18 +230,34 @@
         }
         
         function populateFilters() {
+             // Clear existing options
+            campusFilter.innerHTML = '';
+            levelFilter.innerHTML = '';
+
             const campuses = [...new Set(originalData.map(item => item['Campus']))].sort();
             const levels = [...new Set(originalData.map(item => item['Nivel académico']))].sort();
             campuses.forEach(c => campusFilter.add(new Option(c, c)));
             levels.forEach(l => levelFilter.add(new Option(l, l)));
+            
+            // Populate Month Filter
+            const months = [...new Set(originalData.map(item => {
+                const parsedDate = parseCustomDate(item['Fecha de inscripción']);
+                return parsedDate ? parsedDate.substring(0, 7) : null;
+            }))].filter(m => m).sort();
+            
+            while (monthFilter.options.length > 1) {
+                monthFilter.remove(1);
+            }
+            months.forEach(m => monthFilter.add(new Option(m, m)));
         }
         
         function getFilteredData() {
-            const selectedCampus = campusFilter.value;
-            const selectedLevel = levelFilter.value;
+            const selectedCampuses = Array.from(campusFilter.selectedOptions).map(opt => opt.value);
+            const selectedLevels = Array.from(levelFilter.selectedOptions).map(opt => opt.value);
+
             return originalData.filter(row => 
-                (selectedCampus === 'all' || row['Campus'] === selectedCampus) &&
-                (selectedLevel === 'all' || row['Nivel académico'] === selectedLevel)
+                (selectedCampuses.length === 0 || selectedCampuses.includes(row['Campus'])) &&
+                (selectedLevels.length === 0 || selectedLevels.includes(row['Nivel académico']))
             );
         }
         
@@ -255,9 +282,9 @@
             updateChart(charts.major, processDataForChart(data, 'Descripción Código académico', 10));
             updateChart(charts.gender, processDataForChart(data, 'Género'));
             updateChart(charts.type, processDataForChart(data, 'Clave tipo estudiante'));
-            updateChart(charts.timeline, processTimelineData(data));
             updateChart(charts.scholarship, processScholarshipData(data));
             updateMap(data);
+            updateTimelineChart(data);
         }
         
         // --- Funciones de procesamiento de datos ---
@@ -272,15 +299,36 @@
             return { labels: sorted.map(i => i[0]), data: sorted.map(i => i[1]) };
         }
 
-        function processTimelineData(data) {
+        function parseCustomDate(dateStr) {
+            if (!dateStr || typeof dateStr !== 'string') return null;
+            
+            // Handles YYYY-MM-DD format (e.g., "2025-08-13...")
+            if (/^\d{4}-\d{2}-\d{2}/.test(dateStr)) {
+                return dateStr.split(' ')[0];
+            }
+            
+            // Handles DD/MM/AAAA format (e.g., "13/08/2025...")
+            const parts = dateStr.split(' ')[0].split('/');
+            if (parts.length === 3) {
+                const [day, month, year] = parts;
+                if (day && month && year && year.length === 4) {
+                    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+                }
+            }
+            
+            return null; // Return null if format is not recognized
+        }
+
+        function processTimelineData(data, groupBy) {
             const counts = data.reduce((acc, row) => {
-                if (row['Fecha de inscripción']) {
-                    const date = row['Fecha de inscripción'].split(' ')[0];
-                    if (date) acc[date] = (acc[date] || 0) + 1;
+                const parsedDate = parseCustomDate(row['Fecha de inscripción']);
+                if (parsedDate) {
+                    const key = (groupBy === 'month') ? parsedDate.substring(0, 7) : parsedDate;
+                    acc[key] = (acc[key] || 0) + 1;
                 }
                 return acc;
             }, {});
-            const sorted = Object.entries(counts).sort((a, b) => new Date(a[0]) - new Date(b[0]));
+            const sorted = Object.entries(counts).sort((a, b) => a[0].localeCompare(b[0]));
             return { labels: sorted.map(i => i[0]), data: sorted.map(i => i[1]) };
         }
 
@@ -301,37 +349,71 @@
         const chartColors = ['#4f46e5', '#ec4899', '#10b981', '#f59e0b', '#3b82f6', '#8b5cf6', '#ef4444', '#6b7280'];
         
         function createCharts() {
-            charts.level = new Chart('level-chart', { type: 'pie', options: getChartOptions('Nivel Académico') });
-            charts.campus = new Chart('campus-chart', { type: 'doughnut', options: getChartOptions('Campus') });
-            charts.major = new Chart('major-chart', { type: 'bar', options: getChartOptions('Carreras', { indexAxis: 'y' }) });
-            charts.gender = new Chart('gender-chart', { type: 'pie', options: getChartOptions('Género') });
-            charts.type = new Chart('type-chart', { type: 'doughnut', options: getChartOptions('Tipo de Estudiante') });
-            charts.timeline = new Chart('timeline-chart', { type: 'line', options: getChartOptions('Evolución de Inscripciones', { scales: { y: { beginAtZero: true } } }) });
-            charts.scholarship = new Chart('scholarship-dist-chart', { type: 'bar', options: getChartOptions('Distribución de Becas', { scales: { y: { beginAtZero: true } } }) });
+            charts.level = new Chart('level-chart', { type: 'pie', options: getChartOptions() });
+            charts.campus = new Chart('campus-chart', { type: 'doughnut', options: getChartOptions() });
+            charts.major = new Chart('major-chart', { type: 'bar', options: getChartOptions({ indexAxis: 'y' }) });
+            charts.gender = new Chart('gender-chart', { type: 'pie', options: getChartOptions() });
+            charts.type = new Chart('type-chart', { type: 'doughnut', options: getChartOptions() });
+            charts.timeline = new Chart('timeline-chart', { type: 'line', options: getChartOptions({ scales: { y: { beginAtZero: true } } }) });
+            charts.scholarship = new Chart('scholarship-dist-chart', { type: 'bar', options: getChartOptions({ scales: { y: { beginAtZero: true } } }) });
         }
 
-        function getChartOptions(title, extraOptions = {}) {
+        function getChartOptions(extraOptions = {}) {
             return { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } }, ...extraOptions };
         }
 
         function updateChart(chart, { labels, data }) {
             chart.data.labels = labels;
-            chart.data.datasets = [{ label: 'Inscritos', data, backgroundColor: chartColors, borderColor: '#ffffff', borderWidth: 1, tension: 0.1, fill: false }];
+            const type = chart.config.type;
+
+            const dataset = {
+                label: 'Inscritos',
+                data,
+                borderWidth: 1,
+            };
+
+            if (type === 'line') {
+                dataset.backgroundColor = 'rgba(79, 70, 229, 0.1)';
+                dataset.borderColor = '#4f46e5';
+                dataset.tension = 0.1;
+                dataset.fill = true;
+            } else { // For bar, pie, doughnut
+                dataset.backgroundColor = chartColors;
+                dataset.borderColor = '#ffffff';
+            }
+
+            chart.data.datasets = [dataset];
             chart.update();
         }
         
+        function updateTimelineChart(data) {
+            const selectedMonth = monthFilter.value;
+            const timelineTitle = document.getElementById('timeline-chart-title');
+            let chartData;
+
+            if (selectedMonth === 'all') {
+                timelineTitle.textContent = 'Inscripciones Mensuales';
+                chartData = processTimelineData(data, 'month');
+            } else {
+                timelineTitle.textContent = `Inscripciones Diarias para ${selectedMonth}`;
+                const monthlyData = data.filter(row => {
+                    const parsedDate = parseCustomDate(row['Fecha de inscripción']);
+                    return parsedDate && parsedDate.startsWith(selectedMonth);
+                });
+                chartData = processTimelineData(monthlyData, 'day');
+            }
+            updateChart(charts.timeline, chartData);
+        }
+
         // --- Lógica del Mapa ---
         const cityCoords = {
-            'torreon': [25.5428, -103.4068],
-            'gomez palacio': [25.567, -103.500],
-            'lerdo': [25.551, -103.523],
-            'matamoros': [25.527, -103.228],
-            'san pedro': [25.757, -102.980],
-            'francisco i madero': [25.774, -103.273],
+            'torreon': [25.5428, -103.4068], 'gomez palacio': [25.567, -103.500],
+            'lerdo': [25.551, -103.523], 'matamoros': [25.527, -103.228],
+            'san pedro': [25.757, -102.980], 'francisco i madero': [25.774, -103.273],
         };
 
         function initializeMap() {
-            map = L.map('map').setView([25.56, -103.45], 10); // Vista centrada en La Laguna
+            map = L.map('map').setView([25.56, -103.45], 10);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
@@ -358,13 +440,9 @@
             for (const city in cityCounts) {
                 if (cityCoords[city]) {
                     const count = cityCounts[city];
-                    // Escala el radio del círculo basado en el número de estudiantes
                     const radius = count > 0 ? 500 + (count / maxCount) * 10000 : 0;
                     const circle = L.circle(cityCoords[city], {
-                        color: '#4f46e5',
-                        fillColor: '#4f46e5',
-                        fillOpacity: 0.5,
-                        radius: radius
+                        color: '#4f46e5', fillColor: '#4f46e5', fillOpacity: 0.5, radius: radius
                     }).addTo(cityLayer);
                     circle.bindPopup(`<b>${city.charAt(0).toUpperCase() + city.slice(1)}</b><br>${count} inscritos.`);
                 }
