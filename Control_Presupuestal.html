@@ -130,6 +130,29 @@
                     </div>
                 </aside>
             </section>
+            
+            <!-- Nueva Sección: Desglose de Gastos -->
+            <section id="detail-breakdown" class="chart-card bg-white p-6 rounded-lg shadow-md">
+                <h2 class="chart-title text-xl font-semibold text-gray-900 mb-4">Desglose de Gastos</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Texto</th>
+                                <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">OC</th>
+                                <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Proveedor/Usuario</th>
+                                <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Solicitante OC</th>
+                                <th class="px-3 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Importe</th>
+                                <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cta. Contable</th>
+                                <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Concepto Gasto</th>
+                            </tr>
+                        </thead>
+                        <tbody id="detail-table" class="bg-white divide-y divide-gray-200">
+                           <!-- Filas de detalle se generarán aquí -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
         </main>
     </div>
 
@@ -188,24 +211,48 @@
             ];
             
             let fullData = [];
+            let detailData = [];
             let previousLSSelection = ["Todas"];
             let previousCeCoSelection = ["Todos"];
 
             // --- Carga de Datos y Lógica del Dashboard ---
-            const dataUrl = "Gastos_SV.csv";
-            fetch(dataUrl, { cache: "no-store" }) // No-store para asegurar que se obtenga la fecha correcta
-                .then(response => {
-                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                    updateFileTimestamp(response.headers.get('Last-Modified'));
-                    return response.text();
-                })
-                .then(csvText => {
-                    const data = d3.csvParse(csvText);
-                    fullData = data;
-                    fullData.forEach(d => { 
-                        d.Monto = +d.Monto || 0; 
-                        d.CeCoClean = d.CeCo.replace("UF_", "");
+            const summaryUrl = "Gastos_SV.csv";
+            const detailUrl = "DB_Gastos.csv";
+            
+            Promise.all([
+                fetch(summaryUrl, { cache: "no-store" }).then(res => {
+                    if (!res.ok) throw new Error(`No se pudo cargar ${summaryUrl}`);
+                    updateFileTimestamp(res.headers.get('Last-Modified'));
+                    return res.text();
+                }).then(text => d3.csvParse(text)),
+                fetch(detailUrl, { cache: "no-store" }).then(res => {
+                    if (!res.ok) throw new Error(`No se pudo cargar ${detailUrl}`);
+                    return res.text();
+                }).then(text => d3.csvParse(text))
+            ]).then(([summary, detail]) => {
+                    fullData = summary;
+                    detailData = detail;
+
+                    const lsNumberToNameMap = new Map();
+                    fullData.forEach(d => {
+                        d.Monto = +d.Monto || 0;
+                        const match = d.LS.match(/LS_(\d+)/);
+                        if (match && !lsNumberToNameMap.has(match[1])) {
+                            lsNumberToNameMap.set(match[1], d.LS);
+                        }
                     });
+
+                    detailData.forEach(d => {
+                        d['Importe en ML'] = +d['Importe en ML'] || 0;
+                        const cebeStr = String(d.CeBe);
+                        if (cebeStr.length > 5) {
+                            const lsNumber = cebeStr.substring(3, 5);
+                            d.LS = lsNumberToNameMap.get(lsNumber) || 'Desconocida';
+                        } else {
+                            d.LS = 'Desconocida';
+                        }
+                    });
+                    
                     const monthOrder = ['Ago', 'Sep', 'Oct', 'Nov', 'Dic', 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul'];
                     let allCeCoUnique;
                     
@@ -288,6 +335,7 @@
                         
                         let monthlyFilteredData = [];
                         let annualFilteredData = [];
+                        let detailFilteredData = [];
 
                         if (selectedLS.length > 0 && selectedCeCo.length > 0) {
                             annualFilteredData = fullData.filter(d => {
@@ -295,8 +343,15 @@
                                 const cecoMatch = selectedCeCo.includes("Todos") || selectedCeCo.includes(d.CeCo);
                                 return lsMatch && cecoMatch;
                             });
+                             detailFilteredData = detailData.filter(d => {
+                                const lsMatch = selectedLS.includes("Todas") || selectedLS.includes(d.LS);
+                                const cecoMatch = selectedCeCo.includes("Todos") || selectedCeCo.includes("UF_" + d.CeBe);
+                                return lsMatch && cecoMatch;
+                            });
+
                             if (selectedMonths.length > 0) {
                                 monthlyFilteredData = annualFilteredData.filter(d => selectedMonths.includes(d.Mes));
+                                detailFilteredData = detailFilteredData.filter(d => selectedMonths.includes(d.Mes));
                             }
                         }
                         
@@ -316,6 +371,7 @@
                         
                         updateAnnualChart(annualFilteredData, monthOrder);
                         updateConceptsTable(monthlyFilteredData);
+                        updateDetailTable(detailFilteredData);
                     };
 
                     const updateAnnualChart = (data, monthOrder) => {
@@ -419,7 +475,6 @@
                             .attr("class", "px-3 py-2 text-right font-semibold")
                             .classed("text-red-600", d => d.variancePercent > 0).classed("text-green-600", d => d.variancePercent < 0);
                         
-                        // Footer
                         const footer = d3.select("#concepts-table-footer");
                         footer.selectAll("tr").remove();
 
@@ -429,9 +484,7 @@
                             const totalVariance = totalReal - totalPlan;
                             const totalVariancePercent = (totalPlan === 0) ? 0 : totalVariance / totalPlan;
 
-                            const footerRow = footer.append("tr")
-                                .attr("class", "text-sm border-t-2 border-gray-300");
-
+                            const footerRow = footer.append("tr").attr("class", "text-sm border-t-2 border-gray-300");
                             footerRow.append("td").attr("class", "px-3 py-2 text-left font-bold text-gray-900").text("Total");
                             footerRow.append("td").attr("class", "px-3 py-2 text-right font-bold text-gray-900").text(formatCurrency(totalPlan));
                             footerRow.append("td").attr("class", "px-3 py-2 text-right font-bold text-gray-900").text(formatCurrency(totalReal));
@@ -442,6 +495,30 @@
                                 .classed("text-red-600", totalVariancePercent > 0).classed("text-green-600", totalVariancePercent < 0)
                                 .text(formatPercent(totalVariancePercent));
                         }
+                    };
+                    
+                    const updateDetailTable = (data) => {
+                        const tableBody = d3.select("#detail-table");
+                        const rows = tableBody.selectAll("tr").data(data, d => d['Nº doc.'] + d['Texto'] + d['Importe en ML']);
+
+                        rows.exit().remove();
+                        const newRows = rows.enter().append("tr").attr("class", "text-sm");
+                        newRows.append("td").attr("class", "px-3 py-2 text-xs text-gray-700 whitespace-nowrap");
+                        newRows.append("td").attr("class", "px-3 py-2 text-xs text-gray-700 whitespace-nowrap");
+                        newRows.append("td").attr("class", "px-3 py-2 text-xs text-gray-700 whitespace-nowrap");
+                        newRows.append("td").attr("class", "px-3 py-2 text-xs text-gray-700 whitespace-nowrap");
+                        newRows.append("td").attr("class", "px-3 py-2 text-xs text-gray-700 text-right whitespace-nowrap");
+                        newRows.append("td").attr("class", "px-3 py-2 text-xs text-gray-700 whitespace-nowrap");
+                        newRows.append("td").attr("class", "px-3 py-2 text-xs text-gray-700 whitespace-nowrap");
+                        
+                        const allRows = newRows.merge(rows);
+                        allRows.select("td:nth-child(1)").text(d => d.Texto);
+                        allRows.select("td:nth-child(2)").text(d => d.Oc);
+                        allRows.select("td:nth-child(3)").text(d => d['Proveedor / Usuario']);
+                        allRows.select("td:nth-child(4)").text(d => d['Solicitante OC']);
+                        allRows.select("td:nth-child(5)").text(d => formatCurrency(d['Importe en ML']));
+                        allRows.select("td:nth-child(6)").text(d => `${d['Lib.mayor']} - ${d['Cuenta Contable']}`);
+                        allRows.select("td:nth-child(7)").text(d => d['Cuenta SV']);
                     };
 
                     const handleMultiSelect = (element, previousSelection, isAllSelector) => {
@@ -497,10 +574,9 @@
                 })
                 .catch(error => {
                     console.error("Error al cargar o procesar el archivo CSV:", error);
-                    d3.select("body").html(`<div class="h-screen w-screen flex items-center justify-center bg-red-100 text-red-800 p-8"><div class="text-center"><h1 class="text-2xl font-bold">Error al cargar datos</h1><p class="mt-2">No se pudo encontrar el archivo <strong>Gastos_SV.csv</strong>. Por favor, asegúrate de que el archivo se encuentre en la misma carpeta que este archivo HTML y que el nombre sea correcto.</p></div></div>`);
+                    d3.select("body").html(`<div class="h-screen w-screen flex items-center justify-center bg-red-100 text-red-800 p-8"><div class="text-center"><h1 class="text-2xl font-bold">Error al cargar datos</h1><p class="mt-2">No se pudieron encontrar los archivos <strong>Gastos_SV.csv</strong> o <strong>DB_Gastos.csv</strong>. Por favor, asegúrate de que ambos archivos se encuentren en la misma carpeta que este archivo HTML y que los nombres sean correctos.</p></div></div>`);
                 });
         });
     </script>
 </body>
 </html>
-
