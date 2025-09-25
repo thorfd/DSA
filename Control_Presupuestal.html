@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tablero de Control Presupuestal</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
+    <script src="[https://d3js.org/d3.v7.min.js](https://d3js.org/d3.v7.min.js)"></script>
     <style>
         /* Estilos personalizados */
         :root {
@@ -64,9 +64,9 @@
             background-color: #374151; /* gray-700 */
         }
     </style>
-     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+     <link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)">
+    <link rel="preconnect" href="[https://fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
+    <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap)" rel="stylesheet">
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
 
@@ -83,8 +83,8 @@
                     <p>Cargando...</p>
                 </div>
                 <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
-                    <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-                    <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                    <svg id="sun-icon" xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                    <svg id="moon-icon" xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
                 </button>
             </div>
         </header>
@@ -433,7 +433,7 @@
                                 const lsMatch = selectedLS.includes("Todas") || selectedLS.includes(d.LS);
                                 if (!lsMatch) return false;
                                 
-                                const cecoMatch = selectedCeCo.includes("Todos") || selectedCeCo.includes("UF_" + String(d.CeBe).trim());
+                                const cecoMatch = selectedCeCo.includes("Todos") || selectedCeCo.some(sel => sel === ("UF_" + String(d.CeBe).trim()));
                                 return cecoMatch;
                             });
 
@@ -520,9 +520,9 @@
                     };
                     
                     const createSortableHeader = () => {
-                        const headers = [ { key: 'Cuenta SV', label: 'Concepto Gasto' }, { key: 'Lib.mayor', label: 'Lib.mayor' }, { key: 'Cuenta Contable', label: 'Cta. Contable' }, { key: 'Texto', label: 'Texto' }, { key: 'Oc', label: 'OC' }, { key: 'Proveedor / Usuario', label: 'Proveedor/Usuario' }, { key: 'Importe en ML', label: 'Importe' }, { key: 'Solicitante OC', label: 'Solicitante OC' } ];
+                        const headers = [ { key: 'Cuenta SV', label: 'Concepto Gasto', width: '12%' }, { key: 'Lib.mayor', label: 'Lib.mayor', width: '8%' }, { key: 'Cuenta Contable', label: 'Cta. Contable', width: '18%' }, { key: 'Texto', label: 'Texto', width: '22%' }, { key: 'Oc', label: 'OC', width: '7%' }, { key: 'Proveedor / Usuario', label: 'Proveedor/Usuario', width: '15%' }, { key: 'Importe en ML', label: 'Importe', width: '8%' }, { key: 'Solicitante OC', label: 'Solicitante OC', width: '10%' } ];
                         const headerRow = d3.select("#detail-table-header").selectAll("tr").data([1]).join("tr");
-                        headerRow.selectAll("th").data(headers).join("th").attr("class", "px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider sortable-header").classed("text-right", d => d.key === 'Importe en ML').on("click", (event, d) => { if (detailSortState.key === d.key) { detailSortState.order = detailSortState.order === 'asc' ? 'desc' : 'asc'; } else { detailSortState.key = d.key; detailSortState.order = 'asc'; } updateDetailTable(currentDetailData); }).html(d => { let sortIcon = ''; if (detailSortState.key === d.key) { sortIcon = detailSortState.order === 'asc' ? ' ▲' : ' ▼'; } return d.label + sortIcon; });
+                        headerRow.selectAll("th").data(headers).join("th").attr("class", "px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider sortable-header").style("width", d => d.width).classed("text-right", d => d.key === 'Importe en ML').on("click", (event, d) => { if (detailSortState.key === d.key) { detailSortState.order = detailSortState.order === 'asc' ? 'desc' : 'asc'; } else { detailSortState.key = d.key; detailSortState.order = 'asc'; } updateDetailTable(currentDetailData); }).html(d => { let sortIcon = ''; if (detailSortState.key === d.key) { sortIcon = detailSortState.order === 'asc' ? ' ▲' : ' ▼'; } return d.label + sortIcon; });
                     };
 
                     const updateDetailTable = (data) => {
@@ -540,13 +540,12 @@
                         const rows = tableBody.selectAll("tr").data(finalData, (d,i) => i);
                         rows.exit().remove();
                         const newRows = rows.enter().append("tr").attr("class", "text-sm");
-                        const columns = ['Cuenta SV', 'Lib.mayor', 'Cuenta Contable', 'Texto', 'Oc', 'Proveedor / Usuario', 'Importe en ML', 'Solicitante OC'];
+                        newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 break-words');
                         newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 whitespace-nowrap');
+                        newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 break-words');
+                        newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 break-words');
                         newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 whitespace-nowrap');
-                        newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 max-w-xs break-words');
-                        newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 max-w-xs break-words');
-                        newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 whitespace-nowrap');
-                        newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 max-w-xs break-words');
+                        newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 break-words');
                         newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 text-right whitespace-nowrap');
                         newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 whitespace-nowrap');
 
