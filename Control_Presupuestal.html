@@ -53,6 +53,16 @@
             background: #1E40AF linear-gradient(0deg, #1E40AF 0%, #1E40AF 100%);
             color: white;
         }
+
+        .sortable-header {
+            cursor: pointer;
+        }
+        .sortable-header:hover {
+            background-color: #E5E7EB; /* gray-200 */
+        }
+        .dark .sortable-header:hover {
+            background-color: #374151; /* gray-700 */
+        }
     </style>
      <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -165,16 +175,8 @@
                 <h2 class="chart-title text-xl font-semibold text-gray-900 dark:text-white mb-4">Desglose de Gastos</h2>
                 <div class="overflow-x-auto">
                     <table class="w-full divide-y divide-gray-200 dark:divide-gray-700">
-                        <thead class="bg-gray-50 dark:bg-gray-700">
-                            <tr>
-                                <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Texto</th>
-                                <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">OC</th>
-                                <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Proveedor/Usuario</th>
-                                <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Solicitante OC</th>
-                                <th class="px-3 py-2 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Importe</th>
-                                <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Cta. Contable</th>
-                                <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Concepto Gasto</th>
-                            </tr>
+                        <thead id="detail-table-header" class="bg-gray-50 dark:bg-gray-700">
+                            <!-- El encabezado se generará dinámicamente -->
                         </thead>
                         <tbody id="detail-table" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                            <!-- Filas de detalle se generarán aquí -->
@@ -208,7 +210,6 @@
                     sunIcon.classList.remove('hidden');
                     moonIcon.classList.add('hidden');
                 }
-                 // Forzar redibujo del gráfico al cambiar de tema
                 if (window.updateDashboard) {
                     setTimeout(() => window.updateDashboard(), 50);
                 }
@@ -274,6 +275,8 @@
             
             let fullData = [];
             let detailData = [];
+            let currentDetailData = [];
+            let detailSortState = { key: 'Importe en ML', order: 'desc' };
             let previousLSSelection = ["Todas"];
             let previousCeCoSelection = ["Todos"];
 
@@ -312,14 +315,14 @@
 
                     detailData.forEach(d => {
                         d['Importe en ML'] = +d['Importe en ML'] || 0;
-                        const cebeStr = String(d.CeBe);
+                        const cebeStr = String(d.CeBe).trim();
                         if (cebeStr.length > 5) {
                             const lsNumber = cebeStr.substring(3, 5);
                             d.LS = lsNumberToNameMap.get(lsNumber) || 'Desconocida';
                         } else {
                             d.LS = 'Desconocida';
                         }
-                        d.MesShort = monthLongToShort[d.Mes] || d.Mes; // Normalizar mes
+                        d.MesShort = monthLongToShort[d.Mes] || d.Mes;
                     });
                     
                     const monthOrder = ['Ago', 'Sep', 'Oct', 'Nov', 'Dic', 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul'];
@@ -351,18 +354,15 @@
                             .on("click", function(event) {
                                 const button = d3.select(this);
                                 const isCtrlOrCmd = event.ctrlKey || event.metaKey;
-
                                 if (isCtrlOrCmd) {
                                     button.classed("active", !button.classed("active"));
                                 } else {
                                     monthButtonsContainer.selectAll("button").classed("active", false);
                                     button.classed("active", true);
                                 }
-                                
                                 if (monthButtonsContainer.selectAll("button.active").empty()) {
                                     button.classed("active", true);
                                 }
-                                
                                 updateDashboard();
                             });
                         
@@ -404,7 +404,6 @@
                         
                         let monthlyFilteredData = [];
                         let annualFilteredData = [];
-                        let detailFilteredData = [];
 
                         if (selectedLS.length > 0 && selectedCeCo.length > 0) {
                             annualFilteredData = fullData.filter(d => {
@@ -412,15 +411,15 @@
                                 const cecoMatch = selectedCeCo.includes("Todos") || selectedCeCo.includes(d.CeCo);
                                 return lsMatch && cecoMatch;
                             });
-                             detailFilteredData = detailData.filter(d => {
+                             currentDetailData = detailData.filter(d => {
                                 const lsMatch = selectedLS.includes("Todas") || selectedLS.includes(d.LS);
-                                const cecoMatch = selectedCeCo.includes("Todos") || selectedCeCo.includes("UF_" + d.CeBe);
+                                const cecoMatch = selectedCeCo.includes("Todos") || selectedCeCo.includes("UF_" + String(d.CeBe).trim());
                                 return lsMatch && cecoMatch;
                             });
 
                             if (selectedMonths.length > 0) {
                                 monthlyFilteredData = annualFilteredData.filter(d => selectedMonths.includes(d.Mes));
-                                detailFilteredData = detailFilteredData.filter(d => selectedMonths.includes(d.MesShort));
+                                currentDetailData = currentDetailData.filter(d => selectedMonths.includes(d.MesShort));
                             }
                         }
                         
@@ -440,64 +439,28 @@
                         
                         updateAnnualChart(annualFilteredData, monthOrder);
                         updateConceptsTable(monthlyFilteredData);
-                        updateDetailTable(detailFilteredData);
+                        updateDetailTable(currentDetailData);
                     };
 
                     const updateAnnualChart = (data, monthOrder) => {
                         d3.select("#annual-chart-container svg").remove();
-                        
-                        const monthlyTotals = d3.rollup(data, 
-                            v => d3.sum(v, d => d.Monto), 
-                            d => d.Mes, 
-                            d => d.Escenario === 'Plan Operativo' ? 'plan' : 'real'
-                        );
-
-                        const chartData = monthOrder.map(month => ({
-                            month,
-                            plan: monthlyTotals.get(month)?.get('plan') || 0,
-                            real: monthlyTotals.get(month)?.get('real') || 0,
-                        }));
-                        
+                        const monthlyTotals = d3.rollup(data, v => d3.sum(v, d => d.Monto), d => d.Mes, d => d.Escenario === 'Plan Operativo' ? 'plan' : 'real');
+                        const chartData = monthOrder.map(month => ({ month, plan: monthlyTotals.get(month)?.get('plan') || 0, real: monthlyTotals.get(month)?.get('real') || 0 }));
                         const container = d3.select("#annual-chart-container");
                         if (!container.node() || container.node().getBoundingClientRect().width === 0) return;
-
                         const margin = { top: 40, right: 20, bottom: 30, left: 80 };
                         const width = container.node().getBoundingClientRect().width - margin.left - margin.right;
                         const height = container.node().getBoundingClientRect().height - margin.top - margin.bottom;
-                        const svg = container.append("svg")
-                            .attr("width", width + margin.left + margin.right)
-                            .attr("height", height + margin.top + margin.bottom)
-                            .append("g")
-                            .attr("transform", `translate(${margin.left},${margin.top})`);
-
+                        const svg = container.append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform", `translate(${margin.left},${margin.top})`);
                         const subgroups = ['plan', 'real'];
                         const x0 = d3.scaleBand().domain(monthOrder).range([0, width]).padding(0.2);
                         const x1 = d3.scaleBand().domain(subgroups).range([0, x0.bandwidth()]).padding(0.05);
                         const y = d3.scaleLinear().domain([0, d3.max(chartData, d => Math.max(d.plan, d.real)) * 1.2 || 100]).range([height, 0]);
-                        
                         svg.append("g").attr("transform", `translate(0,${height})`).attr("class", "axis-label").call(d3.axisBottom(x0));
                         svg.append("g").attr("class", "axis-label").call(d3.axisLeft(y).tickFormat(d => formatSiCustom(d).replace(/\.00/,'')));
-
-                        const barGroups = svg.append("g").selectAll("g").data(chartData).join("g")
-                            .attr("transform", d => `translate(${x0(d.month)},0)`);
-
-                        barGroups.selectAll("rect").data(d => subgroups.map(key => ({key, value: d[key]})))
-                            .join("rect")
-                            .attr("x", d => x1(d.key))
-                            .attr("y", d => y(d.value))
-                            .attr("width", x1.bandwidth())
-                            .attr("height", d => height - y(d.value))
-                            .attr("class", d => d.key === 'plan' ? 'bar-plan' : 'bar-real');
-                        
-                        barGroups.selectAll("text.bar-value").data(d => subgroups.map(key => ({key, value: d[key]})))
-                            .join("text")
-                            .attr("class", "bar-value text-xs")
-                            .attr("x", d => x1(d.key) + x1.bandwidth() / 2)
-                            .attr("y", d => y(d.value) - 4)
-                            .attr("text-anchor", "middle")
-                            .style("fill", "currentColor")
-                            .text(d => (height - y(d.value)) > 12 ? formatSiCustom(d.value) : "");
-
+                        const barGroups = svg.append("g").selectAll("g").data(chartData).join("g").attr("transform", d => `translate(${x0(d.month)},0)`);
+                        barGroups.selectAll("rect").data(d => subgroups.map(key => ({key, value: d[key]}))).join("rect").attr("x", d => x1(d.key)).attr("y", d => y(d.value)).attr("width", x1.bandwidth()).attr("height", d => height - y(d.value)).attr("class", d => d.key === 'plan' ? 'bar-plan' : 'bar-real');
+                        barGroups.selectAll("text.bar-value").data(d => subgroups.map(key => ({key, value: d[key]}))).join("text").attr("class", "bar-value text-xs").attr("x", d => x1(d.key) + x1.bandwidth() / 2).attr("y", d => y(d.value) - 4).attr("text-anchor", "middle").style("fill", "currentColor").text(d => (height - y(d.value)) > 12 ? formatSiCustom(d.value) : "");
                         const legend = svg.append("g").attr("transform", `translate(${width - 120}, -30)`);
                         legend.append("rect").attr("x", 0).attr("width", 12).attr("height", 12).attr("class", "bar-plan");
                         legend.append("text").attr("x", 20).attr("y", 10).text("Plan").attr("class", "legend-text text-sm");
@@ -506,94 +469,125 @@
                     };
 
                     const updateConceptsTable = (filteredData) => {
-                        const conceptsData = d3.rollup(filteredData,
-                            v => {
-                                const plan = d3.sum(v.filter(d => d.Escenario === 'Plan Operativo'), d => d.Monto);
-                                const real = d3.sum(v.filter(d => d.Escenario === 'Real'), d => d.Monto);
-                                return { plan, real, variance: real - plan, variancePercent: (plan === 0) ? 0 : (real - plan) / plan };
-                            },
-                            d => d.Concepto
-                        );
-                        const tableData = Array.from(conceptsData, ([key, value]) => ({ concept: key, ...value }))
-                            .sort((a, b) => {
-                                const indexA = conceptOrder.indexOf(a.concept);
-                                const indexB = conceptOrder.indexOf(b.concept);
-                                if (indexA === -1 && indexB === -1) return a.concept.localeCompare(b.concept);
-                                if (indexA === -1) return 1;
-                                if (indexB === -1) return -1;
-                                return indexA - indexB;
-                            });
-
+                        const conceptsData = d3.rollup(filteredData, v => { const plan = d3.sum(v.filter(d => d.Escenario === 'Plan Operativo'), d => d.Monto); const real = d3.sum(v.filter(d => d.Escenario === 'Real'), d => d.Monto); return { plan, real, variance: real - plan, variancePercent: (plan === 0) ? 0 : (real - plan) / plan }; }, d => d.Concepto);
+                        const tableData = Array.from(conceptsData, ([key, value]) => ({ concept: key, ...value })).sort((a, b) => { const indexA = conceptOrder.indexOf(a.concept); const indexB = conceptOrder.indexOf(b.concept); if (indexA === -1 && indexB === -1) return a.concept.localeCompare(b.concept); if (indexA === -1) return 1; if (indexB === -1) return -1; return indexA - indexB; });
                         const rows = d3.select("#concepts-table").selectAll("tr").data(tableData, d => d.concept);
                         rows.exit().remove();
                         const newRows = rows.enter().append("tr").attr("class", "text-sm");
-                        newRows.append("td").attr("class", "px-3 py-2 font-medium text-gray-900 whitespace-nowrap");
-                        newRows.append("td").attr("class", "px-3 py-2 text-right text-gray-700");
-                        newRows.append("td").attr("class", "px-3 py-2 text-right text-gray-700");
+                        newRows.append("td").attr("class", "px-3 py-2 font-medium text-gray-900 dark:text-white whitespace-nowrap");
+                        newRows.append("td").attr("class", "px-3 py-2 text-right text-gray-700 dark:text-gray-300");
+                        newRows.append("td").attr("class", "px-3 py-2 text-right text-gray-700 dark:text-gray-300");
                         newRows.append("td").attr("class", "px-3 py-2 text-right font-semibold");
                         newRows.append("td").attr("class", "px-3 py-2 text-right font-semibold");
-                        
                         const allRows = newRows.merge(rows);
                         allRows.select("td:nth-child(1)").text(d => d.concept);
                         allRows.select("td:nth-child(2)").text(d => formatCurrency(d.plan));
                         allRows.select("td:nth-child(3)").text(d => formatCurrency(d.real));
-                        allRows.select("td:nth-child(4)").text(d => formatCurrency(d.variance))
-                            .attr("class", "px-3 py-2 text-right font-semibold")
-                            .classed("text-red-600", d => d.variance > 0).classed("text-green-600", d => d.variance < 0);
-                        allRows.select("td:nth-child(5)").text(d => formatPercent(d.variancePercent))
-                            .attr("class", "px-3 py-2 text-right font-semibold")
-                            .classed("text-red-600", d => d.variancePercent > 0).classed("text-green-600", d => d.variancePercent < 0);
-                        
+                        allRows.select("td:nth-child(4)").text(d => formatCurrency(d.variance)).attr("class", "px-3 py-2 text-right font-semibold").classed("text-red-600", d => d.variance > 0).classed("text-green-600", d => d.variance < 0);
+                        allRows.select("td:nth-child(5)").text(d => formatPercent(d.variancePercent)).attr("class", "px-3 py-2 text-right font-semibold").classed("text-red-600", d => d.variancePercent > 0).classed("text-green-600", d => d.variancePercent < 0);
                         const footer = d3.select("#concepts-table-footer");
                         footer.selectAll("tr").remove();
-
                         if(tableData.length > 0) {
-                            const totalPlan = d3.sum(tableData, d => d.plan);
-                            const totalReal = d3.sum(tableData, d => d.real);
-                            const totalVariance = totalReal - totalPlan;
-                            const totalVariancePercent = (totalPlan === 0) ? 0 : totalVariance / totalPlan;
-
-                            const footerRow = footer.append("tr").attr("class", "text-sm border-t-2 border-gray-300");
-                            footerRow.append("td").attr("class", "px-3 py-2 text-left font-bold text-gray-900").text("Total");
-                            footerRow.append("td").attr("class", "px-3 py-2 text-right font-bold text-gray-900").text(formatCurrency(totalPlan));
-                            footerRow.append("td").attr("class", "px-3 py-2 text-right font-bold text-gray-900").text(formatCurrency(totalReal));
-                            footerRow.append("td").attr("class", "px-3 py-2 text-right font-bold")
-                                .classed("text-red-600", totalVariance > 0).classed("text-green-600", totalVariance < 0)
-                                .text(formatCurrency(totalVariance));
-                            footerRow.append("td").attr("class", "px-3 py-2 text-right font-bold")
-                                .classed("text-red-600", totalVariancePercent > 0).classed("text-green-600", totalVariancePercent < 0)
-                                .text(formatPercent(totalVariancePercent));
+                            const totalPlan = d3.sum(tableData, d => d.plan); const totalReal = d3.sum(tableData, d => d.real); const totalVariance = totalReal - totalPlan; const totalVariancePercent = (totalPlan === 0) ? 0 : totalVariance / totalPlan;
+                            const footerRow = footer.append("tr").attr("class", "text-sm border-t-2 border-gray-300 dark:border-gray-600");
+                            footerRow.append("td").attr("class", "px-3 py-2 text-left font-bold text-gray-900 dark:text-white").text("Total");
+                            footerRow.append("td").attr("class", "px-3 py-2 text-right font-bold text-gray-900 dark:text-white").text(formatCurrency(totalPlan));
+                            footerRow.append("td").attr("class", "px-3 py-2 text-right font-bold text-gray-900 dark:text-white").text(formatCurrency(totalReal));
+                            footerRow.append("td").attr("class", "px-3 py-2 text-right font-bold").classed("text-red-600", totalVariance > 0).classed("text-green-600", totalVariance < 0).text(formatCurrency(totalVariance));
+                            footerRow.append("td").attr("class", "px-3 py-2 text-right font-bold").classed("text-red-600", totalVariancePercent > 0).classed("text-green-600", totalVariancePercent < 0).text(formatPercent(totalVariancePercent));
                         }
                     };
                     
-                    const updateDetailTable = (data) => {
-                        const tableBody = d3.select("#detail-table");
-                        const rows = tableBody.selectAll("tr").data(data, d => d['Nº doc.'] + d['Texto'] + d['Importe en ML']);
+                    const createSortableHeader = () => {
+                        const headers = [
+                            { key: 'Cuenta SV', label: 'Concepto Gasto' },
+                            { key: 'Lib.mayor', label: 'Lib.mayor' },
+                            { key: 'Cuenta Contable', label: 'Cta. Contable' },
+                            { key: 'Texto', label: 'Texto' },
+                            { key: 'Oc', label: 'OC' },
+                            { key: 'Proveedor / Usuario', label: 'Proveedor/Usuario' },
+                            { key: 'Importe en ML', label: 'Importe' },
+                            { key: 'Solicitante OC', label: 'Solicitante OC' }
+                        ];
+                        const headerRow = d3.select("#detail-table-header").selectAll("tr").data([1]).join("tr");
+                        headerRow.selectAll("th").data(headers).join("th")
+                            .attr("class", "px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider sortable-header")
+                            .classed("text-right", d => d.key === 'Importe en ML')
+                            .on("click", (event, d) => {
+                                if (detailSortState.key === d.key) {
+                                    detailSortState.order = detailSortState.order === 'asc' ? 'desc' : 'asc';
+                                } else {
+                                    detailSortState.key = d.key;
+                                    detailSortState.order = 'asc';
+                                }
+                                updateDetailTable(currentDetailData);
+                            })
+                            .html(d => {
+                                let sortIcon = '';
+                                if (detailSortState.key === d.key) {
+                                    sortIcon = detailSortState.order === 'asc' ? ' ▲' : ' ▼';
+                                }
+                                return d.label + sortIcon;
+                            });
+                    };
 
+                    const updateDetailTable = (data) => {
+                        createSortableHeader();
+                        
+                        const ivaRows = data.filter(d => d['Cuenta SV'] === 'IVA');
+                        let nonIvaRows = data.filter(d => d['Cuenta SV'] !== 'IVA');
+                        
+                        let finalData = [...nonIvaRows];
+                        if (ivaRows.length > 0) {
+                            const totalIva = d3.sum(ivaRows, d => d['Importe en ML']);
+                            const aggregatedIvaRow = {
+                                'Cuenta SV': 'IVA (Total)',
+                                'Lib.mayor': '-',
+                                'Cuenta Contable': '-',
+                                'Texto': `Total de ${ivaRows.length} transacciones de IVA`,
+                                'Oc': '-',
+                                'Proveedor / Usuario': '-',
+                                'Importe en ML': totalIva,
+                                'Solicitante OC': '-',
+                                isAggregated: true
+                            };
+                            finalData.push(aggregatedIvaRow);
+                        }
+
+                        finalData.sort((a, b) => {
+                            const key = detailSortState.key;
+                            let valA = a[key];
+                            let valB = b[key];
+                            
+                            const order = detailSortState.order === 'asc' ? 1 : -1;
+
+                            if (typeof valA === 'string' && typeof valB === 'string') {
+                                return valA.localeCompare(valB) * order;
+                            }
+                            return (valA - valB) * order;
+                        });
+
+                        const tableBody = d3.select("#detail-table");
+                        const rows = tableBody.selectAll("tr").data(finalData, (d,i) => i);
                         rows.exit().remove();
                         const newRows = rows.enter().append("tr").attr("class", "text-sm");
-                        newRows.append("td").attr("class", "px-3 py-2 text-xs text-gray-700 whitespace-nowrap");
-                        newRows.append("td").attr("class", "px-3 py-2 text-xs text-gray-700 whitespace-nowrap");
-                        newRows.append("td").attr("class", "px-3 py-2 text-xs text-gray-700 whitespace-nowrap");
-                        newRows.append("td").attr("class", "px-3 py-2 text-xs text-gray-700 whitespace-nowrap");
-                        newRows.append("td").attr("class", "px-3 py-2 text-xs text-gray-700 text-right whitespace-nowrap");
-                        newRows.append("td").attr("class", "px-3 py-2 text-xs text-gray-700 whitespace-nowrap");
-                        newRows.append("td").attr("class", "px-3 py-2 text-xs text-gray-700 whitespace-nowrap");
+                        const columns = ['Cuenta SV', 'Lib.mayor', 'Cuenta Contable', 'Texto', 'Oc', 'Proveedor / Usuario', 'Importe en ML', 'Solicitante OC'];
+                        columns.forEach(() => newRows.append("td").attr("class", "px-3 py-2 text-xs text-gray-700 dark:text-gray-300 whitespace-nowrap"));
                         
                         const allRows = newRows.merge(rows);
-                        allRows.select("td:nth-child(1)").text(d => d.Texto);
-                        allRows.select("td:nth-child(2)").text(d => d.Oc);
-                        allRows.select("td:nth-child(3)").text(d => d['Proveedor / Usuario']);
-                        allRows.select("td:nth-child(4)").text(d => d['Solicitante OC']);
-                        allRows.select("td:nth-child(5)").text(d => formatCurrency(d['Importe en ML']));
-                        allRows.select("td:nth-child(6)").text(d => `${d['Lib.mayor']} - ${d['Cuenta Contable']}`);
-                        allRows.select("td:nth-child(7)").text(d => d['Cuenta SV']);
+                        allRows.select("td:nth-child(1)").text(d => d['Cuenta SV']);
+                        allRows.select("td:nth-child(2)").text(d => d['Lib.mayor']);
+                        allRows.select("td:nth-child(3)").text(d => d['Cuenta Contable']);
+                        allRows.select("td:nth-child(4)").text(d => d.Texto);
+                        allRows.select("td:nth-child(5)").text(d => d.Oc);
+                        allRows.select("td:nth-child(6)").text(d => d['Proveedor / Usuario']);
+                        allRows.select("td:nth-child(7)").attr("class", "px-3 py-2 text-xs text-gray-700 dark:text-gray-300 text-right whitespace-nowrap").text(d => formatCurrency(d['Importe en ML']));
+                        allRows.select("td:nth-child(8)").text(d => d['Solicitante OC']);
                     };
 
                     const handleMultiSelect = (element, previousSelection, isAllSelector) => {
                         const currentSelection = Array.from(element.selectedOptions).map(o => o.value);
                         const justClickedSet = new Set(currentSelection.filter(x => !previousSelection.includes(x)));
-
                         if (justClickedSet.has(isAllSelector)) {
                             d3.select(element).selectAll("option").property("selected", d => d === isAllSelector);
                         } else if (currentSelection.length > 1 && currentSelection.includes(isAllSelector)) {
