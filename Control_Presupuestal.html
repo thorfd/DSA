@@ -166,9 +166,6 @@
                     sunIcon.classList.remove('hidden');
                     moonIcon.classList.add('hidden');
                 }
-                 // Forzar redibujo del gráfico al cambiar de tema
-                const hasData = d3.select("#kpi-plan").text() !== "$0.00";
-                if(hasData) updateDashboard(true);
             };
 
             themeToggleButton.addEventListener('click', () => {
@@ -244,7 +241,7 @@
                     cecoFilter.property("value", "Todos");
                 };
 
-                window.updateDashboard = (forceRedraw = false) => {
+                window.updateDashboard = () => {
                     const selectedLS = lsFilter.property("value");
                     const selectedCeCo = cecoFilter.property("value");
                     const selectedMonthButton = monthButtonsContainer.select("button.active");
@@ -273,12 +270,7 @@
                        .classed('text-green-600', variancePercent < 0)
                        .classed('text-red-600', variancePercent > 0);
                     
-                    if(forceRedraw) {
-                         // Esperar un breve momento para que el DOM se actualice con el nuevo tema
-                        setTimeout(() => updateBarChart(totalPlan, totalReal), 50);
-                    } else {
-                        updateBarChart(totalPlan, totalReal);
-                    }
+                    updateBarChart(totalPlan, totalReal);
                     updateConceptsTable(filteredData);
                 };
 
@@ -286,7 +278,7 @@
                     d3.select("#chart-container svg").remove();
                     const chartData = [{ scenario: 'Plan', value: plan }, { scenario: 'Real', value: real }];
                     const container = d3.select("#chart-container");
-                    if (container.node().getBoundingClientRect().width === 0) return; // No dibujar si el contenedor no es visible
+                    if (!container.node() || container.node().getBoundingClientRect().width === 0) return;
 
                     const margin = { top: 20, right: 30, bottom: 40, left: 90 };
                     const width = container.node().getBoundingClientRect().width - margin.left - margin.right;
@@ -345,15 +337,19 @@
                     const allRows = newRows.merge(rows);
                     allRows.select("td:nth-child(1)").text(d => d.concept);
                     allRows.select("td:nth-child(2)").text(d => formatCurrency(d.plan));
-                    allRows.select("td:n  th-child(3)").text(d => formatCurrency(d.real));
+                    allRows.select("td:nth-child(3)").text(d => formatCurrency(d.real));
                     
                     allRows.select("td:nth-child(4)")
                         .text(d => formatCurrency(d.variance))
-                        .style("color", d => d.variance > 0 ? '#E53E3E' : (d.variance < 0 ? '#38A169' : null)); // red-600 or green-600
+                        .attr("class", "px-4 py-3 text-right font-semibold")
+                        .classed("text-red-600", d => d.variance > 0)
+                        .classed("text-green-600", d => d.variance < 0);
                     
                     allRows.select("td:nth-child(5)")
                         .text(d => formatPercent(d.variancePercent))
-                        .style("color", d => d.variancePercent > 0 ? '#E53E3E' : (d.variancePercent < 0 ? '#38A169' : null));
+                        .attr("class", "px-4 py-3 text-right font-semibold")
+                        .classed("text-red-600", d => d.variancePercent > 0)
+                        .classed("text-green-600", d => d.variancePercent < 0);
                 };
 
                 populateFilters();
@@ -363,7 +359,7 @@
                 cecoFilter.on("change", () => updateDashboard());
 
                 // Redibujar gráfico si la ventana cambia de tamaño
-                window.addEventListener('resize', () => updateDashboard(true));
+                window.addEventListener('resize', () => updateDashboard());
 
             }).catch(error => {
                 console.error("Error al cargar o procesar el archivo CSV:", error);
@@ -373,3 +369,4 @@
     </script>
 </body>
 </html>
+
