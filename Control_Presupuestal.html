@@ -216,8 +216,18 @@
             // --- Formateadores y Constantes ---
             const formatCurrency = (value) => new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(value);
             const formatPercent = (value) => new Intl.NumberFormat('es-MX', { style: 'percent', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
-            const formatK = d3.format("~s");
-            const formatKDecimal = d3.format(".1s");
+            
+            const formatSiCustom = (n) => {
+                if (n === 0) return "";
+                const sign = n < 0 ? "-" : "";
+                const absN = Math.abs(n);
+                if (absN < 1000) return d3.format(",.0f")(n);
+
+                const i = Math.floor(Math.log(absN) / Math.log(1000));
+                const suffix = ['','k','M','B','T'][i];
+                const val = parseFloat((absN / Math.pow(1000, i)).toFixed(2));
+                return sign + val + suffix;
+            };
 
             const conceptOrder = [
                 "Servicios", "Gastos de Operacion", "Gastos de Viaje", "Software", "Publicidad",
@@ -365,7 +375,7 @@
                         const y = d3.scaleLinear().domain([0, d3.max(chartData, d => Math.max(d.plan, d.real)) * 1.2 || 100]).range([height, 0]);
                         
                         svg.append("g").attr("transform", `translate(0,${height})`).attr("class", "axis-label").call(d3.axisBottom(x0));
-                        svg.append("g").attr("class", "axis-label").call(d3.axisLeft(y).tickFormat(d => formatK(d).replace(/\.0/,'')));
+                        svg.append("g").attr("class", "axis-label").call(d3.axisLeft(y).tickFormat(d => formatSiCustom(d).replace(/\.00/,'')));
 
                         const barGroups = svg.append("g").selectAll("g").data(chartData).join("g")
                             .attr("transform", d => `translate(${x0(d.month)},0)`);
@@ -385,7 +395,7 @@
                             .attr("y", d => y(d.value) - 4)
                             .attr("text-anchor", "middle")
                             .style("fill", "currentColor")
-                            .text(d => (height - y(d.value)) > 12 ? formatKDecimal(d.value).replace('G', 'B').replace('k','k') : "");
+                            .text(d => (height - y(d.value)) > 12 ? formatSiCustom(d.value) : "");
 
                         const legend = svg.append("g").attr("transform", `translate(${width - 120}, -30)`);
                         legend.append("rect").attr("x", 0).attr("width", 12).attr("height", 12).attr("class", "bar-plan");
