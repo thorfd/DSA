@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale-1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tablero de Control Presupuestal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
@@ -211,7 +211,7 @@
             const formatPercent = (value) => new Intl.NumberFormat('es-MX', { style: 'percent', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
             const formatK = (value) => {
                 if (value === 0) return "";
-                return d3.format("~s")(value).replace('G', 'B').replace('k','k');
+                return d3.format("~s")(value).replace('G', 'B').replace('k', 'k');
             };
             const conceptOrder = [
                 "Servicios", "Gastos de Operacion", "Gastos de Viaje", "Software", "Publicidad",
@@ -225,7 +225,8 @@
             let previousCeCoSelection = ["Todos"];
 
             // --- Carga de Datos y Lógica del Dashboard ---
-            fetch("Gastos_SV.csv")
+            const dataUrl = "Gastos_SV.csv?v=" + new Date().getTime(); // Cache-busting
+            fetch(dataUrl)
                 .then(response => {
                     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                     updateFileTimestamp(response.headers.get('Last-Modified'));
@@ -353,7 +354,7 @@
                         const y = d3.scaleLinear().domain([0, d3.max(chartData, d => Math.max(d.plan, d.real)) * 1.2 || 100]).range([height, 0]);
                         
                         svg.append("g").attr("transform", `translate(0,${height})`).attr("class", "axis-label").call(d3.axisBottom(x0));
-                        svg.append("g").attr("class", "axis-label").call(d3.axisLeft(y).tickFormat(d => `${d/1000}k`));
+                        svg.append("g").attr("class", "axis-label").call(d3.axisLeft(y).tickFormat(d => formatK(d).replace(/\.0/,''))); // Format Y axis
 
                         const barGroups = svg.append("g").selectAll("g").data(chartData).join("g")
                             .attr("transform", d => `translate(${x0(d.month)},0)`);
