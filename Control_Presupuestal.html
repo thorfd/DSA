@@ -139,14 +139,16 @@
 
                 // Orden cronológico de los meses
                 const monthOrder = ['Ago', 'Sep', 'Oct', 'Nov', 'Dic', 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul'];
+                
+                let allCeCoUnique; // Variable para almacenar todos los CeCos únicos
 
-                // Poblar filtros
+                // Poblar filtros iniciales
                 const populateFilters = () => {
                     const allLS = ["Todas", ...new Set(data.map(d => d.LS))].sort((a,b) => a.localeCompare(b));
                     lsFilter.selectAll("option").data(allLS).join("option").attr("value", d => d).text(d => d);
 
-                    const allCeCo = ["Todos", ...new Set(data.map(d => d.CeCo))].sort((a,b) => a.localeCompare(b));
-                    cecoFilter.selectAll("option").data(allCeCo).join("option").attr("value", d => d).text(d => d);
+                    allCeCoUnique = ["Todos", ...new Set(data.map(d => d.CeCo))].sort((a,b) => a.localeCompare(b));
+                    cecoFilter.selectAll("option").data(allCeCoUnique).join("option").attr("value", d => d).text(d => d);
                     
                     monthButtonsContainer.selectAll("button").data(monthOrder).join("button")
                         .attr("class", (d, i) => `month-btn px-4 py-2 border border-gray-300 text-sm font-medium bg-white hover:bg-gray-50 ${i === 0 ? 'active' : ''}`)
@@ -156,6 +158,38 @@
                             d3.select(this).classed("active", true);
                             updateDashboard();
                         });
+                };
+                
+                // Función para actualizar el filtro de CeCo basado en la LS seleccionada
+                const updateCeCoFilter = () => {
+                    const selectedLS = lsFilter.property("value");
+                    let cecosForSelectedLS;
+
+                    if (selectedLS === "Todas") {
+                        cecosForSelectedLS = allCeCoUnique;
+                    } else {
+                        // Extraer el número de la LS (ej: '48' de 'LS_48 - ...')
+                        const lsMatch = selectedLS.match(/LS_(\d+)/);
+                        if (lsMatch && lsMatch[1]) {
+                            const lsNumber = lsMatch[1];
+                            const cecoPrefix = `UF_569${lsNumber}`;
+                            const filteredList = allCeCoUnique.filter(ceco => ceco !== "Todos" && ceco.startsWith(cecoPrefix));
+                            cecosForSelectedLS = ["Todos", ...filteredList];
+                        } else {
+                            // Si el formato de LS no es el esperado, mostrar solo "Todos"
+                            cecosForSelectedLS = ["Todos"];
+                        }
+                    }
+                    
+                    // Repoblar el dropdown de CeCo
+                    cecoFilter.selectAll("option")
+                        .data(cecosForSelectedLS, d => d)
+                        .join("option")
+                        .attr("value", d => d)
+                        .text(d => d);
+                    
+                    // Resetear la selección a "Todos"
+                    cecoFilter.property("value", "Todos");
                 };
 
                 // Función principal para actualizar el dashboard
@@ -303,7 +337,10 @@
                 updateDashboard();
 
                 // Agregar listeners para los filtros
-                lsFilter.on("change", updateDashboard);
+                lsFilter.on("change", () => {
+                    updateCeCoFilter();
+                    updateDashboard();
+                });
                 cecoFilter.on("change", updateDashboard);
 
             }).catch(error => {
@@ -320,3 +357,4 @@
 
 </body>
 </html>
+
