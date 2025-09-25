@@ -184,6 +184,24 @@
                     </table>
                 </div>
             </section>
+            
+            <!-- Nueva Sección: Top 5 Proveedores -->
+            <section id="top-providers" class="chart-card bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                <h2 class="chart-title text-xl font-semibold text-gray-900 dark:text-white mb-4">Top 5 Proveedores</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="border-b-2 border-gray-200 dark:border-gray-700">
+                            <tr>
+                                <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Proveedor</th>
+                                <th class="px-3 py-2 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Monto Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="provider-table" class="divide-y divide-gray-200 dark:divide-gray-700">
+                           <!-- Filas de proveedores se generarán aquí -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
         </main>
     </div>
 
@@ -400,6 +418,7 @@
                     window.updateDashboard = () => {
                         const selectedLS = Array.from(lsFilterEl.selectedOptions).map(o => o.value);
                         const selectedCeCo = Array.from(cecoFilterEl.selectedOptions).map(o => o.value);
+                        const selectedCeCoNumbers = selectedCeCo.map(c => c.replace('UF_', ''));
                         const selectedMonths = d3.selectAll("#month-buttons button.active").nodes().map(n => n.textContent);
                         
                         let monthlyFilteredData = [];
@@ -413,7 +432,7 @@
                             });
                              currentDetailData = detailData.filter(d => {
                                 const lsMatch = selectedLS.includes("Todas") || selectedLS.includes(d.LS);
-                                const cecoMatch = selectedCeCo.includes("Todos") || selectedCeCo.includes("UF_" + String(d.CeBe).trim());
+                                const cecoMatch = selectedCeCo.includes("Todos") || selectedCeCoNumbers.includes(String(d.CeBe).trim());
                                 return lsMatch && cecoMatch;
                             });
 
@@ -440,6 +459,7 @@
                         updateAnnualChart(annualFilteredData, monthOrder);
                         updateConceptsTable(monthlyFilteredData);
                         updateDetailTable(currentDetailData);
+                        updateProviderTable(currentDetailData);
                     };
 
                     const updateAnnualChart = (data, monthOrder) => {
@@ -499,81 +519,28 @@
                     };
                     
                     const createSortableHeader = () => {
-                        const headers = [
-                            { key: 'Cuenta SV', label: 'Concepto Gasto' },
-                            { key: 'Lib.mayor', label: 'Lib.mayor' },
-                            { key: 'Cuenta Contable', label: 'Cta. Contable' },
-                            { key: 'Texto', label: 'Texto' },
-                            { key: 'Oc', label: 'OC' },
-                            { key: 'Proveedor / Usuario', label: 'Proveedor/Usuario' },
-                            { key: 'Importe en ML', label: 'Importe' },
-                            { key: 'Solicitante OC', label: 'Solicitante OC' }
-                        ];
+                        const headers = [ { key: 'Cuenta SV', label: 'Concepto Gasto' }, { key: 'Lib.mayor', label: 'Lib.mayor' }, { key: 'Cuenta Contable', label: 'Cta. Contable' }, { key: 'Texto', label: 'Texto' }, { key: 'Oc', label: 'OC' }, { key: 'Proveedor / Usuario', label: 'Proveedor/Usuario' }, { key: 'Importe en ML', label: 'Importe' }, { key: 'Solicitante OC', label: 'Solicitante OC' } ];
                         const headerRow = d3.select("#detail-table-header").selectAll("tr").data([1]).join("tr");
-                        headerRow.selectAll("th").data(headers).join("th")
-                            .attr("class", "px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider sortable-header")
-                            .classed("text-right", d => d.key === 'Importe en ML')
-                            .on("click", (event, d) => {
-                                if (detailSortState.key === d.key) {
-                                    detailSortState.order = detailSortState.order === 'asc' ? 'desc' : 'asc';
-                                } else {
-                                    detailSortState.key = d.key;
-                                    detailSortState.order = 'asc';
-                                }
-                                updateDetailTable(currentDetailData);
-                            })
-                            .html(d => {
-                                let sortIcon = '';
-                                if (detailSortState.key === d.key) {
-                                    sortIcon = detailSortState.order === 'asc' ? ' ▲' : ' ▼';
-                                }
-                                return d.label + sortIcon;
-                            });
+                        headerRow.selectAll("th").data(headers).join("th").attr("class", "px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider sortable-header").classed("text-right", d => d.key === 'Importe en ML').on("click", (event, d) => { if (detailSortState.key === d.key) { detailSortState.order = detailSortState.order === 'asc' ? 'desc' : 'asc'; } else { detailSortState.key = d.key; detailSortState.order = 'asc'; } updateDetailTable(currentDetailData); }).html(d => { let sortIcon = ''; if (detailSortState.key === d.key) { sortIcon = detailSortState.order === 'asc' ? ' ▲' : ' ▼'; } return d.label + sortIcon; });
                     };
 
                     const updateDetailTable = (data) => {
                         createSortableHeader();
-                        
                         const ivaRows = data.filter(d => d['Cuenta SV'] === 'IVA');
                         let nonIvaRows = data.filter(d => d['Cuenta SV'] !== 'IVA');
-                        
                         let finalData = [...nonIvaRows];
                         if (ivaRows.length > 0) {
                             const totalIva = d3.sum(ivaRows, d => d['Importe en ML']);
-                            const aggregatedIvaRow = {
-                                'Cuenta SV': 'IVA (Total)',
-                                'Lib.mayor': '-',
-                                'Cuenta Contable': '-',
-                                'Texto': `Total de ${ivaRows.length} transacciones de IVA`,
-                                'Oc': '-',
-                                'Proveedor / Usuario': '-',
-                                'Importe en ML': totalIva,
-                                'Solicitante OC': '-',
-                                isAggregated: true
-                            };
+                            const aggregatedIvaRow = { 'Cuenta SV': 'IVA (Total)', 'Lib.mayor': '-', 'Cuenta Contable': '-', 'Texto': `Total de ${ivaRows.length} transacciones de IVA`, 'Oc': '-', 'Proveedor / Usuario': '-', 'Importe en ML': totalIva, 'Solicitante OC': '-', isAggregated: true };
                             finalData.push(aggregatedIvaRow);
                         }
-
-                        finalData.sort((a, b) => {
-                            const key = detailSortState.key;
-                            let valA = a[key];
-                            let valB = b[key];
-                            
-                            const order = detailSortState.order === 'asc' ? 1 : -1;
-
-                            if (typeof valA === 'string' && typeof valB === 'string') {
-                                return valA.localeCompare(valB) * order;
-                            }
-                            return (valA - valB) * order;
-                        });
-
+                        finalData.sort((a, b) => { const key = detailSortState.key; let valA = a[key]; let valB = b[key]; const order = detailSortState.order === 'asc' ? 1 : -1; if (typeof valA === 'string' && typeof valB === 'string') { return valA.localeCompare(valB) * order; } return (valA - valB) * order; });
                         const tableBody = d3.select("#detail-table");
                         const rows = tableBody.selectAll("tr").data(finalData, (d,i) => i);
                         rows.exit().remove();
                         const newRows = rows.enter().append("tr").attr("class", "text-sm");
                         const columns = ['Cuenta SV', 'Lib.mayor', 'Cuenta Contable', 'Texto', 'Oc', 'Proveedor / Usuario', 'Importe en ML', 'Solicitante OC'];
                         columns.forEach(() => newRows.append("td").attr("class", "px-3 py-2 text-xs text-gray-700 dark:text-gray-300 whitespace-nowrap"));
-                        
                         const allRows = newRows.merge(rows);
                         allRows.select("td:nth-child(1)").text(d => d['Cuenta SV']);
                         allRows.select("td:nth-child(2)").text(d => d['Lib.mayor']);
@@ -583,6 +550,21 @@
                         allRows.select("td:nth-child(6)").text(d => d['Proveedor / Usuario']);
                         allRows.select("td:nth-child(7)").attr("class", "px-3 py-2 text-xs text-gray-700 dark:text-gray-300 text-right whitespace-nowrap").text(d => formatCurrency(d['Importe en ML']));
                         allRows.select("td:nth-child(8)").text(d => d['Solicitante OC']);
+                    };
+
+                    const updateProviderTable = (data) => {
+                        const providerData = data.filter(d => d['Proveedor / Usuario'] && d['Proveedor / Usuario'].toUpperCase().trim() !== 'AMEX');
+                        const providerTotals = d3.rollup( providerData, v => d3.sum(v, d => d['Importe en ML']), d => d['Proveedor / Usuario'] );
+                        const top5Providers = Array.from(providerTotals, ([provider, amount]) => ({ provider, amount })).sort((a, b) => b.amount - a.amount).slice(0, 5);
+                        const tableBody = d3.select("#provider-table");
+                        const rows = tableBody.selectAll("tr").data(top5Providers, d => d.provider);
+                        rows.exit().remove();
+                        const newRows = rows.enter().append("tr").attr("class", "text-sm");
+                        newRows.append("td").attr("class", "px-3 py-2 text-gray-700 dark:text-gray-300 whitespace-nowrap");
+                        newRows.append("td").attr("class", "px-3 py-2 text-right text-gray-700 dark:text-gray-300 whitespace-nowrap");
+                        const allRows = newRows.merge(rows);
+                        allRows.select("td:nth-child(1)").text(d => d.provider);
+                        allRows.select("td:nth-child(2)").text(d => formatCurrency(d.amount));
                     };
 
                     const handleMultiSelect = (element, previousSelection, isAllSelector) => {
