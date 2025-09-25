@@ -151,6 +151,9 @@
                         <tbody id="concepts-table" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                             <!-- Filas de la tabla se generarán aquí -->
                         </tbody>
+                        <tfoot id="concepts-table-footer" class="bg-gray-50 dark:bg-gray-700 font-bold">
+                            <!-- Fila de total se generará aquí -->
+                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -225,7 +228,18 @@
 
                 const i = Math.floor(Math.log(absN) / Math.log(1000));
                 const suffix = ['','k','M','B','T'][i];
-                const val = parseFloat((absN / Math.pow(1000, i)).toFixed(2));
+                let val = (absN / Math.pow(1000, i));
+
+                // Formatear a 2 decimales si no es un entero, de lo contrario sin decimales
+                if (val % 1 !== 0) {
+                    val = val.toFixed(2);
+                } else {
+                    val = val.toFixed(0);
+                }
+                
+                // Si el resultado tiene .00, quitarlo.
+                val = val.replace(/\.00$/, '');
+
                 return sign + val + suffix;
             };
 
@@ -442,6 +456,30 @@
                         allRows.select("td:nth-child(5)").text(d => formatPercent(d.variancePercent))
                             .attr("class", "px-3 py-2 text-right font-semibold")
                             .classed("text-red-600", d => d.variancePercent > 0).classed("text-green-600", d => d.variancePercent < 0);
+                        
+                        // Footer
+                        const footer = d3.select("#concepts-table-footer");
+                        footer.selectAll("tr").remove(); // Limpiar pie de página anterior
+
+                        if(tableData.length > 0) {
+                            const totalPlan = d3.sum(tableData, d => d.plan);
+                            const totalReal = d3.sum(tableData, d => d.real);
+                            const totalVariance = totalReal - totalPlan;
+                            const totalVariancePercent = (totalPlan === 0) ? 0 : totalVariance / totalPlan;
+
+                            const footerRow = footer.append("tr")
+                                .attr("class", "text-sm border-t-2 border-gray-300 dark:border-gray-600");
+
+                            footerRow.append("td").attr("class", "px-3 py-2 text-left font-bold text-gray-900 dark:text-gray-100").text("Total");
+                            footerRow.append("td").attr("class", "px-3 py-2 text-right font-bold text-gray-900 dark:text-gray-100").text(formatCurrency(totalPlan));
+                            footerRow.append("td").attr("class", "px-3 py-2 text-right font-bold text-gray-900 dark:text-gray-100").text(formatCurrency(totalReal));
+                            footerRow.append("td").attr("class", "px-3 py-2 text-right font-bold")
+                                .classed("text-red-600", totalVariance > 0).classed("text-green-600", totalVariance < 0)
+                                .text(formatCurrency(totalVariance));
+                            footerRow.append("td").attr("class", "px-3 py-2 text-right font-bold")
+                                .classed("text-red-600", totalVariancePercent > 0).classed("text-green-600", totalVariancePercent < 0)
+                                .text(formatPercent(totalVariancePercent));
+                        }
                     };
 
                     const handleMultiSelect = (element, previousSelection, isAllSelector) => {
