@@ -225,15 +225,34 @@
                             .text(d => d.replace("UF_", ""))
                             .property("selected", d => d === "Todos");
 
+                        const monthMap = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+                        const currentMonthName = monthMap[new Date().getMonth()];
+
                         monthButtonsContainer.selectAll("button").data(monthOrder).join("button")
                             .attr("class", "month-btn px-4 py-2 border border-gray-300 text-sm font-medium bg-white hover:bg-gray-50 rounded-md")
-                            .classed("active", (d,i) => i === 0)
+                            .classed("active", d => d === currentMonthName)
                             .text(d => d)
-                            .on("click", function() {
+                            .on("click", function(event) {
                                 const button = d3.select(this);
-                                button.classed("active", !button.classed("active"));
+                                const isCtrlOrCmd = event.ctrlKey || event.metaKey;
+
+                                if (isCtrlOrCmd) {
+                                    button.classed("active", !button.classed("active"));
+                                } else {
+                                    monthButtonsContainer.selectAll("button").classed("active", false);
+                                    button.classed("active", true);
+                                }
+                                
+                                if (monthButtonsContainer.selectAll("button.active").empty()) {
+                                    button.classed("active", true);
+                                }
+                                
                                 updateDashboard();
                             });
+                        
+                        if (monthButtonsContainer.selectAll("button.active").empty()) {
+                            monthButtonsContainer.select("button").classed("active", true);
+                        }
                     };
                     
                     const updateCeCoFilter = () => {
@@ -464,8 +483,13 @@
                     });
 
                     resetMonthBtn.addEventListener('click', () => {
+                        const monthMap = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+                        const currentMonthName = monthMap[new Date().getMonth()];
                         monthButtonsContainer.selectAll("button")
-                            .classed("active", (d, i) => i === 0);
+                            .classed("active", d => d === currentMonthName);
+                        if (monthButtonsContainer.selectAll("button.active").empty()) {
+                            monthButtonsContainer.select("button").classed("active", true);
+                        }
                         updateDashboard();
                     });
                     window.addEventListener('resize', () => updateDashboard());
@@ -479,3 +503,4 @@
     </script>
 </body>
 </html>
+
