@@ -28,7 +28,7 @@
             transition: background-color 0.3s, color 0.3s;
         }
         /* Estilos para el gráfico de D3 en modo oscuro */
-        .dark .axis-label text, .dark .bar-label {
+        .dark .axis-label text, .dark .bar-label, .dark .legend-text {
             fill: #D1D5DB; /* gray-300 */
         }
         .dark .domain, .dark .tick line {
@@ -121,10 +121,10 @@
 
         <!-- Visualizaciones -->
         <main class="space-y-8">
-            <!-- Gráfico de Barras -->
+            <!-- Gráfico de Barras Anual -->
             <div class="chart-card bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-                 <h2 class="chart-title text-xl font-semibold text-gray-900 dark:text-white mb-4">Comparativo Plan vs. Real</h2>
-                <div id="chart-container" class="w-full h-96"></div>
+                 <h2 class="chart-title text-xl font-semibold text-gray-900 dark:text-white mb-4">Comparativo Anual por Mes</h2>
+                <div id="annual-chart-container" class="w-full h-96"></div>
             </div>
 
             <!-- Tabla de Detalle por Concepto -->
@@ -200,26 +200,28 @@
             // --- Inicialización ---
             const userTheme = localStorage.getItem('theme');
             const currentHour = new Date().getHours();
-            // Tema oscuro por defecto entre 7 PM y 6 AM
             const systemTheme = (currentHour >= 19 || currentHour < 6) ? 'dark' : 'light';
             applyTheme(userTheme || systemTheme);
             
-            // --- Formateadores ---
+            // --- Formateadores y Constantes ---
             const formatCurrency = (value) => new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(value);
             const formatPercent = (value) => new Intl.NumberFormat('es-MX', { style: 'percent', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
-
-            let fullData = []; // Almacenar todos los datos aquí
+            const conceptOrder = [
+                "Servicios", "Gastos de Operacion", "Gastos de Viaje", "Software", "Publicidad",
+                "Servicios Publicos", "Mantenimiento", "Comunicaciones", "Subcontrataciones",
+                "Irrecuperabilidad", "Comisiones Bancarias", "Gastos por Transferencias",
+                "Premios", "Materiales", "Bibliografia", "IVA"
+            ];
+            
+            let fullData = [];
             let previousLSSelection = ["Todas"];
             let previousCeCoSelection = ["Todos"];
 
             // --- Carga de Datos y Lógica del Dashboard ---
             fetch("Gastos_SV.csv")
                 .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    const lastModified = response.headers.get('Last-Modified');
-                    updateFileTimestamp(lastModified);
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    updateFileTimestamp(response.headers.get('Last-Modified'));
                     return response.text();
                 })
                 .then(csvText => {
@@ -230,21 +232,21 @@
                     let allCeCoUnique;
 
                     const populateFilters = () => {
-                        const allLS = ["Todas", ...new Set(fullData.map(d => d.LS))].sort((a,b) => a.localeCompare(b));
+                        const allLS = ["Todas", ...[...new Set(fullData.map(d => d.LS))].sort((a,b) => a.localeCompare(b))];
                         lsFilter.selectAll("option").data(allLS).join("option").attr("value", d => d).text(d => d)
                             .property("selected", d => d === "Todas");
 
-                        allCeCoUnique = ["Todos", ...new Set(fullData.map(d => d.CeCo))].sort((a,b) => a.localeCompare(b));
+                        allCeCoUnique = ["Todos", ...[...new Set(fullData.map(d => d.CeCo))].sort((a,b) => a.localeCompare(b))];
                         cecoFilter.selectAll("option").data(allCeCoUnique).join("option").attr("value", d => d).text(d => d)
                             .property("selected", d => d === "Todos");
 
                         monthButtonsContainer.selectAll("button").data(monthOrder).join("button")
-                            .attr("class", (d, i) => `month-btn px-4 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 rounded-md ${i === 0 ? 'active' : ''}`)
+                            .attr("class", "month-btn px-4 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 rounded-md")
+                            .classed("active", (d,i) => i === 0)
                             .text(d => d)
                             .on("click", function() {
                                 const button = d3.select(this);
-                                const isActive = button.classed("active");
-                                button.classed("active", !isActive);
+                                button.classed("active", !button.classed("active"));
                                 updateDashboard();
                             });
                     };
@@ -252,7 +254,6 @@
                     const updateCeCoFilter = () => {
                         const selectedLS = Array.from(lsFilterEl.selectedOptions).map(o => o.value);
                         let cecosForSelectedLS;
-
                         if (selectedLS.includes("Todas")) {
                             cecosForSelectedLS = allCeCoUnique;
                         } else {
@@ -263,21 +264,16 @@
                                     const lsNumber = lsMatch[1];
                                     const cecoPrefix = `UF_569${lsNumber}`;
                                     allCeCoUnique.forEach(ceco => {
-                                        if(ceco.startsWith(cecoPrefix)) {
-                                            relevantCeCos.add(ceco);
-                                        }
+                                        if(ceco.startsWith(cecoPrefix)) relevantCeCos.add(ceco);
                                     });
                                 }
                             });
                             cecosForSelectedLS = ["Todos", ...Array.from(relevantCeCos).sort()];
                         }
-                        
                         const currentCeCoSelection = Array.from(cecoFilterEl.selectedOptions).map(o => o.value);
-                        
                         cecoFilter.selectAll("option").data(cecosForSelectedLS, d => d).join("option")
-                        .attr("value", d => d)
-                        .text(d => d)
-                        .property("selected", d => currentCeCoSelection.includes(d));
+                            .attr("value", d => d).text(d => d)
+                            .property("selected", d => currentCeCoSelection.includes(d));
                     };
 
                     window.updateDashboard = () => {
@@ -285,20 +281,22 @@
                         const selectedCeCo = Array.from(cecoFilterEl.selectedOptions).map(o => o.value);
                         const selectedMonths = d3.selectAll("#month-buttons button.active").nodes().map(n => n.textContent);
                         
-                        let filteredData;
-                        if (selectedMonths.length === 0 || selectedLS.length === 0 || selectedCeCo.length === 0) {
-                            filteredData = [];
-                        } else {
-                            filteredData = fullData.filter(d => {
+                        let monthlyFilteredData = [];
+                        let annualFilteredData = [];
+
+                        if (selectedLS.length > 0 && selectedCeCo.length > 0) {
+                            annualFilteredData = fullData.filter(d => {
                                 const lsMatch = selectedLS.includes("Todas") || selectedLS.includes(d.LS);
                                 const cecoMatch = selectedCeCo.includes("Todos") || selectedCeCo.includes(d.CeCo);
-                                const monthMatch = selectedMonths.includes(d.Mes);
-                                return lsMatch && cecoMatch && monthMatch;
+                                return lsMatch && cecoMatch;
                             });
+                            if (selectedMonths.length > 0) {
+                                monthlyFilteredData = annualFilteredData.filter(d => selectedMonths.includes(d.Mes));
+                            }
                         }
                         
-                        const totalPlan = d3.sum(filteredData.filter(d => d.Escenario === 'Plan Operativo'), d => d.Monto);
-                        const totalReal = d3.sum(filteredData.filter(d => d.Escenario === 'Real'), d => d.Monto);
+                        const totalPlan = d3.sum(monthlyFilteredData.filter(d => d.Escenario === 'Plan Operativo'), d => d.Monto);
+                        const totalReal = d3.sum(monthlyFilteredData.filter(d => d.Escenario === 'Real'), d => d.Monto);
                         const varianceAmount = totalReal - totalPlan;
                         const variancePercent = (totalPlan === 0) ? 0 : varianceAmount / totalPlan;
 
@@ -306,24 +304,34 @@
                         d3.select("#kpi-real").text(formatCurrency(totalReal));
                         d3.select("#kpi-variance-amount").text(formatCurrency(varianceAmount))
                             .attr('class', 'text-3xl font-bold mt-2')
-                            .classed('text-green-600', varianceAmount < 0)
-                            .classed('text-red-600', varianceAmount > 0);
+                            .classed('text-green-600', varianceAmount < 0).classed('text-red-600', varianceAmount > 0);
                         d3.select("#kpi-variance-percent").text(formatPercent(variancePercent))
-                        .attr('class', 'text-3xl font-bold mt-2')
-                        .classed('text-green-600', variancePercent < 0)
-                        .classed('text-red-600', variancePercent > 0);
+                            .attr('class', 'text-3xl font-bold mt-2')
+                            .classed('text-green-600', variancePercent < 0).classed('text-red-600', variancePercent > 0);
                         
-                        updateBarChart(totalPlan, totalReal);
-                        updateConceptsTable(filteredData);
+                        updateAnnualChart(annualFilteredData, monthOrder);
+                        updateConceptsTable(monthlyFilteredData);
                     };
 
-                    const updateBarChart = (plan, real) => {
-                        d3.select("#chart-container svg").remove();
-                        const chartData = [{ scenario: 'Plan', value: plan }, { scenario: 'Real', value: real }];
-                        const container = d3.select("#chart-container");
+                    const updateAnnualChart = (data, monthOrder) => {
+                        d3.select("#annual-chart-container svg").remove();
+                        
+                        const monthlyTotals = d3.rollup(data, 
+                            v => d3.sum(v, d => d.Monto), 
+                            d => d.Mes, 
+                            d => d.Escenario === 'Plan Operativo' ? 'plan' : 'real'
+                        );
+
+                        const chartData = monthOrder.map(month => ({
+                            month,
+                            plan: monthlyTotals.get(month)?.get('plan') || 0,
+                            real: monthlyTotals.get(month)?.get('real') || 0,
+                        }));
+                        
+                        const container = d3.select("#annual-chart-container");
                         if (!container.node() || container.node().getBoundingClientRect().width === 0) return;
 
-                        const margin = { top: 20, right: 30, bottom: 40, left: 90 };
+                        const margin = { top: 40, right: 20, bottom: 30, left: 80 };
                         const width = container.node().getBoundingClientRect().width - margin.left - margin.right;
                         const height = container.node().getBoundingClientRect().height - margin.top - margin.bottom;
                         const svg = container.append("svg")
@@ -332,43 +340,54 @@
                             .append("g")
                             .attr("transform", `translate(${margin.left},${margin.top})`);
 
-                        const y = d3.scaleBand().range([0, height]).domain(chartData.map(d => d.scenario)).padding(0.4);
-                        const x = d3.scaleLinear().domain([0, d3.max(chartData, d => d.value) * 1.1 || 100]).range([0, width]);
-
-                        svg.append("g").attr("class", "axis-label").call(d3.axisLeft(y).tickSize(0).tickPadding(10));
-                        svg.append("g").attr("transform", `translate(0,${height})`).attr("class", "axis-label").call(d3.axisBottom(x).ticks(5).tickFormat(d => formatCurrency(d).replace('MXN', '')));
+                        const subgroups = ['plan', 'real'];
+                        const x0 = d3.scaleBand().domain(monthOrder).range([0, width]).padding(0.2);
+                        const x1 = d3.scaleBand().domain(subgroups).range([0, x0.bandwidth()]).padding(0.05);
+                        const y = d3.scaleLinear().domain([0, d3.max(chartData, d => Math.max(d.plan, d.real)) * 1.1 || 100]).range([height, 0]);
                         
-                        svg.selectAll("myRect").data(chartData).join("rect")
-                            .attr("y", d => y(d.scenario)).attr("x", x(0)).attr("width", 0).attr("height", y.bandwidth())
-                            .attr("class", d => d.scenario === 'Plan' ? 'bar-plan' : 'bar-real')
-                            .transition().duration(800).attr("width", d => x(d.value));
+                        svg.append("g").attr("transform", `translate(0,${height})`).attr("class", "axis-label").call(d3.axisBottom(x0));
+                        svg.append("g").attr("class", "axis-label").call(d3.axisLeft(y).tickFormat(d => `${d/1000}k`));
 
-                        svg.selectAll("text.bar-label").data(chartData).join("text")
-                            .attr("class", "bar-label text-sm font-medium").attr("y", d => y(d.scenario) + y.bandwidth() / 2 + 5)
-                            .attr("x", d => x(d.value) + 10).text(d => formatCurrency(d.value));
+                        svg.append("g").selectAll("g").data(chartData).join("g")
+                            .attr("transform", d => `translate(${x0(d.month)},0)`)
+                            .selectAll("rect").data(d => subgroups.map(key => ({key, value: d[key]})))
+                            .join("rect")
+                            .attr("x", d => x1(d.key))
+                            .attr("y", d => y(d.value))
+                            .attr("width", x1.bandwidth())
+                            .attr("height", d => height - y(d.value))
+                            .attr("class", d => d.key === 'plan' ? 'bar-plan' : 'bar-real');
+
+                        // Legend
+                        const legend = svg.append("g").attr("transform", `translate(${width - 120}, -30)`);
+                        legend.append("rect").attr("x", 0).attr("width", 12).attr("height", 12).attr("class", "bar-plan");
+                        legend.append("text").attr("x", 20).attr("y", 10).text("Plan").attr("class", "legend-text text-sm");
+                        legend.append("rect").attr("x", 60).attr("y", 0).attr("width", 12).attr("height", 12).attr("class", "bar-real");
+                        legend.append("text").attr("x", 80).attr("y", 10).text("Real").attr("class", "legend-text text-sm");
                     };
 
                     const updateConceptsTable = (filteredData) => {
-                        const conceptsData = d3.rollup(
-                            filteredData,
+                        const conceptsData = d3.rollup(filteredData,
                             v => {
                                 const plan = d3.sum(v.filter(d => d.Escenario === 'Plan Operativo'), d => d.Monto);
                                 const real = d3.sum(v.filter(d => d.Escenario === 'Real'), d => d.Monto);
-                                const variance = real - plan;
-                                const variancePercent = (plan === 0 || plan === undefined) ? 0 : variance / plan;
-                                return { plan, real, variance, variancePercent };
+                                return { plan, real, variance: real - plan, variancePercent: (plan === 0) ? 0 : (real - plan) / plan };
                             },
                             d => d.Concepto
                         );
-
                         const tableData = Array.from(conceptsData, ([key, value]) => ({ concept: key, ...value }))
-                            .sort((a, b) => Math.abs(b.variance) - Math.abs(a.variance));
+                            .sort((a, b) => {
+                                const indexA = conceptOrder.indexOf(a.concept);
+                                const indexB = conceptOrder.indexOf(b.concept);
+                                if (indexA === -1 && indexB === -1) return a.concept.localeCompare(b.concept);
+                                if (indexA === -1) return 1;
+                                if (indexB === -1) return -1;
+                                return indexA - indexB;
+                            });
 
                         const rows = d3.select("#concepts-table").selectAll("tr").data(tableData, d => d.concept);
                         rows.exit().remove();
-                        
                         const newRows = rows.enter().append("tr").attr("class", "text-sm");
-
                         newRows.append("td").attr("class", "px-4 py-3 font-medium text-gray-900 dark:text-gray-100 whitespace-nowrap");
                         newRows.append("td").attr("class", "px-4 py-3 text-right text-gray-700 dark:text-gray-300");
                         newRows.append("td").attr("class", "px-4 py-3 text-right text-gray-700 dark:text-gray-300");
@@ -379,35 +398,26 @@
                         allRows.select("td:nth-child(1)").text(d => d.concept);
                         allRows.select("td:nth-child(2)").text(d => formatCurrency(d.plan));
                         allRows.select("td:nth-child(3)").text(d => formatCurrency(d.real));
-                        
-                        allRows.select("td:nth-child(4)")
-                            .text(d => formatCurrency(d.variance))
+                        allRows.select("td:nth-child(4)").text(d => formatCurrency(d.variance))
                             .attr("class", "px-4 py-3 text-right font-semibold")
-                            .classed("text-red-600", d => d.variance > 0)
-                            .classed("text-green-600", d => d.variance < 0);
-                        
-                        allRows.select("td:nth-child(5)")
-                            .text(d => formatPercent(d.variancePercent))
+                            .classed("text-red-600", d => d.variance > 0).classed("text-green-600", d => d.variance < 0);
+                        allRows.select("td:nth-child(5)").text(d => formatPercent(d.variancePercent))
                             .attr("class", "px-4 py-3 text-right font-semibold")
-                            .classed("text-red-600", d => d.variancePercent > 0)
-                            .classed("text-green-600", d => d.variancePercent < 0);
+                            .classed("text-red-600", d => d.variancePercent > 0).classed("text-green-600", d => d.variancePercent < 0);
                     };
 
                     const handleMultiSelect = (element, previousSelection, isAllSelector) => {
                         const currentSelection = Array.from(element.selectedOptions).map(o => o.value);
+                        const justClicked = currentSelection.find(x => !previousSelection.includes(x));
                         
-                        const justClickedSet = new Set(currentSelection.filter(x => !previousSelection.includes(x)));
-                        
-                        if (justClickedSet.has(isAllSelector)) {
+                        if (justClicked === isAllSelector) {
                             d3.select(element).selectAll("option").property("selected", d => d === isAllSelector);
                         } else if (currentSelection.length > 1 && currentSelection.includes(isAllSelector)) {
                             d3.select(element).selectAll(`option[value="${isAllSelector}"]`).property("selected", false);
                         }
-                        
-                        if(currentSelection.length === 0){
+                        if(currentSelection.length === 0) {
                             d3.select(element).selectAll(`option[value="${isAllSelector}"]`).property("selected", true);
                         }
-                        
                         return Array.from(element.selectedOptions).map(o => o.value);
                     };
 
@@ -425,7 +435,6 @@
                         previousCeCoSelection = handleMultiSelect(cecoFilterEl, previousCeCoSelection, "Todos");
                         updateDashboard();
                     });
-
                     window.addEventListener('resize', () => updateDashboard());
 
                 })
