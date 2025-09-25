@@ -418,7 +418,6 @@
                     window.updateDashboard = () => {
                         const selectedLS = Array.from(lsFilterEl.selectedOptions).map(o => o.value);
                         const selectedCeCo = Array.from(cecoFilterEl.selectedOptions).map(o => o.value);
-                        const selectedCeCoNumbers = selectedCeCo.map(c => c.replace('UF_', ''));
                         const selectedMonths = d3.selectAll("#month-buttons button.active").nodes().map(n => n.textContent);
                         
                         let monthlyFilteredData = [];
@@ -432,8 +431,12 @@
                             });
                              currentDetailData = detailData.filter(d => {
                                 const lsMatch = selectedLS.includes("Todas") || selectedLS.includes(d.LS);
-                                const cecoMatch = selectedCeCo.includes("Todos") || selectedCeCoNumbers.includes(String(d.CeBe).trim());
-                                return lsMatch && cecoMatch;
+                                
+                                if (!lsMatch) return false;
+                                if (selectedCeCo.includes("Todos")) return true;
+
+                                const cebeStringToMatch = "UF_" + String(d.CeBe).trim();
+                                return selectedCeCo.some(sel => sel.startsWith(cebeStringToMatch));
                             });
 
                             if (selectedMonths.length > 0) {
