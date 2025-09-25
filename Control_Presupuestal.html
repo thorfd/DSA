@@ -117,9 +117,13 @@
                     <!-- Botones de mes se generarán aquí -->
                 </div>
             </div>
-             <p class="text-xs text-center text-gray-500 dark:text-gray-400 pt-2">
-                Mantén presionada la tecla Ctrl (o Cmd en Mac) para seleccionar múltiples opciones en las listas.
-            </p>
+            <div class="flex flex-wrap justify-end items-center gap-2 pt-2 border-t border-gray-200 dark:border-gray-700">
+                 <p class="text-xs text-gray-500 dark:text-gray-400 mr-auto">
+                    Use Ctrl/Cmd + clic para selección múltiple.
+                </p>
+                <button id="reset-ls-ceco" class="px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-200 hover:bg-gray-300 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500 rounded-md">Resetear LS / CeCo</button>
+                <button id="reset-month" class="px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-200 hover:bg-gray-300 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500 rounded-md">Resetear Mes</button>
+            </div>
         </section>
 
         <!-- Visualizaciones -->
@@ -158,13 +162,12 @@
             // --- Elementos del DOM ---
             const lsFilterEl = document.getElementById('ls-filter');
             const cecoFilterEl = document.getElementById('ceco-filter');
-            const lsFilter = d3.select(lsFilterEl);
-            const cecoFilter = d3.select(cecoFilterEl);
-            const monthButtonsContainer = d3.select("#month-buttons");
             const themeToggleButton = document.getElementById('theme-toggle');
             const sunIcon = document.getElementById('sun-icon');
             const moonIcon = document.getElementById('moon-icon');
             const lastUpdateEl = document.querySelector('#last-update p:last-child');
+            const resetLsCecoBtn = document.getElementById('reset-ls-ceco');
+            const resetMonthBtn = document.getElementById('reset-month');
 
             // --- Lógica de Tema (Claro/Oscuro) ---
             const applyTheme = (theme) => {
@@ -176,6 +179,10 @@
                     document.documentElement.classList.remove('dark');
                     sunIcon.classList.remove('hidden');
                     moonIcon.classList.add('hidden');
+                }
+                 // Forzar redibujo del gráfico al cambiar de tema
+                if (window.updateDashboard) {
+                    setTimeout(() => window.updateDashboard(), 50);
                 }
             };
 
@@ -209,10 +216,9 @@
             // --- Formateadores y Constantes ---
             const formatCurrency = (value) => new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(value);
             const formatPercent = (value) => new Intl.NumberFormat('es-MX', { style: 'percent', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
-            const formatK = (value) => {
-                if (value === 0) return "";
-                return d3.format("~s")(value).replace('G', 'B').replace('k', 'k');
-            };
+            const formatK = d3.format("~s");
+            const formatKDecimal = d3.format(".1s");
+
             const conceptOrder = [
                 "Servicios", "Gastos de Operacion", "Gastos de Viaje", "Software", "Publicidad",
                 "Servicios Publicos", "Mantenimiento", "Comunicaciones", "Subcontrataciones",
@@ -225,8 +231,8 @@
             let previousCeCoSelection = ["Todos"];
 
             // --- Carga de Datos y Lógica del Dashboard ---
-            const dataUrl = "Gastos_SV.csv?v=" + new Date().getTime(); // Cache-busting
-            fetch(dataUrl)
+            const dataUrl = "Gastos_SV.csv";
+            fetch(dataUrl, { cache: "no-store" }) // No-store para asegurar que se obtenga la fecha correcta
                 .then(response => {
                     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                     updateFileTimestamp(response.headers.get('Last-Modified'));
@@ -238,6 +244,11 @@
                     fullData.forEach(d => { d.Monto = +d.Monto || 0; });
                     const monthOrder = ['Ago', 'Sep', 'Oct', 'Nov', 'Dic', 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul'];
                     let allCeCoUnique;
+                    
+                    const lsFilter = d3.select(lsFilterEl);
+                    const cecoFilter = d3.select(cecoFilterEl);
+                    const monthButtonsContainer = d3.select("#month-buttons");
+
 
                     const populateFilters = () => {
                         const allLS = ["Todas", ...[...new Set(fullData.map(d => d.LS))].sort((a,b) => a.localeCompare(b))];
@@ -354,7 +365,7 @@
                         const y = d3.scaleLinear().domain([0, d3.max(chartData, d => Math.max(d.plan, d.real)) * 1.2 || 100]).range([height, 0]);
                         
                         svg.append("g").attr("transform", `translate(0,${height})`).attr("class", "axis-label").call(d3.axisBottom(x0));
-                        svg.append("g").attr("class", "axis-label").call(d3.axisLeft(y).tickFormat(d => formatK(d).replace(/\.0/,''))); // Format Y axis
+                        svg.append("g").attr("class", "axis-label").call(d3.axisLeft(y).tickFormat(d => formatK(d).replace(/\.0/,'')));
 
                         const barGroups = svg.append("g").selectAll("g").data(chartData).join("g")
                             .attr("transform", d => `translate(${x0(d.month)},0)`);
@@ -374,10 +385,8 @@
                             .attr("y", d => y(d.value) - 4)
                             .attr("text-anchor", "middle")
                             .style("fill", "currentColor")
-                            .text(d => (height - y(d.value)) > 12 ? formatK(d.value) : "");
+                            .text(d => (height - y(d.value)) > 12 ? formatKDecimal(d.value).replace('G', 'B').replace('k','k') : "");
 
-
-                        // Legend
                         const legend = svg.append("g").attr("transform", `translate(${width - 120}, -30)`);
                         legend.append("rect").attr("x", 0).attr("width", 12).attr("height", 12).attr("class", "bar-plan");
                         legend.append("text").attr("x", 20).attr("y", 10).text("Plan").attr("class", "legend-text text-sm");
@@ -452,6 +461,20 @@
                     });
                     cecoFilter.on("change", () => {
                         previousCeCoSelection = handleMultiSelect(cecoFilterEl, previousCeCoSelection, "Todos");
+                        updateDashboard();
+                    });
+                     resetLsCecoBtn.addEventListener('click', () => {
+                        lsFilter.selectAll("option").property("selected", d => d === "Todas");
+                        cecoFilter.selectAll("option").property("selected", d => d === "Todos");
+                        previousLSSelection = ["Todas"];
+                        previousCeCoSelection = ["Todos"];
+                        updateCeCoFilter();
+                        updateDashboard();
+                    });
+
+                    resetMonthBtn.addEventListener('click', () => {
+                        monthButtonsContainer.selectAll("button")
+                            .classed("active", (d, i) => i === 0);
                         updateDashboard();
                     });
                     window.addEventListener('resize', () => updateDashboard());
