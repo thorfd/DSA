@@ -304,6 +304,12 @@
                         }
                     });
 
+                    const monthLongToShort = {
+                        'Enero': 'Ene', 'Febrero': 'Feb', 'Marzo': 'Mar', 'Abril': 'Abr', 
+                        'Mayo': 'May', 'Junio': 'Jun', 'Julio': 'Jul', 'Agosto': 'Ago', 
+                        'Septiembre': 'Sep', 'Octubre': 'Oct', 'Noviembre': 'Nov', 'Diciembre': 'Dic'
+                    };
+
                     detailData.forEach(d => {
                         d['Importe en ML'] = +d['Importe en ML'] || 0;
                         const cebeStr = String(d.CeBe);
@@ -313,6 +319,7 @@
                         } else {
                             d.LS = 'Desconocida';
                         }
+                        d.MesShort = monthLongToShort[d.Mes] || d.Mes; // Normalizar mes
                     });
                     
                     const monthOrder = ['Ago', 'Sep', 'Oct', 'Nov', 'Dic', 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul'];
@@ -413,7 +420,7 @@
 
                             if (selectedMonths.length > 0) {
                                 monthlyFilteredData = annualFilteredData.filter(d => selectedMonths.includes(d.Mes));
-                                detailFilteredData = detailFilteredData.filter(d => selectedMonths.includes(d.Mes));
+                                detailFilteredData = detailFilteredData.filter(d => selectedMonths.includes(d.MesShort));
                             }
                         }
                         
