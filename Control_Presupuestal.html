@@ -170,13 +170,14 @@
                 const suffix = ['','k','M','B','T'][i];
                 let val = (absN / Math.pow(1000, i));
                 
-                if (val < 10) val = val.toFixed(2);
-                else if (val < 100) val = val.toFixed(1);
-                else val = val.toFixed(0);
-                
-                val = val.replace(/\.00$|\.0$/, '');
+                let formattedVal = val.toFixed(2);
+                if (formattedVal.endsWith('.00')) {
+                    formattedVal = formattedVal.slice(0, -3);
+                } else if (formattedVal.endsWith('0')) {
+                    formattedVal = formattedVal.slice(0, -1);
+                }
 
-                return sign + val + suffix;
+                return sign + formattedVal + suffix;
             };
 
             const conceptOrder = [
@@ -201,7 +202,10 @@
                 .then(csvText => {
                     const data = d3.csvParse(csvText);
                     fullData = data;
-                    fullData.forEach(d => { d.Monto = +d.Monto || 0; });
+                    fullData.forEach(d => { 
+                        d.Monto = +d.Monto || 0; 
+                        d.CeCoClean = d.CeCo.replace("UF_", "");
+                    });
                     const monthOrder = ['Ago', 'Sep', 'Oct', 'Nov', 'Dic', 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul'];
                     let allCeCoUnique;
                     
@@ -216,7 +220,9 @@
                             .property("selected", d => d === "Todas");
 
                         allCeCoUnique = ["Todos", ...[...new Set(fullData.map(d => d.CeCo))].sort((a,b) => a.localeCompare(b))];
-                        cecoFilter.selectAll("option").data(allCeCoUnique).join("option").attr("value", d => d).text(d => d)
+                        cecoFilter.selectAll("option").data(allCeCoUnique).join("option")
+                            .attr("value", d => d)
+                            .text(d => d.replace("UF_", ""))
                             .property("selected", d => d === "Todos");
 
                         monthButtonsContainer.selectAll("button").data(monthOrder).join("button")
@@ -251,7 +257,8 @@
                         }
                         const currentCeCoSelection = Array.from(cecoFilterEl.selectedOptions).map(o => o.value);
                         cecoFilter.selectAll("option").data(cecosForSelectedLS, d => d).join("option")
-                            .attr("value", d => d).text(d => d)
+                            .attr("value", d => d)
+                            .text(d => d.replace("UF_", ""))
                             .property("selected", d => currentCeCoSelection.includes(d));
                     };
 
