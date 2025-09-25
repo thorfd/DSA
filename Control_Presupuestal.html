@@ -265,7 +265,6 @@
             const formatPercent = (value) => new Intl.NumberFormat('es-MX', { style: 'percent', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
             
             const formatSiCustom = (n) => {
-                if (typeof n !== 'number') return ''; // Safety Check
                 if (n === 0) return "0";
                 const sign = n < 0 ? "-" : "";
                 const absN = Math.abs(n);
@@ -434,7 +433,7 @@
                                 const lsMatch = selectedLS.includes("Todas") || selectedLS.includes(d.LS);
                                 if (!lsMatch) return false;
                                 
-                                const cecoMatch = selectedCeCo.includes("Todos") || selectedCeCo.some(sel => sel === ("UF_" + String(d.CeBe).trim()));
+                                const cecoMatch = selectedCeCo.includes("Todos") || selectedCeCo.includes("UF_" + String(d.CeBe).trim());
                                 return cecoMatch;
                             });
 
