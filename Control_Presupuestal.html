@@ -432,10 +432,9 @@
                              currentDetailData = detailData.filter(d => {
                                 const lsMatch = selectedLS.includes("Todas") || selectedLS.includes(d.LS);
                                 if (!lsMatch) return false;
-                                if (selectedCeCo.includes("Todos")) return true;
                                 
-                                const cebeStringToMatch = "UF_" + String(d.CeBe).trim();
-                                return selectedCeCo.some(sel => cebeStringToMatch.startsWith(sel));
+                                const cecoMatch = selectedCeCo.includes("Todos") || selectedCeCo.includes("UF_" + String(d.CeBe).trim());
+                                return cecoMatch;
                             });
 
                             if (selectedMonths.length > 0) {
@@ -544,7 +543,7 @@
                         const columns = ['Cuenta SV', 'Lib.mayor', 'Cuenta Contable', 'Texto', 'Oc', 'Proveedor / Usuario', 'Importe en ML', 'Solicitante OC'];
                         newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 whitespace-nowrap');
                         newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 whitespace-nowrap');
-                        newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 whitespace-nowrap');
+                        newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 max-w-xs break-words');
                         newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 max-w-xs break-words');
                         newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 whitespace-nowrap');
                         newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 max-w-xs break-words');
