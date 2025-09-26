@@ -521,7 +521,7 @@
                     };
                     
                     const createSortableHeader = () => {
-                        const headers = [ { key: 'Cuenta SV', label: 'Concepto Gasto', width: '12%' }, { key: 'Lib.mayor', label: 'Lib.mayor', width: '8%' }, { key: 'Cuenta Contable', label: 'Cta. Contable', width: '18%' }, { key: 'Texto', label: 'Texto', width: '22%' }, { key: 'Oc', label: 'OC', width: '7%' }, { key: 'Proveedor / Usuario', label: 'Proveedor/Usuario', width: '15%' }, { key: 'Importe en ML', label: 'Importe', width: '8%' }, { key: 'Solicitante OC', label: 'Solicitante OC', width: '10%' } ];
+                        const headers = [ { key: 'Cuenta SV', label: 'Concepto Gasto', width: '13%' }, { key: 'Cuenta Contable', label: 'Cta. Contable', width: '20%' }, { key: 'Texto', label: 'Texto', width: '25%' }, { key: 'Oc', label: 'OC', width: '7%' }, { key: 'Proveedor / Usuario', label: 'Proveedor/Usuario', width: '15%' }, { key: 'Importe en ML', label: 'Importe', width: '10%' }, { key: 'Solicitante OC', label: 'Solicitante OC', width: '10%' } ];
                         const headerRow = d3.select("#detail-table-header").selectAll("tr").data([1]).join("tr");
                         headerRow.selectAll("th").data(headers).join("th").attr("class", "px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider sortable-header").style("width", d => d.width).classed("text-right", d => d.key === 'Importe en ML').on("click", (event, d) => { if (detailSortState.key === d.key) { detailSortState.order = detailSortState.order === 'asc' ? 'desc' : 'asc'; } else { detailSortState.key = d.key; detailSortState.order = 'asc'; } updateDetailTable(currentDetailData); }).html(d => { let sortIcon = ''; if (detailSortState.key === d.key) { sortIcon = detailSortState.order === 'asc' ? ' ▲' : ' ▼'; } return d.label + sortIcon; });
                     };
@@ -533,7 +533,7 @@
                         let finalData = [...nonIvaRows];
                         if (ivaRows.length > 0) {
                             const totalIva = d3.sum(ivaRows, d => d['Importe en ML']);
-                            const aggregatedIvaRow = { 'Cuenta SV': 'IVA (Total)', 'Lib.mayor': '-', 'Cuenta Contable': '-', 'Texto': `Total de ${ivaRows.length} transacciones de IVA`, 'Oc': '-', 'Proveedor / Usuario': '-', 'Importe en ML': totalIva, 'Solicitante OC': '-', isAggregated: true };
+                            const aggregatedIvaRow = { 'Cuenta SV': 'IVA (Total)', 'Cuenta Contable': '-', 'Texto': `Total de ${ivaRows.length} transacciones de IVA`, 'Oc': '-', 'Proveedor / Usuario': '-', 'Importe en ML': totalIva, 'Solicitante OC': '-', isAggregated: true };
                             finalData.push(aggregatedIvaRow);
                         }
                         finalData.sort((a, b) => { const key = detailSortState.key; let valA = a[key]; let valB = b[key]; const order = detailSortState.order === 'asc' ? 1 : -1; if (typeof valA === 'string' && typeof valB === 'string') { return valA.localeCompare(valB) * order; } return (valA - valB) * order; });
@@ -542,7 +542,6 @@
                         rows.exit().remove();
                         const newRows = rows.enter().append("tr").attr("class", "text-sm");
                         newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 break-words');
-                        newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 whitespace-nowrap');
                         newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 break-words');
                         newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 break-words');
                         newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 whitespace-nowrap');
@@ -552,13 +551,12 @@
 
                         const allRows = newRows.merge(rows);
                         allRows.select("td:nth-child(1)").text(d => d['Cuenta SV']);
-                        allRows.select("td:nth-child(2)").text(d => d['Lib.mayor']);
-                        allRows.select("td:nth-child(3)").text(d => d['Cuenta Contable']);
-                        allRows.select("td:nth-child(4)").text(d => d.Texto);
-                        allRows.select("td:nth-child(5)").text(d => d.Oc);
-                        allRows.select("td:nth-child(6)").text(d => d['Proveedor / Usuario']);
-                        allRows.select("td:nth-child(7)").text(d => formatCurrency(d['Importe en ML']));
-                        allRows.select("td:nth-child(8)").text(d => d['Solicitante OC']);
+                        allRows.select("td:nth-child(2)").text(d => d['Cuenta Contable']);
+                        allRows.select("td:nth-child(3)").text(d => d.Texto);
+                        allRows.select("td:nth-child(4)").text(d => d.Oc);
+                        allRows.select("td:nth-child(5)").text(d => d['Proveedor / Usuario']);
+                        allRows.select("td:nth-child(6)").text(d => formatCurrency(d['Importe en ML']));
+                        allRows.select("td:nth-child(7)").text(d => d['Solicitante OC']);
                     };
 
                     const updateProviderTable = (data) => {
