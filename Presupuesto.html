@@ -4,14 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard de Gastos SV</title>
-    <!-- Tailwind CSS para el diseño -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chart.js para las gráficas -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Chart.js Datalabels plugin para mostrar valores en las barras -->
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
-    <!-- Papaparse para leer archivos CSV -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/papaparse/5.3.2/papaparse.min.js"></script>
+    <!-- Los scripts se han movido al final del body para un mejor rendimiento de carga -->
     <style>
         /* Estilos personalizados */
         body {
@@ -70,6 +63,10 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        /* Clase para ocultar elementos */
+        .hidden {
+            display: none;
+        }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -77,6 +74,14 @@
 </head>
 <body class="p-4 md:p-8">
     <div id="loader"></div>
+
+    <!-- Mensaje de error que se mostrará si falla la carga de datos -->
+    <div id="error-message" class="hidden text-white text-center p-8 bg-gray-800 rounded-lg">
+        <h2 class="text-2xl font-bold text-red-500">Error al Cargar Datos</h2>
+        <p class="mt-4">No se pudieron cargar los archivos CSV necesarios para el dashboard.</p>
+        <p class="mt-2">Por favor, asegúrate de que los archivos 'Gastos_SV.csv' y 'DB_Gastos.csv' se encuentren en la misma carpeta que este archivo HTML.</p>
+        <p class="mt-2">Si el problema persiste, puede ser debido a las restricciones de seguridad del navegador al abrir archivos locales. Intenta usar un servidor web simple o la extensión "Live Server" en Visual Studio Code. También puedes revisar la consola de desarrollador (F12) para más detalles técnicos.</p>
+    </div>
 
     <div id="dashboard-content" class="invisible">
         <h1 class="text-3xl font-bold mb-6 text-center text-white">Dashboard de Análisis de Gastos</h1>
@@ -161,13 +166,22 @@
             </div>
         </div>
     </div>
+    
+    <!-- Carga de librerías externas -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/papaparse/5.3.2/papaparse.min.js"></script>
 
     <script>
+        // Se añade la clase 'invisible' con JS para que el contenido no aparezca brevemente antes de ocultarse.
+        document.getElementById('dashboard-content').classList.add('invisible');
+
         document.addEventListener('DOMContentLoaded', () => {
             const loader = document.getElementById('loader');
             const content = document.getElementById('dashboard-content');
+            const errorMessage = document.getElementById('error-message');
 
-            // Orden específico para los conceptos de gasto
             const CONCEPT_ORDER = [
                 'Servicios', 'Gastos de Operacion', 'Gastos de Viaje', 'Software', 'Publicidad',
                 'Servicios Publicos', 'Mantenimiento', 'Comunicaciones', 'Subcontrataciones',
@@ -179,8 +193,6 @@
             let dbGastosData = [];
             let mainChart = null;
 
-            // Cargar y procesar los archivos CSV.
-            // Se usan rutas relativas explícitas ("./") para asegurar que se carguen desde el mismo directorio en GitHub.
             Promise.all([
                 fetchAndParseCSV('./Gastos_SV.csv'),
                 fetchAndParseCSV('./DB_Gastos.csv')
@@ -198,8 +210,7 @@
                     'Proveedor / Usuario': row['Proveedor / Usuario'],
                     'Importe': parseFloat(row['Importe en ML']) || 0,
                     'Solicitado por': row['Solicitante OC'],
-                    'CeCo': 'UF_' + row['CeBe'], // Homologar con el formato de Gastos_SV
-                    // Se añade una comprobación para evitar errores si la columna 'Mes' está vacía o no existe en una fila.
+                    'CeCo': row['CeBe'] ? 'UF_' + row['CeBe'] : '', // Comprobación añadida
                     'Mes': row['Mes'] ? row['Mes'].substring(0, 3) : ''
                 }));
                 
@@ -213,11 +224,9 @@
             }).catch(error => {
                 console.error("Error al cargar los datos:", error);
                 loader.style.display = 'none';
-                // He reemplazado el alert() por un mensaje en la consola para una mejor experiencia.
-                console.error("No se pudieron cargar los archivos CSV. Revisa la consola para más detalles.");
+                errorMessage.classList.remove('hidden');
             });
             
-            // Función para obtener y parsear un archivo CSV
             function fetchAndParseCSV(url) {
                 return new Promise((resolve, reject) => {
                     Papa.parse(url, {
@@ -230,7 +239,6 @@
                 });
             }
 
-            // Llenar los selectores de filtros con datos únicos
             function populateFilters() {
                 const lsFilter = document.getElementById('ls-filter');
                 const cecoFilter = document.getElementById('ceco-filter');
@@ -244,8 +252,7 @@
                 uniqueCeCo.forEach(ceco => cecoFilter.innerHTML += `<option value="${ceco}">${ceco}</option>`);
                 monthOrder.forEach(month => monthFilter.innerHTML += `<option value="${month}">${month}</option>`);
 
-                // Seleccionar el mes actual por defecto
-                const currentMonthIndex = new Date().getMonth(); // 0 = Enero, 8 = Septiembre
+                const currentMonthIndex = new Date().getMonth();
                 const monthMapping = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
                 const currentMonthShort = monthMapping[currentMonthIndex];
                 
@@ -255,38 +262,32 @@
                 }
             }
 
-            // Configurar los listeners para los filtros
             function setupEventListeners() {
                 document.getElementById('ls-filter').addEventListener('change', updateDashboard);
                 document.getElementById('ceco-filter').addEventListener('change', updateDashboard);
                 document.getElementById('month-filter').addEventListener('change', updateDashboard);
             }
             
-            // Función para obtener los valores seleccionados de un filtro múltiple
             function getSelectedValues(selectId) {
                 const select = document.getElementById(selectId);
                 const values = Array.from(select.selectedOptions).map(option => option.value);
-                // Si no hay nada seleccionado, se consideran todos
                 if (values.length === 0) {
                     return Array.from(select.options).map(option => option.value);
                 }
                 return values;
             }
 
-            // Función principal para actualizar todo el dashboard
             function updateDashboard() {
                 const selectedLS = getSelectedValues('ls-filter');
                 const selectedCeCo = getSelectedValues('ceco-filter');
                 const selectedMonths = getSelectedValues('month-filter');
 
-                // Filtrar datos para tablas y detalles
                 const filteredGastos = gastosData.filter(item =>
                     selectedLS.includes(item.LS) &&
                     selectedCeCo.includes(item.CeCo) &&
                     selectedMonths.includes(item.Mes)
                 );
                 
-                // Filtrar datos para la gráfica anual (ignora el mes)
                 const chartDataFiltered = gastosData.filter(item =>
                     selectedLS.includes(item.LS) &&
                     selectedCeCo.includes(item.CeCo)
@@ -297,7 +298,6 @@
                 updateDetailTable(selectedCeCo, selectedMonths);
             }
 
-            // Actualizar la tabla de resumen por concepto
             function updateSummaryTable(data) {
                 const summary = {};
 
@@ -360,7 +360,6 @@
                 `;
             }
 
-            // Actualizar la gráfica de barras
             function updateBarChart(data) {
                 const aggregatedData = {};
                 data.forEach(item => {
@@ -430,7 +429,6 @@
                 });
             }
 
-            // Actualizar la tabla de detalle
             function updateDetailTable(selectedCeCos, selectedMonths) {
                 const filteredData = dbGastosData.filter(item => 
                     selectedCeCos.includes(item.CeCo) && selectedMonths.includes(item.Mes)
@@ -460,7 +458,6 @@
                 });
             }
 
-            // Funciones de formato de números
             function formatCurrency(value) {
                 return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(value);
             }
