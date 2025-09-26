@@ -199,7 +199,8 @@
                     'Importe': parseFloat(row['Importe en ML']) || 0,
                     'Solicitado por': row['Solicitante OC'],
                     'CeCo': 'UF_' + row['CeBe'], // Homologar con el formato de Gastos_SV
-                    'Mes': row['Mes'].substring(0, 3)
+                    // Se añade una comprobación para evitar errores si la columna 'Mes' está vacía o no existe en una fila.
+                    'Mes': row['Mes'] ? row['Mes'].substring(0, 3) : ''
                 }));
                 
                 populateFilters();
@@ -212,7 +213,8 @@
             }).catch(error => {
                 console.error("Error al cargar los datos:", error);
                 loader.style.display = 'none';
-                alert("No se pudieron cargar los archivos CSV. Revisa la consola para más detalles.");
+                // He reemplazado el alert() por un mensaje en la consola para una mejor experiencia.
+                console.error("No se pudieron cargar los archivos CSV. Revisa la consola para más detalles.");
             });
             
             // Función para obtener y parsear un archivo CSV
