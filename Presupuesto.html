@@ -179,10 +179,11 @@
             let dbGastosData = [];
             let mainChart = null;
 
-            // Cargar y procesar los archivos CSV
+            // Cargar y procesar los archivos CSV.
+            // Se usan rutas relativas explícitas ("./") para asegurar que se carguen desde el mismo directorio en GitHub.
             Promise.all([
-                fetchAndParseCSV('Gastos_SV.csv'),
-                fetchAndParseCSV('DB_Gastos.csv')
+                fetchAndParseCSV('./Gastos_SV.csv'),
+                fetchAndParseCSV('./DB_Gastos.csv')
             ]).then(([gastosResult, dbGastosResult]) => {
                 gastosData = gastosResult.data.map(row => ({
                     ...row,
@@ -475,3 +476,4 @@
     </script>
 </body>
 </html>
+
