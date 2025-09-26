@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Gastos SV</title>
+    <!-- Tailwind CSS para el diseño -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js para las gráficas -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chart.js Datalabels plugin para mostrar valores en las barras -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+    <!-- Papaparse para leer archivos CSV -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/papaparse/5.3.2/papaparse.min.js"></script>
+    <style>
+        /* Estilos personalizados */
+        body {
+            background-color: #111827; /* Gris oscuro de Tailwind */
+            color: #f3f4f6; /* Gris claro de Tailwind */
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estilo para los selectores múltiples */
+        select[multiple] {
+            height: 150px;
+            background-color: #374151;
+            border-color: #4b5563;
+        }
+        select[multiple] option {
+            padding: 5px;
+        }
+        /* Estilo para las tablas con bordes sutiles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #4b5563;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #1f2937;
+        }
+        /* Estilo para la cabecera de la tabla de detalle (doble renglón) */
+        .header-multiline {
+            max-width: 150px;
+            white-space: normal;
+        }
+        /* Estilo para el contenedor con scroll */
+        .table-container {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        /* Spinner de carga */
+        #loader {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #3498db;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 2s linear infinite;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-top: -30px;
+            margin-left: -30px;
+            z-index: 9999;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="p-4 md:p-8">
+    <div id="loader"></div>
+
+    <div id="dashboard-content" class="invisible">
+        <h1 class="text-3xl font-bold mb-6 text-center text-white">Dashboard de Análisis de Gastos</h1>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Columna de Filtros y Tabla de Resumen -->
+            <div class="lg:col-span-1 bg-gray-800 p-6 rounded-lg shadow-lg flex flex-col gap-6">
+                <!-- Sección de Filtros -->
+                <div>
+                    <h2 class="text-xl font-semibold mb-4 text-white">Filtros</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <label for="ls-filter" class="block mb-2 text-sm font-medium text-gray-300">Línea de Servicio (LS)</label>
+                            <select id="ls-filter" multiple class="w-full rounded-md"></select>
+                        </div>
+                        <div>
+                            <label for="ceco-filter" class="block mb-2 text-sm font-medium text-gray-300">Centro de Costo (CeCo)</label>
+                            <select id="ceco-filter" multiple class="w-full rounded-md"></select>
+                        </div>
+                        <div>
+                            <label for="month-filter" class="block mb-2 text-sm font-medium text-gray-300">Mes</label>
+                            <select id="month-filter" multiple class="w-full rounded-md"></select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabla de Desglose por Concepto -->
+                <div>
+                    <h2 class="text-xl font-semibold mb-4 text-white">Gastos por Concepto</h2>
+                    <div class="table-container">
+                        <table id="summary-table" class="text-sm">
+                            <thead class="sticky top-0 bg-gray-700">
+                                <tr>
+                                    <th>Concepto de Gasto</th>
+                                    <th>Plan</th>
+                                    <th>Real</th>
+                                    <th>Dif. $</th>
+                                    <th>Dif. %</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Los datos se insertarán aquí -->
+                            </tbody>
+                            <tfoot>
+                                <!-- El total se insertará aquí -->
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Columna de Gráfica y Tabla de Detalle -->
+            <div class="lg:col-span-2 bg-gray-800 p-6 rounded-lg shadow-lg flex flex-col gap-6">
+                <!-- Gráfica de Barras -->
+                <div>
+                    <h2 class="text-xl font-semibold mb-4 text-white">Comparativa Anual: Gasto Planeado vs. Real por CeCo</h2>
+                    <canvas id="main-chart"></canvas>
+                </div>
+
+                <!-- Tabla de Detalle de Gastos -->
+                <div>
+                    <h2 class="text-xl font-semibold mb-4 text-white">Detalle de Transacciones</h2>
+                    <div class="table-container">
+                        <table id="detail-table" class="text-sm">
+                            <thead>
+                                <tr>
+                                    <th>Tipo de Gasto</th>
+                                    <th class="header-multiline">Cuenta Contable</th>
+                                    <th class="header-multiline">Concepto</th>
+                                    <th>OC</th>
+                                    <th class="header-multiline">Proveedor / Usuario</th>
+                                    <th>Importe</th>
+                                    <th class="header-multiline">Solicitado por</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Los datos se insertarán aquí -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loader = document.getElementById('loader');
+            const content = document.getElementById('dashboard-content');
+
+            // Orden específico para los conceptos de gasto
+            const CONCEPT_ORDER = [
+                'Servicios', 'Gastos de Operacion', 'Gastos de Viaje', 'Software', 'Publicidad',
+                'Servicios Publicos', 'Mantenimiento', 'Comunicaciones', 'Subcontrataciones',
+                'Irrecuperabilidad', 'Comisiones Bancarias', 'Gastos por Transferencias',
+                'Premios', 'Materiales', 'Bibliografia', 'IVA'
+            ];
+
+            let gastosData = [];
+            let dbGastosData = [];
+            let mainChart = null;
+
+            // Cargar y procesar los archivos CSV
+            Promise.all([
+                fetchAndParseCSV('Gastos_SV.csv'),
+                fetchAndParseCSV('DB_Gastos.csv')
+            ]).then(([gastosResult, dbGastosResult]) => {
+                gastosData = gastosResult.data.map(row => ({
+                    ...row,
+                    Monto: parseFloat(row.Monto) || 0
+                }));
+                
+                dbGastosData = dbGastosResult.data.map(row => ({
+                    'Tipo de Gasto': row['Cuenta SV'],
+                    'Cuenta Contable': row['Cuenta Contable'],
+                    'Concepto': row['Texto'],
+                    'OC': row['Oc'],
+                    'Proveedor / Usuario': row['Proveedor / Usuario'],
+                    'Importe': parseFloat(row['Importe en ML']) || 0,
+                    'Solicitado por': row['Solicitante OC'],
+                    'CeCo': 'UF_' + row['CeBe'], // Homologar con el formato de Gastos_SV
+                    'Mes': row['Mes'].substring(0, 3)
+                }));
+                
+                populateFilters();
+                setupEventListeners();
+                updateDashboard();
+                
+                loader.style.display = 'none';
+                content.classList.remove('invisible');
+
+            }).catch(error => {
+                console.error("Error al cargar los datos:", error);
+                loader.style.display = 'none';
+                alert("No se pudieron cargar los archivos CSV. Revisa la consola para más detalles.");
+            });
+            
+            // Función para obtener y parsear un archivo CSV
+            function fetchAndParseCSV(url) {
+                return new Promise((resolve, reject) => {
+                    Papa.parse(url, {
+                        download: true,
+                        header: true,
+                        skipEmptyLines: true,
+                        complete: resolve,
+                        error: reject
+                    });
+                });
+            }
+
+            // Llenar los selectores de filtros con datos únicos
+            function populateFilters() {
+                const lsFilter = document.getElementById('ls-filter');
+                const cecoFilter = document.getElementById('ceco-filter');
+                const monthFilter = document.getElementById('month-filter');
+
+                const uniqueLS = [...new Set(gastosData.map(item => item.LS))].sort();
+                const uniqueCeCo = [...new Set(gastosData.map(item => item.CeCo))].sort();
+                const monthOrder = ["Ago", "Sep", "Oct", "Nov", "Dic", "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul"];
+                
+                uniqueLS.forEach(ls => lsFilter.innerHTML += `<option value="${ls}">${ls}</option>`);
+                uniqueCeCo.forEach(ceco => cecoFilter.innerHTML += `<option value="${ceco}">${ceco}</option>`);
+                monthOrder.forEach(month => monthFilter.innerHTML += `<option value="${month}">${month}</option>`);
+
+                // Seleccionar el mes actual por defecto
+                const currentMonthIndex = new Date().getMonth(); // 0 = Enero, 8 = Septiembre
+                const monthMapping = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+                const currentMonthShort = monthMapping[currentMonthIndex];
+                
+                const monthOption = Array.from(monthFilter.options).find(opt => opt.value === currentMonthShort);
+                if (monthOption) {
+                    monthOption.selected = true;
+                }
+            }
+
+            // Configurar los listeners para los filtros
+            function setupEventListeners() {
+                document.getElementById('ls-filter').addEventListener('change', updateDashboard);
+                document.getElementById('ceco-filter').addEventListener('change', updateDashboard);
+                document.getElementById('month-filter').addEventListener('change', updateDashboard);
+            }
+            
+            // Función para obtener los valores seleccionados de un filtro múltiple
+            function getSelectedValues(selectId) {
+                const select = document.getElementById(selectId);
+                const values = Array.from(select.selectedOptions).map(option => option.value);
+                // Si no hay nada seleccionado, se consideran todos
+                if (values.length === 0) {
+                    return Array.from(select.options).map(option => option.value);
+                }
+                return values;
+            }
+
+            // Función principal para actualizar todo el dashboard
+            function updateDashboard() {
+                const selectedLS = getSelectedValues('ls-filter');
+                const selectedCeCo = getSelectedValues('ceco-filter');
+                const selectedMonths = getSelectedValues('month-filter');
+
+                // Filtrar datos para tablas y detalles
+                const filteredGastos = gastosData.filter(item =>
+                    selectedLS.includes(item.LS) &&
+                    selectedCeCo.includes(item.CeCo) &&
+                    selectedMonths.includes(item.Mes)
+                );
+                
+                // Filtrar datos para la gráfica anual (ignora el mes)
+                const chartDataFiltered = gastosData.filter(item =>
+                    selectedLS.includes(item.LS) &&
+                    selectedCeCo.includes(item.CeCo)
+                );
+
+                updateSummaryTable(filteredGastos);
+                updateBarChart(chartDataFiltered);
+                updateDetailTable(selectedCeCo, selectedMonths);
+            }
+
+            // Actualizar la tabla de resumen por concepto
+            function updateSummaryTable(data) {
+                const summary = {};
+
+                data.forEach(item => {
+                    if (!summary[item.Concepto]) {
+                        summary[item.Concepto] = { plan: 0, real: 0 };
+                    }
+                    if (item.Escenario === 'Plan Operativo') {
+                        summary[item.Concepto].plan += item.Monto;
+                    } else if (item.Escenario === 'Real') {
+                        summary[item.Concepto].real += item.Monto;
+                    }
+                });
+
+                const tableBody = document.querySelector('#summary-table tbody');
+                tableBody.innerHTML = '';
+                let totalPlan = 0, totalReal = 0;
+
+                const sortedConcepts = Object.keys(summary).sort((a, b) => {
+                    const indexA = CONCEPT_ORDER.indexOf(a);
+                    const indexB = CONCEPT_ORDER.indexOf(b);
+                    if (indexA === -1 && indexB === -1) return a.localeCompare(b);
+                    if (indexA === -1) return 1;
+                    if (indexB === -1) return -1;
+                    return indexA - indexB;
+                });
+
+                sortedConcepts.forEach(concepto => {
+                    const values = summary[concepto];
+                    const diff = values.real - values.plan;
+                    const diffPercent = values.plan !== 0 ? (diff / values.plan) * 100 : (values.real > 0 ? 100 : 0);
+                    
+                    totalPlan += values.plan;
+                    totalReal += values.real;
+
+                    const row = `
+                        <tr>
+                            <td>${concepto}</td>
+                            <td>${formatCurrency(values.plan)}</td>
+                            <td>${formatCurrency(values.real)}</td>
+                            <td>${formatCurrency(diff)}</td>
+                            <td>${diffPercent.toFixed(2)}%</td>
+                        </tr>
+                    `;
+                    tableBody.innerHTML += row;
+                });
+                
+                const totalDiff = totalReal - totalPlan;
+                const totalDiffPercent = totalPlan !== 0 ? (totalDiff / totalPlan) * 100 : (totalReal > 0 ? 100 : 0);
+
+                const tableFoot = document.querySelector('#summary-table tfoot');
+                tableFoot.innerHTML = `
+                    <tr class="font-bold bg-gray-700">
+                        <td>Total</td>
+                        <td>${formatCurrency(totalPlan)}</td>
+                        <td>${formatCurrency(totalReal)}</td>
+                        <td>${formatCurrency(totalDiff)}</td>
+                        <td>${totalDiffPercent.toFixed(2)}%</td>
+                    </tr>
+                `;
+            }
+
+            // Actualizar la gráfica de barras
+            function updateBarChart(data) {
+                const aggregatedData = {};
+                data.forEach(item => {
+                    if (!aggregatedData[item.CeCo]) {
+                        aggregatedData[item.CeCo] = { plan: 0, real: 0 };
+                    }
+                    if (item.Escenario === 'Plan Operativo') {
+                        aggregatedData[item.CeCo].plan += item.Monto;
+                    } else if (item.Escenario === 'Real') {
+                        aggregatedData[item.CeCo].real += item.Monto;
+                    }
+                });
+
+                const labels = Object.keys(aggregatedData).sort();
+                const planData = labels.map(ceco => aggregatedData[ceco].plan);
+                const realData = labels.map(ceco => aggregatedData[ceco].real);
+
+                const ctx = document.getElementById('main-chart').getContext('2d');
+                if (mainChart) {
+                    mainChart.destroy();
+                }
+                
+                Chart.register(ChartDataLabels);
+                mainChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'Gasto Planeado',
+                                data: planData,
+                                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Gasto Real',
+                                data: realData,
+                                backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                                borderColor: 'rgba(255, 99, 132, 1)',
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: { color: '#f3f4f6' }
+                            },
+                            x: { ticks: { color: '#f3f4f6' } }
+                        },
+                        plugins: {
+                            legend: { labels: { color: '#f3f4f6' } },
+                            datalabels: {
+                                anchor: 'end',
+                                align: 'end',
+                                color: '#f3f4f6',
+                                font: {
+                                    weight: 'bold',
+                                    size: 10
+                                },
+                                formatter: (value) => formatNumberShort(value)
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Actualizar la tabla de detalle
+            function updateDetailTable(selectedCeCos, selectedMonths) {
+                const filteredData = dbGastosData.filter(item => 
+                    selectedCeCos.includes(item.CeCo) && selectedMonths.includes(item.Mes)
+                );
+
+                const tableBody = document.querySelector('#detail-table tbody');
+                tableBody.innerHTML = '';
+                
+                if (filteredData.length === 0) {
+                    tableBody.innerHTML = `<tr><td colspan="7" class="text-center">No hay datos para la selección actual.</td></tr>`;
+                    return;
+                }
+
+                filteredData.forEach(row => {
+                    const tableRow = `
+                        <tr>
+                            <td>${row['Tipo de Gasto'] || ''}</td>
+                            <td>${row['Cuenta Contable'] || ''}</td>
+                            <td>${row['Concepto'] || ''}</td>
+                            <td>${row['OC'] || ''}</td>
+                            <td>${row['Proveedor / Usuario'] || ''}</td>
+                            <td>${formatCurrency(row['Importe'])}</td>
+                            <td>${row['Solicitado por'] || ''}</td>
+                        </tr>
+                    `;
+                    tableBody.innerHTML += tableRow;
+                });
+            }
+
+            // Funciones de formato de números
+            function formatCurrency(value) {
+                return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(value);
+            }
+
+            function formatNumberShort(value) {
+                if (Math.abs(value) >= 1_000_000) {
+                    return (value / 1_000_000).toFixed(2) + ' M';
+                }
+                if (Math.abs(value) >= 1_000) {
+                    return (value / 1_000).toFixed(2) + ' K';
+                }
+                return value.toFixed(2);
+            }
+        });
+    </script>
+</body>
+</html>
