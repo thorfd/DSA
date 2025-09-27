@@ -81,8 +81,8 @@
     <!-- Mensaje de error que se mostrará si falla la carga de datos -->
     <div id="error-message" class="hidden text-white text-center p-8 bg-gray-800 rounded-lg">
         <h2 class="text-2xl font-bold text-red-500">Error al Cargar Datos</h2>
-        <p class="mt-4">No se pudieron cargar o procesar los archivos CSV necesarios para el dashboard.</p>
-        <p class="mt-2">Por favor, asegúrate de que los archivos 'Gastos_SV.csv' y 'DB_Gastos.csv' se encuentren en el mismo directorio que este archivo HTML.</p>
+        <p class="mt-4">No se pudieron cargar o procesar los archivos CSV. Esto suele ocurrir por las políticas de seguridad del navegador al abrir el archivo HTML directamente desde tu computadora.</p>
+        <p class="mt-2">Por favor, asegúrate de que los archivos 'Gastos_SV.csv' y 'DB_Gastos.csv' se encuentren en el mismo directorio. Si estás probando localmente, intenta usar una extensión de servidor web (como "Live Server" en VS Code).</p>
         <p class="mt-2">Si el problema persiste, revisa la consola de desarrollador (F12) para más detalles técnicos.</p>
     </div>
 
@@ -182,7 +182,6 @@
             const content = document.getElementById('dashboard-content');
             const errorMessage = document.getElementById('error-message');
             
-            // Ocultar el contenido principal al inicio para evitar parpadeos
             content.classList.add('invisible');
 
             const CONCEPT_ORDER = [
@@ -196,20 +195,19 @@
             let dbGastosData = [];
             let mainChart = null;
 
-            // CORREGIDO: Las rutas ahora apuntan al mismo directorio que el archivo HTML
             Promise.all([
                 fetchAndParseCSV('./Gastos_SV.csv'),
                 fetchAndParseCSV('./DB_Gastos.csv')
             ]).then(([gastosResult, dbGastosResult]) => {
-                // Verificación robusta de que los datos se cargaron y tienen el formato esperado.
                 if (!gastosResult || !Array.isArray(gastosResult.data) || !dbGastosResult || !Array.isArray(dbGastosResult.data)) {
-                    console.error("Error: La estructura de datos de uno de los archivos CSV no es válida.", {gastosResult, dbGastosResult});
                     throw new Error("La estructura de datos de uno de los archivos CSV no es la esperada.");
                 }
 
+                // CORRECCIÓN: Normalizar el campo 'CeCo' para que coincida en ambos archivos.
                 gastosData = gastosResult.data.map(row => ({
                     ...row,
-                    Monto: parseFloat(row.Monto) || 0
+                    Monto: parseFloat(row.Monto) || 0,
+                    CeCo: row.CeCo ? row.CeCo.split(' ')[0] : ''
                 }));
                 
                 dbGastosData = dbGastosResult.data.map(row => ({
@@ -223,6 +221,14 @@
                     'CeCo': row['CeBe'] ? 'UF_' + row['CeBe'] : '',
                     'Mes': row['Mes'] ? row['Mes'].substring(0, 3) : ''
                 }));
+
+                // Diagnóstico en consola
+                console.log("Datos de Gastos_SV.csv procesados:", gastosData.slice(0, 3));
+                console.log("Datos de DB_Gastos.csv procesados:", dbGastosData.slice(0, 3));
+
+                if (gastosData.length === 0 || dbGastosData.length === 0) {
+                    throw new Error("Uno de los archivos CSV está vacío o no pudo ser procesado.");
+                }
                 
                 populateFilters();
                 setupEventListeners();
@@ -235,7 +241,7 @@
                 console.error("Error al cargar o procesar los datos:", error);
                 loader.style.display = 'none';
                 errorMessage.classList.remove('hidden');
-                content.classList.add('hidden'); // Ocultar el esqueleto del dashboard si hay error
+                content.classList.add('hidden');
             });
             
             function fetchAndParseCSV(url) {
@@ -244,6 +250,7 @@
                         download: true,
                         header: true,
                         skipEmptyLines: true,
+                        encoding: "UTF-8",
                         complete: resolve,
                         error: reject
                     });
@@ -255,6 +262,7 @@
                 const cecoFilter = document.getElementById('ceco-filter');
                 const monthFilter = document.getElementById('month-filter');
 
+                // Asegurar que los CeCo en el filtro también estén normalizados
                 const uniqueLS = [...new Set(gastosData.map(item => item.LS))].sort();
                 const uniqueCeCo = [...new Set(gastosData.map(item => item.CeCo))].sort();
                 const monthOrder = ["Ago", "Sep", "Oct", "Nov", "Dic", "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul"];
