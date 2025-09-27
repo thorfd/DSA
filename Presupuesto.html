@@ -67,6 +67,9 @@
         .hidden {
             display: none;
         }
+        .invisible {
+            visibility: hidden;
+        }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -78,12 +81,12 @@
     <!-- Mensaje de error que se mostrará si falla la carga de datos -->
     <div id="error-message" class="hidden text-white text-center p-8 bg-gray-800 rounded-lg">
         <h2 class="text-2xl font-bold text-red-500">Error al Cargar Datos</h2>
-        <p class="mt-4">No se pudieron cargar los archivos CSV necesarios para el dashboard.</p>
-        <p class="mt-2">Por favor, asegúrate de que los archivos 'Gastos_SV.csv' y 'DB_Gastos.csv' se encuentren en la misma carpeta que este archivo HTML.</p>
-        <p class="mt-2">Si el problema persiste, puede ser debido a las restricciones de seguridad del navegador al abrir archivos locales. Intenta usar un servidor web simple o la extensión "Live Server" en Visual Studio Code. También puedes revisar la consola de desarrollador (F12) para más detalles técnicos.</p>
+        <p class="mt-4">No se pudieron cargar o procesar los archivos CSV necesarios para el dashboard.</p>
+        <p class="mt-2">Por favor, asegúrate de que los archivos 'Gastos_SV.csv' y 'DB_Gastos.csv' se encuentren en la misma carpeta que este archivo HTML y que no estén vacíos o corruptos.</p>
+        <p class="mt-2">Si el problema persiste, revisa la consola de desarrollador (F12) para más detalles técnicos.</p>
     </div>
 
-    <div id="dashboard-content" class="invisible">
+    <div id="dashboard-content">
         <h1 class="text-3xl font-bold mb-6 text-center text-white">Dashboard de Análisis de Gastos</h1>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -174,13 +177,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/papaparse/5.3.2/papaparse.min.js"></script>
 
     <script>
-        // Se añade la clase 'invisible' con JS para que el contenido no aparezca brevemente antes de ocultarse.
-        document.getElementById('dashboard-content').classList.add('invisible');
-
         document.addEventListener('DOMContentLoaded', () => {
             const loader = document.getElementById('loader');
             const content = document.getElementById('dashboard-content');
             const errorMessage = document.getElementById('error-message');
+            
+            // Ocultar el contenido principal al inicio para evitar parpadeos
+            content.classList.add('invisible');
 
             const CONCEPT_ORDER = [
                 'Servicios', 'Gastos de Operacion', 'Gastos de Viaje', 'Software', 'Publicidad',
@@ -197,6 +200,13 @@
                 fetchAndParseCSV('./Gastos_SV.csv'),
                 fetchAndParseCSV('./DB_Gastos.csv')
             ]).then(([gastosResult, dbGastosResult]) => {
+                // AÑADIDO: Verificación robusta de que los datos se cargaron y tienen el formato esperado.
+                if (!gastosResult || !Array.isArray(gastosResult.data) || !dbGastosResult || !Array.isArray(dbGastosResult.data)) {
+                    console.error("Error: La estructura de datos de uno de los archivos CSV no es válida.", {gastosResult, dbGastosResult});
+                    // Lanzar un error para ser atrapado por el bloque .catch
+                    throw new Error("La estructura de datos de uno de los archivos CSV no es la esperada.");
+                }
+
                 gastosData = gastosResult.data.map(row => ({
                     ...row,
                     Monto: parseFloat(row.Monto) || 0
@@ -210,7 +220,7 @@
                     'Proveedor / Usuario': row['Proveedor / Usuario'],
                     'Importe': parseFloat(row['Importe en ML']) || 0,
                     'Solicitado por': row['Solicitante OC'],
-                    'CeCo': row['CeBe'] ? 'UF_' + row['CeBe'] : '', // Comprobación añadida
+                    'CeCo': row['CeBe'] ? 'UF_' + row['CeBe'] : '',
                     'Mes': row['Mes'] ? row['Mes'].substring(0, 3) : ''
                 }));
                 
@@ -222,9 +232,10 @@
                 content.classList.remove('invisible');
 
             }).catch(error => {
-                console.error("Error al cargar los datos:", error);
+                console.error("Error al cargar o procesar los datos:", error);
                 loader.style.display = 'none';
                 errorMessage.classList.remove('hidden');
+                content.classList.add('hidden'); // Ocultar el esqueleto del dashboard si hay error
             });
             
             function fetchAndParseCSV(url) {
