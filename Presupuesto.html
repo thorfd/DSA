@@ -146,7 +146,7 @@
 
                 <!-- Tabla de Detalle de Gastos -->
                 <div>
-                    <h2 class="text-xl font-semibold mb-4 text-white">Detalle de Transacciones</h2>
+                    <h2 class="text-xl font-semibold mb-4 text-white">Detalle de Transacciones (Deshabilitado temporalmente)</h2>
                     <div class="table-container">
                         <table id="detail-table" class="text-sm">
                             <thead>
@@ -161,7 +161,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- Los datos se insertarán aquí -->
+                                <tr><td colspan="7" class="text-center">Datos de 'DB_Gastos.csv' no cargados para esta prueba.</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -192,43 +192,29 @@
             ];
 
             let gastosData = [];
-            let dbGastosData = [];
+            let dbGastosData = []; // Se deja vacío intencionalmente para la prueba
             let mainChart = null;
 
-            Promise.all([
-                fetchAndParseCSV('./Gastos_SV.csv'),
-                fetchAndParseCSV('./DB_Gastos.csv')
-            ]).then(([gastosResult, dbGastosResult]) => {
-                if (!gastosResult || !Array.isArray(gastosResult.data) || !dbGastosResult || !Array.isArray(dbGastosResult.data)) {
-                    throw new Error("La estructura de datos de uno de los archivos CSV no es la esperada.");
+            // PRUEBA: Se carga únicamente el primer archivo para aislar el problema.
+            fetchAndParseCSV('./Gastos_SV.csv')
+            .then(gastosResult => {
+                console.log("Resultado de PapaParse para Gastos_SV.csv:", gastosResult);
+
+                if (gastosResult.errors.length > 0) {
+                    console.warn("Errores de 'parsing' en Gastos_SV.csv:", gastosResult.errors);
                 }
 
-                // CORRECCIÓN: Normalizar el campo 'CeCo' para que coincida en ambos archivos.
+                if (!gastosResult || !Array.isArray(gastosResult.data) || gastosResult.data.length === 0) {
+                    throw new Error("El archivo 'Gastos_SV.csv' está vacío o no pudo ser procesado.");
+                }
+
                 gastosData = gastosResult.data.map(row => ({
                     ...row,
                     Monto: parseFloat(row.Monto) || 0,
                     CeCo: row.CeCo ? row.CeCo.split(' ')[0] : ''
                 }));
-                
-                dbGastosData = dbGastosResult.data.map(row => ({
-                    'Tipo de Gasto': row['Cuenta SV'],
-                    'Cuenta Contable': row['Cuenta Contable'],
-                    'Concepto': row['Texto'],
-                    'OC': row['Oc'],
-                    'Proveedor / Usuario': row['Proveedor / Usuario'],
-                    'Importe': parseFloat(row['Importe en ML']) || 0,
-                    'Solicitado por': row['Solicitante OC'],
-                    'CeCo': row['CeBe'] ? 'UF_' + row['CeBe'] : '',
-                    'Mes': row['Mes'] ? row['Mes'].substring(0, 3) : ''
-                }));
 
-                // Diagnóstico en consola
-                console.log("Datos de Gastos_SV.csv procesados:", gastosData.slice(0, 3));
-                console.log("Datos de DB_Gastos.csv procesados:", dbGastosData.slice(0, 3));
-
-                if (gastosData.length === 0 || dbGastosData.length === 0) {
-                    throw new Error("Uno de los archivos CSV está vacío o no pudo ser procesado.");
-                }
+                console.log("Datos de Gastos_SV.csv procesados correctamente.");
                 
                 populateFilters();
                 setupEventListeners();
@@ -238,7 +224,7 @@
                 content.classList.remove('invisible');
 
             }).catch(error => {
-                console.error("Error al cargar o procesar los datos:", error);
+                console.error("Error al cargar o procesar 'Gastos_SV.csv':", error);
                 loader.style.display = 'none';
                 errorMessage.classList.remove('hidden');
                 content.classList.add('hidden');
@@ -250,7 +236,6 @@
                         download: true,
                         header: true,
                         skipEmptyLines: true,
-                        encoding: "UTF-8",
                         complete: resolve,
                         error: reject
                     });
@@ -262,7 +247,6 @@
                 const cecoFilter = document.getElementById('ceco-filter');
                 const monthFilter = document.getElementById('month-filter');
 
-                // Asegurar que los CeCo en el filtro también estén normalizados
                 const uniqueLS = [...new Set(gastosData.map(item => item.LS))].sort();
                 const uniqueCeCo = [...new Set(gastosData.map(item => item.CeCo))].sort();
                 const monthOrder = ["Ago", "Sep", "Oct", "Nov", "Dic", "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul"];
@@ -272,6 +256,7 @@
                 monthOrder.forEach(month => monthFilter.innerHTML += `<option value="${month}">${month}</option>`);
 
                 const currentMonthIndex = new Date().getMonth();
+                // Ajuste para que el mes actual (Septiembre = 8) se seleccione correctamente
                 const monthMapping = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
                 const currentMonthShort = monthMapping[currentMonthIndex];
                 
@@ -314,7 +299,8 @@
 
                 updateSummaryTable(filteredGastos);
                 updateBarChart(chartDataFiltered);
-                updateDetailTable(selectedCeCo, selectedMonths);
+                // La tabla de detalle no se actualiza con datos reales en esta prueba
+                updateDetailTable([], []); 
             }
 
             function updateSummaryTable(data) {
@@ -449,11 +435,15 @@
             }
 
             function updateDetailTable(selectedCeCos, selectedMonths) {
+                const tableBody = document.querySelector('#detail-table tbody');
+                if (dbGastosData.length === 0) {
+                    return; // No hacer nada si no hay datos de DB_Gastos
+                }
+
                 const filteredData = dbGastosData.filter(item => 
                     selectedCeCos.includes(item.CeCo) && selectedMonths.includes(item.Mes)
                 );
-
-                const tableBody = document.querySelector('#detail-table tbody');
+                
                 tableBody.innerHTML = '';
                 
                 if (filteredData.length === 0) {
