@@ -82,7 +82,7 @@
     <div id="error-message" class="hidden text-white text-center p-8 bg-gray-800 rounded-lg">
         <h2 class="text-2xl font-bold text-red-500">Error al Cargar Datos</h2>
         <p class="mt-4">No se pudieron cargar o procesar los archivos CSV necesarios para el dashboard.</p>
-        <p class="mt-2">Por favor, asegúrate de que los archivos CSV se encuentren dentro de una carpeta llamada 'Presupuesto', al mismo nivel que este archivo HTML.</p>
+        <p class="mt-2">Por favor, asegúrate de que los archivos 'Gastos_SV.csv' y 'DB_Gastos.csv' se encuentren en el mismo directorio que este archivo HTML.</p>
         <p class="mt-2">Si el problema persiste, revisa la consola de desarrollador (F12) para más detalles técnicos.</p>
     </div>
 
@@ -196,10 +196,10 @@
             let dbGastosData = [];
             let mainChart = null;
 
-            // CORREGIDO: Las rutas ahora apuntan a la carpeta 'Presupuesto'
+            // CORREGIDO: Las rutas ahora apuntan al mismo directorio que el archivo HTML
             Promise.all([
-                fetchAndParseCSV('./Presupuesto/Gastos_SV.csv'),
-                fetchAndParseCSV('./Presupuesto/DB_Gastos.csv')
+                fetchAndParseCSV('./Gastos_SV.csv'),
+                fetchAndParseCSV('./DB_Gastos.csv')
             ]).then(([gastosResult, dbGastosResult]) => {
                 // Verificación robusta de que los datos se cargaron y tienen el formato esperado.
                 if (!gastosResult || !Array.isArray(gastosResult.data) || !dbGastosResult || !Array.isArray(dbGastosResult.data)) {
