@@ -121,7 +121,7 @@
 
         <main id="dashboard-content">
             <!-- Filtros -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <div class="filter-card p-4 rounded-xl shadow">
                     <label for="campus-filter" class="block text-sm font-medium text-gray-700 mb-1">Filtrar por Campus</label>
                     <select id="campus-filter" multiple class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></select>
@@ -130,6 +130,11 @@
                 <div class="filter-card p-4 rounded-xl shadow">
                     <label for="level-filter" class="block text-sm font-medium text-gray-700 mb-1">Filtrar por Nivel Académico</label>
                     <select id="level-filter" multiple class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></select>
+                     <p class="text-xs text-gray-500 mt-1">Mantén Ctrl (o Cmd) para seleccionar varios.</p>
+                </div>
+                 <div class="filter-card p-4 rounded-xl shadow">
+                    <label for="period-filter" class="block text-sm font-medium text-gray-700 mb-1">Filtrar por Periodo</label>
+                    <select id="period-filter" multiple class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></select>
                      <p class="text-xs text-gray-500 mt-1">Mantén Ctrl (o Cmd) para seleccionar varios.</p>
                 </div>
                  <div class="filter-card p-4 rounded-xl shadow flex items-center justify-center">
@@ -205,9 +210,18 @@
                     </div>
                     <div class="chart-container"><canvas id="timeline-chart"></canvas></div>
                 </div>
+                <!-- Gráficas de Edad -->
+                 <div class="chart-card p-6 rounded-xl shadow">
+                    <h3 class="font-semibold text-lg text-gray-800">Distribución por Rango de Edad</h3>
+                    <div class="chart-container"><canvas id="age-range-chart"></canvas></div>
+                </div>
+                 <div class="chart-card p-6 rounded-xl shadow">
+                    <h3 class="font-semibold text-lg text-gray-800">Distribución por Edad Específica</h3>
+                    <div class="chart-container"><canvas id="specific-age-chart"></canvas></div>
+                </div>
             </section>
             
-            <!-- Nueva Sección de Análisis de Bajas -->
+            <!-- Sección de Análisis de Bajas -->
             <section class="mt-6">
                 <div class="chart-card p-6 rounded-xl shadow">
                     <h3 class="font-semibold text-lg text-gray-800 mb-4">Análisis de Alumnos con Baja Total</h3>
@@ -241,7 +255,6 @@
         const GITHUB_USER = 'thorfd';
         const GITHUB_REPO = 'InscLG';
         const FILE_PATH = 'Inscritos_LG_ADSD25.csv';
-        // CORRECTED: Add a timestamp to prevent caching issues
         const DATA_URL = `./${FILE_PATH}?v=${new Date().getTime()}`; 
         const API_URL = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/commits?path=${FILE_PATH}&page=1&per_page=1`;
 
@@ -250,6 +263,7 @@
         const appContainer = document.getElementById('app-container');
         const campusFilter = document.getElementById('campus-filter');
         const levelFilter = document.getElementById('level-filter');
+        const periodFilter = document.getElementById('period-filter');
         const monthFilter = document.getElementById('month-filter');
         const resetFiltersBtn = document.getElementById('reset-filters');
         const themeToggle = document.getElementById('theme-toggle');
@@ -276,10 +290,12 @@
         function setupEventListeners() {
             campusFilter.addEventListener('change', updateDashboard);
             levelFilter.addEventListener('change', updateDashboard);
+            periodFilter.addEventListener('change', updateDashboard);
             monthFilter.addEventListener('change', updateDashboard);
             resetFiltersBtn.addEventListener('click', () => {
                 Array.from(campusFilter.options).forEach(opt => opt.selected = false);
                 Array.from(levelFilter.options).forEach(opt => opt.selected = false);
+                Array.from(periodFilter.options).forEach(opt => opt.selected = false);
                 monthFilter.value = 'all';
                 updateDashboard();
             });
@@ -295,10 +311,7 @@
                     header: true,
                     skipEmptyLines: true,
                     complete: (results) => {
-                        originalData = results.data.map(row => ({
-                            ...row,
-                            'Género': row['Columna1'] || 'No especificado' 
-                        }));
+                        originalData = results.data;
                         initializeDashboard();
                     },
                     error: (error) => {
@@ -342,11 +355,15 @@
         function populateFilters() {
             campusFilter.innerHTML = '';
             levelFilter.innerHTML = '';
+            periodFilter.innerHTML = '';
 
             const campuses = [...new Set(originalData.map(item => item['Campus']))].sort();
             const levels = [...new Set(originalData.map(item => item['Nivel académico']))].sort();
+            const periods = [...new Set(originalData.map(item => item['Nombre del periodo']))].sort();
+            
             campuses.forEach(c => campusFilter.add(new Option(c, c)));
             levels.forEach(l => levelFilter.add(new Option(l, l)));
+            periods.forEach(p => periodFilter.add(new Option(p, p)));
             
             const months = [...new Set(originalData.map(item => {
                 const parsedDate = parseCustomDate(item['Fecha de inscripción']);
@@ -360,10 +377,12 @@
         function getFilteredData() {
             const selectedCampuses = Array.from(campusFilter.selectedOptions).map(opt => opt.value);
             const selectedLevels = Array.from(levelFilter.selectedOptions).map(opt => opt.value);
+            const selectedPeriods = Array.from(periodFilter.selectedOptions).map(opt => opt.value);
 
             return originalData.filter(row => 
                 (selectedCampuses.length === 0 || selectedCampuses.includes(row['Campus'])) &&
-                (selectedLevels.length === 0 || selectedLevels.includes(row['Nivel académico']))
+                (selectedLevels.length === 0 || selectedLevels.includes(row['Nivel académico'])) &&
+                (selectedPeriods.length === 0 || selectedPeriods.includes(row['Nombre del periodo']))
             );
         }
         
@@ -385,6 +404,8 @@
             updateChart(charts.gender, processDataForChart(data, 'Género'));
             updateChart(charts.type, processDataForChart(data, 'Clave tipo estudiante'));
             updateChart(charts.scholarship, processScholarshipData(data));
+            updateChart(charts.ageRange, processAgeRangeData(data));
+            updateChart(charts.specificAge, processSpecificAgeData(data));
             updateMap(data);
             updateTimelineChart(data);
             updateBajaAnalysis(data);
@@ -464,6 +485,34 @@
             return { labels: Object.keys(brackets), data: Object.values(brackets) };
         }
 
+        function processAgeRangeData(data) {
+            const ranges = { '<=20': 0, '21-25': 0, '26-30': 0, '31-35': 0, '36-40': 0, '>40': 0 };
+            data.forEach(row => {
+                const age = parseInt(row['Edad'], 10);
+                if (!isNaN(age)) {
+                    if (age <= 20) ranges['<=20']++;
+                    else if (age <= 25) ranges['21-25']++;
+                    else if (age <= 30) ranges['26-30']++;
+                    else if (age <= 35) ranges['31-35']++;
+                    else if (age <= 40) ranges['36-40']++;
+                    else ranges['>40']++;
+                }
+            });
+            return { labels: Object.keys(ranges), data: Object.values(ranges) };
+        }
+
+        function processSpecificAgeData(data) {
+            const counts = data.reduce((acc, row) => {
+                const age = row['Edad'];
+                if (age && !isNaN(age)) {
+                    acc[age] = (acc[age] || 0) + 1;
+                }
+                return acc;
+            }, {});
+            const sorted = Object.entries(counts).sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
+            return { labels: sorted.map(i => i[0]), data: sorted.map(i => i[1]) };
+        }
+
         // --- Lógica de Gráficas y Mapa ---
         const chartColors = ['#4f46e5', '#ec4899', '#10b981', '#f59e0b', '#3b82f6', '#8b5cf6', '#ef4444', '#6b7280'];
         
@@ -475,11 +524,13 @@
             charts.type = new Chart('type-chart', { type: 'doughnut', options: getChartOptions() });
             charts.timeline = new Chart('timeline-chart', { type: 'line', options: getChartOptions({ scales: { y: { beginAtZero: true } } }) });
             charts.scholarship = new Chart('scholarship-dist-chart', { type: 'bar', options: getChartOptions({ scales: { y: { beginAtZero: true } } }) });
+            charts.ageRange = new Chart('age-range-chart', { type: 'bar', options: getChartOptions({ scales: { y: { beginAtZero: true } } }) });
+            charts.specificAge = new Chart('specific-age-chart', { type: 'bar', options: getChartOptions({ scales: { y: { beginAtZero: true } } }) });
         }
 
         function getChartOptions(specificOptions = {}) {
             const isDarkMode = document.documentElement.classList.contains('dark');
-            const textColor = isDarkMode ? '#d1d5db' : '#374151'; // Gris oscuro para modo claro, gris claro para modo oscuro
+            const textColor = isDarkMode ? '#d1d5db' : '#374151';
             const gridColor = isDarkMode ? '#4b5563' : '#e5e7eb';
 
             const baseOptions = {
@@ -492,29 +543,16 @@
                     }
                 },
                 scales: {
-                    x: {
-                        ticks: { color: textColor },
-                        grid: { color: gridColor }
-                    },
-                    y: {
-                        ticks: { color: textColor },
-                        grid: { color: gridColor }
-                    }
+                    x: { ticks: { color: textColor }, grid: { color: gridColor } },
+                    y: { ticks: { color: textColor }, grid: { color: gridColor } }
                 }
             };
             
-            // Simple merge for nested properties
             if (specificOptions.scales) {
-                if (specificOptions.scales.y) {
-                    Object.assign(baseOptions.scales.y, specificOptions.scales.y);
-                }
-                if (specificOptions.scales.x) {
-                    Object.assign(baseOptions.scales.x, specificOptions.scales.x);
-                }
+                if (specificOptions.scales.y) Object.assign(baseOptions.scales.y, specificOptions.scales.y);
+                if (specificOptions.scales.x) Object.assign(baseOptions.scales.x, specificOptions.scales.x);
             }
-            if (specificOptions.indexAxis) {
-                 baseOptions.indexAxis = specificOptions.indexAxis;
-            }
+            if (specificOptions.indexAxis) baseOptions.indexAxis = specificOptions.indexAxis;
 
             return baseOptions;
         }
@@ -604,9 +642,7 @@
             const newGridColor = isDarkMode ? '#4b5563' : '#e5e7eb';
             
             Object.values(charts).forEach(chart => {
-                // Update legend color
                 chart.options.plugins.legend.labels.color = newTextColor;
-                // Update axes colors
                 if(chart.options.scales) {
                     if(chart.options.scales.x) {
                         chart.options.scales.x.ticks.color = newTextColor;
