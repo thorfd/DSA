@@ -521,15 +521,15 @@
             Chart.register(ChartDataLabels);
             Chart.defaults.set('plugins.datalabels', { display: false });
 
-            charts.level = new Chart('level-chart', { type: 'pie', options: getChartOptions() });
-            charts.campus = new Chart('campus-chart', { type: 'doughnut', options: getChartOptions() });
-            charts.major = new Chart('major-chart', { type: 'bar', options: getChartOptions({ indexAxis: 'y' }) });
-            charts.gender = new Chart('gender-chart', { type: 'pie', options: getChartOptions() });
-            charts.type = new Chart('type-chart', { type: 'doughnut', options: getChartOptions() });
-            charts.timeline = new Chart('timeline-chart', { type: 'line', options: getChartOptions({ scales: { y: { beginAtZero: true } } }) });
-            charts.scholarship = new Chart('scholarship-dist-chart', { type: 'bar', options: getChartOptions({ scales: { y: { beginAtZero: true } } }) });
+            charts.level = new Chart('level-chart', { type: 'pie', options: getChartOptions({}, 'pie') });
+            charts.campus = new Chart('campus-chart', { type: 'doughnut', options: getChartOptions({}, 'doughnut') });
+            charts.major = new Chart('major-chart', { type: 'bar', options: getChartOptions({ indexAxis: 'y' }, 'bar') });
+            charts.gender = new Chart('gender-chart', { type: 'pie', options: getChartOptions({}, 'pie') });
+            charts.type = new Chart('type-chart', { type: 'doughnut', options: getChartOptions({}, 'doughnut') });
+            charts.timeline = new Chart('timeline-chart', { type: 'line', options: getChartOptions({ scales: { y: { beginAtZero: true } } }, 'line') });
+            charts.scholarship = new Chart('scholarship-dist-chart', { type: 'bar', options: getChartOptions({ scales: { y: { beginAtZero: true } } }, 'bar') });
             
-            const ageRangeOptions = getChartOptions({ scales: { y: { beginAtZero: true } } });
+            const ageRangeOptions = getChartOptions({ scales: { y: { beginAtZero: true } } }, 'bar');
             ageRangeOptions.plugins.datalabels = {
                 display: true,
                 anchor: 'end',
@@ -538,10 +538,10 @@
                 font: { weight: 'bold' }
             };
             charts.ageRange = new Chart('age-range-chart', { type: 'bar', options: ageRangeOptions });
-            charts.specificAge = new Chart('specific-age-chart', { type: 'bar', options: getChartOptions({ scales: { y: { beginAtZero: true } } }) });
+            charts.specificAge = new Chart('specific-age-chart', { type: 'bar', options: getChartOptions({ scales: { y: { beginAtZero: true } } }, 'bar') });
         }
 
-        function getChartOptions(specificOptions = {}) {
+        function getChartOptions(specificOptions = {}, chartType = 'bar') {
             const isDarkMode = document.documentElement.classList.contains('dark');
             const textColor = isDarkMode ? '#d1d5db' : '#374151';
             const gridColor = isDarkMode ? '#4b5563' : '#e5e7eb';
@@ -556,10 +556,15 @@
                     }
                 },
                 scales: {
-                    x: { ticks: { color: textColor }, grid: { color: gridColor } },
-                    y: { ticks: { color: textColor }, grid: { color: gridColor } }
+                    x: { display: true, ticks: { color: textColor }, grid: { color: gridColor } },
+                    y: { display: true, ticks: { color: textColor }, grid: { color: gridColor } }
                 }
             };
+            
+            if (chartType === 'pie' || chartType === 'doughnut') {
+                baseOptions.scales.x.display = false;
+                baseOptions.scales.y.display = false;
+            }
             
             if (specificOptions.scales) {
                 if (specificOptions.scales.y) Object.assign(baseOptions.scales.y, specificOptions.scales.y);
@@ -678,4 +683,5 @@
     </script>
 </body>
 </html>
+"
 
