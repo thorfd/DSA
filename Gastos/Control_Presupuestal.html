@@ -8,9 +8,34 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
         /* Estilos personalizados */
+        :root {
+            --bg-light: #F3F4F6; /* gray-100 */
+            --bg-dark: #111827; /* gray-900 */
+            --card-bg-light: white;
+            --card-bg-dark: #1F2937; /* gray-800 */
+            --text-light-primary: #1F2937; /* gray-800 */
+            --text-dark-primary: #F9FAFB; /* gray-50 */
+            --text-light-secondary: #4B5563; /* gray-600 */
+            --text-dark-secondary: #9CA3AF; /* gray-400 */
+            --border-light: #E5E7EB; /* gray-200 */
+            --border-dark: #374151; /* gray-700 */
+        }
+        html.dark {
+             color-scheme: dark;
+        }
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #F3F4F6; /* gray-100 */
+            transition: background-color 0.3s, color 0.3s;
+        }
+        /* Estilos para el gráfico de D3 en modo oscuro */
+        .dark .axis-label text, .dark .bar-label, .dark .legend-text, .dark .bar-value {
+            fill: #D1D5DB; /* gray-300 */
+        }
+        .dark .domain, .dark .tick line {
+            stroke: var(--border-dark);
+        }
+        .kpi-card, #filters, .chart-card {
+            transition: background-color 0.3s, border-color 0.3s, transform 0.2s;
         }
         .kpi-card:hover {
             transform: translateY(-5px);
@@ -28,48 +53,47 @@
             background: #1E40AF linear-gradient(0deg, #1E40AF 0%, #1E40AF 100%);
             color: white;
         }
-
-        .sortable-header {
-            cursor: pointer;
-        }
-        .sortable-header:hover {
-            background-color: #E5E7EB; /* gray-200 */
-        }
     </style>
      <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
 
     <div class="container mx-auto p-4 md:p-8">
         <!-- Encabezado -->
         <header class="mb-8 flex flex-wrap justify-between items-center gap-4">
             <div>
-                <h1 class="text-3xl font-bold text-gray-900">Tablero de Control Presupuestal</h1>
-                <p class="text-gray-600 mt-1">Análisis de Gastos: Plan vs. Real</p>
+                <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Tablero de Control Presupuestal</h1>
+                <p class="text-gray-600 dark:text-gray-400 mt-1">Análisis de Gastos: Plan vs. Real</p>
             </div>
-            <div id="last-update" class="text-sm text-gray-500 text-right">
-                <p>Actualizado: Cargando...</p>
+            <div class="flex items-center gap-4">
+                <div id="last-update" class="text-sm text-gray-500 dark:text-gray-400 text-right">
+                    <p>Actualizado: Cargando...</p>
+                </div>
+                <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                    <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                    <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                </button>
             </div>
         </header>
 
         <!-- Indicadores Clave (KPIs) -->
         <section id="kpis" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div class="kpi-card bg-white rounded-lg shadow p-6 transition-transform transform hover:-translate-y-1">
-                <h3 class="text-gray-500 font-medium">Gasto Total del Plan</h3>
+            <div class="kpi-card bg-white dark:bg-gray-800 rounded-lg shadow p-6 transition-transform transform hover:-translate-y-1">
+                <h3 class="text-gray-500 dark:text-gray-400 font-medium">Gasto Total del Plan</h3>
                 <p id="kpi-plan" class="text-3xl font-bold text-blue-600 mt-2">$0.00</p>
             </div>
-            <div class="kpi-card bg-white rounded-lg shadow p-6 transition-transform transform hover:-translate-y-1">
-                <h3 class="text-gray-500 font-medium">Gasto Total Real</h3>
+            <div class="kpi-card bg-white dark:bg-gray-800 rounded-lg shadow p-6 transition-transform transform hover:-translate-y-1">
+                <h3 class="text-gray-500 dark:text-gray-400 font-medium">Gasto Total Real</h3>
                 <p id="kpi-real" class="text-3xl font-bold text-red-600 mt-2">$0.00</p>
             </div>
-            <div class="kpi-card bg-white rounded-lg shadow p-6 transition-transform transform hover:-translate-y-1">
-                <h3 class="text-gray-500 font-medium">Variación ($)</h3>
+            <div class="kpi-card bg-white dark:bg-gray-800 rounded-lg shadow p-6 transition-transform transform hover:-translate-y-1">
+                <h3 class="text-gray-500 dark:text-gray-400 font-medium">Variación ($)</h3>
                 <p id="kpi-variance-amount" class="text-3xl font-bold mt-2">$0.00</p>
             </div>
-            <div class="kpi-card bg-white rounded-lg shadow p-6 transition-transform transform hover:-translate-y-1">
-                <h3 class="text-gray-500 font-medium">Variación (%)</h3>
+            <div class="kpi-card bg-white dark:bg-gray-800 rounded-lg shadow p-6 transition-transform transform hover:-translate-y-1">
+                <h3 class="text-gray-500 dark:text-gray-400 font-medium">Variación (%)</h3>
                 <p id="kpi-variance-percent" class="text-3xl font-bold mt-2">0.00%</p>
             </div>
         </section>
@@ -77,31 +101,32 @@
         <!-- Visualizaciones Principales -->
         <main class="space-y-8">
             <!-- Gráfico de Barras Anual -->
-            <div class="chart-card bg-white p-6 rounded-lg shadow-md">
-                 <h2 class="chart-title text-xl font-semibold text-gray-900 mb-4">Comparativo Anual por Mes</h2>
+            <div class="chart-card bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                 <h2 class="chart-title text-xl font-semibold text-gray-900 dark:text-white mb-4">Comparativo Anual por Mes</h2>
                 <div id="annual-chart-container" class="w-full h-96"></div>
+                <div id="annual-table-container" class="mt-6 overflow-x-auto"></div>
             </div>
 
             <!-- Sección de Detalle y Filtros -->
             <section class="grid grid-cols-1 lg:grid-cols-4 gap-8">
                 <!-- Tabla de Detalle por Concepto -->
-                <div class="chart-card bg-white p-6 rounded-lg shadow-md lg:col-span-3">
-                    <h2 class="chart-title text-xl font-semibold text-gray-900 mb-4">Detalle por tipo de gasto</h2>
+                <div class="chart-card bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md lg:col-span-3">
+                    <h2 class="chart-title text-xl font-semibold text-gray-900 dark:text-white mb-4">Detalle por tipo de gasto</h2>
                     <div class="overflow-x-auto">
-                        <table class="w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
+                        <table class="w-full divide-y divide-gray-200 dark:divide-gray-700">
+                            <thead class="bg-gray-50 dark:bg-gray-700">
                                 <tr>
-                                    <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Concepto</th>
-                                    <th class="px-3 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Plan</th>
-                                    <th class="px-3 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Real</th>
-                                    <th class="px-3 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Var. ($)</th>
-                                    <th class="px-3 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Var. (%)</th>
+                                    <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Concepto</th>
+                                    <th class="px-3 py-2 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Plan</th>
+                                    <th class="px-3 py-2 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Real</th>
+                                    <th class="px-3 py-2 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Var. ($)</th>
+                                    <th class="px-3 py-2 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Var. (%)</th>
                                 </tr>
                             </thead>
-                            <tbody id="concepts-table" class="bg-white divide-y divide-gray-200">
+                            <tbody id="concepts-table" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                                 <!-- Filas de la tabla se generarán aquí -->
                             </tbody>
-                            <tfoot id="concepts-table-footer" class="bg-gray-50 font-bold">
+                            <tfoot id="concepts-table-footer" class="bg-gray-50 dark:bg-gray-700 font-bold">
                                 <!-- Fila de total se generará aquí -->
                             </tfoot>
                         </table>
@@ -109,28 +134,28 @@
                 </div>
 
                  <!-- Filtros -->
-                <aside id="filters" class="bg-white p-4 rounded-lg shadow-md lg:col-span-1 space-y-4">
-                    <h2 class="text-xl font-semibold text-gray-900 mb-2">Filtros</h2>
+                <aside id="filters" class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md lg:col-span-1 space-y-4">
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Filtros</h2>
                     <div>
-                        <label for="ls-filter" class="block text-sm font-medium text-gray-700 mb-1">Línea de Servicio (LS)</label>
-                        <select id="ls-filter" multiple class="filter-select w-full p-2 h-32 border border-gray-300 bg-white rounded-md shadow-sm"></select>
+                        <label for="ls-filter" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Línea de Servicio (LS)</label>
+                        <select id="ls-filter" multiple class="filter-select w-full p-2 h-32 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 rounded-md shadow-sm"></select>
                     </div>
                     <div>
-                        <label for="ceco-filter" class="block text-sm font-medium text-gray-700 mb-1">Centro de Costo (CeCo)</label>
-                        <select id="ceco-filter" multiple class="filter-select w-full p-2 h-32 border border-gray-300 bg-white rounded-md shadow-sm"></select>
+                        <label for="ceco-filter" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Centro de Costo (CeCo)</label>
+                        <select id="ceco-filter" multiple class="filter-select w-full p-2 h-32 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 rounded-md shadow-sm"></select>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Mes</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Mes</label>
                         <div id="month-buttons" class="flex flex-wrap gap-2">
                             <!-- Botones de mes se generarán aquí -->
                         </div>
                     </div>
-                    <div class="flex flex-col items-stretch gap-2 pt-2 border-t border-gray-200">
-                        <p class="text-xs text-center text-gray-500">
+                    <div class="flex flex-col items-stretch gap-2 pt-2 border-t border-gray-200 dark:border-gray-700">
+                        <p class="text-xs text-center text-gray-500 dark:text-gray-400">
                             Use Ctrl/Cmd + clic para selección múltiple.
                         </p>
-                        <button id="reset-ls-ceco" class="px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-200 hover:bg-gray-300 rounded-md">Resetear LS / CeCo</button>
-                        <button id="reset-month" class="px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-200 hover:bg-gray-300 rounded-md">Resetear Mes</button>
+                        <button id="reset-ls-ceco" class="px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-200 hover:bg-gray-300 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500 rounded-md">Resetear LS / CeCo</button>
+                        <button id="reset-month" class="px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-200 hover:bg-gray-300 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500 rounded-md">Resetear Mes</button>
                     </div>
                 </aside>
             </section>
@@ -142,9 +167,35 @@
             // --- Elementos del DOM ---
             const lsFilterEl = document.getElementById('ls-filter');
             const cecoFilterEl = document.getElementById('ceco-filter');
+            const themeToggleButton = document.getElementById('theme-toggle');
+            const sunIcon = document.getElementById('sun-icon');
+            const moonIcon = document.getElementById('moon-icon');
             const lastUpdateEl = document.querySelector('#last-update p');
             const resetLsCecoBtn = document.getElementById('reset-ls-ceco');
             const resetMonthBtn = document.getElementById('reset-month');
+
+            // --- Lógica de Tema (Claro/Oscuro) ---
+            const applyTheme = (theme) => {
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                    sunIcon.classList.add('hidden');
+                    moonIcon.classList.remove('hidden');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    sunIcon.classList.remove('hidden');
+                    moonIcon.classList.add('hidden');
+                }
+                if (window.updateDashboard) {
+                    setTimeout(() => window.updateDashboard(), 50);
+                }
+            };
+
+            themeToggleButton.addEventListener('click', () => {
+                const isDark = document.documentElement.classList.contains('dark');
+                const newTheme = isDark ? 'light' : 'dark';
+                localStorage.setItem('theme', newTheme);
+                applyTheme(newTheme);
+            });
             
             // --- Lógica de Fecha y Hora de Actualización ---
             const updateFileTimestamp = (dateString) => {
@@ -160,6 +211,12 @@
                 lastUpdateEl.textContent = `Actualizado: ${formattedDate}, ${formattedTime}`;
             };
 
+            // --- Inicialización de Tema ---
+            const userTheme = localStorage.getItem('theme');
+            const currentHour = new Date().getHours();
+            const systemTheme = (currentHour >= 19 || currentHour < 6) ? 'dark' : 'light';
+            applyTheme(userTheme || systemTheme);
+            
             // --- Formateadores y Constantes ---
             const formatCurrency = (value) => new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(value);
             const formatPercent = (value) => new Intl.NumberFormat('es-MX', { style: 'percent', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
@@ -320,6 +377,7 @@
 
                     const updateAnnualChart = (data, selectedLS, selectedCeCo, monthOrder) => {
                         d3.select("#annual-chart-container svg").remove();
+                        d3.select("#annual-table-container table").remove();
 
                          const annualFilteredData = data.filter(d => {
                             const lsMatch = selectedLS.includes("Todas") || selectedLS.includes(d.LS);
@@ -328,7 +386,18 @@
                         });
 
                         const monthlyTotals = d3.rollup(annualFilteredData, v => d3.sum(v, d => d.Monto), d => d.Mes, d => d.Escenario);
-                        const chartData = monthOrder.map(month => ({ month, plan: monthlyTotals.get(month)?.get('Plan Operativo') || 0, real: monthlyTotals.get(month)?.get('Real') || 0 }));
+                        const chartData = monthOrder.map(month => {
+                            const plan = monthlyTotals.get(month)?.get('Plan Operativo') || 0;
+                            const real = monthlyTotals.get(month)?.get('Real') || 0;
+                            return { 
+                                month, 
+                                plan,
+                                real,
+                                variance: real - plan,
+                                variancePercent: plan === 0 ? 0 : (real - plan) / plan
+                            };
+                        });
+                        
                         const container = d3.select("#annual-chart-container");
                         if (!container.node() || container.node().getBoundingClientRect().width === 0) return;
                         const margin = { top: 40, right: 20, bottom: 30, left: 80 };
@@ -349,7 +418,40 @@
                         legend.append("text").attr("x", 20).attr("y", 10).text("Plan").attr("class", "legend-text text-sm");
                         legend.append("rect").attr("x", 60).attr("y", 0).attr("width", 12).attr("height", 12).attr("class", "bar-real");
                         legend.append("text").attr("x", 80).attr("y", 10).text("Real").attr("class", "legend-text text-sm");
+
+                        // --- Tabla Anual ---
+                        const tableContainer = d3.select("#annual-table-container");
+                        const table = tableContainer.append("table").attr("class", "w-full text-sm text-left text-gray-500 dark:text-gray-400");
+                        const thead = table.append("thead").attr("class", "text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400");
+                        const headerRow = thead.append("tr");
+                        ["Mes", "Real", "Plan", "Var. ($)", "Var. (%)"].forEach(header => {
+                            headerRow.append("th").attr("scope", "col").attr("class", "px-6 py-3 " + (header !== 'Mes' ? 'text-right' : '')).text(header);
+                        });
+
+                        const tbody = table.append("tbody");
+                        chartData.forEach(d => {
+                            const row = tbody.append("tr").attr("class", "bg-white border-b dark:bg-gray-800 dark:border-gray-700");
+                            row.append("th").attr("scope", "row").attr("class", "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white").text(d.month);
+                            row.append("td").attr("class", "px-6 py-4 text-right").text(formatCurrency(d.real));
+                            row.append("td").attr("class", "px-6 py-4 text-right").text(formatCurrency(d.plan));
+                            row.append("td").attr("class", "px-6 py-4 text-right font-semibold").classed("text-red-600", d.variance > 0).classed("text-green-600", d.variance < 0).text(formatCurrency(d.variance));
+                            row.append("td").attr("class", "px-6 py-4 text-right font-semibold").classed("text-red-600", d.variancePercent > 0).classed("text-green-600", d.variancePercent < 0).text(formatPercent(d.variancePercent));
+                        });
+
+                        const totalPlan = d3.sum(chartData, d=> d.plan);
+                        const totalReal = d3.sum(chartData, d=> d.real);
+                        const totalVariance = totalReal - totalPlan;
+                        const totalVariancePercent = totalPlan === 0 ? 0 : totalVariance / totalPlan;
+
+                        const tfoot = table.append("tfoot").attr("class", "font-bold bg-gray-50 dark:bg-gray-700");
+                        const footerRow = tfoot.append("tr");
+                        footerRow.append("th").attr("scope", "row").attr("class", "px-6 py-3 text-base").text("Total");
+                        footerRow.append("td").attr("class", "px-6 py-3 text-right").text(formatCurrency(totalReal));
+                        footerRow.append("td").attr("class", "px-6 py-3 text-right").text(formatCurrency(totalPlan));
+                        footerRow.append("td").attr("class", "px-6 py-3 text-right").classed("text-red-600", totalVariance > 0).classed("text-green-600", totalVariance < 0).text(formatCurrency(totalVariance));
+                        footerRow.append("td").attr("class", "px-6 py-3 text-right").classed("text-red-600", totalVariancePercent > 0).classed("text-green-600", totalVariancePercent < 0).text(formatPercent(totalVariancePercent));
                     };
+
 
                     const updateConceptsTable = (filteredData) => {
                         const conceptsData = d3.rollup(filteredData, v => ({ plan: d3.sum(v.filter(d => d.Escenario === 'Plan Operativo'), d=>d.Monto), real: d3.sum(v.filter(d => d.Escenario === 'Real'), d=>d.Monto) }), d => d.Concepto);
