@@ -1282,70 +1282,70 @@ Real,Ago Acd AJ,Ago,LS_99 - Operacion Institucional,UF_5699903000 - Comisiones B
 Real,Ago Acd AJ,Ago,LS_99 - Operacion Institucional,UF_5699907000 - Servicios Administrativos,ER_7013 - Gastos por Transferencias,Gastos por Transferencias,1475611.71
 Real,Ago Acd AJ,Ago,LS_99 - Operacion Institucional,UF_5699914000 - PRESTAMO EDUCATIVO PROFESIONAL,ER_7010 - Irrecuperabilidad,Irrecuperabilidad,136665.08
 Real,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7001 - Servicios,Servicios,10760.51
-Real,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,5159.52
+Real,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,21576.51
 Real,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7012 - IVA,IVA,5530.22
 Real,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690103000 - Preparatoria,ER_7015 - Materiales,Materiales,2228.32
-Real,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7001 - Servicios,Servicios,12271.77
-Real,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,42528.76
-Real,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7012 - IVA,IVA,3469
+Real,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7001 - Servicios,Servicios,119273.2
+Real,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,48528.76
+Real,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7012 - IVA,IVA,3905.22
 Real,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690104000 - Profesional,ER_7015 - Materiales,Materiales,7508.32
-Real,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7001 - Servicios,Servicios,3948.2
+Real,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7001 - Servicios,Servicios,4514.58
 Real,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7002 - Gastos de Operacion,Gastos de Operacion,240
 Real,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690105000 - Maestria,ER_7012 - IVA,IVA,38.4
 Real,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7002 - Gastos de Operacion,Gastos de Operacion,240
 Real,Sep Acd AJ,Sep,LS_01 - Ensenanza,UF_5690110000 - Ejecutivo,ER_7012 - IVA,IVA,598.4
 Real,Sep Acd AJ,Sep,LS_13 - Arrendamientos,UF_5691301000 - Arrendamientos,ER_7001 - Servicios,Servicios,24000
-Real,Sep Acd AJ,Sep,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7002 - Gastos de Operacion,Gastos de Operacion,82978.3
+Real,Sep Acd AJ,Sep,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7002 - Gastos de Operacion,Gastos de Operacion,85076.3
 Real,Sep Acd AJ,Sep,LS_20 - Apoyo academico,UF_5692003000 - Administracion Academica,ER_7015 - Materiales,Materiales,5095.28
 Real,Sep Acd AJ,Sep,LS_20 - Apoyo academico,UF_5692007000 - Biblioteca,ER_7016 - Bibliografia,Bibliografia,-2969.8
-Real,Sep Acd AJ,Sep,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7002 - Gastos de Operacion,Gastos de Operacion,499.05
+Real,Sep Acd AJ,Sep,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7002 - Gastos de Operacion,Gastos de Operacion,2589.05
 Real,Sep Acd AJ,Sep,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7008 - Comunicaciones,Comunicaciones,-313.1
-Real,Sep Acd AJ,Sep,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7012 - IVA,IVA,79.85
-Real,Sep Acd AJ,Sep,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7001 - Servicios,Servicios,4082.99
-Real,Sep Acd AJ,Sep,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,8081.61
-Real,Sep Acd AJ,Sep,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7012 - IVA,IVA,864.46
-Real,Sep Acd AJ,Sep,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7001 - Servicios,Servicios,3400
-Real,Sep Acd AJ,Sep,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,213.97
-Real,Sep Acd AJ,Sep,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7012 - IVA,IVA,1123.32
+Real,Sep Acd AJ,Sep,LS_20 - Apoyo academico,UF_5692099000 - Dir General Campus,ER_7012 - IVA,IVA,1999.8
+Real,Sep Acd AJ,Sep,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7001 - Servicios,Servicios,22547.99
+Real,Sep Acd AJ,Sep,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7002 - Gastos de Operacion,Gastos de Operacion,45908.99
+Real,Sep Acd AJ,Sep,LS_21 - Asuntos estudiantiles,UF_5692101001 - Vive Preparatoria,ER_7012 - IVA,IVA,1249.26
+Real,Sep Acd AJ,Sep,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7001 - Servicios,Servicios,26935
+Real,Sep Acd AJ,Sep,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,32570.2
+Real,Sep Acd AJ,Sep,LS_21 - Asuntos estudiantiles,UF_5692101002 - Vive Profesional,ER_7012 - IVA,IVA,2096.48
 Real,Sep Acd AJ,Sep,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7001 - Servicios,Servicios,5147.56
-Real,Sep Acd AJ,Sep,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7002 - Gastos de Operacion,Gastos de Operacion,6853.64
+Real,Sep Acd AJ,Sep,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7002 - Gastos de Operacion,Gastos de Operacion,15260.05
 Real,Sep Acd AJ,Sep,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7008 - Comunicaciones,Comunicaciones,2805.06
-Real,Sep Acd AJ,Sep,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7012 - IVA,IVA,115.2
+Real,Sep Acd AJ,Sep,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7012 - IVA,IVA,2538.25
 Real,Sep Acd AJ,Sep,LS_40 - Administracion y Finanzas,UF_5694099000 - Dir Servicios Apoyo,ER_7015 - Materiales,Materiales,1069.32
-Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7002 - Gastos de Operacion,Gastos de Operacion,7244.45
-Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7007 - Mantenimiento,Mantenimiento,154189.74
-Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7012 - IVA,IVA,3312
+Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7002 - Gastos de Operacion,Gastos de Operacion,13111.45
+Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7007 - Mantenimiento,Mantenimiento,166994.74
+Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694801000 - Mantenimiento,ER_7012 - IVA,IVA,9945.68
 Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7002 - Gastos de Operacion,Gastos de Operacion,33695.29
 Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7007 - Mantenimiento,Mantenimiento,19166.38
 Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7009 - Subcontrataciones,Subcontrataciones,132041.8
-Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7012 - IVA,IVA,24067.84
+Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694803000 - Servicio de limpieza,ER_7012 - IVA,IVA,47056.6
 Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694805000 - Servicio de Vigilancia,ER_7009 - Subcontrataciones,Subcontrataciones,168928.49
 Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7001 - Servicios,Servicios,34513.68
-Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7002 - Gastos de Operacion,Gastos de Operacion,30682.48
+Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7002 - Gastos de Operacion,Gastos de Operacion,35037.48
 Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7006 - Servicios Publicos,Servicios Publicos,948
-Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7007 - Mantenimiento,Mantenimiento,14170
-Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7012 - IVA,IVA,5719.52
-Real,Sep Acd AJ,Sep,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7004 - Software,Software,161138.84
-Real,Sep Acd AJ,Sep,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7008 - Comunicaciones,Comunicaciones,-157.37
+Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7007 - Mantenimiento,Mantenimiento,17017
+Real,Sep Acd AJ,Sep,LS_48 - Planta Fisica,UF_5694899000 - Dir Planta Fisica,ER_7012 - IVA,IVA,11213.92
+Real,Sep Acd AJ,Sep,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7004 - Software,Software,174147.95
+Real,Sep Acd AJ,Sep,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7008 - Comunicaciones,Comunicaciones,14829.23
 Real,Sep Acd AJ,Sep,LS_49 - Tecnologias de Informacion,UF_5694999000 - Operacion TI,ER_7012 - IVA,IVA,111.16
-Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7002 - Gastos de Operacion,Gastos de Operacion,2279.57
+Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7002 - Gastos de Operacion,Gastos de Operacion,8240.22
 Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7008 - Comunicaciones,Comunicaciones,-476.4
-Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7012 - IVA,IVA,1466.33
+Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7012 - IVA,IVA,2895.39
 Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695101000 - Atraccion Prepa,ER_7015 - Materiales,Materiales,767.26
-Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,2279.57
+Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7002 - Gastos de Operacion,Gastos de Operacion,6819.22
 Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7003 - Gastos de Viaje,Gastos de Viaje,208.75
 Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7008 - Comunicaciones,Comunicaciones,-165.13
-Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7012 - IVA,IVA,1466.33
+Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7012 - IVA,IVA,2913.51
 Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695102000 - Atraccion Profesional,ER_7015 - Materiales,Materiales,767.26
 Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7002 - Gastos de Operacion,Gastos de Operacion,5830
 Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7005 - Publicidad,Publicidad,3825
 Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7008 - Comunicaciones,Comunicaciones,-110.08
-Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7012 - IVA,IVA,1544.8
+Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7012 - IVA,IVA,1654.8
 Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695103000 - Atraccion Maestria,ER_7015 - Materiales,Materiales,767.26
-Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7001 - Servicios,Servicios,700
+Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7001 - Servicios,Servicios,3800
 Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7002 - Gastos de Operacion,Gastos de Operacion,5830
 Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7005 - Publicidad,Publicidad,3825
 Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7008 - Comunicaciones,Comunicaciones,-110.07
-Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7012 - IVA,IVA,1544.8
+Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7012 - IVA,IVA,1654.8
 Real,Sep Acd AJ,Sep,LS_51 - Atraccion y Ventas,UF_5695104000 - Atraccion Ejecutivo,ER_7015 - Materiales,Materiales,767.26
-Real,Sep Acd AJ,Sep,LS_99 - Operacion Institucional,UF_5699903000 - Comisiones Bancarias,ER_7011 - Comisiones Bancarias,Comisiones Bancarias,596.4
+Real,Sep Acd AJ,Sep,LS_99 - Operacion Institucional,UF_5699903000 - Comisiones Bancarias,ER_7011 - Comisiones Bancarias,Comisiones Bancarias,1403.33
