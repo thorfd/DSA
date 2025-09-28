@@ -79,8 +79,7 @@
             </div>
             <div class="flex items-center gap-4">
                 <div id="last-update" class="text-sm text-gray-500 dark:text-gray-400 text-right">
-                    <p class="font-medium">Datos actualizados:</p>
-                    <p>Cargando...</p>
+                    <p>Actualizado: Cargando...</p>
                 </div>
                 <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
                     <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
@@ -180,7 +179,7 @@
             const themeToggleButton = document.getElementById('theme-toggle');
             const sunIcon = document.getElementById('sun-icon');
             const moonIcon = document.getElementById('moon-icon');
-            const lastUpdateEl = document.querySelector('#last-update p:last-child');
+            const lastUpdateEl = document.querySelector('#last-update p');
             const resetLsCecoBtn = document.getElementById('reset-ls-ceco');
             const resetMonthBtn = document.getElementById('reset-month');
 
@@ -210,7 +209,7 @@
             // --- Lógica de Fecha y Hora de Actualización ---
             const updateFileTimestamp = (dateString) => {
                 if (!dateString) {
-                    lastUpdateEl.textContent = 'Fecha no disponible';
+                    lastUpdateEl.textContent = 'Actualizado: Fecha no disponible';
                     return;
                 }
                 const fileDate = new Date(dateString);
@@ -218,7 +217,7 @@
                 const timeOptions = { hour: 'numeric', minute: '2-digit', hour12: true };
                 const formattedDate = new Intl.DateTimeFormat('es-MX', dateOptions).format(fileDate);
                 const formattedTime = new Intl.DateTimeFormat('es-MX', timeOptions).format(fileDate);
-                lastUpdateEl.textContent = `${formattedDate}, ${formattedTime}`;
+                lastUpdateEl.textContent = `Actualizado: ${formattedDate}, ${formattedTime}`;
             };
 
             // --- Inicialización de Tema ---
