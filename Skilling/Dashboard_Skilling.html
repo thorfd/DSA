@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es" class="dark"> <!-- Se establece el modo oscuro por defecto -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Ingresos | Educación Continua 25-26</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class', // Habilitar el modo oscuro basado en clase
+        }
+        // Script para aplicar el tema guardado al instante y evitar parpadeos
+        if (localStorage.getItem('theme') === 'light' || (!('theme' in localStorage) && !window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.remove('dark');
+        } else {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            height: 40vh;
+            width: 100%;
+        }
+        .kpi-value {
+            font-size: 2.25rem; /* text-4xl */
+        }
+        @media (max-width: 768px) {
+            .kpi-value {
+                font-size: 1.875rem; /* text-3xl */
+            }
+        }
+        .table-container::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .table-container::-webkit-scrollbar-track {
+            @apply bg-gray-200 dark:bg-gray-800;
+        }
+        .table-container::-webkit-scrollbar-thumb {
+            @apply bg-gray-400 dark:bg-gray-600 rounded-md;
+        }
+        .table-container::-webkit-scrollbar-thumb:hover {
+            @apply bg-gray-500 dark:bg-gray-500;
+        }
+        .loader {
+            border: 4px solid #f3f3f330;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+        .page-loader {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            gap: 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+
+    <div class="container mx-auto p-4 md:p-8">
+        
+        <header class="flex flex-col md:flex-row justify-between md:items-center mb-8">
+            <div>
+                <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">Dashboard de Ingresos de Educación Continua 25-26</h1>
+                <p class="text-lg text-gray-500 dark:text-gray-400">Resultados Reales vs. Plan</p>
+            </div>
+             <div class="flex items-center space-x-4 mt-4 md:mt-0">
+                <div id="last-updated-container" class="flex items-center space-x-2 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-sm font-medium px-3 py-1.5 rounded-full whitespace-nowrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span id="last-updated"></span>
+                </div>
+                <button id="theme-toggle" class="p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+                    <svg id="theme-icon-light" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                    <svg id="theme-icon-dark" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Seccion de Carga - se mostrará mientras se obtienen los datos -->
+        <div id="loading-section" class="page-loader">
+            <div class="loader" style="width: 50px; height: 50px;"></div>
+            <p class="text-gray-500 dark:text-gray-400 text-lg">Cargando datos del repositorio...</p>
+        </div>
+
+        <div id="dashboard-content" class="hidden">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <!-- KPI Cards -->
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg flex flex-col justify-between">
+                    <h2 class="text-gray-500 dark:text-gray-400 font-semibold">Ingreso Real Total</h2>
+                    <p id="kpi-real" class="kpi-value font-bold text-teal-600 dark:text-teal-400">Cargando...</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg flex flex-col justify-between">
+                    <h2 class="text-gray-500 dark:text-gray-400 font-semibold">Ingreso Plan Total</h2>
+                    <p id="kpi-plan" class="kpi-value font-bold text-sky-600 dark:text-sky-400">Cargando...</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg flex flex-col justify-between">
+                    <h2 class="text-gray-500 dark:text-gray-400 font-semibold">Cumplimiento del Plan</h2>
+                    <p id="kpi-compliance" class="kpi-value font-bold text-green-600 dark:text-green-400">Cargando...</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg flex flex-col justify-between">
+                    <h2 class="text-gray-500 dark:text-gray-400 font-semibold">Diferencia vs. Plan</h2>
+                    <p id="kpi-difference" class="kpi-value font-bold text-gray-800 dark:text-gray-200">Cargando...</p>
+                </div>
+            </div>
+
+            <!-- Sección de Ingresos Acumulados por Periodo -->
+            <div class="mb-8">
+                <h3 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">Ingresos Acumulados por Periodo</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Card Ago-Dic 25 -->
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+                        <h4 class="text-lg font-semibold text-gray-500 dark:text-gray-400 mb-4">Periodo Ago-Dic 25</h4>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-baseline">
+                                <span class="text-gray-600 dark:text-gray-300">Ingreso Real:</span>
+                                <span id="acum-real-1" class="font-bold text-lg text-teal-600 dark:text-teal-400">Cargando...</span>
+                            </div>
+                            <div class="flex justify-between items-baseline">
+                                <span class="text-gray-600 dark:text-gray-300">Ingreso Plan:</span>
+                                <span id="acum-plan-1" class="font-bold text-lg text-sky-600 dark:text-sky-400">Cargando...</span>
+                            </div>
+                            <div class="border-t border-gray-200 dark:border-gray-700 my-2"></div>
+                            <div class="flex justify-between items-baseline">
+                                <span class="text-gray-600 dark:text-gray-300 font-bold">Cumplimiento:</span>
+                                <span id="acum-compliance-1" class="font-bold text-xl">Cargando...</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card Ene-Jul 26 -->
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+                        <h4 class="text-lg font-semibold text-gray-500 dark:text-gray-400 mb-4">Periodo Ene-Jul 26</h4>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-baseline">
+                                <span class="text-gray-600 dark:text-gray-300">Ingreso Real:</span>
+                                <span id="acum-real-2" class="font-bold text-lg text-teal-600 dark:text-teal-400">Cargando...</span>
+                            </div>
+                            <div class="flex justify-between items-baseline">
+                                <span class="text-gray-600 dark:text-gray-300">Ingreso Plan:</span>
+                                <span id="acum-plan-2" class="font-bold text-lg text-sky-600 dark:text-sky-400">Cargando...</span>
+                            </div>
+                            <div class="border-t border-gray-200 dark:border-gray-700 my-2"></div>
+                            <div class="flex justify-between items-baseline">
+                                <span class="text-gray-600 dark:text-gray-300 font-bold">Cumplimiento:</span>
+                                <span id="acum-compliance-2" class="font-bold text-xl">Cargando...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                 <!-- Chart Containers -->
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Comparativa Mensual: Real vs. Plan</h3>
+                    <div class="chart-container">
+                        <canvas id="monthlyChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Desempeño Acumulado: Real vs. Plan</h3>
+                    <div class="chart-container">
+                        <canvas id="cumulativeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Data Table and Donut Chart -->
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg lg:col-span-2">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Detalle de Ingresos Mensuales</h3>
+                    <div class="overflow-x-auto table-container">
+                        <table class="w-full text-left whitespace-nowrap">
+                            <thead class="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 uppercase text-sm">
+                                <tr>
+                                    <th class="p-3 rounded-l-lg">Mes</th>
+                                    <th class="p-3 text-right">Ingreso Real</th>
+                                    <th class="p-3 text-right">Ingreso Plan</th>
+                                    <th class="p-3 text-right">Diferencia</th>
+                                    <th class="p-3 text-right rounded-r-lg">Cumplimiento</th>
+                                </tr>
+                            </thead>
+                            <tbody id="data-table">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg flex flex-col items-center justify-center">
+                     <h3 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Proporción de Cumplimiento</h3>
+                     <div class="chart-container" style="height:30vh">
+                        <canvas id="complianceDonutChart"></canvas>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+// --- Global Scope Variables ---
+let monthlyChartInstance, cumulativeChartInstance, donutChartInstance;
+let monthlyDataGlobal = [];
+let accumulatedDataGlobal = {};
+let kpiSummaryGlobal = {};
+const currencyFormatter = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' });
+
+// --- Theme Management ---
+const themeToggleBtn = document.getElementById('theme-toggle');
+const themeIconLight = document.getElementById('theme-icon-light');
+const themeIconDark = document.getElementById('theme-icon-dark');
+
+const applyTheme = (theme) => {
+    if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+        themeIconLight.classList.remove('hidden');
+        themeIconDark.classList.add('hidden');
+    } else {
+        document.documentElement.classList.remove('dark');
+        themeIconLight.classList.add('hidden');
+        themeIconDark.classList.remove('hidden');
+    }
+};
+
+themeToggleBtn.addEventListener('click', () => {
+    const isDark = document.documentElement.classList.contains('dark');
+    const newTheme = isDark ? 'light' : 'dark';
+    localStorage.setItem('theme', newTheme);
+    applyTheme(newTheme);
+    renderCharts();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    applyTheme(savedTheme);
+    loadDataAndInitializeDashboard();
+});
+
+
+// --- Data Loading and Initializing ---
+async function loadDataAndInitializeDashboard() {
+    const loadingSection = document.getElementById('loading-section');
+    const dashboardContent = document.getElementById('dashboard-content');
+    const dataFile = './Ingresos_SC.csv'; 
+
+    try {
+        const response = await fetch(dataFile);
+        if (!response.ok) {
+            throw new Error(`No se pudo encontrar el archivo ${dataFile}. Código de error: ${response.status}`);
+        }
+        
+        const lastModified = response.headers.get('Last-Modified');
+        const lastUpdatedSpan = document.getElementById('last-updated');
+
+        if (lastModified) {
+            const date = new Date(lastModified);
+            const options = { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true 
+            };
+            lastUpdatedSpan.textContent = `Actualizado: ${date.toLocaleString('es-MX', options)}`;
+        } else {
+            lastUpdatedSpan.textContent = 'Actualizado recientemente';
+        }
+
+        const csvData = await response.text();
+        const { monthlyData, accumulatedData } = parseData(csvData);
+        monthlyDataGlobal = monthlyData;
+        accumulatedDataGlobal = accumulatedData;
+        
+        updateDashboardUI();
+        updateAccumulatedUI();
+        renderCharts();
+        
+        loadingSection.classList.add('hidden');
+        dashboardContent.classList.remove('hidden');
+
+    } catch (error) {
+        console.error("Error al cargar los datos:", error);
+        loadingSection.innerHTML = `<p class="text-red-500 text-lg">Error: No se pudo cargar el archivo '${dataFile}'. Asegúrate de que exista en el repositorio.</p>`;
+    }
+}
+
+// --- Data Parsing and UI Updates ---
+function parseData(csv) {
+    const lines = csv.trim().split('\n');
+    function parseCsvLine(line) {
+        const result = []; let buffer = ''; let inQuotes = false;
+        for (let i = 0; i < line.length; i++) {
+            const char = line[i];
+            if (char === '"') { inQuotes = !inQuotes; continue; }
+            if (char === ',' && !inQuotes) { result.push(buffer); buffer = ''; } else { buffer += char; }
+        }
+        result.push(buffer); return result;
+    }
+    const dataLine = parseCsvLine(lines.filter(l => l.trim() !== '')[1]);
+    const monthly = [];
+    const months = ["Ago 25", "Sep 25", "Oct 25", "Nov 25", "Dic 25", "Ene 26", "Feb 26", "Mar 26", "Abr 26", "May 26", "Jun 26", "Jul 26"];
+    const cleanValue = (str) => {
+        if (!str || !str.trim()) return 0;
+        const cleaned = str.trim().replace(/"/g, '').replace(/\$/g, '').replace(/,/g, '').trim();
+        const value = parseFloat(cleaned);
+        return isNaN(value) ? 0 : value;
+    };
+    
+    // Extract monthly data
+    let currentIndex = 2;
+    for (let i = 0; i < 5; i++) { // Ago to Dic
+        monthly.push({ month: months[i], real: cleanValue(dataLine[currentIndex]), plan: cleanValue(dataLine[currentIndex + 1]) });
+        currentIndex += 2;
+    }
+    currentIndex += 2; // Skip first accumulated block
+    for (let i = 5; i < 12; i++) { // Ene to Jul
+        monthly.push({ month: months[i], real: cleanValue(dataLine[currentIndex]), plan: cleanValue(dataLine[currentIndex + 1]) });
+        currentIndex += 2;
+    }
+
+    // Extract accumulated data
+    const accumulated = {
+        period1: { real: cleanValue(dataLine[12]), plan: cleanValue(dataLine[13]) },
+        period2: { real: cleanValue(dataLine[28]), plan: cleanValue(dataLine[29]) }
+    };
+
+    return { monthlyData: monthly, accumulatedData: accumulated };
+}
+
+function updateDashboardUI() {
+    const totalReal = monthlyDataGlobal.reduce((sum, item) => sum + item.real, 0);
+    const totalPlan = monthlyDataGlobal.reduce((sum, item) => sum + item.plan, 0);
+    const totalDifference = totalReal - totalPlan;
+    const totalCompliance = totalPlan > 0 ? (totalReal / totalPlan) * 100 : 0;
+    
+    kpiSummaryGlobal = { totalReal, totalPlan, totalCompliance };
+    
+    const formatCurrency = (value) => currencyFormatter.format(value);
+
+    document.getElementById('kpi-real').textContent = formatCurrency(totalReal);
+    document.getElementById('kpi-plan').textContent = formatCurrency(totalPlan);
+    document.getElementById('kpi-compliance').textContent = `${totalCompliance.toFixed(2)}%`;
+    const differenceEl = document.getElementById('kpi-difference');
+    differenceEl.textContent = formatCurrency(totalDifference);
+    differenceEl.classList.toggle('text-red-500', totalDifference < 0);
+    differenceEl.classList.toggle('dark:text-red-400', totalDifference < 0);
+    differenceEl.classList.toggle('text-green-600', totalDifference >= 0);
+    differenceEl.classList.toggle('dark:text-green-400', totalDifference >= 0);
+
+    const tableBody = document.getElementById('data-table');
+    tableBody.innerHTML = '';
+    monthlyDataGlobal.forEach(item => {
+        const difference = item.real - item.plan;
+        const compliance = item.plan > 0 ? (item.real / item.plan) * 100 : 0;
+        const row = `
+            <tr class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                <td class="p-3 font-medium">${item.month}</td>
+                <td class="p-3 text-right">${formatCurrency(item.real)}</td>
+                <td class="p-3 text-right">${formatCurrency(item.plan)}</td>
+                <td class="p-3 text-right ${difference < 0 ? 'text-red-500 dark:text-red-400' : 'text-green-600 dark:text-green-400'}">${formatCurrency(difference)}</td>
+                <td class="p-3 text-right ${compliance < 100 ? 'text-red-500 dark:text-red-400' : 'text-green-600 dark:text-green-400'}">${compliance.toFixed(2)}%</td>
+            </tr>`;
+        tableBody.innerHTML += row;
+    });
+}
+
+function updateAccumulatedUI() {
+    const formatCurrency = (value) => currencyFormatter.format(value);
+
+    // Periodo 1: Ago-Dic 25
+    const p1 = accumulatedDataGlobal.period1;
+    const p1_compliance_val = p1.plan > 0 ? (p1.real / p1.plan) * 100 : 0;
+    document.getElementById('acum-real-1').textContent = formatCurrency(p1.real);
+    document.getElementById('acum-plan-1').textContent = formatCurrency(p1.plan);
+    const complianceEl1 = document.getElementById('acum-compliance-1');
+    complianceEl1.textContent = `${p1_compliance_val.toFixed(2)}%`;
+    complianceEl1.classList.toggle('text-red-500', p1_compliance_val < 100);
+    complianceEl1.classList.toggle('dark:text-red-400', p1_compliance_val < 100);
+    complianceEl1.classList.toggle('text-green-600', p1_compliance_val >= 100);
+    complianceEl1.classList.toggle('dark:text-green-400', p1_compliance_val >= 100);
+
+    // Periodo 2: Ene-Jul 26
+    const p2 = accumulatedDataGlobal.period2;
+    const p2_compliance_val = p2.plan > 0 ? (p2.real / p2.plan) * 100 : 0;
+    document.getElementById('acum-real-2').textContent = formatCurrency(p2.real);
+    document.getElementById('acum-plan-2').textContent = formatCurrency(p2.plan);
+    const complianceEl2 = document.getElementById('acum-compliance-2');
+    complianceEl2.textContent = `${p2_compliance_val.toFixed(2)}%`;
+    complianceEl2.classList.toggle('text-red-500', p2_compliance_val < 100);
+    complianceEl2.classList.toggle('dark:text-red-400', p2_compliance_val < 100);
+    complianceEl2.classList.toggle('text-green-600', p2_compliance_val >= 100);
+    complianceEl2.classList.toggle('dark:text-green-400', p2_compliance_val >= 100);
+}
+
+// --- Chart Rendering ---
+function renderCharts() {
+    if (monthlyChartInstance) monthlyChartInstance.destroy();
+    if (cumulativeChartInstance) cumulativeChartInstance.destroy();
+    if (donutChartInstance) donutChartInstance.destroy();
+
+    const isDark = document.documentElement.classList.contains('dark');
+    const textColor = isDark ? '#a0aec0' : '#4a5568';
+    const gridColor = isDark ? '#4a5568' : '#e2e8f0';
+    const tooltipBgColor = isDark ? 'rgba(31, 41, 55, 0.9)' : 'rgba(255, 255, 255, 0.9)';
+    const tooltipTitleColor = isDark ? '#ffffff' : '#1f2937';
+    const tooltipBodyColor = isDark ? '#d1d5db' : '#4b5563';
+    
+    Chart.defaults.color = textColor;
+    Chart.defaults.borderColor = gridColor;
+    
+    const tooltipConfig = {
+        backgroundColor: tooltipBgColor, titleColor: tooltipTitleColor, bodyColor: tooltipBodyColor,
+        titleFont: { weight: 'bold' }, padding: 12, cornerRadius: 8, displayColors: true, boxPadding: 4,
+        callbacks: { label: (c) => `${c.dataset.label || ''}: ${currencyFormatter.format(c.parsed.y || c.raw)}` }
+    };
+
+    const labels = monthlyDataGlobal.map(d => d.month);
+    const realData = monthlyDataGlobal.map(d => d.real);
+    const planData = monthlyDataGlobal.map(d => d.plan);
+    const cumulativeReal = realData.reduce((acc, val, i) => { acc.push((acc[i-1] || 0) + val); return acc; }, []);
+    const cumulativePlan = planData.reduce((acc, val, i) => { acc.push((acc[i-1] || 0) + val); return acc; }, []);
+
+    monthlyChartInstance = new Chart(document.getElementById('monthlyChart'), {
+        type: 'bar', data: { labels, datasets: [{ label: 'Real', data: realData, backgroundColor: 'rgba(45, 212, 191, 0.8)', borderColor: 'rgb(45, 212, 191)', borderWidth: 2, borderRadius: 4 }, { label: 'Plan', data: planData, backgroundColor: 'rgba(59, 130, 246, 0.8)', borderColor: 'rgb(59, 130, 246)', borderWidth: 2, borderRadius: 4 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' }, tooltip: tooltipConfig }, scales: { y: { beginAtZero: true, ticks: { callback: v => currencyFormatter.format(v).replace('.00','') } } } }
+    });
+
+    cumulativeChartInstance = new Chart(document.getElementById('cumulativeChart'), {
+        type: 'line', data: { labels, datasets: [{ label: 'Acumulado Real', data: cumulativeReal, borderColor: 'rgb(45, 212, 191)', backgroundColor: 'rgba(45, 212, 191, 0.2)', fill: true, tension: 0.3 }, { label: 'Acumulado Plan', data: cumulativePlan, borderColor: 'rgb(59, 130, 246)', backgroundColor: 'rgba(59, 130, 246, 0.2)', fill: true, tension: 0.3 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' }, tooltip: tooltipConfig }, scales: { y: { beginAtZero: true, ticks: { callback: v => currencyFormatter.format(v).replace('.00','') } } } }
+    });
+
+    const remainingPlan = kpiSummaryGlobal.totalPlan > kpiSummaryGlobal.totalReal ? kpiSummaryGlobal.totalPlan - kpiSummaryGlobal.totalReal : 0;
+    donutChartInstance = new Chart(document.getElementById('complianceDonutChart'), {
+        type: 'doughnut', data: { labels: ['Alcanzado', 'Faltante'], datasets: [{ data: [kpiSummaryGlobal.totalReal, remainingPlan], backgroundColor: [isDark ? 'rgb(45, 212, 191)' : 'rgb(13, 148, 136)', isDark ? 'rgb(75, 85, 99)' : 'rgb(209, 213, 219)'], borderColor: isDark ? '#1f2937' : '#ffffff', borderWidth: 4, hoverOffset: 8 }] },
+        options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { display: false }, tooltip: { ...tooltipConfig, callbacks: { label: c => `${c.label || ''}: ${currencyFormatter.format(c.raw)} (${(kpiSummaryGlobal.totalPlan > 0 ? (c.raw / kpiSummaryGlobal.totalPlan) * 100 : 0).toFixed(2)}%)` } } } }
+    });
+}
+</script>
+
+</body>
+</html>
+
