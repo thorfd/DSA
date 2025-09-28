@@ -53,16 +53,6 @@
             background: #1E40AF linear-gradient(0deg, #1E40AF 0%, #1E40AF 100%);
             color: white;
         }
-
-        .sortable-header {
-            cursor: pointer;
-        }
-        .sortable-header:hover {
-            background-color: #E5E7EB; /* gray-200 */
-        }
-        .dark .sortable-header:hover {
-            background-color: #374151; /* gray-700 */
-        }
     </style>
      <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -433,11 +423,11 @@
                         const table = tableContainer.append("table").attr("class", "w-full text-sm text-left text-gray-500 dark:text-gray-400");
                         const thead = table.append("thead").attr("class", "text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400");
                         const headerRow = thead.append("tr");
-                        headerRow.append("th").attr("scope", "col").attr("class", "px-6 py-3").text("Concepto");
+                        headerRow.append("th").attr("scope", "col").attr("class", "px-4 py-3").text("Concepto");
                         monthOrder.forEach(month => {
-                            headerRow.append("th").attr("scope", "col").attr("class", "px-6 py-3 text-right").text(month);
+                            headerRow.append("th").attr("scope", "col").attr("class", "px-4 py-3 text-right").text(month);
                         });
-                        headerRow.append("th").attr("scope", "col").attr("class", "px-6 py-3 text-right font-bold").text("Total");
+                        headerRow.append("th").attr("scope", "col").attr("class", "px-4 py-3 text-right font-bold").text("Total");
 
                         const tbody = table.append("tbody");
 
@@ -457,10 +447,10 @@
 
                         rowsData.forEach(rowData => {
                             const row = tbody.append("tr").attr("class", "bg-white border-b dark:bg-gray-800 dark:border-gray-700");
-                            row.append("th").attr("scope", "row").attr("class", "px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white").text(rowData.label);
+                            row.append("th").attr("scope", "row").attr("class", "px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white").text(rowData.label);
 
                             chartData.forEach(d => {
-                                const cell = row.append("td").attr("class", "px-6 py-4 text-right");
+                                const cell = row.append("td").attr("class", "px-4 py-3 text-right");
                                 const value = d[rowData.key];
                                 cell.text(rowData.format(value));
                                 if(rowData.isVariance) {
@@ -468,7 +458,7 @@
                                 }
                             });
                             
-                            const totalCell = row.append("td").attr("class", "px-6 py-4 text-right font-bold");
+                            const totalCell = row.append("td").attr("class", "px-4 py-3 text-right font-bold");
                             const totalValue = totals[rowData.key];
                             totalCell.text(rowData.format(totalValue));
                              if(rowData.isVariance) {
