@@ -8,34 +8,9 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
         /* Estilos personalizados */
-        :root {
-            --bg-light: #F3F4F6; /* gray-100 */
-            --bg-dark: #111827; /* gray-900 */
-            --card-bg-light: white;
-            --card-bg-dark: #1F2937; /* gray-800 */
-            --text-light-primary: #1F2937; /* gray-800 */
-            --text-dark-primary: #F9FAFB; /* gray-50 */
-            --text-light-secondary: #4B5563; /* gray-600 */
-            --text-dark-secondary: #9CA3AF; /* gray-400 */
-            --border-light: #E5E7EB; /* gray-200 */
-            --border-dark: #374151; /* gray-700 */
-        }
-        html.dark {
-             color-scheme: dark;
-        }
         body {
             font-family: 'Inter', sans-serif;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        /* Estilos para el gráfico de D3 en modo oscuro */
-        .dark .axis-label text, .dark .bar-label, .dark .legend-text, .dark .bar-value {
-            fill: #D1D5DB; /* gray-300 */
-        }
-        .dark .domain, .dark .tick line {
-            stroke: var(--border-dark);
-        }
-        .kpi-card, #filters, .chart-card {
-            transition: background-color 0.3s, border-color 0.3s, transform 0.2s;
+            background-color: #F3F4F6; /* gray-100 */
         }
         .kpi-card:hover {
             transform: translateY(-5px);
@@ -53,47 +28,48 @@
             background: #1E40AF linear-gradient(0deg, #1E40AF 0%, #1E40AF 100%);
             color: white;
         }
+
+        .sortable-header {
+            cursor: pointer;
+        }
+        .sortable-header:hover {
+            background-color: #E5E7EB;
+        }
     </style>
      <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+<body class="bg-gray-100 text-gray-800">
 
     <div class="container mx-auto p-4 md:p-8">
         <!-- Encabezado -->
         <header class="mb-8 flex flex-wrap justify-between items-center gap-4">
             <div>
-                <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Tablero de Control Presupuestal</h1>
-                <p class="text-gray-600 dark:text-gray-400 mt-1">Análisis de Gastos: Plan vs. Real</p>
+                <h1 class="text-3xl font-bold text-gray-900">Tablero de Control Presupuestal</h1>
+                <p class="text-gray-600 mt-1">Análisis de Gastos: Plan vs. Real</p>
             </div>
-            <div class="flex items-center gap-4">
-                <div id="last-update" class="text-sm text-gray-500 dark:text-gray-400 text-right">
-                    <p>Actualizado: Cargando...</p>
-                </div>
-                <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
-                    <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-                    <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
-                </button>
+            <div id="last-update" class="text-sm text-gray-500 text-right">
+                <p>Actualizado: Cargando...</p>
             </div>
         </header>
 
         <!-- Indicadores Clave (KPIs) -->
         <section id="kpis" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div class="kpi-card bg-white dark:bg-gray-800 rounded-lg shadow p-6 transition-transform transform hover:-translate-y-1">
-                <h3 class="text-gray-500 dark:text-gray-400 font-medium">Gasto Total del Plan</h3>
+            <div class="kpi-card bg-white rounded-lg shadow p-6 transition-transform transform hover:-translate-y-1">
+                <h3 class="text-gray-500 font-medium">Gasto Total del Plan</h3>
                 <p id="kpi-plan" class="text-3xl font-bold text-blue-600 mt-2">$0.00</p>
             </div>
-            <div class="kpi-card bg-white dark:bg-gray-800 rounded-lg shadow p-6 transition-transform transform hover:-translate-y-1">
-                <h3 class="text-gray-500 dark:text-gray-400 font-medium">Gasto Total Real</h3>
+            <div class="kpi-card bg-white rounded-lg shadow p-6 transition-transform transform hover:-translate-y-1">
+                <h3 class="text-gray-500 font-medium">Gasto Total Real</h3>
                 <p id="kpi-real" class="text-3xl font-bold text-red-600 mt-2">$0.00</p>
             </div>
-            <div class="kpi-card bg-white dark:bg-gray-800 rounded-lg shadow p-6 transition-transform transform hover:-translate-y-1">
-                <h3 class="text-gray-500 dark:text-gray-400 font-medium">Variación ($)</h3>
+            <div class="kpi-card bg-white rounded-lg shadow p-6 transition-transform transform hover:-translate-y-1">
+                <h3 class="text-gray-500 font-medium">Variación ($)</h3>
                 <p id="kpi-variance-amount" class="text-3xl font-bold mt-2">$0.00</p>
             </div>
-            <div class="kpi-card bg-white dark:bg-gray-800 rounded-lg shadow p-6 transition-transform transform hover:-translate-y-1">
-                <h3 class="text-gray-500 dark:text-gray-400 font-medium">Variación (%)</h3>
+            <div class="kpi-card bg-white rounded-lg shadow p-6 transition-transform transform hover:-translate-y-1">
+                <h3 class="text-gray-500 font-medium">Variación (%)</h3>
                 <p id="kpi-variance-percent" class="text-3xl font-bold mt-2">0.00%</p>
             </div>
         </section>
@@ -101,8 +77,8 @@
         <!-- Visualizaciones Principales -->
         <main class="space-y-8">
             <!-- Gráfico de Barras Anual -->
-            <div class="chart-card bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-                 <h2 class="chart-title text-xl font-semibold text-gray-900 dark:text-white mb-4">Comparativo Anual por Mes</h2>
+            <div class="chart-card bg-white p-6 rounded-lg shadow-md">
+                 <h2 class="chart-title text-xl font-semibold text-gray-900 mb-4">Comparativo Anual por Mes</h2>
                 <div id="annual-chart-container" class="w-full h-96"></div>
                 <div id="annual-table-container" class="mt-6 overflow-x-auto"></div>
             </div>
@@ -110,23 +86,23 @@
             <!-- Sección de Detalle y Filtros -->
             <section class="grid grid-cols-1 lg:grid-cols-4 gap-8">
                 <!-- Tabla de Detalle por Concepto -->
-                <div class="chart-card bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md lg:col-span-3">
-                    <h2 class="chart-title text-xl font-semibold text-gray-900 dark:text-white mb-4">Detalle por tipo de gasto</h2>
+                <div class="chart-card bg-white p-6 rounded-lg shadow-md lg:col-span-3">
+                    <h2 class="chart-title text-xl font-semibold text-gray-900 mb-4">Detalle por tipo de gasto</h2>
                     <div class="overflow-x-auto">
-                        <table class="w-full divide-y divide-gray-200 dark:divide-gray-700">
-                            <thead class="bg-gray-50 dark:bg-gray-700">
+                        <table class="w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
                                 <tr>
-                                    <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Concepto</th>
-                                    <th class="px-3 py-2 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Plan</th>
-                                    <th class="px-3 py-2 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Real</th>
-                                    <th class="px-3 py-2 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Var. ($)</th>
-                                    <th class="px-3 py-2 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Var. (%)</th>
+                                    <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Concepto</th>
+                                    <th class="px-3 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Plan</th>
+                                    <th class="px-3 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Real</th>
+                                    <th class="px-3 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Var. ($)</th>
+                                    <th class="px-3 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Var. (%)</th>
                                 </tr>
                             </thead>
-                            <tbody id="concepts-table" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                            <tbody id="concepts-table" class="bg-white divide-y divide-gray-200">
                                 <!-- Filas de la tabla se generarán aquí -->
                             </tbody>
-                            <tfoot id="concepts-table-footer" class="bg-gray-50 dark:bg-gray-700 font-bold">
+                            <tfoot id="concepts-table-footer" class="bg-gray-50 font-bold">
                                 <!-- Fila de total se generará aquí -->
                             </tfoot>
                         </table>
@@ -134,30 +110,63 @@
                 </div>
 
                  <!-- Filtros -->
-                <aside id="filters" class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md lg:col-span-1 space-y-4">
-                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Filtros</h2>
+                <aside id="filters" class="bg-white p-4 rounded-lg shadow-md lg:col-span-1 space-y-4">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-2">Filtros</h2>
                     <div>
-                        <label for="ls-filter" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Línea de Servicio (LS)</label>
-                        <select id="ls-filter" multiple class="filter-select w-full p-2 h-32 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 rounded-md shadow-sm"></select>
+                        <label for="ls-filter" class="block text-sm font-medium text-gray-700 mb-1">Línea de Servicio (LS)</label>
+                        <select id="ls-filter" multiple class="filter-select w-full p-2 h-32 border border-gray-300 bg-white rounded-md shadow-sm"></select>
                     </div>
                     <div>
-                        <label for="ceco-filter" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Centro de Costo (CeCo)</label>
-                        <select id="ceco-filter" multiple class="filter-select w-full p-2 h-32 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 rounded-md shadow-sm"></select>
+                        <label for="ceco-filter" class="block text-sm font-medium text-gray-700 mb-1">Centro de Costo (CeCo)</label>
+                        <select id="ceco-filter" multiple class="filter-select w-full p-2 h-32 border border-gray-300 bg-white rounded-md shadow-sm"></select>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Mes</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Mes</label>
                         <div id="month-buttons" class="flex flex-wrap gap-2">
                             <!-- Botones de mes se generarán aquí -->
                         </div>
                     </div>
-                    <div class="flex flex-col items-stretch gap-2 pt-2 border-t border-gray-200 dark:border-gray-700">
-                        <p class="text-xs text-center text-gray-500 dark:text-gray-400">
+                    <div class="flex flex-col items-stretch gap-2 pt-2 border-t border-gray-200">
+                        <p class="text-xs text-center text-gray-500">
                             Use Ctrl/Cmd + clic para selección múltiple.
                         </p>
-                        <button id="reset-ls-ceco" class="px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-200 hover:bg-gray-300 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500 rounded-md">Resetear LS / CeCo</button>
-                        <button id="reset-month" class="px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-200 hover:bg-gray-300 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500 rounded-md">Resetear Mes</button>
+                        <button id="reset-ls-ceco" class="px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-200 hover:bg-gray-300 rounded-md">Resetear LS / CeCo</button>
+                        <button id="reset-month" class="px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-200 hover:bg-gray-300 rounded-md">Resetear Mes</button>
                     </div>
                 </aside>
+            </section>
+            
+            <!-- Nueva Sección: Desglose de Gastos -->
+            <section id="detail-breakdown" class="chart-card bg-white p-6 rounded-lg shadow-md">
+                <h2 class="chart-title text-xl font-semibold text-gray-900 mb-4">Desglose de Gastos</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full divide-y divide-gray-200 table-fixed">
+                        <thead id="detail-table-header" class="bg-gray-50">
+                            <!-- El encabezado se generará dinámicamente -->
+                        </thead>
+                        <tbody id="detail-table" class="bg-white divide-y divide-gray-200">
+                           <!-- Filas de detalle se generarán aquí -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            
+            <!-- Nueva Sección: Top 5 Proveedores -->
+            <section id="top-providers" class="chart-card bg-white p-6 rounded-lg shadow-md">
+                <h2 class="chart-title text-xl font-semibold text-gray-900 mb-4">Top 5 Proveedores</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="border-b-2 border-gray-200">
+                            <tr>
+                                <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Proveedor</th>
+                                <th class="px-3 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Monto Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="provider-table" class="divide-y divide-gray-200">
+                           <!-- Filas de proveedores se generarán aquí -->
+                        </tbody>
+                    </table>
+                </div>
             </section>
         </main>
     </div>
@@ -167,35 +176,9 @@
             // --- Elementos del DOM ---
             const lsFilterEl = document.getElementById('ls-filter');
             const cecoFilterEl = document.getElementById('ceco-filter');
-            const themeToggleButton = document.getElementById('theme-toggle');
-            const sunIcon = document.getElementById('sun-icon');
-            const moonIcon = document.getElementById('moon-icon');
             const lastUpdateEl = document.querySelector('#last-update p');
             const resetLsCecoBtn = document.getElementById('reset-ls-ceco');
             const resetMonthBtn = document.getElementById('reset-month');
-
-            // --- Lógica de Tema (Claro/Oscuro) ---
-            const applyTheme = (theme) => {
-                if (theme === 'dark') {
-                    document.documentElement.classList.add('dark');
-                    sunIcon.classList.add('hidden');
-                    moonIcon.classList.remove('hidden');
-                } else {
-                    document.documentElement.classList.remove('dark');
-                    sunIcon.classList.remove('hidden');
-                    moonIcon.classList.add('hidden');
-                }
-                if (window.updateDashboard) {
-                    setTimeout(() => window.updateDashboard(), 50);
-                }
-            };
-
-            themeToggleButton.addEventListener('click', () => {
-                const isDark = document.documentElement.classList.contains('dark');
-                const newTheme = isDark ? 'light' : 'dark';
-                localStorage.setItem('theme', newTheme);
-                applyTheme(newTheme);
-            });
             
             // --- Lógica de Fecha y Hora de Actualización ---
             const updateFileTimestamp = (dateString) => {
@@ -210,12 +193,6 @@
                 const formattedTime = new Intl.DateTimeFormat('es-MX', timeOptions).format(fileDate);
                 lastUpdateEl.textContent = `Actualizado: ${formattedDate}, ${formattedTime}`;
             };
-
-            // --- Inicialización de Tema ---
-            const userTheme = localStorage.getItem('theme');
-            const currentHour = new Date().getHours();
-            const systemTheme = (currentHour >= 19 || currentHour < 6) ? 'dark' : 'light';
-            applyTheme(userTheme || systemTheme);
             
             // --- Formateadores y Constantes ---
             const formatCurrency = (value) => new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(value);
@@ -250,23 +227,55 @@
             ];
             
             let fullData = [];
+            let detailData = [];
+            let currentDetailData = [];
+            let detailSortState = { key: 'Importe en ML', order: 'desc' };
             let previousLSSelection = ["Todas"];
             let previousCeCoSelection = ["Todos"];
 
             // --- Carga de Datos y Lógica del Dashboard ---
             const summaryUrl = "Gastos_SV.csv";
+            const detailUrl = "DB_Gastos.csv";
             
-            fetch(summaryUrl, { cache: "no-store" })
-                .then(res => {
+            Promise.all([
+                fetch(summaryUrl, { cache: "no-store" }).then(res => {
                     if (!res.ok) throw new Error(`No se pudo cargar ${summaryUrl}`);
                     updateFileTimestamp(res.headers.get('Last-Modified'));
                     return res.text();
-                })
-                .then(csvText => d3.csvParse(csvText))
-                .then(summary => {
+                }).then(text => d3.csvParse(text)),
+                fetch(detailUrl, { cache: "no-store" }).then(res => {
+                    if (!res.ok) throw new Error(`No se pudo cargar ${detailUrl}`);
+                    return res.text();
+                }).then(text => d3.csvParse(text))
+            ]).then(([summary, detail]) => {
                     fullData = summary;
+                    detailData = detail;
+
+                    const lsNumberToNameMap = new Map();
                     fullData.forEach(d => {
                         d.Monto = +d.Monto || 0;
+                        const match = d.LS.match(/LS_(\d+)/);
+                        if (match && !lsNumberToNameMap.has(match[1])) {
+                            lsNumberToNameMap.set(match[1], d.LS);
+                        }
+                    });
+
+                    const monthLongToShort = {
+                        'Enero': 'Ene', 'Febrero': 'Feb', 'Marzo': 'Mar', 'Abril': 'Abr', 
+                        'Mayo': 'May', 'Junio': 'Jun', 'Julio': 'Jul', 'Agosto': 'Ago', 
+                        'Septiembre': 'Sep', 'Octubre': 'Oct', 'Noviembre': 'Nov', 'Diciembre': 'Dic'
+                    };
+
+                    detailData.forEach(d => {
+                        d['Importe en ML'] = +d['Importe en ML'] || 0;
+                        const cebeStr = String(d.CeBe).trim();
+                        if (cebeStr.length > 5) {
+                            const lsNumber = cebeStr.substring(3, 5);
+                            d.LS = lsNumberToNameMap.get(lsNumber) || 'Desconocida';
+                        } else {
+                            d.LS = 'Desconocida';
+                        }
+                        d.MesShort = monthLongToShort[d.Mes] || d.Mes;
                     });
                     
                     const monthOrder = ['Ago', 'Sep', 'Oct', 'Nov', 'Dic', 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul'];
@@ -346,19 +355,32 @@
                         const selectedCeCo = Array.from(cecoFilterEl.selectedOptions).map(o => o.value);
                         const selectedMonths = d3.selectAll("#month-buttons button.active").nodes().map(n => n.textContent);
                         
-                        let filteredData = [];
-                        
+                        let monthlyFilteredData = [];
+                        let annualFilteredData = [];
+
                         if (selectedLS.length > 0 && selectedCeCo.length > 0) {
-                             filteredData = fullData.filter(d => {
+                            annualFilteredData = fullData.filter(d => {
                                 const lsMatch = selectedLS.includes("Todas") || selectedLS.includes(d.LS);
                                 const cecoMatch = selectedCeCo.includes("Todos") || selectedCeCo.includes(d.CeCo);
-                                const monthMatch = selectedMonths.includes(d.Mes);
-                                return lsMatch && cecoMatch && monthMatch;
+                                return lsMatch && cecoMatch;
                             });
+                             currentDetailData = detailData.filter(d => {
+                                const lsMatch = selectedLS.includes("Todas") || selectedLS.includes(d.LS);
+                                if (!lsMatch) return false;
+                                
+                                const cebeForThisRow = String(d.CeBe).trim();
+                                const cecoMatch = selectedCeCo.includes("Todos") || selectedCeCo.some(sel => sel.startsWith("UF_" + cebeForThisRow));
+                                return cecoMatch;
+                            });
+
+                            if (selectedMonths.length > 0) {
+                                monthlyFilteredData = annualFilteredData.filter(d => selectedMonths.includes(d.Mes));
+                                currentDetailData = currentDetailData.filter(d => selectedMonths.includes(d.MesShort));
+                            }
                         }
                         
-                        const totalPlan = d3.sum(filteredData.filter(d => d.Escenario === 'Plan Operativo'), d => d.Monto);
-                        const totalReal = d3.sum(filteredData.filter(d => d.Escenario === 'Real'), d => d.Monto);
+                        const totalPlan = d3.sum(monthlyFilteredData.filter(d => d.Escenario === 'Plan Operativo'), d => d.Monto);
+                        const totalReal = d3.sum(currentDetailData, d => d['Importe en ML']);
                         const varianceAmount = totalReal - totalPlan;
                         const variancePercent = (totalPlan === 0) ? 0 : varianceAmount / totalPlan;
 
@@ -371,33 +393,18 @@
                             .attr('class', 'text-3xl font-bold mt-2')
                             .classed('text-green-600', variancePercent < 0).classed('text-red-600', variancePercent > 0);
                         
-                        updateAnnualChart(fullData, selectedLS, selectedCeCo, monthOrder);
-                        updateConceptsTable(filteredData);
+                        updateAnnualChart(annualFilteredData, monthOrder);
+                        updateConceptsTable(monthlyFilteredData, currentDetailData);
+                        updateDetailTable(currentDetailData);
+                        updateProviderTable(currentDetailData);
                     };
 
-                    const updateAnnualChart = (data, selectedLS, selectedCeCo, monthOrder) => {
+                    const updateAnnualChart = (data, monthOrder) => {
                         d3.select("#annual-chart-container svg").remove();
                         d3.select("#annual-table-container table").remove();
 
-                         const annualFilteredData = data.filter(d => {
-                            const lsMatch = selectedLS.includes("Todas") || selectedLS.includes(d.LS);
-                            const cecoMatch = selectedCeCo.includes("Todos") || selectedCeCo.includes(d.CeCo);
-                            return lsMatch && cecoMatch;
-                        });
-
-                        const monthlyTotals = d3.rollup(annualFilteredData, v => d3.sum(v, d => d.Monto), d => d.Mes, d => d.Escenario);
-                        const chartData = monthOrder.map(month => {
-                            const plan = monthlyTotals.get(month)?.get('Plan Operativo') || 0;
-                            const real = monthlyTotals.get(month)?.get('Real') || 0;
-                            return { 
-                                month, 
-                                plan,
-                                real,
-                                variance: real - plan,
-                                variancePercent: plan === 0 ? 0 : (real - plan) / plan
-                            };
-                        });
-                        
+                        const monthlyTotals = d3.rollup(data, v => d3.sum(v, d => d.Monto), d => d.Mes, d => d.Escenario);
+                        const chartData = monthOrder.map(month => ({ month, plan: monthlyTotals.get(month)?.get('Plan Operativo') || 0, real: monthlyTotals.get(month)?.get('Real') || 0 }));
                         const container = d3.select("#annual-chart-container");
                         if (!container.node() || container.node().getBoundingClientRect().width === 0) return;
                         const margin = { top: 40, right: 20, bottom: 30, left: 80 };
@@ -452,10 +459,23 @@
                         footerRow.append("td").attr("class", "px-6 py-3 text-right").classed("text-red-600", totalVariancePercent > 0).classed("text-green-600", totalVariancePercent < 0).text(formatPercent(totalVariancePercent));
                     };
 
+                    const updateConceptsTable = (planData, realData) => {
+                        const planConcepts = d3.rollup(planData.filter(d=>d.Escenario === 'Plan Operativo'), v => d3.sum(v, d=>d.Monto), d => d.Concepto);
+                        const realConcepts = d3.rollup(realData, v => d3.sum(v, d=>d['Importe en ML']), d => d['Cuenta SV']);
 
-                    const updateConceptsTable = (filteredData) => {
-                        const conceptsData = d3.rollup(filteredData, v => ({ plan: d3.sum(v.filter(d => d.Escenario === 'Plan Operativo'), d=>d.Monto), real: d3.sum(v.filter(d => d.Escenario === 'Real'), d=>d.Monto) }), d => d.Concepto);
-                        const tableData = Array.from(conceptsData, ([key, value]) => ({ concept: key, ...value, variance: value.real - value.plan, variancePercent: (value.plan === 0) ? 0 : (value.real - value.plan) / value.plan })).sort((a, b) => { const indexA = conceptOrder.indexOf(a.concept); const indexB = conceptOrder.indexOf(b.concept); if (indexA === -1 && indexB === -1) return a.concept.localeCompare(b.concept); if (indexA === -1) return 1; if (indexB === -1) return -1; return indexA - indexB; });
+                        const allConcepts = new Set([...planConcepts.keys(), ...realConcepts.keys()]);
+                        
+                        const tableData = Array.from(allConcepts, concept => {
+                            const plan = planConcepts.get(concept) || 0;
+                            const real = realConcepts.get(concept) || 0;
+                            return {
+                                concept,
+                                plan,
+                                real,
+                                variance: real - plan,
+                                variancePercent: (plan === 0) ? 0 : (real - plan) / plan
+                            }
+                        }).sort((a, b) => { const indexA = conceptOrder.indexOf(a.concept); const indexB = conceptOrder.indexOf(b.concept); if (indexA === -1 && indexB === -1) return a.concept.localeCompare(b.concept); if (indexA === -1) return 1; if (indexB === -1) return -1; return indexA - indexB; });
                         
                         const rows = d3.select("#concepts-table").selectAll("tr").data(tableData, d => d.concept);
                         rows.exit().remove();
@@ -482,6 +502,60 @@
                             footerRow.append("td").attr("class", "px-3 py-2 text-right font-bold").classed("text-red-600", totalVariance > 0).classed("text-green-600", totalVariance < 0).text(formatCurrency(totalVariance));
                             footerRow.append("td").attr("class", "px-3 py-2 text-right font-bold").classed("text-red-600", totalVariancePercent > 0).classed("text-green-600", totalVariancePercent < 0).text(formatPercent(totalVariancePercent));
                         }
+                    };
+                    
+                    const createSortableHeader = () => {
+                        const headers = [ { key: 'Cuenta SV', label: 'Concepto Gasto', width: '13%' }, { key: 'Cuenta Contable', label: 'Cta. Contable', width: '20%' }, { key: 'Texto', label: 'Texto', width: '25%' }, { key: 'Oc', label: 'OC', width: '7%' }, { key: 'Proveedor / Usuario', label: 'Proveedor/Usuario', width: '15%' }, { key: 'Importe en ML', label: 'Importe', width: '10%' }, { key: 'Solicitante OC', label: 'Solicitante OC', width: '10%' } ];
+                        const headerRow = d3.select("#detail-table-header").selectAll("tr").data([1]).join("tr");
+                        headerRow.selectAll("th").data(headers).join("th").attr("class", "px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider sortable-header").style("width", d => d.width).classed("text-right", d => d.key === 'Importe en ML').on("click", (event, d) => { if (detailSortState.key === d.key) { detailSortState.order = detailSortState.order === 'asc' ? 'desc' : 'asc'; } else { detailSortState.key = d.key; detailSortState.order = 'asc'; } updateDetailTable(currentDetailData); }).html(d => { let sortIcon = ''; if (detailSortState.key === d.key) { sortIcon = detailSortState.order === 'asc' ? ' ▲' : ' ▼'; } return d.label + sortIcon; });
+                    };
+
+                    const updateDetailTable = (data) => {
+                        createSortableHeader();
+                        const ivaRows = data.filter(d => d['Cuenta SV'] === 'IVA');
+                        let nonIvaRows = data.filter(d => d['Cuenta SV'] !== 'IVA');
+                        let finalData = [...nonIvaRows];
+                        if (ivaRows.length > 0) {
+                            const totalIva = d3.sum(ivaRows, d => d['Importe en ML']);
+                            const aggregatedIvaRow = { 'Cuenta SV': 'IVA (Total)', 'Cuenta Contable': '-', 'Texto': `Total de ${ivaRows.length} transacciones de IVA`, 'Oc': '-', 'Proveedor / Usuario': '-', 'Importe en ML': totalIva, 'Solicitante OC': '-', isAggregated: true };
+                            finalData.push(aggregatedIvaRow);
+                        }
+                        finalData.sort((a, b) => { const key = detailSortState.key; let valA = a[key]; let valB = b[key]; const order = detailSortState.order === 'asc' ? 1 : -1; if (typeof valA === 'string' && typeof valB === 'string') { return valA.localeCompare(valB) * order; } return (valA - valB) * order; });
+                        const tableBody = d3.select("#detail-table");
+                        const rows = tableBody.selectAll("tr").data(finalData, (d,i) => i);
+                        rows.exit().remove();
+                        const newRows = rows.enter().append("tr").attr("class", "text-sm");
+                        newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 break-words');
+                        newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 break-words');
+                        newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 break-words');
+                        newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 whitespace-nowrap');
+                        newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 break-words');
+                        newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 text-right whitespace-nowrap');
+                        newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 whitespace-nowrap');
+
+                        const allRows = newRows.merge(rows);
+                        allRows.select("td:nth-child(1)").text(d => d['Cuenta SV']);
+                        allRows.select("td:nth-child(2)").text(d => d['Cuenta Contable']);
+                        allRows.select("td:nth-child(3)").text(d => d.Texto);
+                        allRows.select("td:nth-child(4)").text(d => d.Oc);
+                        allRows.select("td:nth-child(5)").text(d => d['Proveedor / Usuario']);
+                        allRows.select("td:nth-child(6)").text(d => formatCurrency(d['Importe en ML']));
+                        allRows.select("td:nth-child(7)").text(d => d['Solicitante OC']);
+                    };
+
+                    const updateProviderTable = (data) => {
+                        const providerData = data.filter(d => d['Proveedor / Usuario'] && d['Proveedor / Usuario'].toUpperCase().trim() !== 'AMEX');
+                        const providerTotals = d3.rollup( providerData, v => d3.sum(v, d => d['Importe en ML']), d => d['Proveedor / Usuario'] );
+                        const top5Providers = Array.from(providerTotals, ([provider, amount]) => ({ provider, amount })).sort((a, b) => b.amount - a.amount).slice(0, 5);
+                        const tableBody = d3.select("#provider-table");
+                        const rows = tableBody.selectAll("tr").data(top5Providers, d => d.provider);
+                        rows.exit().remove();
+                        const newRows = rows.enter().append("tr").attr("class", "text-sm");
+                        newRows.append("td").attr("class", "px-3 py-2 text-gray-700 dark:text-gray-300 whitespace-nowrap");
+                        newRows.append("td").attr("class", "px-3 py-2 text-right text-gray-700 dark:text-gray-300 whitespace-nowrap");
+                        const allRows = newRows.merge(rows);
+                        allRows.select("td:nth-child(1)").text(d => d.provider);
+                        allRows.select("td:nth-child(2)").text(d => formatCurrency(d.amount));
                     };
 
                     const handleMultiSelect = (element, previousSelection, isAllSelector) => {
@@ -536,7 +610,7 @@
                 })
                 .catch(error => {
                     console.error("Error al cargar o procesar el archivo CSV:", error);
-                    d3.select("body").html(`<div class="h-screen w-screen flex items-center justify-center bg-red-100 text-red-800 p-8"><div class="text-center"><h1 class="text-2xl font-bold">Error al cargar datos</h1><p class="mt-2">No se pudo encontrar el archivo <strong>Gastos_SV.csv</strong>. Por favor, asegúrate de que el archivo se encuentre en la misma carpeta que este archivo HTML y que el nombre sea correcto.</p></div></div>`);
+                    d3.select("body").html(`<div class="h-screen w-screen flex items-center justify-center bg-red-100 text-red-800 p-8"><div class="text-center"><h1 class="text-2xl font-bold">Error al cargar datos</h1><p class="mt-2">No se pudieron encontrar los archivos <strong>Gastos_SV.csv</strong> o <strong>DB_Gastos.csv</strong>. Por favor, asegúrate de que ambos archivos se encuentren en la misma carpeta que este archivo HTML y que los nombres sean correctos.</p></div></div>`);
                 });
         });
     </script>
