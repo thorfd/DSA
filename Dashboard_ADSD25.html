@@ -6,6 +6,7 @@
     <title>Dashboard de Inscritos</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Leaflet (para el mapa) -->
@@ -190,6 +191,15 @@
                     <h3 class="font-semibold text-lg text-gray-800">Distribución por Tipo de Estudiante</h3>
                     <div class="chart-container"><canvas id="type-chart"></canvas></div>
                 </div>
+                <!-- Gráficas de Edad -->
+                 <div class="chart-card p-6 rounded-xl shadow">
+                    <h3 class="font-semibold text-lg text-gray-800">Distribución por Rango de Edad</h3>
+                    <div class="chart-container"><canvas id="age-range-chart"></canvas></div>
+                </div>
+                 <div class="chart-card p-6 rounded-xl shadow">
+                    <h3 class="font-semibold text-lg text-gray-800">Distribución por Edad Específica</h3>
+                    <div class="chart-container"><canvas id="specific-age-chart"></canvas></div>
+                </div>
                 <div class="chart-card p-6 rounded-xl shadow">
                     <h3 class="font-semibold text-lg text-gray-800">Distribución de Becas</h3>
                     <div class="chart-container"><canvas id="scholarship-dist-chart"></canvas></div>
@@ -209,15 +219,6 @@
                          </div>
                     </div>
                     <div class="chart-container"><canvas id="timeline-chart"></canvas></div>
-                </div>
-                <!-- Gráficas de Edad -->
-                 <div class="chart-card p-6 rounded-xl shadow">
-                    <h3 class="font-semibold text-lg text-gray-800">Distribución por Rango de Edad</h3>
-                    <div class="chart-container"><canvas id="age-range-chart"></canvas></div>
-                </div>
-                 <div class="chart-card p-6 rounded-xl shadow">
-                    <h3 class="font-semibold text-lg text-gray-800">Distribución por Edad Específica</h3>
-                    <div class="chart-container"><canvas id="specific-age-chart"></canvas></div>
                 </div>
             </section>
             
@@ -517,6 +518,9 @@
         const chartColors = ['#4f46e5', '#ec4899', '#10b981', '#f59e0b', '#3b82f6', '#8b5cf6', '#ef4444', '#6b7280'];
         
         function createCharts() {
+            Chart.register(ChartDataLabels);
+            Chart.defaults.set('plugins.datalabels', { display: false });
+
             charts.level = new Chart('level-chart', { type: 'pie', options: getChartOptions() });
             charts.campus = new Chart('campus-chart', { type: 'doughnut', options: getChartOptions() });
             charts.major = new Chart('major-chart', { type: 'bar', options: getChartOptions({ indexAxis: 'y' }) });
@@ -524,7 +528,16 @@
             charts.type = new Chart('type-chart', { type: 'doughnut', options: getChartOptions() });
             charts.timeline = new Chart('timeline-chart', { type: 'line', options: getChartOptions({ scales: { y: { beginAtZero: true } } }) });
             charts.scholarship = new Chart('scholarship-dist-chart', { type: 'bar', options: getChartOptions({ scales: { y: { beginAtZero: true } } }) });
-            charts.ageRange = new Chart('age-range-chart', { type: 'bar', options: getChartOptions({ scales: { y: { beginAtZero: true } } }) });
+            
+            const ageRangeOptions = getChartOptions({ scales: { y: { beginAtZero: true } } });
+            ageRangeOptions.plugins.datalabels = {
+                display: true,
+                anchor: 'end',
+                align: 'top',
+                color: document.documentElement.classList.contains('dark') ? '#d1d5db' : '#374151',
+                font: { weight: 'bold' }
+            };
+            charts.ageRange = new Chart('age-range-chart', { type: 'bar', options: ageRangeOptions });
             charts.specificAge = new Chart('specific-age-chart', { type: 'bar', options: getChartOptions({ scales: { y: { beginAtZero: true } } }) });
         }
 
@@ -652,6 +665,9 @@
                          chart.options.scales.y.ticks.color = newTextColor;
                          chart.options.scales.y.grid.color = newGridColor;
                     }
+                }
+                if(chart.options.plugins.datalabels) {
+                    chart.options.plugins.datalabels.color = newTextColor;
                 }
                 if (chart.config.type !== 'line') {
                     chart.data.datasets[0].borderColor = isDarkMode ? '#1f2937' : '#ffffff';
