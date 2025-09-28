@@ -333,7 +333,8 @@
                 const data = await response.json();
                 if (data && data.length > 0) {
                     const lastCommitDate = new Date(data[0].commit.committer.date);
-                    updateTimeSpan.textContent = `Actualizado: ${lastCommitDate.toLocaleString()}`;
+                    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true };
+                    updateTimeSpan.textContent = `Actualizado: ${lastCommitDate.toLocaleString('es-ES', options)}`;
                 } else {
                     updateTimeSpan.textContent = 'No se pudo obtener la fecha';
                 }
