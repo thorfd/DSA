@@ -128,6 +128,38 @@
                     </div>
                 </aside>
             </section>
+
+             <!-- Nueva Sección: KPIs de Desglose -->
+            <section id="detail-kpis" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="kpi-card bg-white rounded-lg shadow p-6">
+                    <h3 class="text-gray-500 font-semibold">Gasto Total (Desglose)</h3>
+                    <p id="total-gasto-detail" class="text-3xl font-bold mt-2 text-blue-600">$0.00</p>
+                </div>
+                <div class="kpi-card bg-white rounded-lg shadow p-6">
+                    <h3 class="text-gray-500 font-semibold">Top 5 Conceptos de Gasto</h3>
+                    <ol id="top-gastos-detail" class="list-decimal list-inside mt-2 text-sm space-y-1"></ol>
+                </div>
+                <div class="kpi-card bg-white rounded-lg shadow p-6">
+                    <h3 class="text-gray-500 font-semibold">Top 5 Proveedores/Usuarios</h3>
+                    <ol id="top-proveedores-detail" class="list-decimal list-inside mt-2 text-sm space-y-1"></ol>
+                </div>
+            </section>
+            
+            <!-- Nueva Sección: Desglose de Gastos -->
+            <section id="detail-breakdown" class="chart-card bg-white p-6 rounded-lg shadow-md">
+                <h2 class="chart-title text-xl font-semibold text-gray-900 mb-4">Desglose de Gastos</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full divide-y divide-gray-200 table-fixed">
+                        <thead id="detail-table-header" class="bg-gray-50">
+                            <!-- El encabezado se generará dinámicamente -->
+                        </thead>
+                        <tbody id="detail-table" class="bg-white divide-y divide-gray-200">
+                           <!-- Filas de detalle se generarán aquí -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
         </main>
     </div>
 
@@ -155,7 +187,8 @@
             };
 
             // --- Formateadores y Constantes ---
-            const formatCurrency = (value) => new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(value);
+            const formatCurrency = (value) => new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(value);
+            const formatCurrencyNoDecimals = (value) => new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(value);
             const formatPercent = (value) => new Intl.NumberFormat('es-MX', { style: 'percent', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
             
             const formatSiCustom = (n) => {
@@ -187,23 +220,55 @@
             ];
             
             let fullData = [];
+            let detailData = [];
+            let currentDetailData = [];
+            let detailSortState = { key: 'Importe en ML', order: 'desc' };
             let previousLSSelection = ["Todas"];
             let previousCeCoSelection = ["Todos"];
 
             // --- Carga de Datos y Lógica del Dashboard ---
             const summaryUrl = "Gastos_SV.csv";
+            const detailUrl = "DB_Gastos.csv";
             
-            fetch(summaryUrl, { cache: "no-store" })
-                .then(res => {
+            Promise.all([
+                fetch(summaryUrl, { cache: "no-store" }).then(res => {
                     if (!res.ok) throw new Error(`No se pudo cargar ${summaryUrl}`);
                     updateFileTimestamp(res.headers.get('Last-Modified'));
                     return res.text();
-                })
-                .then(csvText => d3.csvParse(csvText))
-                .then(summary => {
+                }).then(text => d3.csvParse(text)),
+                fetch(detailUrl, { cache: "no-store" }).then(res => {
+                    if (!res.ok) throw new Error(`No se pudo cargar ${detailUrl}`);
+                    return res.text();
+                }).then(text => d3.csvParse(text))
+            ]).then(([summary, detail]) => {
                     fullData = summary;
+                    detailData = detail;
+
+                    const lsNumberToNameMap = new Map();
                     fullData.forEach(d => {
                         d.Monto = +d.Monto || 0;
+                        const match = d.LS.match(/LS_(\d+)/);
+                        if (match && !lsNumberToNameMap.has(match[1])) {
+                            lsNumberToNameMap.set(match[1], d.LS);
+                        }
+                    });
+
+                    const monthLongToShort = {
+                        'Enero': 'Ene', 'Febrero': 'Feb', 'Marzo': 'Mar', 'Abril': 'Abr', 
+                        'Mayo': 'May', 'Junio': 'Jun', 'Julio': 'Jul', 'Agosto': 'Ago', 
+                        'Septiembre': 'Sep', 'Octubre': 'Oct', 'Noviembre': 'Nov', 'Diciembre': 'Dic'
+                    };
+
+                    detailData.forEach(d => {
+                        d['Importe en ML'] = +d['Importe en ML'] || 0;
+                        const cebeStr = String(d.CeBe).trim();
+                        if (cebeStr.length > 5) {
+                            const lsNumber = cebeStr.substring(3, 5);
+                            d.LS = lsNumberToNameMap.get(lsNumber) || 'Desconocida';
+                        } else {
+                            d.LS = 'Desconocida';
+                        }
+                        d.MesShort = monthLongToShort[d.Mes] || d.Mes;
                     });
                     
                     const monthOrder = ['Ago', 'Sep', 'Oct', 'Nov', 'Dic', 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul'];
@@ -283,19 +348,32 @@
                         const selectedCeCo = Array.from(cecoFilterEl.selectedOptions).map(o => o.value);
                         const selectedMonths = d3.selectAll("#month-buttons button.active").nodes().map(n => n.textContent);
                         
-                        let filteredData = [];
-                        
+                        let monthlyFilteredData = [];
+                        let annualFilteredData = [];
+
                         if (selectedLS.length > 0 && selectedCeCo.length > 0) {
-                             filteredData = fullData.filter(d => {
+                            annualFilteredData = fullData.filter(d => {
                                 const lsMatch = selectedLS.includes("Todas") || selectedLS.includes(d.LS);
                                 const cecoMatch = selectedCeCo.includes("Todos") || selectedCeCo.includes(d.CeCo);
-                                const monthMatch = selectedMonths.includes(d.Mes);
-                                return lsMatch && cecoMatch && monthMatch;
+                                return lsMatch && cecoMatch;
                             });
+                             currentDetailData = detailData.filter(d => {
+                                const lsMatch = selectedLS.includes("Todas") || selectedLS.includes(d.LS);
+                                if (!lsMatch) return false;
+                                
+                                const cebeForThisRow = String(d.CeBe).trim();
+                                const cecoMatch = selectedCeCo.includes("Todos") || selectedCeCo.some(sel => sel.includes(cebeForThisRow));
+                                return cecoMatch;
+                            });
+
+                            if (selectedMonths.length > 0) {
+                                monthlyFilteredData = annualFilteredData.filter(d => selectedMonths.includes(d.Mes));
+                                currentDetailData = currentDetailData.filter(d => selectedMonths.includes(d.MesShort));
+                            }
                         }
                         
-                        const totalPlan = d3.sum(filteredData.filter(d => d.Escenario === 'Plan Operativo'), d => d.Monto);
-                        const totalReal = d3.sum(filteredData.filter(d => d.Escenario === 'Real'), d => d.Monto);
+                        const totalPlan = d3.sum(monthlyFilteredData.filter(d => d.Escenario === 'Plan Operativo'), d => d.Monto);
+                        const totalReal = d3.sum(currentDetailData, d => d['Importe en ML']);
                         const varianceAmount = totalReal - totalPlan;
                         const variancePercent = (totalPlan === 0) ? 0 : varianceAmount / totalPlan;
 
@@ -308,21 +386,17 @@
                             .attr('class', 'text-3xl font-bold mt-2')
                             .classed('text-green-600', variancePercent < 0).classed('text-red-600', variancePercent > 0);
                         
-                        updateAnnualChart(fullData, selectedLS, selectedCeCo, monthOrder);
-                        updateConceptsTable(filteredData);
+                        updateAnnualChart(annualFilteredData, monthOrder);
+                        updateConceptsTable(monthlyFilteredData, currentDetailData);
+                        updateDetailKPIs(currentDetailData);
+                        updateDetailTable(currentDetailData);
                     };
 
-                    const updateAnnualChart = (data, selectedLS, selectedCeCo, monthOrder) => {
+                    const updateAnnualChart = (data, monthOrder) => {
                         d3.select("#annual-chart-container svg").remove();
                         d3.select("#annual-table-container table").remove();
 
-                         const annualFilteredData = data.filter(d => {
-                            const lsMatch = selectedLS.includes("Todas") || selectedLS.includes(d.LS);
-                            const cecoMatch = selectedCeCo.includes("Todos") || selectedCeCo.includes(d.CeCo);
-                            return lsMatch && cecoMatch;
-                        });
-
-                        const monthlyTotals = d3.rollup(annualFilteredData, v => d3.sum(v, d => d.Monto), d => d.Mes, d => d.Escenario);
+                        const monthlyTotals = d3.rollup(data, v => d3.sum(v, d => d.Monto), d => d.Mes, d => d.Escenario);
                         const chartData = monthOrder.map(month => {
                             const plan = monthlyTotals.get(month)?.get('Plan Operativo') || 0;
                             const real = monthlyTotals.get(month)?.get('Real') || 0;
@@ -369,9 +443,9 @@
                         const tbody = table.append("tbody");
 
                         const rowsData = [
-                            { label: 'Real', key: 'real', format: formatCurrency },
-                            { label: 'Plan', key: 'plan', format: formatCurrency },
-                            { label: 'Var. ($)', key: 'variance', format: formatCurrency, isVariance: true },
+                            { label: 'Real', key: 'real', format: formatCurrencyNoDecimals },
+                            { label: 'Plan', key: 'plan', format: formatCurrencyNoDecimals },
+                            { label: 'Var. ($)', key: 'variance', format: formatCurrencyNoDecimals, isVariance: true },
                             { label: 'Var. (%)', key: 'variancePercent', format: formatPercent, isVariance: true }
                         ];
                         
@@ -404,35 +478,112 @@
                         });
                     };
 
-                    const updateConceptsTable = (filteredData) => {
-                        const conceptsData = d3.rollup(filteredData, v => ({ plan: d3.sum(v.filter(d => d.Escenario === 'Plan Operativo'), d=>d.Monto), real: d3.sum(v.filter(d => d.Escenario === 'Real'), d=>d.Monto) }), d => d.Concepto);
-                        const tableData = Array.from(conceptsData, ([key, value]) => ({ concept: key, ...value, variance: value.real - value.plan, variancePercent: (value.plan === 0) ? 0 : (value.real - value.plan) / value.plan })).sort((a, b) => { const indexA = conceptOrder.indexOf(a.concept); const indexB = conceptOrder.indexOf(b.concept); if (indexA === -1 && indexB === -1) return a.concept.localeCompare(b.concept); if (indexA === -1) return 1; if (indexB === -1) return -1; return indexA - indexB; });
+                    const updateConceptsTable = (planData, realData) => {
+                        const planConcepts = d3.rollup(planData.filter(d=>d.Escenario === 'Plan Operativo'), v => d3.sum(v, d=>d.Monto), d => d.Concepto);
+                        const realConcepts = d3.rollup(realData, v => d3.sum(v, d=>d['Importe en ML']), d => d['Cuenta SV']);
+
+                        const allConcepts = new Set([...planConcepts.keys(), ...realConcepts.keys()]);
+                        
+                        const tableData = Array.from(allConcepts, concept => {
+                            const plan = planConcepts.get(concept) || 0;
+                            const real = realConcepts.get(concept) || 0;
+                            return {
+                                concept,
+                                plan,
+                                real,
+                                variance: real - plan,
+                                variancePercent: (plan === 0) ? 0 : (real - plan) / plan
+                            }
+                        }).sort((a, b) => { const indexA = conceptOrder.indexOf(a.concept); const indexB = conceptOrder.indexOf(b.concept); if (indexA === -1 && indexB === -1) return a.concept.localeCompare(b.concept); if (indexA === -1) return 1; if (indexB === -1) return -1; return indexA - indexB; });
                         
                         const rows = d3.select("#concepts-table").selectAll("tr").data(tableData, d => d.concept);
                         rows.exit().remove();
                         const newRows = rows.enter().append("tr").attr("class", "text-sm");
-                        newRows.append("td").attr("class", "px-3 py-2 font-medium text-gray-900 whitespace-nowrap");
-                        newRows.append("td").attr("class", "px-3 py-2 text-right text-gray-700");
-                        newRows.append("td").attr("class", "px-3 py-2 text-right text-gray-700");
+                        newRows.append("td").attr("class", "px-3 py-2 font-medium text-gray-900 dark:text-white whitespace-nowrap");
+                        newRows.append("td").attr("class", "px-3 py-2 text-right text-gray-700 dark:text-gray-300");
+                        newRows.append("td").attr("class", "px-3 py-2 text-right text-gray-700 dark:text-gray-300");
                         newRows.append("td").attr("class", "px-3 py-2 text-right font-semibold");
                         newRows.append("td").attr("class", "px-3 py-2 text-right font-semibold");
                         const allRows = newRows.merge(rows);
                         allRows.select("td:nth-child(1)").text(d => d.concept);
-                        allRows.select("td:nth-child(2)").text(d => formatCurrency(d.plan));
-                        allRows.select("td:nth-child(3)").text(d => formatCurrency(d.real));
+                        allRows.select("td:nth-child(2)").text(formatCurrency(d.plan));
+                        allRows.select("td:nth-child(3)").text(formatCurrency(d.real));
                         allRows.select("td:nth-child(4)").text(d => formatCurrency(d.variance)).attr("class", "px-3 py-2 text-right font-semibold").classed("text-red-600", d => d.variance > 0).classed("text-green-600", d => d.variance < 0);
                         allRows.select("td:nth-child(5)").text(d => formatPercent(d.variancePercent)).attr("class", "px-3 py-2 text-right font-semibold").classed("text-red-600", d => d.variancePercent > 0).classed("text-green-600", d => d.variancePercent < 0);
                         const footer = d3.select("#concepts-table-footer");
                         footer.selectAll("tr").remove();
                         if(tableData.length > 0) {
                             const totalPlan = d3.sum(tableData, d => d.plan); const totalReal = d3.sum(tableData, d => d.real); const totalVariance = totalReal - totalPlan; const totalVariancePercent = (totalPlan === 0) ? 0 : totalVariance / totalPlan;
-                            const footerRow = footer.append("tr").attr("class", "text-sm border-t-2 border-gray-300");
-                            footerRow.append("td").attr("class", "px-3 py-2 text-left font-bold text-gray-900").text("Total");
-                            footerRow.append("td").attr("class", "px-3 py-2 text-right font-bold text-gray-900").text(formatCurrency(totalPlan));
-                            footerRow.append("td").attr("class", "px-3 py-2 text-right font-bold text-gray-900").text(formatCurrency(totalReal));
+                            const footerRow = footer.append("tr").attr("class", "text-sm border-t-2 border-gray-300 dark:border-gray-600");
+                            footerRow.append("td").attr("class", "px-3 py-2 text-left font-bold text-gray-900 dark:text-white").text("Total");
+                            footerRow.append("td").attr("class", "px-3 py-2 text-right font-bold text-gray-900 dark:text-white").text(formatCurrency(totalPlan));
+                            footerRow.append("td").attr("class", "px-3 py-2 text-right font-bold text-gray-900 dark:text-white").text(formatCurrency(totalReal));
                             footerRow.append("td").attr("class", "px-3 py-2 text-right font-bold").classed("text-red-600", totalVariance > 0).classed("text-green-600", totalVariance < 0).text(formatCurrency(totalVariance));
                             footerRow.append("td").attr("class", "px-3 py-2 text-right font-bold").classed("text-red-600", totalVariancePercent > 0).classed("text-green-600", totalVariancePercent < 0).text(formatPercent(totalVariancePercent));
                         }
+                    };
+                    
+                     const createSortableHeader = () => {
+                        const headers = [ { key: 'Cuenta SV', label: 'Concepto Gasto', width: '15%' }, { key: 'Cuenta Contable', label: 'Cta. Contable', width: '20%' }, { key: 'Texto', label: 'Texto', width: '25%' }, { key: 'Oc', label: 'OC', width: '7%' }, { key: 'Proveedor / Usuario', label: 'Proveedor/Usuario', width: '15%' }, { key: 'Importe en ML', label: 'Importe', width: '10%' }, { key: 'Solicitante OC', label: 'Solicitante OC', width: '8%' } ];
+                        const headerRow = d3.select("#detail-table-header").selectAll("tr").data([1]).join("tr");
+                        headerRow.selectAll("th").data(headers).join("th").attr("class", "px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider sortable-header").style("width", d => d.width).classed("text-right", d => d.key === 'Importe en ML').on("click", (event, d) => { if (detailSortState.key === d.key) { detailSortState.order = detailSortState.order === 'asc' ? 'desc' : 'asc'; } else { detailSortState.key = d.key; detailSortState.order = 'asc'; } updateDetailTable(currentDetailData); }).html(d => { let sortIcon = ''; if (detailSortState.key === d.key) { sortIcon = detailSortState.order === 'asc' ? ' ▲' : ' ▼'; } return d.label + sortIcon; });
+                    };
+
+                    const updateDetailTable = (data) => {
+                        createSortableHeader();
+                        const ivaRows = data.filter(d => d['Cuenta SV'] === 'IVA');
+                        let nonIvaRows = data.filter(d => d['Cuenta SV'] !== 'IVA');
+                        let finalData = [...nonIvaRows];
+                        if (ivaRows.length > 0) {
+                            const totalIva = d3.sum(ivaRows, d => d['Importe en ML']);
+                            const aggregatedIvaRow = { 'Cuenta SV': 'IVA (Total)', 'Cuenta Contable': '-', 'Texto': `Total de ${ivaRows.length} transacciones de IVA`, 'Oc': '-', 'Proveedor / Usuario': '-', 'Importe en ML': totalIva, 'Solicitante OC': '-', isAggregated: true };
+                            finalData.push(aggregatedIvaRow);
+                        }
+                        finalData.sort((a, b) => { const key = detailSortState.key; let valA = a[key]; let valB = b[key]; const order = detailSortState.order === 'asc' ? 1 : -1; if (typeof valA === 'string' && typeof valB === 'string') { return valA.localeCompare(valB) * order; } return (valA - valB) * order; });
+                        const tableBody = d3.select("#detail-table");
+                        const rows = tableBody.selectAll("tr").data(finalData, (d,i) => i);
+                        rows.exit().remove();
+                        const newRows = rows.enter().append("tr").attr("class", "text-sm");
+                        newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 break-words');
+                        newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 break-words');
+                        newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 break-words');
+                        newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 whitespace-nowrap');
+                        newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 break-words');
+                        newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 text-right whitespace-nowrap');
+                        newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 whitespace-nowrap');
+
+                        const allRows = newRows.merge(rows);
+                        allRows.select("td:nth-child(1)").text(d => d['Cuenta SV']);
+                        allRows.select("td:nth-child(2)").text(d => d['Cuenta Contable']);
+                        allRows.select("td:nth-child(3)").text(d => d.Texto);
+                        allRows.select("td:nth-child(4)").text(d => d.Oc);
+                        allRows.select("td:nth-child(5)").text(d => d['Proveedor / Usuario']);
+                        allRows.select("td:nth-child(6)").text(d => formatCurrency(d['Importe en ML']));
+                        allRows.select("td:nth-child(7)").text(d => d['Solicitante OC']);
+                    };
+                    
+                    const updateDetailKPIs = (data) => {
+                         const totalGasto = d3.sum(data, d => d['Importe en ML']);
+                        d3.select("#total-gasto-detail").text(formatCurrency(totalGasto));
+
+                        const gastosAgrupados = d3.rollup(data, v => d3.sum(v, d => d['Importe en ML']), d => d['Cuenta SV']);
+                        const topGastos = Array.from(gastosAgrupados, ([name, value]) => ({name, value})).sort((a,b) => b.value - a.value).slice(0,5);
+                        renderTopList(d3.select("#top-gastos-detail"), topGastos);
+
+                        const proveedoresAgrupados = d3.rollup(data.filter(d => d['Proveedor / Usuario'].toUpperCase().trim() !== 'AMEX'), v => d3.sum(v, d => d['Importe en ML']), d => d['Proveedor / Usuario']);
+                        const topProveedores = Array.from(proveedoresAgrupados, ([name, value]) => ({name, value})).sort((a,b) => b.value - a.value).slice(0,5);
+                        renderTopList(d3.select("#top-proveedores-detail"), topProveedores);
+                    };
+
+                    const renderTopList = (element, data) => {
+                        element.html('');
+                        if (data.length === 0) {
+                             element.append('li').attr('class', 'text-gray-500').text('No hay datos.');
+                             return;
+                        }
+                        data.forEach(item => {
+                            element.append('li').attr('class', 'truncate').html(`<span class="font-medium">${item.name}</span> <span class="text-gray-600 dark:text-gray-400 float-right">${formatCurrency(item.value)}</span>`);
+                        });
                     };
 
                     const handleMultiSelect = (element, previousSelection, isAllSelector) => {
@@ -486,8 +637,8 @@
 
                 })
                 .catch(error => {
-                    console.error("Error al cargar o procesar el archivo CSV:", error);
-                    d3.select("body").html(`<div class="h-screen w-screen flex items-center justify-center bg-red-100 text-red-800 p-8"><div class="text-center"><h1 class="text-2xl font-bold">Error al cargar datos</h1><p class="mt-2">No se pudo encontrar el archivo <strong>Gastos_SV.csv</strong>. Por favor, asegúrate de que el archivo se encuentre en la misma carpeta que este archivo HTML y que el nombre sea correcto.</p></div></div>`);
+                    console.error("Error al cargar o procesar los archivos CSV:", error);
+                    d3.select("body").html(`<div class="h-screen w-screen flex items-center justify-center bg-red-100 text-red-800 p-8"><div class="text-center"><h1 class="text-2xl font-bold">Error al cargar datos</h1><p class="mt-2">No se pudieron encontrar los archivos <strong>Gastos_SV.csv</strong> o <strong>DB_Gastos.csv</strong>. Por favor, asegúrate de que ambos archivos se encuentren en la misma carpeta que este archivo HTML y que los nombres sean correctos.</p></div></div>`);
                 });
         });
     </script>
