@@ -6,6 +6,7 @@
     <title>Dashboard de Ingresos | Educación Continua 25-26</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -170,13 +171,19 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
                  <!-- Chart Containers -->
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+                <div id="monthly-chart-card" class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg relative">
+                    <button onclick="captureElementAsPNG('monthly-chart-card', 'comparativa-mensual.png')" class="absolute top-4 right-4 p-2 rounded-full bg-gray-200/50 dark:bg-gray-900/50 hover:bg-gray-300/70 dark:hover:bg-gray-700/70 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 z-10" title="Descargar como imagen">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                    </button>
                     <h3 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Comparativa Mensual: Real vs. Plan</h3>
                     <div class="chart-container">
                         <canvas id="monthlyChart"></canvas>
                     </div>
                 </div>
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+                <div id="cumulative-chart-card" class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg relative">
+                    <button onclick="captureElementAsPNG('cumulative-chart-card', 'desempeno-acumulado.png')" class="absolute top-4 right-4 p-2 rounded-full bg-gray-200/50 dark:bg-gray-900/50 hover:bg-gray-300/70 dark:hover:bg-gray-700/70 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 z-10" title="Descargar como imagen">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                    </button>
                     <h3 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Desempeño Acumulado: Real vs. Plan</h3>
                     <div class="chart-container">
                         <canvas id="cumulativeChart"></canvas>
@@ -186,7 +193,10 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <!-- Data Table and Donut Chart -->
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg lg:col-span-2">
+                <div id="table-card" class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg lg:col-span-2 relative">
+                    <button onclick="captureElementAsPNG('table-card', 'detalle-ingresos.png')" class="absolute top-4 right-4 p-2 rounded-full bg-gray-200/50 dark:bg-gray-900/50 hover:bg-gray-300/70 dark:hover:bg-gray-700/70 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 z-10" title="Descargar como imagen">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                    </button>
                     <h3 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Detalle de Ingresos Mensuales</h3>
                     <div class="overflow-x-auto table-container">
                         <table class="w-full text-left whitespace-nowrap">
@@ -204,7 +214,10 @@
                         </table>
                     </div>
                 </div>
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg flex flex-col items-center justify-center">
+                <div id="donut-chart-card" class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg flex flex-col items-center justify-center relative">
+                     <button onclick="captureElementAsPNG('donut-chart-card', 'proporcion-cumplimiento.png')" class="absolute top-4 right-4 p-2 rounded-full bg-gray-200/50 dark:bg-gray-900/50 hover:bg-gray-300/70 dark:hover:bg-gray-700/70 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 z-10" title="Descargar como imagen">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                    </button>
                      <h3 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Proporción de Cumplimiento</h3>
                      <div class="chart-container" style="height:30vh">
                         <canvas id="complianceDonutChart"></canvas>
@@ -212,6 +225,11 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Notification Element -->
+    <div id="notification" class="fixed bottom-5 right-5 bg-green-600 text-white py-2 px-4 rounded-lg shadow-xl transform translate-y-20 opacity-0 transition-all duration-300 ease-in-out">
+        Imagen descargada.
     </div>
 
 <script>
@@ -453,6 +471,57 @@ function renderCharts() {
         type: 'doughnut', data: { labels: ['Alcanzado', 'Faltante'], datasets: [{ data: [kpiSummaryGlobal.totalReal, remainingPlan], backgroundColor: [isDark ? 'rgb(45, 212, 191)' : 'rgb(13, 148, 136)', isDark ? 'rgb(75, 85, 99)' : 'rgb(209, 213, 219)'], borderColor: isDark ? '#1f2937' : '#ffffff', borderWidth: 4, hoverOffset: 8 }] },
         options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { display: false }, tooltip: { ...tooltipConfig, callbacks: { label: c => `${c.label || ''}: ${currencyFormatter.format(c.raw)} (${(kpiSummaryGlobal.totalPlan > 0 ? (c.raw / kpiSummaryGlobal.totalPlan) * 100 : 0).toFixed(2)}%)` } } } }
     });
+}
+
+// --- Image Capture ---
+function showNotification(message) {
+    const notification = document.getElementById('notification');
+    notification.textContent = message;
+    notification.classList.remove('translate-y-20', 'opacity-0');
+    notification.classList.add('translate-y-0', 'opacity-100');
+
+    setTimeout(() => {
+        notification.classList.remove('translate-y-0', 'opacity-100');
+        notification.classList.add('translate-y-20', 'opacity-0');
+    }, 3000);
+}
+
+async function captureElementAsPNG(elementId, fileName) {
+    const elementToCapture = document.getElementById(elementId);
+    if (!elementToCapture) {
+        console.error(`Element with id ${elementId} not found.`);
+        return;
+    }
+
+    // Ocultar botones de captura temporalmente
+    const buttons = elementToCapture.querySelectorAll('button');
+    buttons.forEach(btn => btn.style.visibility = 'hidden');
+
+    try {
+        const canvas = await html2canvas(elementToCapture, {
+            allowTaint: true,
+            useCORS: true,
+            backgroundColor: window.getComputedStyle(elementToCapture).backgroundColor,
+            // Aumentar la escala para mejor calidad de imagen
+            scale: 2 
+        });
+        
+        const link = document.createElement('a');
+        link.download = fileName;
+        link.href = canvas.toDataURL("image/png");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        showNotification(`'${fileName}' descargada.`);
+
+    } catch (error) {
+        console.error('Error capturing element:', error);
+        showNotification('Error al capturar la imagen.');
+    } finally {
+        // Volver a mostrar los botones
+        buttons.forEach(btn => btn.style.visibility = 'visible');
+    }
 }
 </script>
 
