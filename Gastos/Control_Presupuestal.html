@@ -434,7 +434,7 @@
                                 const lsMatch = selectedLS.includes("Todas") || selectedLS.includes(d.LS);
                                 if (!lsMatch) return false;
                                 
-                                const cecoMatch = selectedCeCo.includes("Todos") || selectedCeCo.some(sel => sel === d.CeCo.trim());
+                                const cecoMatch = selectedCeCo.includes("Todos") || selectedCeCo.includes(d.CeCo.trim());
                                 return cecoMatch;
                             });
 
@@ -503,8 +503,8 @@
 
                         // --- Tabla Anual ---
                         const tableContainer = d3.select("#annual-table-container");
-                        const table = tableContainer.append("table").attr("class", "w-full text-sm text-left text-gray-500 dark:text-gray-400");
-                        const thead = table.append("thead").attr("class", "text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400");
+                        const table = tableContainer.append("table").attr("class", "w-full text-sm text-left text-gray-500");
+                        const thead = table.append("thead").attr("class", "text-xs text-gray-700 uppercase bg-gray-50");
                         const headerRow = thead.append("tr");
                         headerRow.append("th").attr("scope", "col").attr("class", "px-4 py-2").text("Concepto");
                         monthOrder.forEach(month => {
@@ -529,8 +529,8 @@
                         };
 
                         rowsData.forEach(rowData => {
-                            const row = tbody.append("tr").attr("class", "bg-white border-b dark:bg-gray-800 dark:border-gray-700");
-                            row.append("th").attr("scope", "row").attr("class", "px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white").text(rowData.label);
+                            const row = tbody.append("tr").attr("class", "bg-white border-b");
+                            row.append("th").attr("scope", "row").attr("class", "px-4 py-2 font-medium text-gray-900 whitespace-nowrap").text(rowData.label);
 
                             chartData.forEach(d => {
                                 const cell = row.append("td").attr("class", "px-4 py-2 text-right");
