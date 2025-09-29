@@ -170,7 +170,7 @@
                 </aside>
             </section>
 
-            <!-- Nueva Sección: KPIs de Desglose -->
+             <!-- Nueva Sección: KPIs de Desglose -->
             <section id="detail-kpis" class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="kpi-card bg-white dark:bg-gray-800 rounded-lg shadow p-6">
                     <h3 class="text-gray-500 dark:text-gray-400 font-semibold">Gasto Total (Desglose)</h3>
@@ -200,7 +200,7 @@
                     </table>
                 </div>
             </section>
-            
+
         </main>
     </div>
 
@@ -596,7 +596,7 @@
                     };
                     
                     const createSortableHeader = () => {
-                        const headers = [ { key: 'Cuenta SV', label: 'Concepto Gasto', width: '15%' }, { key: 'Cuenta Contable', label: 'Cta. Contable', width: '20%' }, { key: 'Texto', label: 'Texto', width: '25%' }, { key: 'Oc', label: 'OC', width: '7%' }, { key: 'Proveedor / Usuario', label: 'Proveedor/Usuario', width: '15%' }, { key: 'Importe en ML', label: 'Importe', width: '10%' }, { key: 'Solicitante OC', label: 'Solicitante OC', width: '8%' } ];
+                        const headers = [ { key: 'Cuenta SV', label: 'Concepto de Gasto', width: '15%' }, { key: 'Cuenta Contable', label: 'Subcuenta', width: '20%' }, { key: 'Texto', label: 'Concepto', width: '25%' }, { key: 'Proveedor / Usuario', label: 'Proveedor/Usuario', width: '15%' }, { key: 'Solicitante OC', label: 'Solicitante', width: '8%' }, { key: 'Oc', label: 'OC', width: '7%' }, { key: 'Importe en ML', label: 'Importe', width: '10%' } ];
                         const headerRow = d3.select("#detail-table-header").selectAll("tr").data([1]).join("tr");
                         headerRow.selectAll("th").data(headers).join("th").attr("class", "px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider sortable-header").style("width", d => d.width).classed("text-right", d => d.key === 'Importe en ML').on("click", (event, d) => { if (detailSortState.key === d.key) { detailSortState.order = detailSortState.order === 'asc' ? 'desc' : 'asc'; } else { detailSortState.key = d.key; detailSortState.order = 'asc'; } updateDetailTable(currentDetailData); }).html(d => { let sortIcon = ''; if (detailSortState.key === d.key) { sortIcon = detailSortState.order === 'asc' ? ' ▲' : ' ▼'; } return d.label + sortIcon; });
                     };
@@ -619,8 +619,8 @@
                         newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 break-words');
                         newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 break-words');
                         newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 break-words');
-                        newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 whitespace-nowrap');
                         newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 break-words');
+                        newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 whitespace-nowrap');
                         newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 text-right whitespace-nowrap');
                         newRows.append('td').attr('class', 'px-3 py-2 text-xs text-gray-700 dark:text-gray-300 whitespace-nowrap');
 
@@ -628,10 +628,10 @@
                         allRows.select("td:nth-child(1)").text(d => d['Cuenta SV']);
                         allRows.select("td:nth-child(2)").text(d => d['Cuenta Contable']);
                         allRows.select("td:nth-child(3)").text(d => d.Texto);
-                        allRows.select("td:nth-child(4)").text(d => d.Oc);
-                        allRows.select("td:nth-child(5)").text(d => d['Proveedor / Usuario']);
-                        allRows.select("td:nth-child(6)").text(d => formatCurrency(d['Importe en ML']));
-                        allRows.select("td:nth-child(7)").text(d => d['Solicitante OC']);
+                        allRows.select("td:nth-child(4)").text(d => d['Proveedor / Usuario']);
+                        allRows.select("td:nth-child(5)").text(d => d['Solicitante OC']);
+                        allRows.select("td:nth-child(6)").text(d => d.Oc);
+                        allRows.select("td:nth-child(7)").text(d => formatCurrency(d['Importe en ML']));
                     };
                     
                     const updateDetailKPIs = (data) => {
