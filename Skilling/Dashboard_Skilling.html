@@ -90,6 +90,11 @@
                     </svg>
                     <span id="last-updated"></span>
                 </div>
+                <button onclick="captureElementAsPNG('summary-capture-area', 'resumen-indicadores.png')" class="p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300" title="Descargar resumen de KPIs como imagen">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                </button>
                 <button id="theme-toggle" class="p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
                     <svg id="theme-icon-light" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
                     <svg id="theme-icon-dark" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
@@ -104,65 +109,68 @@
         </div>
 
         <div id="dashboard-content" class="hidden">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <!-- KPI Cards -->
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg flex flex-col justify-between">
-                    <h2 class="text-gray-500 dark:text-gray-400 font-semibold">Ingreso Real Total</h2>
-                    <p id="kpi-real" class="kpi-value font-bold text-teal-600 dark:text-teal-400">Cargando...</p>
+            
+            <div id="summary-capture-area" class="mb-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <!-- KPI Cards -->
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg flex flex-col justify-between">
+                        <h2 class="text-gray-500 dark:text-gray-400 font-semibold">Ingreso Real Total</h2>
+                        <p id="kpi-real" class="kpi-value font-bold text-teal-600 dark:text-teal-400">Cargando...</p>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg flex flex-col justify-between">
+                        <h2 class="text-gray-500 dark:text-gray-400 font-semibold">Ingreso Plan Total</h2>
+                        <p id="kpi-plan" class="kpi-value font-bold text-sky-600 dark:text-sky-400">Cargando...</p>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg flex flex-col justify-between">
+                        <h2 class="text-gray-500 dark:text-gray-400 font-semibold">Cumplimiento del Plan</h2>
+                        <p id="kpi-compliance" class="kpi-value font-bold text-green-600 dark:text-green-400">Cargando...</p>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg flex flex-col justify-between">
+                        <h2 class="text-gray-500 dark:text-gray-400 font-semibold">Diferencia vs. Plan</h2>
+                        <p id="kpi-difference" class="kpi-value font-bold text-gray-800 dark:text-gray-200">Cargando...</p>
+                    </div>
                 </div>
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg flex flex-col justify-between">
-                    <h2 class="text-gray-500 dark:text-gray-400 font-semibold">Ingreso Plan Total</h2>
-                    <p id="kpi-plan" class="kpi-value font-bold text-sky-600 dark:text-sky-400">Cargando...</p>
-                </div>
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg flex flex-col justify-between">
-                    <h2 class="text-gray-500 dark:text-gray-400 font-semibold">Cumplimiento del Plan</h2>
-                    <p id="kpi-compliance" class="kpi-value font-bold text-green-600 dark:text-green-400">Cargando...</p>
-                </div>
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg flex flex-col justify-between">
-                    <h2 class="text-gray-500 dark:text-gray-400 font-semibold">Diferencia vs. Plan</h2>
-                    <p id="kpi-difference" class="kpi-value font-bold text-gray-800 dark:text-gray-200">Cargando...</p>
-                </div>
-            </div>
 
-            <!-- Sección de Ingresos Acumulados por Periodo -->
-            <div class="mb-8">
-                <h3 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">Ingresos Acumulados por Periodo</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Card Ago-Dic 25 -->
-                    <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
-                        <h4 class="text-lg font-semibold text-gray-500 dark:text-gray-400 mb-4">Periodo Ago-Dic 25</h4>
-                        <div class="space-y-3">
-                            <div class="flex justify-between items-baseline">
-                                <span class="text-gray-600 dark:text-gray-300">Ingreso Real:</span>
-                                <span id="acum-real-1" class="font-bold text-lg text-teal-600 dark:text-teal-400">Cargando...</span>
-                            </div>
-                            <div class="flex justify-between items-baseline">
-                                <span class="text-gray-600 dark:text-gray-300">Ingreso Plan:</span>
-                                <span id="acum-plan-1" class="font-bold text-lg text-sky-600 dark:text-sky-400">Cargando...</span>
-                            </div>
-                            <div class="border-t border-gray-200 dark:border-gray-700 my-2"></div>
-                            <div class="flex justify-between items-baseline">
-                                <span class="text-gray-600 dark:text-gray-300 font-bold">Cumplimiento:</span>
-                                <span id="acum-compliance-1" class="font-bold text-xl">Cargando...</span>
+                <!-- Sección de Ingresos Acumulados por Periodo -->
+                <div>
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">Ingresos Acumulados por Periodo</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Card Ago-Dic 25 -->
+                        <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+                            <h4 class="text-lg font-semibold text-gray-500 dark:text-gray-400 mb-4">Periodo Ago-Dic 25</h4>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-baseline">
+                                    <span class="text-gray-600 dark:text-gray-300">Ingreso Real:</span>
+                                    <span id="acum-real-1" class="font-bold text-lg text-teal-600 dark:text-teal-400">Cargando...</span>
+                                </div>
+                                <div class="flex justify-between items-baseline">
+                                    <span class="text-gray-600 dark:text-gray-300">Ingreso Plan:</span>
+                                    <span id="acum-plan-1" class="font-bold text-lg text-sky-600 dark:text-sky-400">Cargando...</span>
+                                </div>
+                                <div class="border-t border-gray-200 dark:border-gray-700 my-2"></div>
+                                <div class="flex justify-between items-baseline">
+                                    <span class="text-gray-600 dark:text-gray-300 font-bold">Cumplimiento:</span>
+                                    <span id="acum-compliance-1" class="font-bold text-xl">Cargando...</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- Card Ene-Jul 26 -->
-                    <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
-                        <h4 class="text-lg font-semibold text-gray-500 dark:text-gray-400 mb-4">Periodo Ene-Jul 26</h4>
-                        <div class="space-y-3">
-                            <div class="flex justify-between items-baseline">
-                                <span class="text-gray-600 dark:text-gray-300">Ingreso Real:</span>
-                                <span id="acum-real-2" class="font-bold text-lg text-teal-600 dark:text-teal-400">Cargando...</span>
-                            </div>
-                            <div class="flex justify-between items-baseline">
-                                <span class="text-gray-600 dark:text-gray-300">Ingreso Plan:</span>
-                                <span id="acum-plan-2" class="font-bold text-lg text-sky-600 dark:text-sky-400">Cargando...</span>
-                            </div>
-                            <div class="border-t border-gray-200 dark:border-gray-700 my-2"></div>
-                            <div class="flex justify-between items-baseline">
-                                <span class="text-gray-600 dark:text-gray-300 font-bold">Cumplimiento:</span>
-                                <span id="acum-compliance-2" class="font-bold text-xl">Cargando...</span>
+                        <!-- Card Ene-Jul 26 -->
+                        <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+                            <h4 class="text-lg font-semibold text-gray-500 dark:text-gray-400 mb-4">Periodo Ene-Jul 26</h4>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-baseline">
+                                    <span class="text-gray-600 dark:text-gray-300">Ingreso Real:</span>
+                                    <span id="acum-real-2" class="font-bold text-lg text-teal-600 dark:text-teal-400">Cargando...</span>
+                                </div>
+                                <div class="flex justify-between items-baseline">
+                                    <span class="text-gray-600 dark:text-gray-300">Ingreso Plan:</span>
+                                    <span id="acum-plan-2" class="font-bold text-lg text-sky-600 dark:text-sky-400">Cargando...</span>
+                                </div>
+                                <div class="border-t border-gray-200 dark:border-gray-700 my-2"></div>
+                                <div class="flex justify-between items-baseline">
+                                    <span class="text-gray-600 dark:text-gray-300 font-bold">Cumplimiento:</span>
+                                    <span id="acum-compliance-2" class="font-bold text-xl">Cargando...</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -527,4 +535,5 @@ async function captureElementAsPNG(elementId, fileName) {
 
 </body>
 </html>
+"
 
