@@ -170,6 +170,22 @@
                 </aside>
             </section>
             
+             <!-- Nueva Sección: KPIs de Desglose -->
+            <section id="detail-kpis" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="kpi-card bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+                    <h3 class="text-gray-500 dark:text-gray-400 font-semibold">Gasto Total (Desglose)</h3>
+                    <p id="total-gasto-detail" class="text-3xl font-bold mt-2 text-blue-600">$0.00</p>
+                </div>
+                <div class="kpi-card bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+                    <h3 class="text-gray-500 dark:text-gray-400 font-semibold">Top 5 Conceptos de Gasto</h3>
+                    <ol id="top-gastos-detail" class="list-decimal list-inside mt-2 text-sm space-y-1"></ol>
+                </div>
+                <div class="kpi-card bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+                    <h3 class="text-gray-500 dark:text-gray-400 font-semibold">Top 5 Proveedores/Usuarios</h3>
+                    <ol id="top-proveedores-detail" class="list-decimal list-inside mt-2 text-sm space-y-1"></ol>
+                </div>
+            </section>
+            
             <!-- Nueva Sección: Desglose de Gastos -->
             <section id="detail-breakdown" class="chart-card bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
                 <h2 class="chart-title text-xl font-semibold text-gray-900 dark:text-white mb-4">Desglose de Gastos</h2>
@@ -184,24 +200,7 @@
                     </table>
                 </div>
             </section>
-            
-            <!-- Nueva Sección: Top 5 Proveedores -->
-            <section id="top-providers" class="chart-card bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-                <h2 class="chart-title text-xl font-semibold text-gray-900 dark:text-white mb-4">Top 5 Proveedores</h2>
-                <div class="overflow-x-auto">
-                    <table class="w-full">
-                        <thead class="border-b-2 border-gray-200 dark:border-gray-700">
-                            <tr>
-                                <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Proveedor</th>
-                                <th class="px-3 py-2 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Monto Total</th>
-                            </tr>
-                        </thead>
-                        <tbody id="provider-table" class="divide-y divide-gray-200 dark:divide-gray-700">
-                           <!-- Filas de proveedores se generarán aquí -->
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+
         </main>
     </div>
 
@@ -435,8 +434,7 @@
                                 const lsMatch = selectedLS.includes("Todas") || selectedLS.includes(d.LS);
                                 if (!lsMatch) return false;
                                 
-                                const cebeForThisRow = String(d.CeBe).trim();
-                                const cecoMatch = selectedCeCo.includes("Todos") || selectedCeCo.some(sel => sel.includes(cebeForThisRow));
+                                const cecoMatch = selectedCeCo.includes("Todos") || selectedCeCo.some(sel => sel === d.CeCo.trim());
                                 return cecoMatch;
                             });
 
@@ -505,8 +503,8 @@
 
                         // --- Tabla Anual ---
                         const tableContainer = d3.select("#annual-table-container");
-                        const table = tableContainer.append("table").attr("class", "w-full text-sm text-left text-gray-500");
-                        const thead = table.append("thead").attr("class", "text-xs text-gray-700 uppercase bg-gray-50");
+                        const table = tableContainer.append("table").attr("class", "w-full text-sm text-left text-gray-500 dark:text-gray-400");
+                        const thead = table.append("thead").attr("class", "text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400");
                         const headerRow = thead.append("tr");
                         headerRow.append("th").attr("scope", "col").attr("class", "px-4 py-2").text("Concepto");
                         monthOrder.forEach(month => {
@@ -531,8 +529,8 @@
                         };
 
                         rowsData.forEach(rowData => {
-                            const row = tbody.append("tr").attr("class", "bg-white border-b");
-                            row.append("th").attr("scope", "row").attr("class", "px-4 py-2 font-medium text-gray-900 whitespace-nowrap").text(rowData.label);
+                            const row = tbody.append("tr").attr("class", "bg-white border-b dark:bg-gray-800 dark:border-gray-700");
+                            row.append("th").attr("scope", "row").attr("class", "px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white").text(rowData.label);
 
                             chartData.forEach(d => {
                                 const cell = row.append("td").attr("class", "px-4 py-2 text-right");
@@ -597,7 +595,7 @@
                         }
                     };
                     
-                     const createSortableHeader = () => {
+                    const createSortableHeader = () => {
                         const headers = [ { key: 'Cuenta SV', label: 'Concepto Gasto', width: '15%' }, { key: 'Cuenta Contable', label: 'Cta. Contable', width: '20%' }, { key: 'Texto', label: 'Texto', width: '25%' }, { key: 'Oc', label: 'OC', width: '7%' }, { key: 'Proveedor / Usuario', label: 'Proveedor/Usuario', width: '15%' }, { key: 'Importe en ML', label: 'Importe', width: '10%' }, { key: 'Solicitante OC', label: 'Solicitante OC', width: '8%' } ];
                         const headerRow = d3.select("#detail-table-header").selectAll("tr").data([1]).join("tr");
                         headerRow.selectAll("th").data(headers).join("th").attr("class", "px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider sortable-header").style("width", d => d.width).classed("text-right", d => d.key === 'Importe en ML').on("click", (event, d) => { if (detailSortState.key === d.key) { detailSortState.order = detailSortState.order === 'asc' ? 'desc' : 'asc'; } else { detailSortState.key = d.key; detailSortState.order = 'asc'; } updateDetailTable(currentDetailData); }).html(d => { let sortIcon = ''; if (detailSortState.key === d.key) { sortIcon = detailSortState.order === 'asc' ? ' ▲' : ' ▼'; } return d.label + sortIcon; });
