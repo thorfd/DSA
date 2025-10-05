@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tablero de Ingresos - TecVenues Laguna 25-26</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .kpi-card {
+            transition: all 0.3s ease;
+        }
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+        
+        <!-- Header -->
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Tablero de Ingresos por Rentas</h1>
+            <p class="text-md text-gray-600">TecVenues Laguna 25-26</p>
+        </header>
+
+        <!-- Data container (hidden) -->
+        <pre id="csvData" class="hidden">
+Línea de Servicio,Cuenta Contable,Real Ago 25,Plan Ago 25,Real Sep 25,Plan Sep 25,Real Oct 25,Plan Oct 25,Real Nov 25,Plan Nov 25,Real Dic 25,Plan Dic 25,Acum Real Ago-Dic 25,Acum Plan Ago-Dic 25,Real Ene 26,Plan Ene 26,Real Feb 26,Plan Feb 26,Real Mar 26,Plan Mar 26,Real Abr 26,Plan Abr 26,Real May 26,Plan May 26,Real Jun 26,Plan Jun 26,Real Jul 26,Plan Jul 26,Acum Real Ene-Jul 26,Acum Plan Ene-Jul 26
+LS_13 - Arrendamientos,ER_5000 - Ingresos Netos Totales,3300,15000,21600,15000,0,15000,0,15000,0,15000,24900,75000,0,15000,0,15000,0,15000,0,15000,0,15000,0,15000,0,15000,0,105000
+        </pre>
+
+        <!-- KPIs Section -->
+        <div id="kpi-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- KPI Cards will be injected here by JavaScript -->
+        </div>
+
+        <!-- Charts Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Main Chart: Real vs Plan -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold mb-4">Ingreso Real vs. Planificado</h2>
+                <canvas id="mainChart"></canvas>
+            </div>
+            <!-- Compliance Gauge Chart -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold mb-4">Cumplimiento del Plan Anual</h2>
+                <div class="relative h-64 w-full flex items-center justify-center">
+                   <canvas id="gaugeChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- 1. DATA PARSING ---
+            const csvText = document.getElementById('csvData').textContent.trim();
+            const lines = csvText.split('\n');
+            const headers = lines[0].split(',');
+            const dataRow = lines[1].split(',');
+
+            const data = {};
+            headers.forEach((header, i) => {
+                data[header] = isNaN(parseFloat(dataRow[i])) ? dataRow[i] : parseFloat(dataRow[i]);
+            });
+
+            // --- 2. DATA PROCESSING ---
+            const months = ['Ago 25', 'Sep 25', 'Oct 25', 'Nov 25', 'Dic 25', 'Ene 26', 'Feb 26', 'Mar 26', 'Abr 26', 'May 26', 'Jun 26', 'Jul 26'];
+            const realData = months.map(month => data[`Real ${month}`] || 0);
+            const planData = months.map(month => data[`Plan ${month}`] || 0);
+
+            const totalReal = realData.reduce((sum, value) => sum + value, 0);
+            const totalPlan = planData.reduce((sum, value) => sum + value, 0);
+            const variance = totalReal - totalPlan;
+            const compliance = totalPlan > 0 ? (totalReal / totalPlan) * 100 : 0;
+            
+            // Function to format currency
+            const formatCurrency = (value) => new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(value);
+
+            // --- 3. RENDER KPIs ---
+            const kpiContainer = document.getElementById('kpi-container');
+            const kpis = [
+                { title: 'Ingreso Real Total', value: formatCurrency(totalReal), color: 'blue' },
+                { title: 'Ingreso Planificado Total', value: formatCurrency(totalPlan), color: 'gray' },
+                { title: 'Cumplimiento del Plan', value: `${compliance.toFixed(1)}%`, color: compliance >= 100 ? 'green' : (compliance >= 75 ? 'yellow' : 'red') },
+                { title: 'Varianza vs. Plan', value: formatCurrency(variance), color: variance >= 0 ? 'green' : 'red' }
+            ];
+
+            const colorClasses = {
+                blue: { border: 'border-blue-500', text: 'text-blue-600' },
+                gray: { border: 'border-gray-400', text: 'text-gray-600' },
+                green: { border: 'border-green-500', text: 'text-green-600' },
+                yellow: { border: 'border-yellow-500', text: 'text-yellow-600' },
+                red: { border: 'border-red-500', text: 'text-red-500' }
+            };
+
+            kpis.forEach(kpi => {
+                const colors = colorClasses[kpi.color];
+                const card = `
+                    <div class="kpi-card bg-white p-6 rounded-lg shadow-md border-l-4 ${colors.border}">
+                        <h3 class="text-sm font-medium text-gray-500">${kpi.title}</h3>
+                        <p class="text-3xl font-bold ${colors.text} mt-2">${kpi.value}</p>
+                    </div>
+                `;
+                kpiContainer.innerHTML += card;
+            });
+
+            // --- 4. RENDER CHARTS ---
+            
+            // Main Line/Bar Chart
+            const mainChartCtx = document.getElementById('mainChart').getContext('2d');
+            new Chart(mainChartCtx, {
+                type: 'bar',
+                data: {
+                    labels: months,
+                    datasets: [
+                        {
+                            label: 'Ingreso Real',
+                            data: realData,
+                            backgroundColor: 'rgba(59, 130, 246, 0.7)',
+                            borderColor: 'rgba(59, 130, 246, 1)',
+                            borderWidth: 2,
+                            type: 'bar',
+                            order: 2
+                        },
+                        {
+                            label: 'Ingreso Planificado',
+                            data: planData,
+                            borderColor: 'rgba(107, 114, 128, 1)',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            fill: false,
+                            type: 'line',
+                            order: 1,
+                            tension: 0.2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return formatCurrency(value);
+                                }
+                            }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: ${formatCurrency(context.raw)}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Gauge Chart
+            const gaugeChartCtx = document.getElementById('gaugeChart').getContext('2d');
+            const gaugeData = {
+                labels: ['Cumplido', 'Restante'],
+                datasets: [{
+                    data: [compliance, 100 - compliance],
+                    backgroundColor: [
+                        'rgba(34, 197, 94, 0.8)', // green
+                        'rgba(229, 231, 235, 0.8)', // gray
+                    ],
+                    borderColor: [
+                        'rgba(34, 197, 94, 1)',
+                        'rgba(209, 213, 219, 1)'
+                    ],
+                    borderWidth: 1,
+                    circumference: 180,
+                    rotation: 270,
+                }]
+            };
+            new Chart(gaugeChartCtx, {
+                type: 'doughnut',
+                data: gaugeData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: false },
+                        // Custom text in the middle
+                        title: {
+                            display: true,
+                            text: `${compliance.toFixed(1)}%`,
+                            position: 'top',
+                            align: 'center',
+                            font: { size: 36, weight: 'bold' },
+                            color: '#111827',
+                            padding: { top: 70 }
+                        }
+                    },
+                    cutout: '70%'
+                }
+            });
+        });
+    </script>
+</body>
+</html>
