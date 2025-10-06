@@ -331,15 +331,27 @@ async function loadDataAndInitializeDashboard() {
 // --- Data Parsing and UI Updates ---
 function parseData(csv) {
     const lines = csv.trim().split('\n');
+    
+    // Función de parseo de CSV robusta
     function parseCsvLine(line) {
-        const result = []; let buffer = ''; let inQuotes = false;
+        const values = [];
+        let currentVal = '';
+        let inQuotes = false;
         for (let i = 0; i < line.length; i++) {
             const char = line[i];
-            if (char === '"') { inQuotes = !inQuotes; continue; }
-            if (char === ',' && !inQuotes) { result.push(buffer); buffer = ''; } else { buffer += char; }
+            if (char === '"') {
+                inQuotes = !inQuotes;
+            } else if (char === ',' && !inQuotes) {
+                values.push(currentVal);
+                currentVal = '';
+            } else {
+                currentVal += char;
+            }
         }
-        result.push(buffer); return result;
+        values.push(currentVal);
+        return values;
     }
+
     const dataLine = parseCsvLine(lines.filter(l => l.trim() !== '')[1]);
     const monthly = [];
     const months = ["Ago 25", "Sep 25", "Oct 25", "Nov 25", "Dic 25", "Ene 26", "Feb 26", "Mar 26", "Abr 26", "May 26", "Jun 26", "Jul 26"];
@@ -351,18 +363,23 @@ function parseData(csv) {
     };
     
     // Extract monthly data
-    let currentIndex = 2;
-    for (let i = 0; i < 5; i++) { // Ago to Dic
-        monthly.push({ month: months[i], real: cleanValue(dataLine[currentIndex]), plan: cleanValue(dataLine[currentIndex + 1]) });
-        currentIndex += 2;
+    let dataIndex = 2; // Start after the first two description columns
+    // First 5 months (Ago-Dic)
+    for (let i = 0; i < 5; i++) {
+        monthly.push({ month: months[i], real: cleanValue(dataLine[dataIndex]), plan: cleanValue(dataLine[dataIndex + 1]) });
+        dataIndex += 2;
     }
-    currentIndex += 2; // Skip first accumulated block
-    for (let i = 5; i < 12; i++) { // Ene to Jul
-        monthly.push({ month: months[i], real: cleanValue(dataLine[currentIndex]), plan: cleanValue(dataLine[currentIndex + 1]) });
-        currentIndex += 2;
+    
+    // Skip accumulated data for the monthly parse
+    dataIndex += 2;
+
+    // Next 7 months (Ene-Jul)
+    for (let i = 5; i < 12; i++) {
+        monthly.push({ month: months[i], real: cleanValue(dataLine[dataIndex]), plan: cleanValue(dataLine[dataIndex + 1]) });
+        dataIndex += 2;
     }
 
-    // Extract accumulated data
+    // Extract accumulated data using fixed indices based on the expected CSV structure
     const accumulated = {
         period1: { real: cleanValue(dataLine[12]), plan: cleanValue(dataLine[13]) },
         period2: { real: cleanValue(dataLine[28]), plan: cleanValue(dataLine[29]) }
@@ -535,5 +552,4 @@ async function captureElementAsPNG(elementId, fileName) {
 
 </body>
 </html>
-"
 
