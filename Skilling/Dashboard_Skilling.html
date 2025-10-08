@@ -287,7 +287,8 @@ async function loadDataAndInitializeDashboard() {
     const dataFile = './Ingresos_SC.csv'; 
 
     try {
-        const response = await fetch(dataFile);
+        // CORRECCIÓN: Se agrega un parámetro a la URL para evitar que el navegador use una versión en caché del archivo CSV.
+        const response = await fetch(`${dataFile}?v=${new Date().getTime()}`);
         if (!response.ok) {
             throw new Error(`No se pudo encontrar el archivo ${dataFile}. Código de error: ${response.status}`);
         }
@@ -332,31 +333,28 @@ async function loadDataAndInitializeDashboard() {
 function parseData(csv) {
     const lines = csv.trim().split('\n');
     
-    // Función de parseo de CSV robusta
+    // CORRECCIÓN: Se implementa una función de parseo de CSV más robusta que maneja correctamente las comas dentro de valores entre comillas.
     function parseCsvLine(line) {
         const values = [];
-        let currentVal = '';
-        let inQuotes = false;
-        for (let i = 0; i < line.length; i++) {
-            const char = line[i];
-            if (char === '"') {
-                inQuotes = !inQuotes;
-            } else if (char === ',' && !inQuotes) {
-                values.push(currentVal);
-                currentVal = '';
-            } else {
-                currentVal += char;
-            }
+        const regex = /(?:"([^"]*(?:""[^"]*)*)"|([^,]*))(?:,|$)/g;
+        let match;
+        while (match = regex.exec(line)) {
+            let value = match[1] !== undefined ? match[1].replace(/""/g, '"') : match[2];
+            values.push(value);
         }
-        values.push(currentVal);
         return values;
     }
+    
+    const dataLine = parseCsvLine(lines.filter(l => l.trim() !== '' && !l.toLowerCase().startsWith('línea de servicio'))[0]);
+    
+    if (!dataLine || dataLine.length < 30) {
+        throw new Error("El archivo CSV no tiene el formato o las columnas esperadas.");
+    }
 
-    const dataLine = parseCsvLine(lines.filter(l => l.trim() !== '')[1]);
     const monthly = [];
     const months = ["Ago 25", "Sep 25", "Oct 25", "Nov 25", "Dic 25", "Ene 26", "Feb 26", "Mar 26", "Abr 26", "May 26", "Jun 26", "Jul 26"];
     const cleanValue = (str) => {
-        if (!str || !str.trim()) return 0;
+        if (typeof str !== 'string' || !str.trim()) return 0;
         const cleaned = str.trim().replace(/"/g, '').replace(/\$/g, '').replace(/,/g, '').trim();
         const value = parseFloat(cleaned);
         return isNaN(value) ? 0 : value;
