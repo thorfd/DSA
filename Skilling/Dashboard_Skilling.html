@@ -345,7 +345,14 @@ function processAndRenderDashboard(csvData) {
         renderCharts();
     } catch (parseError) {
         console.error("Error parsing data:", parseError);
-        alert(`Error al procesar los datos: ${parseError.message}`);
+        const loadingSection = document.getElementById('loading-section');
+        const uploadSection = document.getElementById('upload-section');
+        loadingSection.classList.add('hidden');
+        uploadSection.classList.remove('hidden');
+        // Actualizar el mensaje de error para ser más específico
+        uploadSection.querySelector('h2').textContent = 'Error al Procesar el Archivo';
+        uploadSection.querySelector('p').innerHTML = `Hubo un problema al leer el archivo CSV. Asegúrate de que el formato sea correcto.<br><br><span class="text-sm text-red-400">Detalle: ${parseError.message}</span>`;
+
     }
 }
 
@@ -359,7 +366,6 @@ document.getElementById('csv-file').addEventListener('change', (event) => {
         processAndRenderDashboard(csvData);
         document.getElementById('upload-section').classList.add('hidden');
         document.getElementById('dashboard-content').classList.remove('hidden');
-        // Manually set update time for local files
         updateLastModified(file.lastModified);
     };
     reader.readAsText(file, 'UTF-8');
@@ -381,13 +387,17 @@ function parseData(csv) {
         return values;
     }
     
-    const dataLine = parseCsvLine(lines.filter(l => {
-        const trimmedLine = l.trim().toLowerCase();
-        return trimmedLine !== '' && !trimmedLine.startsWith('línea de servicio') && !trimmedLine.startsWith(',,real,plan');
-    })[0]);
+    // CORRECCIÓN: Se busca la línea de datos de forma más robusta.
+    const dataLineString = lines.find(l => l.trim().toUpperCase().startsWith('LS_03'));
+    
+    if (!dataLineString) {
+        throw new Error("No se encontró la línea de datos que comienza con 'LS_03'.");
+    }
+
+    const dataLine = parseCsvLine(dataLineString);
     
     if (!dataLine || dataLine.length < 30) {
-        throw new Error("El archivo CSV no tiene el formato o las columnas esperadas.");
+        throw new Error(`El formato de la línea de datos es incorrecto (se encontraron ${dataLine.length} columnas, se esperaban al menos 30).`);
     }
 
     const monthly = [];
