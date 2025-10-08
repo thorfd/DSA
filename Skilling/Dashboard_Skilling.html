@@ -287,8 +287,8 @@ async function loadDataAndInitializeDashboard() {
     const dataFile = './Ingresos_SC.csv'; 
 
     try {
-        // CORRECCIÓN: Se agrega un parámetro a la URL para evitar que el navegador use una versión en caché del archivo CSV.
-        const response = await fetch(`${dataFile}?v=${new Date().getTime()}`);
+        // CORRECCIÓN: Se utiliza la opción `cache: 'no-store'` para asegurar que siempre se cargue la última versión del archivo.
+        const response = await fetch(dataFile, { cache: 'no-store' });
         if (!response.ok) {
             throw new Error(`No se pudo encontrar el archivo ${dataFile}. Código de error: ${response.status}`);
         }
@@ -333,7 +333,6 @@ async function loadDataAndInitializeDashboard() {
 function parseData(csv) {
     const lines = csv.trim().split('\n');
     
-    // CORRECCIÓN: Se implementa una función de parseo de CSV más robusta que maneja correctamente las comas dentro de valores entre comillas.
     function parseCsvLine(line) {
         const values = [];
         const regex = /(?:"([^"]*(?:""[^"]*)*)"|([^,]*))(?:,|$)/g;
@@ -345,7 +344,11 @@ function parseData(csv) {
         return values;
     }
     
-    const dataLine = parseCsvLine(lines.filter(l => l.trim() !== '' && !l.toLowerCase().startsWith('línea de servicio'))[0]);
+    // CORRECCIÓN: Se asegura de filtrar ambas líneas de encabezado para procesar únicamente la línea de datos.
+    const dataLine = parseCsvLine(lines.filter(l => {
+        const trimmedLine = l.trim().toLowerCase();
+        return trimmedLine !== '' && !trimmedLine.startsWith('línea de servicio') && !trimmedLine.startsWith(',,real,plan');
+    })[0]);
     
     if (!dataLine || dataLine.length < 30) {
         throw new Error("El archivo CSV no tiene el formato o las columnas esperadas.");
@@ -360,24 +363,19 @@ function parseData(csv) {
         return isNaN(value) ? 0 : value;
     };
     
-    // Extract monthly data
-    let dataIndex = 2; // Start after the first two description columns
-    // First 5 months (Ago-Dic)
+    let dataIndex = 2;
     for (let i = 0; i < 5; i++) {
         monthly.push({ month: months[i], real: cleanValue(dataLine[dataIndex]), plan: cleanValue(dataLine[dataIndex + 1]) });
         dataIndex += 2;
     }
     
-    // Skip accumulated data for the monthly parse
     dataIndex += 2;
 
-    // Next 7 months (Ene-Jul)
     for (let i = 5; i < 12; i++) {
         monthly.push({ month: months[i], real: cleanValue(dataLine[dataIndex]), plan: cleanValue(dataLine[dataIndex + 1]) });
         dataIndex += 2;
     }
 
-    // Extract accumulated data using fixed indices based on the expected CSV structure
     const accumulated = {
         period1: { real: cleanValue(dataLine[12]), plan: cleanValue(dataLine[13]) },
         period2: { real: cleanValue(dataLine[28]), plan: cleanValue(dataLine[29]) }
