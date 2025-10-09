@@ -349,7 +349,6 @@ function processAndRenderDashboard(csvData) {
         const uploadSection = document.getElementById('upload-section');
         loadingSection.classList.add('hidden');
         uploadSection.classList.remove('hidden');
-        // Actualizar el mensaje de error para ser más específico
         uploadSection.querySelector('h2').textContent = 'Error al Procesar el Archivo';
         uploadSection.querySelector('p').innerHTML = `Hubo un problema al leer el archivo CSV. Asegúrate de que el formato sea correcto.<br><br><span class="text-sm text-red-400">Detalle: ${parseError.message}</span>`;
 
@@ -387,11 +386,14 @@ function parseData(csv) {
         return values;
     }
     
-    // CORRECCIÓN: Se busca la línea de datos de forma más robusta.
-    const dataLineString = lines.find(l => l.trim().toUpperCase().startsWith('LS_03'));
+    // CORRECCIÓN: Se busca la primera línea que no sea un encabezado conocido.
+    const dataLineString = lines.find(l => {
+        const trimmedLine = l.trim().toLowerCase();
+        return trimmedLine !== '' && !trimmedLine.startsWith('línea de servicio') && !trimmedLine.startsWith(',,real,plan');
+    });
     
     if (!dataLineString) {
-        throw new Error("No se encontró la línea de datos que comienza con 'LS_03'.");
+        throw new Error("No se pudo encontrar ninguna línea de datos válida en el archivo CSV.");
     }
 
     const dataLine = parseCsvLine(dataLineString);
@@ -533,7 +535,7 @@ function renderCharts() {
         options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' }, tooltip: tooltipConfig }, scales: { y: { beginAtZero: true, ticks: { callback: v => currencyFormatter.format(v).replace('.00','') } } } }
     });
 
-    const remainingPlan = kpiSummaryGlobal.totalPlan > kpiSummaryGlobal.totalReal ? kpiSummaryGlobal.totalPlan - kpiSummaryGlobal.totalReal : 0;
+    const remainingPlan = kpiSummaryGlobal.totalPlan > kpiSummaryGlobal.totalReal ? kpiSummaryGlobal.totalReal : 0;
     donutChartInstance = new Chart(document.getElementById('complianceDonutChart'), {
         type: 'doughnut', data: { labels: ['Alcanzado', 'Faltante'], datasets: [{ data: [kpiSummaryGlobal.totalReal, remainingPlan], backgroundColor: [isDark ? 'rgb(45, 212, 191)' : 'rgb(13, 148, 136)', isDark ? 'rgb(75, 85, 99)' : 'rgb(209, 213, 219)'], borderColor: isDark ? '#1f2937' : '#ffffff', borderWidth: 4, hoverOffset: 8 }] },
         options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { display: false }, tooltip: { ...tooltipConfig, callbacks: { label: c => `${c.label || ''}: ${currencyFormatter.format(c.raw)} (${(kpiSummaryGlobal.totalPlan > 0 ? (c.raw / kpiSummaryGlobal.totalPlan) * 100 : 0).toFixed(2)}%)` } } } }
