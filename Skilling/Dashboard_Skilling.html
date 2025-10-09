@@ -386,22 +386,34 @@ function parseData(csv) {
         return values;
     }
     
-    // CORRECCIÓN: Se busca la primera línea que no sea un encabezado conocido.
-    const dataLineString = lines.find(l => {
-        const trimmedLine = l.trim().toLowerCase();
-        return trimmedLine !== '' && !trimmedLine.startsWith('línea de servicio') && !trimmedLine.startsWith(',,real,plan');
-    });
+    // CORRECCIÓN: Se busca la línea de datos de forma más robusta, encontrando la primera línea con múltiples valores numéricos.
+    let dataLineString = null;
+    for (const line of lines) {
+        if (!line.trim()) continue;
+        const columns = parseCsvLine(line);
+        if (columns.length < 30) continue;
+
+        let numericCount = 0;
+        // Se cuentan cuántas de las columnas (a partir de la tercera) parecen números.
+        for (let i = 2; i < columns.length; i++) {
+            const val = (columns[i] || '').trim().replace(/"/g, '').replace(/\$/g, '').replace(/,/g, '');
+            if (val === '' || !isNaN(parseFloat(val))) {
+                numericCount++;
+            }
+        }
+        // Si más de la mitad de las columnas de datos parecen numéricas, asumimos que es la línea de datos.
+        if (numericCount > 15) {
+            dataLineString = line;
+            break; 
+        }
+    }
     
     if (!dataLineString) {
-        throw new Error("No se pudo encontrar ninguna línea de datos válida en el archivo CSV.");
+        throw new Error("No se pudo identificar una línea de datos válida (con suficientes valores numéricos) en el archivo CSV.");
     }
 
     const dataLine = parseCsvLine(dataLineString);
     
-    if (!dataLine || dataLine.length < 30) {
-        throw new Error(`El formato de la línea de datos es incorrecto (se encontraron ${dataLine.length} columnas, se esperaban al menos 30).`);
-    }
-
     const monthly = [];
     const months = ["Ago 25", "Sep 25", "Oct 25", "Nov 25", "Dic 25", "Ene 26", "Feb 26", "Mar 26", "Abr 26", "May 26", "Jun 26", "Jul 26"];
     const cleanValue = (str) => {
@@ -535,7 +547,7 @@ function renderCharts() {
         options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' }, tooltip: tooltipConfig }, scales: { y: { beginAtZero: true, ticks: { callback: v => currencyFormatter.format(v).replace('.00','') } } } }
     });
 
-    const remainingPlan = kpiSummaryGlobal.totalPlan > kpiSummaryGlobal.totalReal ? kpiSummaryGlobal.totalReal : 0;
+    const remainingPlan = kpiSummaryGlobal.totalPlan > kpiSummaryGlobal.totalReal ? kpiSummaryGlobal.totalPlan - kpiSummaryGlobal.totalReal : 0;
     donutChartInstance = new Chart(document.getElementById('complianceDonutChart'), {
         type: 'doughnut', data: { labels: ['Alcanzado', 'Faltante'], datasets: [{ data: [kpiSummaryGlobal.totalReal, remainingPlan], backgroundColor: [isDark ? 'rgb(45, 212, 191)' : 'rgb(13, 148, 136)', isDark ? 'rgb(75, 85, 99)' : 'rgb(209, 213, 219)'], borderColor: isDark ? '#1f2937' : '#ffffff', borderWidth: 4, hoverOffset: 8 }] },
         options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { display: false }, tooltip: { ...tooltipConfig, callbacks: { label: c => `${c.label || ''}: ${currencyFormatter.format(c.raw)} (${(kpiSummaryGlobal.totalPlan > 0 ? (c.raw / kpiSummaryGlobal.totalPlan) * 100 : 0).toFixed(2)}%)` } } } }
