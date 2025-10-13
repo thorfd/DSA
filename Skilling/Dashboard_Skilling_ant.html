@@ -88,7 +88,7 @@
         <header class="mb-8">
             <div>
                 <h1 class="text-3xl md:text-4xl font-bold text-white">Dashboard de Ingresos de Educación Continua 25-26</h1>
-                <p class="text-lg text-gray-400">Análisis de Resultados Reales vs. Plan con Asistente de IA</p>
+                <p class="text-lg text-gray-400">Análisis de Resultados Reales vs. Plan</p>
             </div>
         </header>
 
@@ -130,20 +130,6 @@
                     <div class="chart-container">
                         <canvas id="cumulativeChart"></canvas>
                     </div>
-                </div>
-            </div>
-
-            <!-- Gemini AI Analysis Section -->
-            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg mb-8">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
-                    <h3 class="text-xl font-semibold text-white">Análisis y Recomendaciones con IA</h3>
-                    <button id="generate-analysis-btn" class="mt-4 md:mt-0 bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out flex items-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed">
-                        <span id="btn-text">✨ Generar Análisis</span>
-                        <div id="btn-loader" class="loader hidden"></div>
-                    </button>
-                </div>
-                <div id="ai-analysis-result" class="text-gray-300 prose max-w-none">
-                    <p class="text-gray-500">Haz clic en el botón para obtener un resumen ejecutivo y recomendaciones basadas en los datos actuales.</p>
                 </div>
             </div>
 
@@ -316,4 +302,5 @@ function updateDashboard(csv) {
 
 </body>
 </html>
+
 
