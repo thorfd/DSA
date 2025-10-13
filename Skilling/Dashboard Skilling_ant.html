@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Ingresos | Educación Continua 25-26</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            height: 40vh;
+            width: 100%;
+        }
+        .kpi-value {
+            font-size: 2.25rem; /* text-4xl */
+        }
+        @media (max-width: 768px) {
+            .kpi-value {
+                font-size: 1.875rem; /* text-3xl */
+            }
+        }
+        .table-container::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .table-container::-webkit-scrollbar-track {
+            background: #2d3748; /* gray-800 */
+        }
+        .table-container::-webkit-scrollbar-thumb {
+            background: #4a5568; /* gray-600 */
+            border-radius: 4px;
+        }
+        .table-container::-webkit-scrollbar-thumb:hover {
+            background: #718096; /* gray-500 */
+        }
+        /* Styling for AI analysis output */
+        .prose h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .prose p {
+            margin-bottom: 1rem;
+        }
+        .prose ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .prose li {
+            margin-bottom: 0.5rem;
+        }
+        .loader {
+            border: 4px solid #f3f3f330; /* Light grey */
+            border-top: 4px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+        .page-loader {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            gap: 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200">
+
+    <div class="container mx-auto p-4 md:p-8">
+        
+        <header class="mb-8">
+            <div>
+                <h1 class="text-3xl md:text-4xl font-bold text-white">Dashboard de Ingresos de Educación Continua 25-26</h1>
+                <p class="text-lg text-gray-400">Análisis de Resultados Reales vs. Plan con Asistente de IA</p>
+            </div>
+        </header>
+
+        <!-- Seccion de Carga - se mostrará mientras se obtienen los datos -->
+        <div id="loading-section" class="page-loader">
+            <div class="loader" style="width: 50px; height: 50px;"></div>
+            <p class="text-gray-400 text-lg">Cargando datos del repositorio...</p>
+        </div>
+
+        <div id="dashboard-content" class="hidden">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="bg-gray-800 p-6 rounded-2xl shadow-lg flex flex-col justify-between">
+                    <h2 class="text-gray-400 font-semibold">Ingreso Real Total</h2>
+                    <p id="kpi-real" class="kpi-value font-bold text-teal-400">Cargando...</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-2xl shadow-lg flex flex-col justify-between">
+                    <h2 class="text-gray-400 font-semibold">Ingreso Plan Total</h2>
+                    <p id="kpi-plan" class="kpi-value font-bold text-sky-400">Cargando...</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-2xl shadow-lg flex flex-col justify-between">
+                    <h2 class="text-gray-400 font-semibold">Cumplimiento del Plan</h2>
+                    <p id="kpi-compliance" class="kpi-value font-bold text-green-400">Cargando...</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-2xl shadow-lg flex flex-col justify-between">
+                    <h2 class="text-gray-400 font-semibold">Diferencia vs. Plan</h2>
+                    <p id="kpi-difference" class="kpi-value font-bold text-gray-200">Cargando...</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <div class="bg-gray-800 p-6 rounded-2xl shadow-lg">
+                    <h3 class="text-xl font-semibold mb-4 text-white">Comparativa Mensual: Real vs. Plan</h3>
+                    <div class="chart-container">
+                        <canvas id="monthlyChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-2xl shadow-lg">
+                    <h3 class="text-xl font-semibold mb-4 text-white">Desempeño Acumulado: Real vs. Plan</h3>
+                    <div class="chart-container">
+                        <canvas id="cumulativeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gemini AI Analysis Section -->
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-lg mb-8">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+                    <h3 class="text-xl font-semibold text-white">Análisis y Recomendaciones con IA</h3>
+                    <button id="generate-analysis-btn" class="mt-4 md:mt-0 bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out flex items-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                        <span id="btn-text">✨ Generar Análisis</span>
+                        <div id="btn-loader" class="loader hidden"></div>
+                    </button>
+                </div>
+                <div id="ai-analysis-result" class="text-gray-300 prose max-w-none">
+                    <p class="text-gray-500">Haz clic en el botón para obtener un resumen ejecutivo y recomendaciones basadas en los datos actuales.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="bg-gray-800 p-6 rounded-2xl shadow-lg lg:col-span-2">
+                    <h3 class="text-xl font-semibold mb-4 text-white">Detalle de Ingresos Mensuales</h3>
+                    <div class="overflow-x-auto table-container">
+                        <table class="w-full text-left whitespace-nowrap">
+                            <thead class="bg-gray-700 text-gray-300 uppercase text-sm">
+                                <tr>
+                                    <th class="p-3 rounded-l-lg">Mes</th>
+                                    <th class="p-3 text-right">Ingreso Real</th>
+                                    <th class="p-3 text-right">Ingreso Plan</th>
+                                    <th class="p-3 text-right">Diferencia</th>
+                                    <th class="p-3 text-right rounded-r-lg">Cumplimiento</th>
+                                </tr>
+                            </thead>
+                            <tbody id="data-table">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-2xl shadow-lg flex flex-col items-center justify-center">
+                     <h3 class="text-xl font-semibold mb-4 text-white">Proporción de Cumplimiento</h3>
+                     <div class="chart-container" style="height:30vh">
+                        <canvas id="complianceDonutChart"></canvas>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+// --- Global Scope Variables ---
+let monthlyChartInstance, cumulativeChartInstance, donutChartInstance;
+let monthlyDataGlobal = [];
+let kpiSummaryGlobal = {};
+const currencyFormatter = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' });
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Se elimina la lógica de carga de archivos y se reemplaza con una carga automática
+    loadDataAndInitializeDashboard();
+    
+    const generateBtn = document.getElementById('generate-analysis-btn');
+    generateBtn.addEventListener('click', generateAIAnalysis);
+});
+
+// --- NUEVA FUNCIÓN para cargar datos desde el repositorio ---
+async function loadDataAndInitializeDashboard() {
+    const loadingSection = document.getElementById('loading-section');
+    const dashboardContent = document.getElementById('dashboard-content');
+    // ** CAMBIO: Se actualiza el nombre del archivo según tu solicitud **
+    const dataFile = 'Ingresos_SC.csv'; 
+
+    try {
+        const response = await fetch(dataFile);
+        if (!response.ok) {
+            throw new Error(`No se pudo encontrar el archivo ${dataFile}. Código de error: ${response.status}`);
+        }
+        const csvData = await response.text();
+        updateDashboard(csvData);
+        
+        // Ocultar la carga y mostrar el dashboard
+        loadingSection.classList.add('hidden');
+        dashboardContent.classList.remove('hidden');
+
+    } catch (error) {
+        console.error("Error al cargar los datos:", error);
+        loadingSection.innerHTML = `<p class="text-red-400 text-lg">Error: No se pudo cargar el archivo '${dataFile}'. Asegúrate de que el archivo exista en el repositorio de GitHub y que el nombre sea correcto.</p>`;
+    }
+}
+
+// --- Gemini API Call ---
+async function generateAIAnalysis() {
+    const btn = document.getElementById('generate-analysis-btn');
+    const btnText = document.getElementById('btn-text');
+    const btnLoader = document.getElementById('btn-loader');
+    const resultContainer = document.getElementById('ai-analysis-result');
+
+    btn.disabled = true;
+    btnText.classList.add('hidden');
+    btnLoader.classList.remove('hidden');
+    resultContainer.innerHTML = '<p class="text-gray-400">Generando análisis... Esto puede tardar unos segundos.</p>';
+
+    const dataSummary = monthlyDataGlobal.map(d =>
+        ` - Mes: ${d.month}, Real: ${currencyFormatter.format(d.real)}, Plan: ${currencyFormatter.format(d.plan)}, Cumplimiento: ${(d.plan > 0 ? (d.real / d.plan) * 100 : 0).toFixed(1)}%`
+    ).join('\n');
+
+    const systemPrompt = "Actúas como un analista financiero experto y proactivo para el departamento de Educación Continua de una universidad. Tu tono es profesional, objetivo pero alentador. Tu objetivo es proporcionar información clara y útil para la toma de decisiones. Responde siempre en español y formatea tu respuesta usando Markdown (títulos con '###', listas con '*').";
+
+    const userQuery = `
+    Basado en los siguientes datos de rendimiento financiero, por favor genera un análisis.
+
+    **Resumen de Indicadores Clave (KPIs):**
+    - Ingreso Real Total: ${currencyFormatter.format(kpiSummaryGlobal.totalReal)}
+    - Ingreso Plan Total: ${currencyFormatter.format(kpiSummaryGlobal.totalPlan)}
+    - Cumplimiento General: ${kpiSummaryGlobal.totalCompliance.toFixed(2)}%
+
+    **Desglose Mensual:**
+    ${dataSummary}
+
+    **Tu tarea es la siguiente:**
+    1.  **Resumen Ejecutivo:** Escribe un párrafo conciso (3-4 frases) que resuma el rendimiento general.
+    2.  **Puntos Destacados:** Identifica el mes con el **mejor rendimiento** y el mes con el **mayor área de oportunidad**. Explica brevemente por qué.
+    3.  **Recomendaciones Accionables:** Proporciona 2 o 3 recomendaciones específicas y prácticas para mejorar los resultados.
+
+    Por favor, estructura tu respuesta con los títulos: "### Resumen Ejecutivo", "### Puntos Destacados", y "### Recomendaciones Accionables".
+    `;
+    
+    const apiKey = ""; // API key is handled by the environment.
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+    const payload = {
+        contents: [{ parts: [{ text: userQuery }] }],
+        systemInstruction: { parts: [{ text: systemPrompt }] },
+    };
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            throw new Error(`API Error: ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        const candidate = result.candidates?.[_0];
+        let text = candidate?.content?.parts?.[_0]?.text || "No se pudo generar el análisis. Inténtalo de nuevo.";
+
+        // Basic Markdown to HTML conversion
+        text = text.replace(/### (.*)/g, '<h3>$1</h3>');
+        text = text.replace(/\* (.*)/g, '<li>$1</li>');
+        text = text.replace(/<\/li><li>/g, '</li><li>'); // Fix lists
+        text = text.replace(/(<li>.*<\/li>)/g, '<ul>$1</ul>');
+        text = text.replace(/\n/g, '<br>');
+        
+        resultContainer.innerHTML = text;
+
+    } catch (error) {
+        console.error("Gemini API call failed:", error);
+        resultContainer.innerHTML = `<p class="text-red-400">Error: No se pudo conectar con el servicio de IA. Revisa la consola para más detalles.</p>`;
+    } finally {
+        btn.disabled = false;
+        btnText.classList.remove('hidden');
+        btnLoader.classList.add('hidden');
+    }
+}
+
+
+function updateDashboard(csv) {
+    if (monthlyChartInstance) monthlyChartInstance.destroy();
+    if (cumulativeChartInstance) cumulativeChartInstance.destroy();
+    if (donutChartInstance) donutChartInstance.destroy();
+
+    function parseData(csv) {
+        const lines = csv.trim().split('\n');
+        function parseCsvLine(line) {
+            const result = []; let buffer = ''; let inQuotes = false;
+            for (let i = 0; i < line.length; i++) {
+                const char = line[i];
+                if (char === '"') { inQuotes = !inQuotes; continue; }
+                if (char === ',' && !inQuotes) { result.push(buffer); buffer = ''; } else { buffer += char; }
+            }
+            result.push(buffer); return result;
+        }
+        const dataLine = parseCsvLine(lines.filter(l => l.trim() !== '')[1]);
+        const data = [];
+        const months = ["Ago 25", "Sep 25", "Oct 25", "Nov 25", "Dic 25", "Ene 26", "Feb 26", "Mar 26", "Abr 26", "May 26", "Jun 26", "Jul 26"];
+        const cleanValue = (str) => {
+            if (!str || !str.trim()) return 0;
+            const cleaned = str.trim().replace(/"/g, '').replace(/\$/g, '').replace(/,/g, '').trim();
+            const value = parseFloat(cleaned);
+            return isNaN(value) ? 0 : value;
+        };
+        let dataIndex = 2;
+        for (const month of months) {
+            data.push({ month, real: cleanValue(dataLine[dataIndex]), plan: cleanValue(dataLine[dataIndex + 1]) });
+            dataIndex += 2; if (month === "Dic 25") dataIndex += 2;
+        }
+        return data;
+    }
+
+    monthlyDataGlobal = parseData(csv);
+    const totalReal = monthlyDataGlobal.reduce((sum, item) => sum + item.real, 0);
+    const totalPlan = monthlyDataGlobal.reduce((sum, item) => sum + item.plan, 0);
+    const totalDifference = totalReal - totalPlan;
+    const totalCompliance = totalPlan > 0 ? (totalReal / totalPlan) * 100 : 0;
+    
+    kpiSummaryGlobal = { totalReal, totalPlan, totalCompliance }; // Store for AI
+    
+    const labels = monthlyDataGlobal.map(d => d.month);
+    const realData = monthlyDataGlobal.map(d => d.real);
+    const planData = monthlyDataGlobal.map(d => d.plan);
+
+    const cumulativeReal = realData.reduce((acc, val, i) => { acc.push((acc[i-1] || 0) + val); return acc; }, []);
+    const cumulativePlan = planData.reduce((acc, val, i) => { acc.push((acc[i-1] || 0) + val); return acc; }, []);
+    
+    const formatCurrency = (value) => currencyFormatter.format(value);
+
+    document.getElementById('kpi-real').textContent = formatCurrency(totalReal);
+    document.getElementById('kpi-plan').textContent = formatCurrency(totalPlan);
+    document.getElementById('kpi-compliance').textContent = `${totalCompliance.toFixed(2)}%`;
+    const differenceEl = document.getElementById('kpi-difference');
+    differenceEl.textContent = formatCurrency(totalDifference);
+    differenceEl.classList.toggle('text-red-400', totalDifference < 0);
+    differenceEl.classList.toggle('text-green-400', totalDifference >= 0);
+
+    const tableBody = document.getElementById('data-table');
+    tableBody.innerHTML = '';
+    monthlyDataGlobal.forEach(item => {
+        const difference = item.real - item.plan;
+        const compliance = item.plan > 0 ? (item.real / item.plan) * 100 : 0;
+        const row = `
+            <tr class="border-b border-gray-700 hover:bg-gray-700/50">
+                <td class="p-3 font-medium">${item.month}</td>
+                <td class="p-3 text-right">${formatCurrency(item.real)}</td>
+                <td class="p-3 text-right">${formatCurrency(item.plan)}</td>
+                <td class="p-3 text-right ${difference < 0 ? 'text-red-400' : 'text-green-400'}">${formatCurrency(difference)}</td>
+                <td class="p-3 text-right ${compliance < 100 ? 'text-red-400' : 'text-green-400'}">${compliance.toFixed(2)}%</td>
+            </tr>`;
+        tableBody.innerHTML += row;
+    });
+
+    Chart.defaults.color = '#a0aec0';
+    Chart.defaults.borderColor = '#4a5568';
+    const tooltipConfig = {
+        backgroundColor: 'rgba(31, 41, 55, 0.9)', titleColor: '#ffffff', bodyColor: '#d1d5db',
+        titleFont: { weight: 'bold' }, padding: 12, cornerRadius: 8, displayColors: true, boxPadding: 4,
+        callbacks: { label: (c) => `${c.dataset.label || ''}: ${formatCurrency(c.parsed.y)}` }
+    };
+    
+    monthlyChartInstance = new Chart(document.getElementById('monthlyChart'), {
+        type: 'bar', data: { labels, datasets: [{ label: 'Real', data: realData, backgroundColor: 'rgba(45, 212, 191, 0.7)', borderColor: 'rgb(45, 212, 191)', borderWidth: 2, borderRadius: 4 }, { label: 'Plan', data: planData, backgroundColor: 'rgba(59, 130, 246, 0.7)', borderColor: 'rgb(59, 130, 246)', borderWidth: 2, borderRadius: 4 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' }, tooltip: tooltipConfig }, scales: { y: { beginAtZero: true, ticks: { callback: v => formatCurrency(v).replace('.00','') } } } }
+    });
+    cumulativeChartInstance = new Chart(document.getElementById('cumulativeChart'), {
+        type: 'line', data: { labels, datasets: [{ label: 'Acumulado Real', data: cumulativeReal, borderColor: 'rgb(45, 212, 191)', backgroundColor: 'rgba(45, 212, 191, 0.2)', fill: true, tension: 0.3 }, { label: 'Acumulado Plan', data: cumulativePlan, borderColor: 'rgb(59, 130, 246)', backgroundColor: 'rgba(59, 130, 246, 0.2)', fill: true, tension: 0.3 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' }, tooltip: tooltipConfig }, scales: { y: { beginAtZero: true, ticks: { callback: v => formatCurrency(v).replace('.00','') } } } }
+    });
+    const remainingPlan = totalPlan > totalReal ? totalPlan - totalReal : 0;
+    donutChartInstance = new Chart(document.getElementById('complianceDonutChart'), {
+        type: 'doughnut', data: { labels: ['Alcanzado', 'Faltante'], datasets: [{ data: [totalReal, remainingPlan], backgroundColor: ['rgb(45, 212, 191)', 'rgb(75, 85, 99)'], borderColor: '#1f2937', borderWidth: 4, hoverOffset: 8 }] },
+        options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { display: false }, tooltip: { ...tooltipConfig, callbacks: { label: c => `${c.label || ''}: ${formatCurrency(c.raw)} (${(totalPlan > 0 ? (c.raw / totalPlan) * 100 : 0).toFixed(2)}%)` } } } }
+    });
+}
+</script>
+
+</body>
+</html>
