@@ -216,85 +216,6 @@ async function loadDataAndInitializeDashboard() {
     }
 }
 
-// --- Gemini API Call ---
-async function generateAIAnalysis() {
-    const btn = document.getElementById('generate-analysis-btn');
-    const btnText = document.getElementById('btn-text');
-    const btnLoader = document.getElementById('btn-loader');
-    const resultContainer = document.getElementById('ai-analysis-result');
-
-    btn.disabled = true;
-    btnText.classList.add('hidden');
-    btnLoader.classList.remove('hidden');
-    resultContainer.innerHTML = '<p class="text-gray-400">Generando análisis... Esto puede tardar unos segundos.</p>';
-
-    const dataSummary = monthlyDataGlobal.map(d =>
-        ` - Mes: ${d.month}, Real: ${currencyFormatter.format(d.real)}, Plan: ${currencyFormatter.format(d.plan)}, Cumplimiento: ${(d.plan > 0 ? (d.real / d.plan) * 100 : 0).toFixed(1)}%`
-    ).join('\n');
-
-    const systemPrompt = "Actúas como un analista financiero experto y proactivo para el departamento de Educación Continua de una universidad. Tu tono es profesional, objetivo pero alentador. Tu objetivo es proporcionar información clara y útil para la toma de decisiones. Responde siempre en español y formatea tu respuesta usando Markdown (títulos con '###', listas con '*').";
-
-    const userQuery = `
-    Basado en los siguientes datos de rendimiento financiero, por favor genera un análisis.
-
-    **Resumen de Indicadores Clave (KPIs):**
-    - Ingreso Real Total: ${currencyFormatter.format(kpiSummaryGlobal.totalReal)}
-    - Ingreso Plan Total: ${currencyFormatter.format(kpiSummaryGlobal.totalPlan)}
-    - Cumplimiento General: ${kpiSummaryGlobal.totalCompliance.toFixed(2)}%
-
-    **Desglose Mensual:**
-    ${dataSummary}
-
-    **Tu tarea es la siguiente:**
-    1.  **Resumen Ejecutivo:** Escribe un párrafo conciso (3-4 frases) que resuma el rendimiento general.
-    2.  **Puntos Destacados:** Identifica el mes con el **mejor rendimiento** y el mes con el **mayor área de oportunidad**. Explica brevemente por qué.
-    3.  **Recomendaciones Accionables:** Proporciona 2 o 3 recomendaciones específicas y prácticas para mejorar los resultados.
-
-    Por favor, estructura tu respuesta con los títulos: "### Resumen Ejecutivo", "### Puntos Destacados", y "### Recomendaciones Accionables".
-    `;
-    
-    const apiKey = ""; // API key is handled by the environment.
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-    const payload = {
-        contents: [{ parts: [{ text: userQuery }] }],
-        systemInstruction: { parts: [{ text: systemPrompt }] },
-    };
-
-    try {
-        const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        });
-
-        if (!response.ok) {
-            throw new Error(`API Error: ${response.statusText}`);
-        }
-
-        const result = await response.json();
-        const candidate = result.candidates?.[_0];
-        let text = candidate?.content?.parts?.[_0]?.text || "No se pudo generar el análisis. Inténtalo de nuevo.";
-
-        // Basic Markdown to HTML conversion
-        text = text.replace(/### (.*)/g, '<h3>$1</h3>');
-        text = text.replace(/\* (.*)/g, '<li>$1</li>');
-        text = text.replace(/<\/li><li>/g, '</li><li>'); // Fix lists
-        text = text.replace(/(<li>.*<\/li>)/g, '<ul>$1</ul>');
-        text = text.replace(/\n/g, '<br>');
-        
-        resultContainer.innerHTML = text;
-
-    } catch (error) {
-        console.error("Gemini API call failed:", error);
-        resultContainer.innerHTML = `<p class="text-red-400">Error: No se pudo conectar con el servicio de IA. Revisa la consola para más detalles.</p>`;
-    } finally {
-        btn.disabled = false;
-        btnText.classList.remove('hidden');
-        btnLoader.classList.add('hidden');
-    }
-}
-
-
 function updateDashboard(csv) {
     if (monthlyChartInstance) monthlyChartInstance.destroy();
     if (cumulativeChartInstance) cumulativeChartInstance.destroy();
@@ -395,3 +316,4 @@ function updateDashboard(csv) {
 
 </body>
 </html>
+
