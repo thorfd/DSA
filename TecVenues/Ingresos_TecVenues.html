@@ -35,15 +35,15 @@
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                       <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                     </svg>
-                    <span>Actualizado: 05 de octubre de 2025, 14:48 p. m.</span>
+                    <span>Actualizado: 13 de octubre de 2025, 17:44 p. m.</span>
                 </div>
             </div>
         </header>
 
-        <!-- Data container (hidden) -->
+        <!-- Data container (for initial load) -->
         <pre id="csvData" class="hidden">
 Línea de Servicio,Cuenta Contable,Real Ago 25,Plan Ago 25,Real Sep 25,Plan Sep 25,Real Oct 25,Plan Oct 25,Real Nov 25,Plan Nov 25,Real Dic 25,Plan Dic 25,Acum Real Ago-Dic 25,Acum Plan Ago-Dic 25,Real Ene 26,Plan Ene 26,Real Feb 26,Plan Feb 26,Real Mar 26,Plan Mar 26,Real Abr 26,Plan Abr 26,Real May 26,Plan May 26,Real Jun 26,Plan Jun 26,Real Jul 26,Plan Jul 26,Acum Real Ene-Jul 26,Acum Plan Ene-Jul 26
-LS_13 - Arrendamientos,ER_5000 - Ingresos Netos Totales,3300,15000,21600,15000,0,15000,0,15000,0,15000,24900,75000,0,15000,0,15000,0,15000,0,15000,0,15000,0,15000,0,15000,0,105000
+LS_13 - Arrendamientos,ER_5000 - Ingresos Netos Totales,3300,15000,21600,15000,14000,15000,0,15000,0,15000,38900,75000,0,15000,0,15000,0,15000,0,15000,0,15000,0,15000,0,15000,0,105000
         </pre>
 
         <!-- KPIs Section -->
@@ -72,16 +72,24 @@ LS_13 - Arrendamientos,ER_5000 - Ingresos Netos Totales,3300,15000,21600,15000,0
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        let mainChartInstance = null;
+        let gaugeChartInstance = null;
+
+        const renderDashboard = (csvText) => {
+            // Destroy existing charts if they exist
+            if (mainChartInstance) mainChartInstance.destroy();
+            if (gaugeChartInstance) gaugeChartInstance.destroy();
+
             // --- 1. DATA PARSING ---
-            const csvText = document.getElementById('csvData').textContent.trim();
-            const lines = csvText.split('\n');
+            const lines = csvText.trim().split('\n');
             const headers = lines[0].split(',');
             const dataRow = lines[1].split(',');
 
             const data = {};
             headers.forEach((header, i) => {
-                data[header] = isNaN(parseFloat(dataRow[i])) ? dataRow[i] : parseFloat(dataRow[i]);
+                const cleanHeader = header.trim();
+                const value = dataRow[i] ? dataRow[i].trim() : '';
+                data[cleanHeader] = isNaN(parseFloat(value)) ? value : parseFloat(value);
             });
 
             // --- 2. DATA PROCESSING ---
@@ -99,6 +107,7 @@ LS_13 - Arrendamientos,ER_5000 - Ingresos Netos Totales,3300,15000,21600,15000,0
 
             // --- 3. RENDER KPIs ---
             const kpiContainer = document.getElementById('kpi-container');
+            kpiContainer.innerHTML = ''; // Clear previous KPIs
             const kpis = [
                 { title: 'Ingreso Real Total', value: formatCurrency(totalReal), color: 'blue' },
                 { title: 'Ingreso Planificado Total', value: formatCurrency(totalPlan), color: 'gray' },
@@ -129,103 +138,53 @@ LS_13 - Arrendamientos,ER_5000 - Ingresos Netos Totales,3300,15000,21600,15000,0
             
             // Main Line/Bar Chart
             const mainChartCtx = document.getElementById('mainChart').getContext('2d');
-            new Chart(mainChartCtx, {
+            mainChartInstance = new Chart(mainChartCtx, {
                 type: 'bar',
                 data: {
                     labels: months,
                     datasets: [
-                        {
-                            label: 'Ingreso Real',
-                            data: realData,
-                            backgroundColor: 'rgba(59, 130, 246, 0.7)',
-                            borderColor: 'rgba(59, 130, 246, 1)',
-                            borderWidth: 2,
-                            type: 'bar',
-                            order: 2
-                        },
-                        {
-                            label: 'Ingreso Planificado',
-                            data: planData,
-                            borderColor: 'rgba(107, 114, 128, 1)',
-                            borderWidth: 2,
-                            borderDash: [5, 5],
-                            fill: false,
-                            type: 'line',
-                            order: 1,
-                            tension: 0.2
-                        }
+                        { label: 'Ingreso Real', data: realData, backgroundColor: 'rgba(59, 130, 246, 0.7)', borderColor: 'rgba(59, 130, 246, 1)', borderWidth: 2, type: 'bar', order: 2 },
+                        { label: 'Ingreso Planificado', data: planData, borderColor: 'rgba(107, 114, 128, 1)', borderWidth: 2, borderDash: [5, 5], fill: false, type: 'line', order: 1, tension: 0.2 }
                     ]
                 },
                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
+                    responsive: true, maintainAspectRatio: false,
                     scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                callback: function(value) {
-                                    return formatCurrency(value);
-                                }
-                            }
-                        },
-                        x: {
-                            grid: { display: false }
-                        }
+                        y: { beginAtZero: true, ticks: { callback: (value) => formatCurrency(value) }},
+                        x: { grid: { display: false }}
                     },
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return `${context.dataset.label}: ${formatCurrency(context.raw)}`;
-                                }
-                            }
-                        }
-                    }
+                    plugins: { tooltip: { callbacks: { label: (context) => `${context.dataset.label}: ${formatCurrency(context.raw)}`}}}
                 }
             });
 
             // Gauge Chart
             const gaugeChartCtx = document.getElementById('gaugeChart').getContext('2d');
-            const gaugeData = {
-                labels: ['Cumplido', 'Restante'],
-                datasets: [{
-                    data: [compliance, 100 - compliance],
-                    backgroundColor: [
-                        'rgba(34, 197, 94, 0.8)', // green
-                        'rgba(229, 231, 235, 0.8)', // gray
-                    ],
-                    borderColor: [
-                        'rgba(34, 197, 94, 1)',
-                        'rgba(209, 213, 219, 1)'
-                    ],
-                    borderWidth: 1,
-                    circumference: 180,
-                    rotation: 270,
-                }]
-            };
-            new Chart(gaugeChartCtx, {
+            gaugeChartInstance = new Chart(gaugeChartCtx, {
                 type: 'doughnut',
-                data: gaugeData,
+                data: {
+                    labels: ['Cumplido', 'Restante'],
+                    datasets: [{
+                        data: [compliance > 100 ? 100 : compliance, compliance > 100 ? 0 : 100 - compliance],
+                        backgroundColor: ['rgba(34, 197, 94, 0.8)', 'rgba(229, 231, 235, 0.8)'],
+                        borderColor: ['rgba(34, 197, 94, 1)', 'rgba(209, 213, 219, 1)'],
+                        borderWidth: 1, circumference: 180, rotation: 270,
+                    }]
+                },
                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
+                    responsive: true, maintainAspectRatio: false,
                     plugins: {
-                        legend: { display: false },
-                        tooltip: { enabled: false },
-                        // Custom text in the middle
-                        title: {
-                            display: true,
-                            text: `${compliance.toFixed(1)}%`,
-                            position: 'top',
-                            align: 'center',
-                            font: { size: 36, weight: 'bold' },
-                            color: '#111827',
-                            padding: { top: 70 }
-                        }
+                        legend: { display: false }, tooltip: { enabled: false },
+                        title: { display: true, text: `${compliance.toFixed(1)}%`, position: 'top', align: 'center', font: { size: 36, weight: 'bold' }, color: '#111827', padding: { top: 70 }}
                     },
                     cutout: '70%'
                 }
             });
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initial render with data from the page
+            const initialCsvData = document.getElementById('csvData').textContent;
+            renderDashboard(initialCsvData);
         });
     </script>
 </body>
