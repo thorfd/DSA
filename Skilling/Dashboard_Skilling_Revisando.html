@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" class="dark"> <!-- Se establece el modo oscuro por defecto -->
+<html lang="es" class="light"> <!-- Se establece el modo oscuro por defecto -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -66,6 +66,15 @@
             align-items: center;
             height: 80vh;
             gap: 1rem;
+        }
+        #gemini-analysis-container h3 {
+            @apply text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2;
+        }
+        #gemini-analysis-container p {
+            @apply text-gray-600 dark:text-gray-400 mb-4;
+        }
+        #gemini-analysis-container ul {
+            @apply list-disc list-inside space-y-2 mb-4 text-gray-600 dark:text-gray-400;
         }
 
         @keyframes spin {
@@ -211,6 +220,25 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Gemini Analysis Section -->
+            <div id="gemini-section" class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg mb-8">
+                <div class="flex justify-between items-center mb-4">
+                     <h2 class="text-2xl font-semibold text-gray-900 dark:text-white">✨ Análisis Ejecutivo con IA</h2>
+                     <button id="generate-analysis-btn" class="bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors duration-300 flex items-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd" /></svg>
+                        <span>Generar Análisis</span>
+                    </button>
+                </div>
+                <div id="gemini-analysis-container" class="prose dark:prose-invert max-w-none">
+                    <p>Haz clic en el botón "Generar Análisis" para obtener un resumen ejecutivo, puntos clave y recomendaciones basadas en los datos actuales.</p>
+                </div>
+                 <div id="gemini-loader" class="hidden page-loader" style="height: 10vh;">
+                    <div class="loader"></div>
+                    <p class="text-gray-500 dark:text-gray-400">Generando análisis...</p>
+                </div>
+            </div>
+
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <!-- Data Table and Donut Chart -->
@@ -386,16 +414,14 @@ function parseData(csv) {
         return values;
     }
     
-    // CORRECCIÓN DEFINITIVA: Se busca la primera línea que tenga datos numéricos en las columnas esperadas.
     let dataLineString = null;
     for (const line of lines) {
         if (!line.trim()) continue;
         const columns = parseCsvLine(line);
-        if (columns.length > 13) { // Debe tener al menos hasta la columna del primer acumulado.
+        if (columns.length > 13) {
             const col3 = (columns[2] || '').trim().replace(/["$,]/g, '');
             const col13 = (columns[13] || '').trim().replace(/["$,]/g, '');
 
-            // Si la 3ra columna (Real Ago 25) Y la 14va (Acum Plan Ago-Dic 25) son numéricas (o vacías), es la línea de datos.
             if ((!isNaN(parseFloat(col3)) || col3 === '') && (!isNaN(parseFloat(col13)) || col13 === '')) {
                 dataLineString = line;
                 break;
@@ -603,8 +629,62 @@ async function captureElementAsPNG(elementId, fileName) {
         buttons.forEach(btn => btn.style.visibility = 'visible');
     }
 }
-</script>
 
-</body>
-</html>
+// --- Gemini AI Analysis ---
+document.getElementById('generate-analysis-btn').addEventListener('click', generateAnalysis);
+
+async function generateAnalysis() {
+    const analysisContainer = document.getElementById('gemini-analysis-container');
+    const loader = document.getElementById('gemini-loader');
+    const btn = document.getElementById('generate-analysis-btn');
+
+    analysisContainer.innerHTML = '';
+    loader.classList.remove('hidden');
+    btn.disabled = true;
+
+    const dataSummary = `
+        Resumen de Datos Financieros 25-26:
+        - Ingreso Real Total: ${currencyFormatter.format(kpiSummaryGlobal.totalReal)}
+        - Ingreso Plan Total: ${currencyFormatter.format(kpiSummaryGlobal.totalPlan)}
+        - Cumplimiento General: ${kpiSummaryGlobal.totalCompliance.toFixed(2)}%
+        - Diferencia vs Plan: ${currencyFormatter.format(kpiSummaryGlobal.totalReal - kpiSummaryGlobal.totalPlan)}
+
+        Datos Mensuales (Real vs Plan):
+        ${monthlyDataGlobal.map(m => `- ${m.month}: ${currencyFormatter.format(m.real)} vs ${currencyFormatter.format(m.plan)}`).join('\n')}
+
+        Acumulados por Periodo:
+        - Ago-Dic 25: Real ${currencyFormatter.format(accumulatedDataGlobal.period1.real)} vs Plan ${currencyFormatter.format(accumulatedDataGlobal.period1.plan)}
+        - Ene-Jul 26: Real ${currencyFormatter.format(accumulatedDataGlobal.period2.real)} vs Plan ${currencyFormatter.format(accumulatedDataGlobal.period2.plan)}
+    `;
+
+    const systemPrompt = "Eres un analista financiero experto. Analiza los siguientes datos de ingresos y proporciona un resumen ejecutivo conciso, identifica 3-4 puntos clave (positivos o negativos), y ofrece 3 recomendaciones estratégicas y accionables. Formatea la respuesta en HTML con encabezados h3 y listas ul.";
+    
+    const userQuery = `Analiza los siguientes datos para un reporte ejecutivo:\n${dataSummary}`;
+
+    try {
+        const apiKey = "";
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+        
+        const payload = {
+            contents: [{ parts: [{ text: userQuery }] }],
+            systemInstruction: {
+                parts: [{ text: systemPrompt }]
+            },
+        };
+
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error en la API de Gemini: ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        const analysisText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+        
+        if (analysisText) {
+            analysisContainer.innerHTML = analysis
 
