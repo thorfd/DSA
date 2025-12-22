@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora Tecmilenio</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- React & ReactDOM -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  
+  <!-- Babel para procesar JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Librerías para Generación de PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <style>
+    /* Ajustes visuales */
+    body { background-color: #f3f4f6; }
+    
+    /* Clase para ocultar scrollbar durante la generación */
+    .generating-pdf {
+      overflow: hidden;
+    }
+    
+    /* AJUSTE DE ANCHO PARA PDF */
+    .pdf-mode {
+      width: 1080px !important;
+      max-width: 1080px !important;
+      margin: 0 auto !important;
+      background-color: white !important;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+
+    // --- ICONOS ---
+    const IconWrapper = ({ children, className }) => (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+        {children}
+      </svg>
+    );
+
+    const Calculator = ({ size, className }) => (
+      <IconWrapper className={className} width={size} height={size}><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></IconWrapper>
+    );
+    const Calendar = ({ size, className }) => (
+      <IconWrapper className={className} width={size} height={size}><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></IconWrapper>
+    );
+    const AlertCircle = ({ size, className }) => (
+      <IconWrapper className={className} width={size} height={size}><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></IconWrapper>
+    );
+    const DollarSign = ({ size, className }) => (
+      <IconWrapper className={className} width={size} height={size}><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></IconWrapper>
+    );
+    const FileText = ({ size, className }) => (
+      <IconWrapper className={className} width={size} height={size}><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></IconWrapper>
+    );
+    const CheckCircle2 = ({ size, className }) => (
+      <IconWrapper className={className} width={size} height={size}><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></IconWrapper>
+    );
+    const ShieldCheck = ({ size, className }) => (
+      <IconWrapper className={className} width={size} height={size}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></IconWrapper>
+    );
+    const ShieldAlert = ({ size, className }) => (
+      <IconWrapper className={className} width={size} height={size}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></IconWrapper>
+    );
+    const BookOpen = ({ size, className }) => (
+      <IconWrapper className={className} width={size} height={size}><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></IconWrapper>
+    );
+    const Ban = ({ size, className }) => (
+      <IconWrapper className={className} width={size} height={size}><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></IconWrapper>
+    );
+    const Download = ({ size, className }) => (
+      <IconWrapper className={className} width={size} height={size}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></IconWrapper>
+    );
+    const GraduationCap = ({ size, className }) => (
+      <IconWrapper className={className} width={size} height={size}><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></IconWrapper>
+    );
+
+    // --- CONSTANTES ---
+    const DATES = [
+      { label: '1a. Parcialidad', date: '15 enero 2026' },
+      { label: '2a. Parcialidad', date: '16 febrero 2026' }, 
+      { label: '3a. Parcialidad', date: '16 marzo 2026' },   
+      { label: '4a. Parcialidad', date: '15 abril 2026' },
+      { label: '5a. Parcialidad', date: '15 mayo 2026' },
+    ];
+
+    // ** ACTUALIZACIÓN DE COSTOS 2025 **
+    const INSURANCE_FIXED = { tuition: 1257, vive: 1800 };
+    
+    const ACCIDENT_OPTIONS = {
+      none: { id: 'none', label: 'Cancelado', price: 0 },
+      basic: { id: 'basic', label: 'Básico', price: 1160 },
+      plus: { id: 'plus', label: 'Plus', price: 1220 }, 
+    };
+
+    const FINANCING_FACTOR = 1.0467; 
+    
+    const PREPA_COSTS = { 
+        general: 45700.02, 
+        bilingue: 49900.02 
+    };
+    
+    const COST_PER_CREDIT_2018 = 1281.25;
+    const COST_PER_CREDIT_MAPS = 1397.7272727272;
+
+    const MAX_COMBINED_AID_PCT = 60;
+    const MAX_LOAN_PCT = 30;
+
+    const formatCurrency = (amount) => {
+      return amount.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    };
+
+    const LoanInfo = ({ isPdf }) => (
+      <div className={`bg-blue-50 border-l-4 border-blue-500 mb-4 text-blue-800 ${isPdf ? 'p-2 text-[14pt] mb-2' : 'p-4 text-sm'}`}>
+        <p className="font-bold flex items-center gap-2"><AlertCircle size={16}/> Sobre el Préstamo Educativo:</p>
+        <p>El pago fijo mensual es de <strong>$65.00 MXN</strong> por cada 10% (o fracción) de Préstamo Educativo.</p>
+      </div>
+    );
+
+    function TuitionCalculator() {
+      const [mode, setMode] = useState('prepa'); 
+      const [studentName, setStudentName] = useState('');
+      const [logoError, setLogoError] = useState(false);
+      const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
+      
+      const [subjects, setSubjects] = useState(7); 
+      const [prepaType, setPrepaType] = useState('general'); 
+      const [scholarshipPrepa, setScholarshipPrepa] = useState(0);
+
+      const [profPlan, setProfPlan] = useState('2018'); 
+      const [credits, setCredits] = useState(48);
+      const [scholarshipProf, setScholarshipProf] = useState(0);
+      const [loanPercentage, setLoanPercentage] = useState(0);
+      const [accidentOption, setAccidentOption] = useState('basic'); 
+
+      const [totals, setTotals] = useState({
+        baseTuition: 0, scholarshipAmount: 0, loanAmount: 0, netTuition: 0, cashTotal: 0,
+        monthlyPayment: 0, loanMonthlyPayment: 0, totalInsurance: 0, loanFixedFeeTotal: 0 
+      });
+
+      const mainRef = useRef(null); 
+      const linkRef = useRef(null); 
+
+      const uploadLink = mode === 'prepa' 
+        ? 'https://itesm.co1.qualtrics.com/jfe/form/SV_dbxInpfAgosndOK'
+        : 'https://itesm.co1.qualtrics.com/jfe/form/SV_cTvflegZWZ7lsou';
+
+      const handlePlanChange = (newPlan) => {
+        setProfPlan(newPlan);
+        if (newPlan === '2018') setCredits(48);
+        else if (newPlan === '2018_sem_emp') { setCredits(48); setAccidentOption('plus'); }
+        else if (newPlan === 'maps') setCredits(44);
+      };
+
+      const handleProfScholarshipChange = (newVal) => {
+        setScholarshipProf(newVal);
+        if (newVal + loanPercentage > MAX_COMBINED_AID_PCT) {
+          const maxAllowedLoan = Math.max(0, MAX_COMBINED_AID_PCT - newVal);
+          setLoanPercentage(Math.min(maxAllowedLoan, MAX_LOAN_PCT));
+        }
+      };
+
+      const handleLoanChange = (newVal) => {
+        const maxAllowedLoan = Math.min(MAX_LOAN_PCT, MAX_COMBINED_AID_PCT - scholarshipProf);
+        if (newVal <= maxAllowedLoan) setLoanPercentage(newVal);
+      };
+
+      // --- GENERACIÓN DE PDF SIN ASYNC (Fix Script Error) ---
+      const handleGeneratePDF = () => {
+        if (!mainRef.current) return;
+        setIsGeneratingPdf(true);
+        document.body.classList.add('generating'); 
+
+        // Usamos setTimeout para permitir que React renderice el estado "isGeneratingPdf" antes de capturar
+        setTimeout(() => {
+            html2canvas(mainRef.current, {
+                scale: 1.1, 
+                useCORS: true, 
+                backgroundColor: '#ffffff',
+                logging: false,
+                windowWidth: 1080 // Ancho optimizado para escala carta
+            }).then(canvas => {
+                try {
+                    const imgData = canvas.toDataURL('image/jpeg', 0.75); 
+                    
+                    // Verificar si jsPDF está cargado correctamente
+                    const { jsPDF } = window.jspdf;
+                    if (!jsPDF) {
+                        alert("Error: Librería PDF no cargada. Intente recargar.");
+                        setIsGeneratingPdf(false);
+                        document.body.classList.remove('generating');
+                        return;
+                    }
+
+                    const pdf = new jsPDF('p', 'mm', 'letter'); 
+                    
+                    const pdfWidth = pdf.internal.pageSize.getWidth();
+                    const imgWidth = canvas.width;
+                    const imgHeight = canvas.height;
+                    
+                    const margin = 5; 
+                    const contentWidth = pdfWidth - (margin * 2);
+                    const contentHeight = (imgHeight * contentWidth) / imgWidth;
+
+                    pdf.addImage(imgData, 'JPEG', margin, margin, contentWidth, contentHeight);
+                    
+                    if (linkRef.current && accidentOption === 'none') {
+                        const mainRect = mainRef.current.getBoundingClientRect();
+                        const linkRect = linkRef.current.getBoundingClientRect();
+                        
+                        const scaleFactor = contentWidth / mainRef.current.offsetWidth;
+                        
+                        const pdfLinkX = margin + (linkRect.left - mainRect.left) * scaleFactor;
+                        const pdfLinkY = margin + (linkRect.top - mainRect.top) * scaleFactor;
+                        const pdfLinkW = (linkRect.width * scaleFactor) + 2;
+                        const pdfLinkH = (linkRect.height * scaleFactor) + 2;
+
+                        pdf.link(pdfLinkX, pdfLinkY, pdfLinkW, pdfLinkH, { url: uploadLink });
+                    }
+
+                    // Nombre de archivo dinámico
+                    const now = new Date();
+                    const day = now.getDate().toString().padStart(2, '0');
+                    const month = (now.getMonth() + 1).toString().padStart(2, '0');
+                    const year = now.getFullYear();
+                    const dateStr = `${day}-${month}-${year}`;
+                    
+                    let hours = now.getHours();
+                    const minutes = now.getMinutes().toString().padStart(2, '0');
+                    const ampm = hours >= 12 ? 'pm' : 'am';
+                    hours = hours % 12;
+                    hours = hours ? hours : 12; 
+                    const timeStr = `${hours.toString().padStart(2, '0')}-${minutes}-${ampm}`;
+                    
+                    const levelName = mode === 'prepa' ? 'Preparatoria' : 'Profesional';
+                    const filename = `Simulación_Colegiatura_${levelName}_${dateStr}_${timeStr}.pdf`;
+                    
+                    pdf.save(filename);
+
+                } catch (error) {
+                    console.error("Error generando PDF:", error);
+                    alert("Hubo un error al generar el PDF.");
+                } finally {
+                    setIsGeneratingPdf(false);
+                    document.body.classList.remove('generating');
+                }
+            }).catch(err => {
+                 console.error("Error html2canvas:", err);
+                 alert("Error al capturar pantalla.");
+                 setIsGeneratingPdf(false);
+                 document.body.classList.remove('generating');
+            });
+        }, 200);
+      };
+
+      useEffect(() => {
+        let base = 0, scholarshipPct = 0, loanAddonMonthly = 0, loanFixedFeeTotal = 0;
+        let loanAmt = 0;
+
+        if (mode === 'prepa') {
+          const fullCost = PREPA_COSTS[prepaType];
+          const unitCost = fullCost / 6; 
+
+          if (subjects <= 5) {
+             base = unitCost * subjects;
+          } else if (subjects === 6 || subjects === 7) {
+             base = fullCost;
+          } else {
+             base = unitCost * (subjects - 1);
+          }
+          
+          scholarshipPct = scholarshipPrepa / 100;
+        } else {
+          const costPerCredit = (profPlan === '2018' || profPlan === '2018_sem_emp') ? COST_PER_CREDIT_2018 : COST_PER_CREDIT_MAPS;
+          const activeCredits = (profPlan === '2018_sem_emp') ? 48 : credits;
+          base = activeCredits * costPerCredit;
+          scholarshipPct = scholarshipProf / 100;
+          
+          if (loanPercentage > 0) {
+            loanAmt = base * (loanPercentage / 100);
+            const factor = Math.ceil(loanPercentage / 10);
+            loanAddonMonthly = factor * 65;
+            loanFixedFeeTotal = factor * 390;
+          }
+        }
+
+        const scholarshipAmount = base * scholarshipPct;
+        const netTuition = base - scholarshipAmount - loanAmt;
+        
+        const activeAccidentOption = (mode === 'profesional' && profPlan === '2018_sem_emp') ? 'plus' : accidentOption;
+        const accidentCost = ACCIDENT_OPTIONS[activeAccidentOption].price;
+        const totalInsurance = INSURANCE_FIXED.tuition + INSURANCE_FIXED.vive + accidentCost;
+        const cashTotal = netTuition + totalInsurance + loanFixedFeeTotal;
+        const financingTotal = netTuition * FINANCING_FACTOR;
+        const monthlyPayment = (financingTotal / 5) + loanAddonMonthly;
+
+        setTotals({
+          baseTuition: base, scholarshipAmount, loanAmount: loanAmt, netTuition, cashTotal,
+          monthlyPayment, loanMonthlyPayment: loanAddonMonthly,
+          totalInsurance, loanFixedFeeTotal
+        });
+      }, [mode, subjects, prepaType, scholarshipPrepa, credits, scholarshipProf, loanPercentage, accidentOption, profPlan]);
+
+      const monthlyBase = totals.monthlyPayment - totals.loanMonthlyPayment;
+      const sumMontoColegiatura = (monthlyBase * 5) + totals.totalInsurance;
+      const sumPagoFijo = totals.loanMonthlyPayment * 6;
+      const sumTotalPagar = sumMontoColegiatura + sumPagoFijo;
+      const combinedAid = scholarshipProf + loanPercentage;
+      const currentMaxLoan = mode === 'profesional' ? Math.min(MAX_LOAN_PCT, MAX_COMBINED_AID_PCT - scholarshipProf) : 0;
+      const isSemestreEmpresarial = mode === 'profesional' && profPlan === '2018_sem_emp';
+
+      // Lógica de distribución de columnas y centrado para PDF
+      const hasLoanColumn = mode === 'profesional' && loanPercentage > 0;
+      
+      // ANCHOS DISTRIBUIDOS UNIFORMEMENTE
+      // 5 columnas (con préstamo): 20% cada una
+      // 4 columnas (sin préstamo): 25% cada una
+      const colWidthClass = isGeneratingPdf ? (hasLoanColumn ? 'w-[20%]' : 'w-[25%]') : '';
+
+      // Aumentar padding vertical (py-5) en PDF para evitar amontonamiento
+      const cellPadding = isGeneratingPdf ? 'px-2 py-5' : 'px-6 py-4';
+      const headerPadding = isGeneratingPdf ? 'px-2 py-3' : 'px-6 py-3';
+
+      return (
+        <div className={`min-h-screen font-sans text-gray-800 pb-12 ${isGeneratingPdf ? 'bg-white' : 'bg-gray-100'}`}>
+          <header className={`bg-[#00534C] text-white shadow-lg ${isGeneratingPdf ? 'hidden' : ''}`}>
+            <div className="max-w-6xl mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
+              <div className="flex items-center gap-3">
+                {!logoError ? (
+                  <img src="WEB_Logotipo_Negativo_RGB-01.png" alt="Logotipo Tecmilenio" className="h-12 w-auto object-contain" onError={() => setLogoError(true)} />
+                ) : <Calculator size={32} />}
+                <div>
+                  <h1 className="text-2xl font-bold tracking-tight">Calculadora de Colegiaturas</h1>
+                  <p className="text-emerald-100 text-sm">Periodo Enero - Mayo 2026</p>
+                </div>
+              </div>
+              <button 
+                type="button"
+                onClick={handleGeneratePDF}
+                disabled={isGeneratingPdf}
+                className={`${isGeneratingPdf ? 'bg-emerald-800 cursor-wait' : 'bg-white hover:bg-gray-100 active:scale-95'} text-[#00534C] px-4 py-2 rounded-full font-semibold text-sm transition flex items-center gap-2 shadow-sm transform`}
+              >
+                {isGeneratingPdf ? (
+                   <span>Generando PDF...</span>
+                ) : (
+                   <><Download size={16} /> Descargar PDF</>
+                )}
+              </button>
+            </div>
+          </header>
+
+          {/* CONTENIDO PRINCIPAL */}
+          <div ref={mainRef} className={isGeneratingPdf ? 'pdf-mode' : 'bg-gray-100'}>
+            
+            {/* Header exclusivo para el PDF */}
+            {isGeneratingPdf && (
+                <div className="mb-6 border-b-2 border-[#00534C] pb-4 pt-4">
+                    <h1 className="text-3xl font-bold text-[#00534C]">Simulación de Colegiatura</h1>
+                    <div className="flex justify-between items-end mt-2">
+                    <p className="text-gray-600 text-lg">{studentName || "Estudiante"}</p>
+                    <div className="text-right">
+                        <p className="font-bold text-gray-800">{mode === 'prepa' ? 'Preparatoria' : 'Profesional'}</p>
+                        {mode === 'prepa' && <p className="text-sm text-[#00534C]">{prepaType === 'general' ? 'General' : 'Bilingüe'}</p>}
+                        {mode === 'profesional' && <p className="text-sm text-[#00534C]">{profPlan === '2018' ? 'Plan 2018' : (profPlan === '2018_sem_emp' ? 'Semestre Empresarial' : 'Plan MAPS')}</p>}
+                        <p className="text-sm text-gray-500">Periodo: Enero - Mayo 2026</p>
+                        <p className="text-sm text-gray-500">Campus Laguna</p>
+                    </div>
+                    </div>
+                </div>
+            )}
+
+            {/* --- Layout Modificado: División por Filas para asegurar Alineación Horizontal --- */}
+            
+            <main className={`flex flex-col gap-8 ${isGeneratingPdf ? 'w-full px-4' : 'max-w-6xl mx-auto px-4 py-8'}`}>
+              
+              {/* Fila 1: Datos Generales (Izq) y Costos (Der) */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                {/* Columna Izquierda Fila 1 */}
+                {!isGeneratingPdf && (
+                  <div className="lg:col-span-4">
+                      <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200 h-full">
+                        <h2 className="text-lg font-bold text-gray-700 mb-4 flex items-center gap-2">
+                          <CheckCircle2 size={20} className="text-emerald-600"/> Datos Generales
+                        </h2>
+                        <div className="space-y-4">
+                          <div>
+                            <label className="block text-sm font-medium text-gray-600 mb-1">Nombre del Estudiante</label>
+                            <input type="text" value={studentName} onChange={(e) => setStudentName(e.target.value)} placeholder="Ej. Beatriz Pérez Gómez" className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-emerald-500 focus:border-emerald-500 border p-2" />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-gray-600 mb-2">Nivel Educativo</label>
+                            <div className="grid grid-cols-2 gap-2 bg-gray-100 p-1 rounded-lg">
+                              <button onClick={() => setMode('prepa')} className={`py-2 px-3 rounded-md text-sm font-medium transition-all ${mode === 'prepa' ? 'bg-white text-[#00534C] shadow-sm font-bold' : 'text-gray-500 hover:text-gray-700'}`}>Preparatoria</button>
+                              <button onClick={() => setMode('profesional')} className={`py-2 px-3 rounded-md text-sm font-medium transition-all ${mode === 'profesional' ? 'bg-white text-[#00534C] shadow-sm font-bold' : 'text-gray-500 hover:text-gray-700'}`}>Profesional</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                )}
+
+                {/* Columna Derecha Fila 1 */}
+                <div className={`${isGeneratingPdf ? 'col-span-12' : 'lg:col-span-8'}`}>
+                  {/* Header visible solo en web */}
+                  <div className={`hidden mb-4 border-b-2 border-[#00534C] pb-2 ${isGeneratingPdf ? 'hidden' : 'print:block'}`}>
+                    <h1 className="text-2xl font-bold text-[#00534C]">Simulación de Colegiatura</h1>
+                    <div className="flex justify-between items-end mt-1">
+                      <p className="text-gray-600 text-base">{studentName || "Estudiante"}</p>
+                      <div className="text-right">
+                        <p className="font-bold text-gray-800 text-sm">{mode === 'prepa' ? 'Preparatoria' : 'Profesional'}</p>
+                        {mode === 'profesional' && <p className="text-xs font-semibold text-[#00534C]">{profPlan === '2018' ? 'Plan 2018' : 'Plan MAPS'}</p>}
+                        <p className="text-xs text-gray-500">Periodo: Enero - Mayo 2026</p>
+                        <p className="text-xs text-gray-500">Campus Laguna</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Tarjetas de Costos */}
+                  <div className={`grid gap-4 ${isGeneratingPdf ? 'gap-6 grid-cols-2 w-full' : 'grid-cols-1 md:grid-cols-2'}`}>
+                    <div className={`bg-white p-6 rounded-xl shadow-sm border border-gray-200 flex flex-col justify-between ${isGeneratingPdf ? 'shadow-none border-gray-300' : ''}`}>
+                      <div>
+                        {/* Títulos de tarjetas: 15pt */}
+                        <h3 className={`text-gray-500 font-semibold uppercase tracking-wider mb-4 flex items-center h-6 ${isGeneratingPdf ? 'text-[15pt]' : 'text-sm'}`}>Costo Semestral Base</h3>
+                        <div className={`space-y-2 ${isGeneratingPdf ? 'space-y-1' : ''}`}>
+                          {/* Textos de desglose: 12pt */}
+                          <div className={`flex justify-between text-gray-600 ${isGeneratingPdf ? 'text-[12pt]' : 'text-sm'}`}><span>Colegiatura (Sin beca)</span><span>${formatCurrency(totals.baseTuition)}</span></div>
+                          <div className={`flex justify-between text-emerald-600 font-medium ${isGeneratingPdf ? 'text-[12pt]' : 'text-sm'}`}><span>- Apoyo Financiero ({mode === 'prepa' ? scholarshipPrepa : scholarshipProf}%)</span><span>-${formatCurrency(totals.scholarshipAmount)}</span></div>
+                          
+                          {/* NUEVA LÍNEA: DEDUCCIÓN PRÉSTAMO */}
+                          {mode === 'profesional' && loanPercentage > 0 && (
+                            <div className={`flex justify-between text-blue-600 font-medium ${isGeneratingPdf ? 'text-[12pt]' : 'text-sm'}`}>
+                                <span>- Préstamo Educativo ({loanPercentage}%)</span>
+                                <span>-${formatCurrency(totals.loanAmount)}</span>
+                            </div>
+                          )}
+
+                          <div className="h-px bg-gray-200 my-2"></div>
+                          {/* Monto principal: 18pt */}
+                          <div className={`flex justify-between text-gray-800 font-bold ${isGeneratingPdf ? 'text-[18pt]' : 'text-lg'}`}><span>Colegiatura Neta</span><span>${formatCurrency(totals.netTuition)}</span></div>
+                          <p className={`text-gray-500 mt-2 italic ${isGeneratingPdf ? 'text-[10pt]' : 'text-xs'} print:mt-2`}>• El importe de las colegiaturas consignado en este documento podrá incrementarse con base en la inflación anual.</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className={`bg-emerald-50 p-6 rounded-xl border border-emerald-100 flex flex-col justify-between ${isGeneratingPdf ? 'bg-white border-gray-300' : ''}`}>
+                      <div>
+                        <h3 className={`text-emerald-800 font-semibold uppercase tracking-wider mb-4 flex items-center gap-2 h-6 ${isGeneratingPdf ? 'text-[15pt]' : 'text-sm'}`}>
+                          <div className="flex-shrink-0 w-4 h-4 flex items-center justify-center"><DollarSign size={16} className="w-full h-full"/></div>
+                          <span>Plan de Contado</span>
+                        </h3>
+                        <div className={`space-y-2 ${isGeneratingPdf ? 'space-y-1' : ''}`}>
+                          <div className={`flex justify-between text-emerald-900 ${isGeneratingPdf ? 'text-[12pt]' : 'text-sm'}`}><span>Colegiatura Neta</span><span>${formatCurrency(totals.netTuition)}</span></div>
+                          <div className={`flex justify-between text-emerald-700 ${isGeneratingPdf ? 'text-[12pt]' : 'text-sm'}`}><span>+ Seguro Accidentes</span><span>${formatCurrency(ACCIDENT_OPTIONS[isSemestreEmpresarial ? 'plus' : accidentOption].price)}</span></div>
+                          <div className={`flex justify-between text-emerald-700 ${isGeneratingPdf ? 'text-[12pt]' : 'text-sm'}`}><span>+ Cobertura colegiatura</span><span>${formatCurrency(INSURANCE_FIXED.tuition)}</span></div>
+                          <div className="flex justify-between text-emerald-700 text-[12pt]"><span>+ Cobertura VIVE</span><span>${formatCurrency(INSURANCE_FIXED.vive)}</span></div>
+                          {mode === 'profesional' && totals.loanFixedFeeTotal > 0 && (
+                            <div className={`flex justify-between text-blue-600 font-medium ${isGeneratingPdf ? 'text-[12pt]' : 'text-sm'}`}><span>+ Pago Fijo Préstamo</span><span>${formatCurrency(totals.loanFixedFeeTotal)}</span></div>
+                          )}
+                          <div className="h-px bg-emerald-200 my-2"></div>
+                          {/* Monto principal: 18pt */}
+                          <div className={`flex justify-between text-emerald-900 font-bold ${isGeneratingPdf ? 'text-[18pt]' : 'text-xl'}`}><span>Total a Pagar</span><span>${formatCurrency(totals.cashTotal)}</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Fila 2: Configuración + Seguros (Izq) y Financiamiento (Der) */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                {/* Columna Izquierda Fila 2 */}
+                {!isGeneratingPdf && (
+                  <div className="lg:col-span-4 space-y-6">
+                      <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                      <h2 className="text-lg font-bold text-gray-700 mb-4 flex items-center gap-2">
+                        <GraduationCap size={20} className="text-emerald-600"/> Configuración Académica
+                      </h2>
+                      {mode === 'prepa' ? (
+                        <div className="space-y-6">
+                          <div className="bg-emerald-50 p-3 rounded-lg border border-emerald-100">
+                            <label className="block text-sm font-medium text-emerald-900 mb-2 flex items-center gap-2"><BookOpen size={16}/> Modalidad</label>
+                            <div className="grid grid-cols-2 gap-2">
+                                <label className={`cursor-pointer text-center text-sm py-2 rounded-md transition-colors ${prepaType === 'general' ? 'bg-[#00534C] text-white font-bold' : 'bg-white text-gray-600 border border-emerald-200 hover:bg-emerald-100'}`}>
+                                  <input type="radio" name="prepaType" value="general" className="hidden" checked={prepaType === 'general'} onChange={() => setPrepaType('general')}/> General
+                                </label>
+                                <label className={`cursor-pointer text-center text-sm py-2 rounded-md transition-colors ${prepaType === 'bilingue' ? 'bg-[#00534C] text-white font-bold' : 'bg-white text-gray-600 border border-emerald-200 hover:bg-emerald-100'}`}>
+                                  <input type="radio" name="prepaType" value="bilingue" className="hidden" checked={prepaType === 'bilingue'} onChange={() => setPrepaType('bilingue')}/> Bilingüe
+                                </label>
+                            </div>
+                          </div>
+                          <div>
+                            <div className="flex justify-between mb-1">
+                              <label className="text-sm font-medium text-gray-600">Número de Materias</label>
+                              <span className="text-sm font-bold text-emerald-700">{subjects}</span>
+                            </div>
+                            <input type="range" min="1" max="9" step="1" value={subjects} onChange={(e) => setSubjects(Number(e.target.value))} className="w-full accent-emerald-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" />
+                            <div className="flex justify-between text-xs text-gray-400 mt-1"><span>1</span><span>9</span></div>
+                            <p className="text-xs text-gray-500 mt-1">6 y 7 materias tienen el mismo costo.</p>
+                          </div>
+                          <div>
+                            <div className="flex justify-between mb-1">
+                              <label className="text-sm font-medium text-gray-600">Porcentaje de Beca</label>
+                              <span className="text-sm font-bold text-emerald-700">{scholarshipPrepa}%</span>
+                            </div>
+                            <input type="range" min="0" max="100" step="5" value={scholarshipPrepa} onChange={(e) => setScholarshipPrepa(Number(e.target.value))} className="w-full accent-emerald-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" />
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="space-y-6">
+                          <div className="bg-emerald-50 p-3 rounded-lg border border-emerald-100">
+                            <label className="block text-sm font-medium text-emerald-900 mb-2 flex items-center gap-2"><BookOpen size={16}/> Plan de Estudios</label>
+                            <div className="space-y-2">
+                                <label className={`block cursor-pointer text-sm p-2 rounded-md border transition-colors ${profPlan === '2018' ? 'bg-[#00534C] text-white font-bold border-emerald-700' : 'bg-white text-gray-600 border-gray-200 hover:bg-emerald-50'}`}>
+                                  <input type="radio" name="plan" value="2018" className="hidden" checked={profPlan === '2018'} onChange={() => handlePlanChange('2018')}/> 
+                                  <div className="flex items-center gap-2"><div className={`w-3 h-3 rounded-full border ${profPlan === '2018' ? 'bg-white' : 'bg-transparent border-gray-400'}`}></div> Plan 2018</div>
+                                </label>
+                                <label className={`block cursor-pointer text-sm p-2 rounded-md border transition-colors ${profPlan === '2018_sem_emp' ? 'bg-[#00534C] text-white font-bold border-emerald-700' : 'bg-white text-gray-600 border-gray-200 hover:bg-emerald-50'}`}>
+                                  <input type="radio" name="plan" value="2018_sem_emp" className="hidden" checked={profPlan === '2018_sem_emp'} onChange={() => handlePlanChange('2018_sem_emp')}/> 
+                                  <div className="flex items-center gap-2"><div className={`w-3 h-3 rounded-full border ${profPlan === '2018_sem_emp' ? 'bg-white' : 'bg-transparent border-gray-400'}`}></div> Semestre Empresarial (Plan 2018)</div>
+                                </label>
+                                <label className={`block cursor-pointer text-sm p-2 rounded-md border transition-colors ${profPlan === 'maps' ? 'bg-[#00534C] text-white font-bold border-emerald-700' : 'bg-white text-gray-600 border-gray-200 hover:bg-emerald-50'}`}>
+                                  <input type="radio" name="plan" value="maps" className="hidden" checked={profPlan === 'maps'} onChange={() => handlePlanChange('maps')}/> 
+                                  <div className="flex items-center gap-2"><div className={`w-3 h-3 rounded-full border ${profPlan === 'maps' ? 'bg-white' : 'bg-transparent border-gray-400'}`}></div> Plan MAPS</div>
+                                </label>
+                            </div>
+                          </div>
+                          <div>
+                            <div className="flex justify-between mb-1">
+                              <label className="text-sm font-medium text-gray-600">Créditos Académicos</label>
+                              <span className="text-sm font-bold text-emerald-700">{isSemestreEmpresarial ? 48 : credits}</span>
+                            </div>
+                            <input 
+                              type="range" min="2" max="64" step="2" 
+                              value={isSemestreEmpresarial ? 48 : credits} 
+                              onChange={(e) => setCredits(Number(e.target.value))} 
+                              className={`w-full h-2 rounded-lg appearance-none cursor-pointer ${isSemestreEmpresarial ? 'bg-gray-300 cursor-not-allowed' : 'accent-emerald-600 bg-gray-200'}`} 
+                              disabled={isSemestreEmpresarial}
+                            />
+                            <div className="flex justify-between text-xs text-gray-400 mt-1"><span>2</span><span>64</span></div>
+                            {isSemestreEmpresarial ? (
+                              <p className="text-xs text-emerald-700 font-medium mt-1">* En Semestre Empresarial la carga es fija a 48 créditos.</p>
+                            ) : (
+                              <p className="text-xs text-gray-500 mt-1">Carga completa estándar ({profPlan === 'maps' ? 'Plan MAPS' : 'Plan 2018'}): <strong>{profPlan === 'maps' ? '44' : '48'} créditos</strong>.</p>
+                            )}
+                          </div>
+
+                          <div className="bg-gray-50 p-4 rounded-xl border border-gray-200 space-y-6">
+                              <div className="flex items-center justify-between">
+                                  <h4 className="text-sm font-bold text-gray-700 flex items-center gap-2"><DollarSign size={16} /> Apoyos Financieros</h4>
+                              </div>
+                              <div className="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
+                                  <div className={`h-2.5 rounded-full transition-all duration-500 ${combinedAid > MAX_COMBINED_AID_PCT - 10 ? 'bg-orange-500' : 'bg-[#00534C]'}`} style={{ width: `${(combinedAid / MAX_COMBINED_AID_PCT) * 100}%` }}></div>
+                              </div>
+                              <p className="text-xs text-right text-gray-500 mt-0">Total Apoyo: <strong>{combinedAid}%</strong> (Límite: {MAX_COMBINED_AID_PCT}%)</p>
+                              <div>
+                                <div className="flex justify-between mb-1">
+                                    <label className="text-sm font-medium text-gray-600">Porcentaje de Beca</label>
+                                    <span className="text-sm font-bold text-emerald-700">{scholarshipProf}%</span>
+                                </div>
+                                <input type="range" min="0" max="100" step="5" value={scholarshipProf} onChange={(e) => handleProfScholarshipChange(Number(e.target.value))} className="w-full accent-emerald-600 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" />
+                              </div>
+                              <div>
+                                <div className="flex justify-between mb-1">
+                                    <label className="text-sm font-medium text-gray-600">Préstamo Educativo (%)</label>
+                                    <span className="text-sm font-bold text-blue-700">{loanPercentage}%</span>
+                                </div>
+                                <input type="range" min="0" max={50} step="5" value={loanPercentage} onChange={(e) => handleLoanChange(Number(e.target.value))} className={`w-full h-2 rounded-lg appearance-none cursor-pointer ${currentMaxLoan === 0 ? 'bg-gray-200 accent-gray-400' : 'bg-blue-100 accent-blue-600'}`} disabled={currentMaxLoan === 0 && loanPercentage === 0} />
+                                <div className="flex justify-between text-xs text-gray-400 mt-1"><span>0%</span><span>Max disp: {currentMaxLoan}%</span></div>
+                                {currentMaxLoan === 0 && scholarshipProf >= MAX_COMBINED_AID_PCT && (<p className="text-xs text-orange-600 mt-1 flex items-center gap-1"><Ban size={12}/> Límite de apoyo alcanzado por Beca.</p>)}
+                                {loanPercentage > 0 && loanPercentage >= currentMaxLoan && scholarshipProf === 0 && (<p className="text-xs text-blue-600 mt-1">* Tope máximo de préstamo puro es 30%.</p>)}
+                              </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                      <h2 className="text-lg font-bold text-gray-700 mb-4 flex items-center gap-2"><ShieldCheck size={20} className="text-emerald-600"/> Seguro de accidentes y coberturas</h2>
+                      <div className="space-y-3">
+                        <p className="text-sm text-gray-600 font-medium mb-2">Selecciona tu Seguro de Accidentes:</p>
+                        {Object.values(ACCIDENT_OPTIONS).map((opt) => {
+                          const isOptionDisabled = isSemestreEmpresarial && opt.id !== 'plus';
+                          return (
+                            <label key={opt.id} className={`flex items-center justify-between p-3 border rounded-lg transition-all ${isOptionDisabled ? 'opacity-50 cursor-not-allowed bg-gray-100 border-gray-200' : 'cursor-pointer hover:border-emerald-300'} ${(isSemestreEmpresarial ? 'plus' : accidentOption) === opt.id && !isOptionDisabled ? (opt.id === 'none' ? 'border-red-500 bg-red-50' : 'border-emerald-500 bg-emerald-50') : 'border-gray-200'}`}>
+                              <div className="flex items-center gap-3">
+                                <input 
+                                  type="radio" 
+                                  name="accidentInsurance" 
+                                  value={opt.id} 
+                                  checked={(isSemestreEmpresarial ? 'plus' : accidentOption) === opt.id} 
+                                  onChange={(e) => !isOptionDisabled && setAccidentOption(e.target.value)} 
+                                  disabled={isOptionDisabled}
+                                  className={`w-4 h-4 ${opt.id === 'none' ? 'text-red-600 accent-red-600' : 'text-emerald-600 accent-emerald-600'}`} 
+                                />
+                                <span className="text-sm text-gray-700">{opt.id === 'none' ? 'Cancelar (Tengo Póliza)' : `Seguro ${opt.label}`}</span>
+                              </div>
+                              <span className="text-sm font-bold text-gray-600">${formatCurrency(opt.price)}</span>
+                            </label>
+                          );
+                        })}
+                        {isSemestreEmpresarial && (
+                          <p className="text-xs text-emerald-600 font-medium mt-1">* En Semestre Empresarial el Seguro Plus es obligatorio.</p>
+                        )}
+                      </div>
+                      <div className="mt-4 bg-gray-50 p-4 rounded-lg border border-gray-200 text-sm">
+                          <ul className="space-y-1 text-gray-600">
+                          <li className="flex justify-between"><span>Seguro Accidentes:</span> <span className="font-medium text-gray-800">${formatCurrency(ACCIDENT_OPTIONS[isSemestreEmpresarial ? 'plus' : accidentOption].price)}</span></li>
+                          <li className="flex justify-between"><span>Cobertura colegiatura:</span> <span>${formatCurrency(INSURANCE_FIXED.tuition)}</span></li>
+                          <li className="flex justify-between"><span>Cobertura VIVE:</span> <span>${formatCurrency(INSURANCE_FIXED.vive)}</span></li>
+                          <li className="border-t pt-1 mt-1 flex justify-between font-bold text-gray-800"><span>Total Seguros:</span><span>${formatCurrency(totals.totalInsurance)}</span></li>
+                          </ul>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Columna Derecha Fila 2 */}
+                <div className={`${isGeneratingPdf ? 'col-span-12' : 'lg:col-span-8'}`}>
+                   <div className={`bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden ${isGeneratingPdf ? 'shadow-none border-gray-300 w-full' : ''}`}>
+                    <div className={`bg-gray-50 px-6 py-4 border-b border-gray-200 flex justify-between items-center ${isGeneratingPdf ? 'bg-white pl-0' : ''}`}>
+                      <h3 className={`font-bold text-gray-700 flex items-center gap-2 text-sm ${isGeneratingPdf ? 'text-[15pt]' : ''} h-5`}>
+                        <div className="flex-shrink-0 w-5 h-5 flex items-center justify-center print:w-4 print:h-4">
+                          <Calendar size={18} className="text-emerald-600 w-full h-full"/>
+                        </div>
+                        <span>Plan con Financiamiento (5 Pagos)</span>
+                      </h3>
+                    </div>
+                    
+                    {mode === 'profesional' && loanPercentage > 0 && (<div className="px-6 pt-4"><LoanInfo isPdf={isGeneratingPdf} /></div>)}
+
+                    {!isSemestreEmpresarial && accidentOption === 'none' && (
+                        <div className="px-6 pt-4">
+                            <div className={`bg-red-50 border-l-4 border-red-500 p-4 text-sm text-red-800 ${isGeneratingPdf ? 'bg-white border-red-600' : ''}`}>
+                                <p className={`font-bold flex items-center gap-2 ${isGeneratingPdf ? 'text-[14pt]' : ''}`}><ShieldAlert size={16}/> Atención: Seguro Cancelado</p>
+                                <p className={`${isGeneratingPdf ? 'text-[14pt]' : ''}`}>Para evitar el cargo automático del seguro de accidentes de Tecmilenio, se deberá entregar la póliza vigente del seguro contratado externamente antes del inicio de clases en <a ref={linkRef} href={uploadLink} target="_blank" rel="noopener noreferrer" className="underline font-bold hover:text-red-900">este enlace</a>.</p>
+                            </div>
+                        </div>
+                    )}
+
+                    <div className="p-0 overflow-x-auto w-full">
+                      <table className="w-full text-left border-collapse">
+                        <thead>
+                          <tr className={`bg-gray-50 text-gray-500 text-xs uppercase tracking-wider ${isGeneratingPdf ? 'bg-gray-100' : ''}`}>
+                            <th className={`px-6 py-3 font-medium ${isGeneratingPdf ? `align-middle px-2 py-2 text-[14pt] ${colWidthClass}` : ''}`}>PARCIALIDAD</th>
+                            <th className={`px-6 py-3 font-medium ${isGeneratingPdf ? `align-middle px-2 py-2 text-[14pt] ${colWidthClass}` : ''}`}>FECHA LIMITE</th>
+                            <th className={`px-6 py-3 font-medium text-right ${isGeneratingPdf ? `align-middle px-2 py-2 text-[14pt] ${colWidthClass}` : ''}`}>COLEGIATURA</th>
+                            {hasLoanColumn && <th className={`px-6 py-3 font-medium text-right ${isGeneratingPdf ? `align-middle px-2 py-2 text-[14pt] ${colWidthClass}` : ''}`}>PAGO FIJO PE</th>}
+                            <th className={`px-6 py-3 font-medium text-right bg-gray-100 ${isGeneratingPdf ? `align-middle px-2 py-2 text-[14pt] ${colWidthClass}` : ''}`}>TOTAL A PAGAR</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-100">
+                          {DATES.map((item, index) => {
+                            const isFirst = index === 0;
+                            const insuranceAddon = isFirst ? totals.totalInsurance : 0;
+                            const monthlyBase = totals.monthlyPayment - totals.loanMonthlyPayment;
+                            const rowLoanPayment = isFirst ? totals.loanMonthlyPayment * 2 : totals.loanMonthlyPayment;
+                            const rowTotal = monthlyBase + insuranceAddon + rowLoanPayment;
+
+                            const activeAccidentOption = isSemestreEmpresarial ? 'plus' : accidentOption;
+                            const conceptLabel = activeAccidentOption === 'none' 
+                              ? "Colegiatura + Coberturas" 
+                              : "Colegiatura + Coberturas + Seguro";
+
+                            return (
+                              <tr key={index} className={`hover:bg-gray-50 transition-colors ${isFirst ? (isGeneratingPdf ? 'bg-white' : 'bg-emerald-50/30') : ''}`}>
+                                <td className={`px-6 py-4 text-sm font-medium text-gray-700 ${isGeneratingPdf ? 'align-middle px-2 py-4 text-[14pt]' : ''}`}>
+                                  {item.label}
+                                  {isFirst && <span className={`block text-xs font-normal ${isGeneratingPdf ? 'text-gray-600' : 'text-emerald-600'}`}>{conceptLabel}</span>}
+                                </td>
+                                <td className={`px-6 py-4 text-sm text-gray-600 ${isGeneratingPdf ? 'align-middle px-2 py-4 text-[14pt]' : ''}`}>{item.date}</td>
+                                <td className={`px-6 py-4 text-sm text-gray-600 text-right ${isGeneratingPdf ? 'align-middle px-2 py-4 text-[14pt]' : ''}`}>${formatCurrency(monthlyBase + insuranceAddon)}</td>
+                                {hasLoanColumn && <td className={`px-6 py-4 text-sm text-blue-600 text-right ${isGeneratingPdf ? 'align-middle px-2 py-4 text-[14pt]' : ''}`}>${formatCurrency(rowLoanPayment)}</td>}
+                                <td className={`px-6 py-4 text-sm font-bold text-gray-800 text-right bg-gray-50/50 ${isGeneratingPdf ? 'align-middle bg-transparent px-2 py-4 text-[14pt]' : ''}`}>${formatCurrency(rowTotal)}</td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                        <tfoot className="bg-gray-100 border-t-2 border-gray-200">
+                          <tr>
+                            <td colSpan={2} className={`px-6 py-4 text-sm font-bold text-gray-700 text-right uppercase ${isGeneratingPdf ? 'align-middle px-2 py-3 text-[18pt]' : ''}`}>Totales Semestral:</td>
+                            <td className={`px-6 py-4 text-sm font-bold text-gray-800 text-right ${isGeneratingPdf ? 'align-middle px-2 py-3 text-[14pt]' : ''}`}>${formatCurrency(sumMontoColegiatura)}</td>
+                            {hasLoanColumn && <td className={`px-6 py-4 text-sm font-bold text-blue-700 text-right ${isGeneratingPdf ? 'align-middle px-2 py-3 text-[14pt]' : ''}`}>${formatCurrency(sumPagoFijo)}</td>}
+                            <td className={`px-6 py-4 text-xl font-bold text-emerald-800 text-right bg-emerald-50 ${isGeneratingPdf ? 'align-middle bg-transparent px-2 py-3 text-[18pt]' : ''}`}>${formatCurrency(sumTotalPagar)}</td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                    <div className="bg-gray-50 px-6 py-3 border-t border-gray-200">
+                      <p className={`text-xs text-gray-500 text-right ${isGeneratingPdf ? 'text-[10pt]' : ''}`}>Inicio de clases: <strong>12 de enero de 2026</strong></p>
+                    </div>
+                  </div>
+
+                  <div className={`bg-white rounded-xl p-6 border border-gray-200 text-xs text-gray-500 space-y-2 ${isGeneratingPdf ? 'shadow-none border-none w-full' : 'mt-6'}`}>
+                    <h4 className={`font-bold text-gray-700 mb-2 uppercase ${isGeneratingPdf ? 'text-[10pt]' : ''}`}>Notas Importantes:</h4>
+                    <div className={`space-y-1 ${isGeneratingPdf ? 'space-y-0 text-[10pt]' : ''}`}>
+                      <p>• El presente documento es un ejercicio de simulación de carácter informativo, sujeto a cambios y no representa un contrato formal con Tecmilenio.</p>
+                      <p>• El presente ejercicio de simulación de cálculo de colegiatura está presentado en pesos mexicanos.</p>
+                      <p>• Los seguros y coberturas deberán pagarse junto con la primer colegiatura, antes del inicio de cada periodo académico.</p>
+                      <p>• El seguro de accidentes Tecmilenio y la cobertura estudiantil entra en vigor a partir del primer día de clases.</p>
+                      <p>• En caso de baja de materias se aplicará política de devolución de colegiaturas. Para la baja, es necesario llenar el formato correspondiente proporcionado por Académico y compartirlo en Servicios Escolares.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </main>
+          </div>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<TuitionCalculator />);
+  </script>
+</body>
+</html>
