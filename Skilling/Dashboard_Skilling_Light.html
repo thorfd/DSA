@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Ingresos | Educación Continua 25-26</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+            color: #1e293b; /* slate-800 */
+        }
+        .chart-container {
+            position: relative;
+            height: 40vh;
+            width: 100%;
+        }
+        .kpi-value {
+            font-size: 2.25rem; /* text-4xl */
+        }
+        @media (max-width: 768px) {
+            .kpi-value {
+                font-size: 1.875rem; /* text-3xl */
+            }
+        }
+        /* Custom Scrollbar for Light Mode */
+        .table-container::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .table-container::-webkit-scrollbar-track {
+            background: #f1f5f9; /* slate-100 */
+        }
+        .table-container::-webkit-scrollbar-thumb {
+            background: #cbd5e1; /* slate-300 */
+            border-radius: 4px;
+        }
+        .table-container::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; /* slate-400 */
+        }
+        .loader {
+            border: 4px solid #e2e8f0; /* slate-200 */
+            border-top: 4px solid #0ea5e9; /* sky-500 */
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+        .page-loader {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            gap: 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+        
+        <header class="flex flex-col md:flex-row justify-between md:items-center mb-8">
+            <div>
+                <h1 class="text-3xl md:text-4xl font-bold text-slate-900">Dashboard de Ingresos | Educación Continua</h1>
+                <p class="text-lg text-slate-500">Resultados 25-26: Real vs. Plan</p>
+            </div>
+             <div class="flex items-center space-x-4 mt-4 md:mt-0">
+                <div id="last-updated-container" class="flex items-center space-x-2 bg-white border border-slate-200 text-slate-600 text-sm font-medium px-3 py-1.5 rounded-full shadow-sm whitespace-nowrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span id="last-updated">Cargando...</span>
+                </div>
+                <button onclick="captureElementAsPNG('summary-capture-area', 'resumen-indicadores.png')" class="p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 shadow-sm transition-colors" title="Descargar resumen de KPIs como imagen">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Seccion de Carga -->
+        <div id="loading-section" class="page-loader">
+            <div class="loader" style="width: 50px; height: 50px;"></div>
+            <p class="text-slate-500 text-lg">Procesando archivo CSV...</p>
+        </div>
+
+        <!-- Sección de Error -->
+        <div id="error-section" class="hidden text-center p-8 bg-red-50 rounded-2xl shadow-sm max-w-4xl mx-auto border border-red-200 mb-8">
+            <h2 class="text-2xl font-semibold mb-2 text-red-800">Aviso de Datos</h2>
+            <p id="error-message" class="text-red-600 mb-4"></p>
+        </div>
+
+        <div id="dashboard-content" class="hidden">
+            <div id="summary-capture-area">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <!-- KPI Cards Light Mode -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                        <h2 class="text-slate-500 font-semibold text-sm uppercase tracking-wide">Ingreso Real Total</h2>
+                        <p id="kpi-real" class="kpi-value font-bold text-teal-600">...</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                        <h2 class="text-slate-500 font-semibold text-sm uppercase tracking-wide">Ingreso Plan Total</h2>
+                        <p id="kpi-plan" class="kpi-value font-bold text-sky-600">...</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                        <h2 class="text-slate-500 font-semibold text-sm uppercase tracking-wide">Cumplimiento</h2>
+                        <p id="kpi-compliance" class="kpi-value font-bold text-emerald-600">...</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                        <h2 class="text-slate-500 font-semibold text-sm uppercase tracking-wide">Diferencia</h2>
+                        <p id="kpi-difference" class="kpi-value font-bold text-slate-700">...</p>
+                    </div>
+                </div>
+
+                <!-- Sección de Ingresos Acumulados por Periodo -->
+                <div class="mb-8">
+                    <h3 class="text-2xl font-bold mb-4 text-slate-800">Acumulados por Periodo</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Card Ago-Dic 25 -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                            <div class="flex justify-between items-center mb-4">
+                                <h4 class="text-lg font-bold text-slate-700">Ago - Dic 2025</h4>
+                                <span class="px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-xs font-semibold">Cerrado</span>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-baseline">
+                                    <span class="text-slate-500">Real</span>
+                                    <span id="acum-real-1" class="font-bold text-lg text-teal-600">...</span>
+                                </div>
+                                <div class="flex justify-between items-baseline">
+                                    <span class="text-slate-500">Plan</span>
+                                    <span id="acum-plan-1" class="font-bold text-lg text-sky-600">...</span>
+                                </div>
+                                <div class="border-t border-slate-100 pt-3 flex justify-between items-baseline">
+                                    <span class="text-slate-700 font-semibold">Cumplimiento</span>
+                                    <span id="acum-compliance-1" class="font-bold text-xl">...</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card Ene-Jul 26 -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                            <div class="flex justify-between items-center mb-4">
+                                <h4 class="text-lg font-bold text-slate-700">Ene - Jul 2026</h4>
+                                <span class="px-3 py-1 bg-sky-50 text-sky-700 rounded-full text-xs font-semibold">En Curso</span>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-baseline">
+                                    <span class="text-slate-500">Real</span>
+                                    <span id="acum-real-2" class="font-bold text-lg text-teal-600">...</span>
+                                </div>
+                                <div class="flex justify-between items-baseline">
+                                    <span class="text-slate-500">Plan</span>
+                                    <span id="acum-plan-2" class="font-bold text-lg text-sky-600">...</span>
+                                </div>
+                                <div class="border-t border-slate-100 pt-3 flex justify-between items-baseline">
+                                    <span class="text-slate-700 font-semibold">Cumplimiento</span>
+                                    <span id="acum-compliance-2" class="font-bold text-xl">...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <div id="monthly-chart-card" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 relative">
+                    <button onclick="captureElementAsPNG('monthly-chart-card', 'comparativa-mensual.png')" class="absolute top-4 right-4 p-2 rounded-full bg-slate-50 hover:bg-slate-100 transition-colors text-slate-400 hover:text-slate-600" title="Descargar como imagen">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                    </button>
+                    <h3 class="text-xl font-bold mb-6 text-slate-800">Comparativa Mensual</h3>
+                    <div class="chart-container">
+                        <canvas id="monthlyChart"></canvas>
+                    </div>
+                </div>
+                <div id="cumulative-chart-card" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 relative">
+                    <button onclick="captureElementAsPNG('cumulative-chart-card', 'desempeno-acumulado.png')" class="absolute top-4 right-4 p-2 rounded-full bg-slate-50 hover:bg-slate-100 transition-colors text-slate-400 hover:text-slate-600" title="Descargar como imagen">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                    </button>
+                    <h3 class="text-xl font-bold mb-6 text-slate-800">Tendencia Acumulada</h3>
+                    <div class="chart-container">
+                        <canvas id="cumulativeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div id="table-card" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 lg:col-span-2 relative">
+                    <button onclick="captureElementAsPNG('table-card', 'detalle-ingresos.png')" class="absolute top-4 right-4 p-2 rounded-full bg-slate-50 hover:bg-slate-100 transition-colors text-slate-400 hover:text-slate-600" title="Descargar como imagen">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                    </button>
+                    <h3 class="text-xl font-bold mb-6 text-slate-800">Detalle Financiero</h3>
+                    <div class="overflow-x-auto table-container">
+                        <table class="w-full text-left whitespace-nowrap">
+                            <thead class="bg-slate-100 text-slate-600 uppercase text-xs font-bold tracking-wider">
+                                <tr>
+                                    <th class="p-4 rounded-l-lg">Mes</th>
+                                    <th class="p-4 text-right">Real</th>
+                                    <th class="p-4 text-right">Plan</th>
+                                    <th class="p-4 text-right">Diferencia</th>
+                                    <th class="p-4 text-right rounded-r-lg">Cumplimiento</th>
+                                </tr>
+                            </thead>
+                            <tbody id="data-table" class="text-sm">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="donut-chart-card" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col items-center justify-center relative">
+                     <button onclick="captureElementAsPNG('donut-chart-card', 'proporcion-cumplimiento.png')" class="absolute top-4 right-4 p-2 rounded-full bg-slate-50 hover:bg-slate-100 transition-colors text-slate-400 hover:text-slate-600" title="Descargar como imagen">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                    </button>
+                     <h3 class="text-xl font-bold mb-6 text-slate-800">Progreso vs Meta</h3>
+                     <div class="chart-container" style="height:30vh">
+                        <canvas id="complianceDonutChart"></canvas>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Element -->
+    <div id="notification" class="fixed bottom-5 right-5 bg-slate-800 text-white py-3 px-6 rounded-lg shadow-xl transform translate-y-20 opacity-0 transition-all duration-300 ease-in-out z-50 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-emerald-400" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+        </svg>
+        <span id="notification-text">Imagen descargada.</span>
+    </div>
+
+<script>
+// --- Global Scope Variables ---
+let monthlyChartInstance, cumulativeChartInstance, donutChartInstance;
+let monthlyDataGlobal = [];
+let accumulatedDataGlobal = {};
+const currencyFormatter = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' });
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadDataAndInitializeDashboard();
+});
+
+// --- Data Loading and Initializing ---
+async function loadDataAndInitializeDashboard() {
+    const loadingSection = document.getElementById('loading-section');
+    const dashboardContent = document.getElementById('dashboard-content');
+    const errorSection = document.getElementById('error-section');
+    const errorMessage = document.getElementById('error-message');
+    
+    // Archivo objetivo: Ingresos_SC.csv
+    const dataFile = 'Ingresos_SC.csv'; 
+
+    try {
+        const response = await fetch(dataFile);
+        
+        if (!response.ok) {
+            throw new Error(`Estado HTTP: ${response.status}`);
+        }
+        
+        const lastModified = response.headers.get('Last-Modified');
+        const lastUpdatedSpan = document.getElementById('last-updated');
+        if (lastModified) {
+            const date = new Date(lastModified);
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            lastUpdatedSpan.textContent = `Act: ${date.toLocaleString('es-MX', options)}`;
+        } else {
+            lastUpdatedSpan.textContent = 'Actualizado recientemente';
+        }
+
+        const csvData = await response.text();
+        const { monthlyData, accumulatedData } = parseData(csvData);
+        
+        monthlyDataGlobal = monthlyData;
+        accumulatedDataGlobal = accumulatedData;
+        
+        updateDashboardUI();
+        updateAccumulatedUI();
+        renderCharts();
+        
+        loadingSection.classList.add('hidden');
+        dashboardContent.classList.remove('hidden');
+
+    } catch (error) {
+        console.warn("Fallo al cargar datos reales (esperado en vista previa/blob):", error);
+        
+        // FALLBACK: Usar datos simulados para que el tablero se muestre en Preview
+        generateMockData();
+        
+        loadingSection.classList.add('hidden');
+        dashboardContent.classList.remove('hidden');
+        
+        // Aviso discreto de modo demostración
+        errorSection.classList.remove('hidden');
+        errorMessage.innerHTML = `No se pudo leer el archivo <strong>${dataFile}</strong> en la vista previa.<br>Mostrando <strong>datos de ejemplo</strong>. El dashboard funcionará con datos reales al publicarse.`;
+    }
+}
+
+// --- Mock Data Generator (Fallback) ---
+function generateMockData() {
+    const months = ["Ago 25", "Sep 25", "Oct 25", "Nov 25", "Dic 25", "Ene 26", "Feb 26", "Mar 26", "Abr 26", "May 26", "Jun 26", "Jul 26"];
+    monthlyDataGlobal = months.map(m => ({
+        month: m,
+        real: Math.floor(Math.random() * 200000) + 100000,
+        plan: Math.floor(Math.random() * 200000) + 120000
+    }));
+    
+    accumulatedDataGlobal = {
+        period1: { real: 650000, plan: 700000 },
+        period2: { real: 800000, plan: 850000 }
+    };
+    
+    updateDashboardUI();
+    updateAccumulatedUI();
+    renderCharts();
+}
+
+// --- Data Parsing (Robusto) ---
+function parseData(csv) {
+    const lines = csv.trim().split('\n');
+    
+    function parseCsvLine(line) {
+        const values = [];
+        const regex = /(?:"([^"]*(?:""[^"]*)*)"|([^,]*))(?:,|$)/g;
+        let match;
+        while (match = regex.exec(line)) {
+            if (match.index === regex.lastIndex) regex.lastIndex++; 
+            let value = match[1] !== undefined ? match[1].replace(/""/g, '"') : match[2];
+            values.push(value);
+        }
+        if (values.length > 0 && values[values.length - 1] === undefined) values.pop();
+        return values;
+    }
+    
+    let dataLineString = null;
+    
+    for (const line of lines) {
+        if (!line.trim()) continue;
+        const lowerLine = line.toLowerCase();
+        // Saltar encabezados
+        if (lowerLine.startsWith('línea') || lowerLine.startsWith('linea') || lowerLine.includes('cuenta contable')) continue;
+
+        const columns = parseCsvLine(line);
+        if (columns.length < 20) continue; 
+
+        // Validar columnas numéricas
+        const col2 = (columns[2] || '').trim().replace(/[$,]/g, '');
+        const col3 = (columns[3] || '').trim().replace(/[$,]/g, '');
+        
+        if ((col2 === '' || !isNaN(parseFloat(col2))) && (col3 === '' || !isNaN(parseFloat(col3)))) {
+            dataLineString = line;
+            break; 
+        }
+    }
+    
+    if (!dataLineString) {
+        if (lines.length > 1) dataLineString = lines[1];
+        else throw new Error("Archivo CSV vacío o formato irreconocible.");
+    }
+
+    const dataLine = parseCsvLine(dataLineString);
+    const months = ["Ago 25", "Sep 25", "Oct 25", "Nov 25", "Dic 25", "Ene 26", "Feb 26", "Mar 26", "Abr 26", "May 26", "Jun 26", "Jul 26"];
+    
+    const cleanValue = (val) => {
+        if (typeof val !== 'string' || !val.trim()) return 0;
+        const cleaned = val.trim().replace(/"/g, '').replace(/\$/g, '').replace(/,/g, '').trim();
+        const num = parseFloat(cleaned);
+        return isNaN(num) ? 0 : num;
+    };
+    
+    let currentIndex = 2; // Inicio de datos
+    const monthly = [];
+
+    // Ago 25 a Dic 25
+    for (let i = 0; i < 5; i++) {
+        monthly.push({ 
+            month: months[i], 
+            real: cleanValue(dataLine[currentIndex]), 
+            plan: cleanValue(dataLine[currentIndex + 1]) 
+        });
+        currentIndex += 2;
+    }
+    
+    const acumPeriod1 = {
+        real: cleanValue(dataLine[currentIndex]),
+        plan: cleanValue(dataLine[currentIndex + 1])
+    };
+    currentIndex += 2; 
+
+    // Ene 26 a Jul 26
+    for (let i = 5; i < 12; i++) {
+        monthly.push({ 
+            month: months[i], 
+            real: cleanValue(dataLine[currentIndex]), 
+            plan: cleanValue(dataLine[currentIndex + 1]) 
+        });
+        currentIndex += 2;
+    }
+
+    const acumPeriod2 = {
+        real: cleanValue(dataLine[currentIndex]),
+        plan: cleanValue(dataLine[currentIndex + 1])
+    };
+
+    return { 
+        monthlyData: monthly, 
+        accumulatedData: { period1: acumPeriod1, period2: acumPeriod2 } 
+    };
+}
+
+function updateDashboardUI() {
+    const totalReal = monthlyDataGlobal.reduce((sum, item) => sum + item.real, 0);
+    const totalPlan = monthlyDataGlobal.reduce((sum, item) => sum + item.plan, 0);
+    const totalDifference = totalReal - totalPlan;
+    const totalCompliance = totalPlan > 0 ? (totalReal / totalPlan) * 100 : 0;
+    
+    const formatCurrency = (value) => currencyFormatter.format(value);
+
+    document.getElementById('kpi-real').textContent = formatCurrency(totalReal);
+    document.getElementById('kpi-plan').textContent = formatCurrency(totalPlan);
+    document.getElementById('kpi-compliance').textContent = `${totalCompliance.toFixed(2)}%`;
+    const differenceEl = document.getElementById('kpi-difference');
+    differenceEl.textContent = formatCurrency(totalDifference);
+    
+    if (totalDifference < 0) {
+        differenceEl.className = 'kpi-value font-bold text-red-600';
+    } else {
+        differenceEl.className = 'kpi-value font-bold text-emerald-600';
+    }
+    
+    // Color semántico para cumplimiento
+    const complianceEl = document.getElementById('kpi-compliance');
+    if (totalCompliance >= 100) {
+        complianceEl.className = 'kpi-value font-bold text-emerald-600';
+    } else if (totalCompliance >= 80) {
+        complianceEl.className = 'kpi-value font-bold text-amber-500';
+    } else {
+        complianceEl.className = 'kpi-value font-bold text-red-600';
+    }
+
+    const tableBody = document.getElementById('data-table');
+    tableBody.innerHTML = '';
+    monthlyDataGlobal.forEach(item => {
+        const difference = item.real - item.plan;
+        const compliance = item.plan > 0 ? (item.real / item.plan) * 100 : 0;
+        
+        const diffColor = difference < 0 ? 'text-red-600 font-medium' : 'text-emerald-600 font-medium';
+        const compColor = compliance < 100 ? 'text-red-600 font-medium' : 'text-emerald-600 font-medium';
+
+        const row = `
+            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                <td class="p-4 font-medium text-slate-700">${item.month}</td>
+                <td class="p-4 text-right text-slate-600">${formatCurrency(item.real)}</td>
+                <td class="p-4 text-right text-slate-600">${formatCurrency(item.plan)}</td>
+                <td class="p-4 text-right ${diffColor}">${formatCurrency(difference)}</td>
+                <td class="p-4 text-right ${compColor}">${compliance.toFixed(2)}%</td>
+            </tr>`;
+        tableBody.innerHTML += row;
+    });
+}
+
+function updateAccumulatedUI() {
+    const formatCurrency = (value) => currencyFormatter.format(value);
+
+    const updatePeriodUI = (periodData, suffix) => {
+        const real = periodData.real;
+        const plan = periodData.plan;
+        const compliance = plan > 0 ? (real / plan) * 100 : 0;
+        
+        document.getElementById(`acum-real-${suffix}`).textContent = formatCurrency(real);
+        document.getElementById(`acum-plan-${suffix}`).textContent = formatCurrency(plan);
+        
+        const compEl = document.getElementById(`acum-compliance-${suffix}`);
+        compEl.textContent = `${compliance.toFixed(2)}%`;
+        
+        if (compliance >= 100) {
+            compEl.className = "font-bold text-xl text-emerald-600";
+        } else {
+            compEl.className = "font-bold text-xl text-red-600";
+        }
+    };
+
+    updatePeriodUI(accumulatedDataGlobal.period1, '1');
+    updatePeriodUI(accumulatedDataGlobal.period2, '2');
+}
+
+// --- Chart Rendering (Light Mode Theme) ---
+function renderCharts() {
+    if (monthlyChartInstance) monthlyChartInstance.destroy();
+    if (cumulativeChartInstance) cumulativeChartInstance.destroy();
+    if (donutChartInstance) donutChartInstance.destroy();
+
+    // Paleta de colores para modo claro
+    const textColor = '#64748b'; // slate-500
+    const gridColor = '#e2e8f0'; // slate-200
+    const tooltipBgColor = '#ffffff';
+    const tooltipTitleColor = '#1e293b'; // slate-800
+    const tooltipBodyColor = '#475569'; // slate-600
+    
+    Chart.defaults.color = textColor;
+    Chart.defaults.borderColor = gridColor;
+    Chart.defaults.font.family = "'Inter', sans-serif";
+    
+    const tooltipConfig = {
+        backgroundColor: tooltipBgColor, 
+        titleColor: tooltipTitleColor, 
+        bodyColor: tooltipBodyColor,
+        borderColor: '#e2e8f0',
+        borderWidth: 1,
+        titleFont: { weight: 'bold', size: 13 },
+        bodyFont: { size: 13 },
+        padding: 12, 
+        cornerRadius: 8, 
+        displayColors: true, 
+        boxPadding: 4,
+        callbacks: { 
+            label: (c) => ` ${c.dataset.label || ''}: ${currencyFormatter.format(c.parsed.y || c.raw)}`,
+            labelColor: function(context) {
+                return {
+                    borderColor: context.dataset.borderColor,
+                    backgroundColor: context.dataset.backgroundColor,
+                    borderWidth: 2,
+                    borderRadius: 2,
+                };
+            }
+        }
+    };
+
+    const labels = monthlyDataGlobal.map(d => d.month);
+    const realData = monthlyDataGlobal.map(d => d.real);
+    const planData = monthlyDataGlobal.map(d => d.plan);
+    const cumulativeReal = realData.reduce((acc, val, i) => { acc.push((acc[i-1] || 0) + val); return acc; }, []);
+    const cumulativePlan = planData.reduce((acc, val, i) => { acc.push((acc[i-1] || 0) + val); return acc; }, []);
+
+    // Gráfica Mensual
+    monthlyChartInstance = new Chart(document.getElementById('monthlyChart'), {
+        type: 'bar', 
+        data: { 
+            labels, 
+            datasets: [
+                { 
+                    label: 'Real', 
+                    data: realData, 
+                    backgroundColor: 'rgba(13, 148, 136, 0.8)', // teal-600
+                    borderColor: 'rgb(13, 148, 136)', 
+                    borderWidth: 0, 
+                    borderRadius: 4,
+                    barPercentage: 0.6,
+                }, 
+                { 
+                    label: 'Plan', 
+                    data: planData, 
+                    backgroundColor: 'rgba(2, 132, 199, 0.8)', // sky-600
+                    borderColor: 'rgb(2, 132, 199)', 
+                    borderWidth: 0, 
+                    borderRadius: 4,
+                    barPercentage: 0.6,
+                }
+            ] 
+        },
+        options: { 
+            responsive: true, 
+            maintainAspectRatio: false, 
+            plugins: { 
+                legend: { position: 'top', labels: { usePointStyle: true, boxWidth: 8 } }, 
+                tooltip: tooltipConfig 
+            }, 
+            scales: { 
+                y: { 
+                    beginAtZero: true, 
+                    grid: { borderDash: [2, 4] },
+                    ticks: { callback: v => currencyFormatter.format(v).replace('.00','') } 
+                },
+                x: {
+                    grid: { display: false }
+                }
+            } 
+        }
+    });
+
+    // Gráfica Acumulada
+    cumulativeChartInstance = new Chart(document.getElementById('cumulativeChart'), {
+        type: 'line', 
+        data: { 
+            labels, 
+            datasets: [
+                { 
+                    label: 'Acumulado Real', 
+                    data: cumulativeReal, 
+                    borderColor: 'rgb(13, 148, 136)', 
+                    backgroundColor: 'rgba(13, 148, 136, 0.1)', 
+                    fill: true, 
+                    tension: 0.4, 
+                    pointRadius: 3,
+                    pointBackgroundColor: 'rgb(13, 148, 136)',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2
+                }, 
+                { 
+                    label: 'Acumulado Plan', 
+                    data: cumulativePlan, 
+                    borderColor: 'rgb(2, 132, 199)', 
+                    backgroundColor: 'rgba(2, 132, 199, 0.1)', 
+                    fill: true, 
+                    tension: 0.4, 
+                    pointRadius: 3,
+                    pointBackgroundColor: 'rgb(2, 132, 199)',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2
+                }
+            ] 
+        },
+        options: { 
+            responsive: true, 
+            maintainAspectRatio: false, 
+            plugins: { 
+                legend: { position: 'top', labels: { usePointStyle: true, boxWidth: 8 } }, 
+                tooltip: tooltipConfig 
+            }, 
+            scales: { 
+                y: { 
+                    beginAtZero: true, 
+                    grid: { borderDash: [2, 4] },
+                    ticks: { callback: v => currencyFormatter.format(v).replace('.00','') } 
+                },
+                x: {
+                    grid: { display: false }
+                }
+            } 
+        }
+    });
+
+    // Gráfica Donut
+    const totalReal = monthlyDataGlobal.reduce((sum, item) => sum + item.real, 0);
+    const totalPlan = monthlyDataGlobal.reduce((sum, item) => sum + item.plan, 0);
+    const remaining = totalPlan > totalReal ? totalPlan - totalReal : 0;
+    
+    donutChartInstance = new Chart(document.getElementById('complianceDonutChart'), {
+        type: 'doughnut', 
+        data: { 
+            labels: ['Alcanzado', 'Faltante'], 
+            datasets: [{ 
+                data: [totalReal, remaining], 
+                backgroundColor: ['rgb(13, 148, 136)', 'rgb(203, 213, 225)'], // teal-600, slate-300
+                borderColor: '#ffffff', 
+                borderWidth: 2, 
+                hoverOffset: 4 
+            }] 
+        },
+        options: { 
+            responsive: true, 
+            maintainAspectRatio: false, 
+            cutout: '75%', 
+            plugins: { 
+                legend: { display: false }, 
+                tooltip: { 
+                    ...tooltipConfig, 
+                    callbacks: { label: c => ` ${c.label}: ${currencyFormatter.format(c.raw)}` } 
+                } 
+            } 
+        }
+    });
+}
+
+// --- Image Capture ---
+function showNotification(message) {
+    const notification = document.getElementById('notification');
+    document.getElementById('notification-text').textContent = message;
+    notification.classList.remove('translate-y-20', 'opacity-0');
+    notification.classList.add('translate-y-0', 'opacity-100');
+
+    setTimeout(() => {
+        notification.classList.remove('translate-y-0', 'opacity-100');
+        notification.classList.add('translate-y-20', 'opacity-0');
+    }, 3000);
+}
+
+async function captureElementAsPNG(elementId, fileName) {
+    const elementToCapture = document.getElementById(elementId);
+    if (!elementToCapture) {
+        console.error(`Element with id ${elementId} not found.`);
+        return;
+    }
+    const buttons = elementToCapture.querySelectorAll('button');
+    buttons.forEach(btn => btn.style.visibility = 'hidden');
+
+    try {
+        const canvas = await html2canvas(elementToCapture, {
+            allowTaint: true,
+            useCORS: true,
+            backgroundColor: '#ffffff', // Asegurar fondo blanco en captura
+            scale: 2 
+        });
+        const link = document.createElement('a');
+        link.download = fileName;
+        link.href = canvas.toDataURL("image/png");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        showNotification(`'${fileName}' guardada.`);
+    } catch (error) {
+        console.error('Error capturing element:', error);
+        showNotification('Error al capturar la imagen.');
+    } finally {
+        buttons.forEach(btn => btn.style.visibility = 'visible');
+    }
+}
+</script>
+
+</body>
+</html>
